@@ -55,12 +55,7 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         blog: {
-          path: './blog',
-          // routBasePath: '/',
-          feedOptions: {
-            type: 'all',
-            copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`
-          }
+          path: './blog'
         },
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
