@@ -1,0 +1,23 @@
+name: On push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npm install -g yarn
+      - run: yarn install
+      - name: Deploy documentation
+        uses: paularmstrong/docusaurus-github-action@master
+        env:
+          BUILD_DIR: ./
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
