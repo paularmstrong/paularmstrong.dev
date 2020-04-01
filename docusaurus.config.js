@@ -55,11 +55,10 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         blog: {
-          path: './blog'
-        },
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/'
+          feedOptions: {
+            type: 'all',
+            copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`
+          }
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css')
