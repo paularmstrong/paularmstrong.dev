@@ -7,6 +7,7 @@ module.exports = {
   organizationName: 'paularmstrong', // Usually your GitHub org/user name.
   projectName: 'paularmstrong.dev', // Usually your repo name.
   themeConfig: {
+    disableDarkMode: true,
     navbar: {
       title: 'Paul Armstrong',
       logo: {
