@@ -16,6 +16,7 @@ module.exports = {
       },
       links: [
         { to: 'blog', label: 'Blog', position: 'left' },
+        { to: 'pages/about', label: 'About', position: 'left' },
         {
           href: 'https://github.com/paularmstrong',
           label: 'GitHub',
@@ -60,6 +61,10 @@ module.exports = {
             type: 'all',
             copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`
           }
+        },
+        docs: {
+          path: 'pages',
+          routeBasePath: 'pages'
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css')
