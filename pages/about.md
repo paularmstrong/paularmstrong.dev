@@ -10,3 +10,8 @@ Check out some projects:
 
 - [Build Tracker](https://buildtracker.dev)
 - [Normalizr](https://github.com/paularmstrong/normalizr)
+
+Sometimes I do livestream coding:
+
+- [Twitch](https://twitch.tv)
+- [YouTube](https://www.youtube.com/channel/UCo9XLvVgs9wFVP-S5gLyXwA)

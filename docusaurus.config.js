@@ -45,6 +45,10 @@ module.exports = {
             {
               label: 'Twitch',
               href: 'https://twitch.tv/paularmstrongdev'
+            },
+            {
+              label: 'YouTube',
+              href: 'https://www.youtube.com/channel/UCo9XLvVgs9wFVP-S5gLyXwA'
             }
           ]
         }
