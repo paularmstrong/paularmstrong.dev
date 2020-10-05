@@ -19,12 +19,12 @@ function Home() {
           <h1 className="hero__title">{siteConfig.title}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
-            <Link
+            {/*<Link
               className={classnames('button button--outline button--secondary button--lg', styles.getStarted)}
               to={useBaseUrl('docs/doc1')}
             >
               Get Started
-            </Link>
+            </Link>*/}
           </div>
         </div>
       </header>

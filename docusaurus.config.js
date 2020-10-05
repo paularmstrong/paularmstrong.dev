@@ -7,22 +7,24 @@ module.exports = {
   organizationName: 'paularmstrong', // Usually your GitHub org/user name.
   projectName: 'paularmstrong.dev', // Usually your repo name.
   themeConfig: {
-    disableDarkMode: true,
+    colorMode: {
+      disableSwitch: true,
+    },
     navbar: {
       title: 'Paul Armstrong',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg'
+        src: 'img/logo.svg',
       },
-      links: [
+      items: [
         { to: 'blog', label: 'Blog', position: 'left' },
         { to: 'pages/about', label: 'About', position: 'left' },
         {
           href: 'https://github.com/paularmstrong',
           label: 'GitHub',
-          position: 'right'
-        }
-      ]
+          position: 'right',
+        },
+      ],
     },
     footer: {
       style: 'dark',
@@ -32,29 +34,29 @@ module.exports = {
           items: [
             {
               label: 'Blog',
-              to: 'blog'
+              to: 'blog',
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/paularmstrong'
+              href: 'https://github.com/paularmstrong',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/paularmstrong'
+              href: 'https://twitter.com/paularmstrong',
             },
             {
               label: 'Twitch',
-              href: 'https://twitch.tv/paularmstrongdev'
+              href: 'https://twitch.tv/paularmstrongdev',
             },
             {
               label: 'YouTube',
-              href: 'https://www.youtube.com/channel/UCo9XLvVgs9wFVP-S5gLyXwA'
-            }
-          ]
-        }
+              href: 'https://www.youtube.com/channel/UCo9XLvVgs9wFVP-S5gLyXwA',
+            },
+          ],
+        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`
-    }
+      copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
+    },
   },
   presets: [
     [
@@ -63,17 +65,18 @@ module.exports = {
         blog: {
           feedOptions: {
             type: 'all',
-            copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`
-          }
+            copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
+          },
         },
         docs: {
+          sidebarPath: require.resolve('./sidebars.js'),
           path: 'pages',
-          routeBasePath: 'pages'
+          routeBasePath: 'pages',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css')
-        }
-      }
-    ]
-  ]
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      },
+    ],
+  ],
 };
