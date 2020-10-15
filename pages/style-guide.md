@@ -41,19 +41,16 @@ Strikethrough uses two tildes. ~~Scratch this.~~
 ## Lists
 
 1. First ordered list item
-1. Another item ⋅⋅\* Unordered sub-list.
+1. Another item
+   - Unordered sub-list.
 1. Actual numbers don't matter, just that it's a number ⋅⋅1. Ordered sub-list
 1. And another item.
 
-⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
+   You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).
 
-⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅ ⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅ ⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
-
-- Unordered list can use asterisks
-
-* Or minuses
-
-- Or pluses
+   To have a line break without a paragraph, you will need to use two trailing spaces.
+   Note that this line is separate, but within the same paragraph.
+   (This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
 
 ---
 
@@ -93,7 +90,7 @@ Reference-style: ![alt text][logo]
 
 ## Code
 
-```javascript
+```js title="/src/components/HelloCodeTitle.js"
 var s = 'JavaScript syntax highlighting';
 alert(s);
 ```
@@ -169,12 +166,22 @@ This line is also a separate paragraph, but... This line is only separated by a 
 
 ## Admonitions
 
-:::note This is a note :::
+:::note
+The content and title _can_ include markdown.
+:::
 
-:::tip This is a tip :::
+:::tip You can specify an optional title
+Heads up! Here's a pro-tip.
+:::
 
-:::important This is important :::
+:::info
+Useful information.
+:::
 
-:::caution This is a caution :::
+:::caution
+Warning! You better pay attention!
+:::
 
-:::warning This is a warning :::
+:::danger
+Danger danger, mayday!
+:::

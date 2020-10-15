@@ -1,13 +1,35 @@
 ---
-id: first-post
-title: First post, not an April Fool's joke
+slug: first-post
+title: First post playground
 tags:
 ---
 
-It's about that time again. I'm actually creating a personal site after deleting the one I had from about 2004 through 2015. I got tired of maintaining the framework that I kept building my site in. It became more of a chore maintaining the code than adding fresh content. So here we are. New site! Who dis?
+I like tacos 🌮
 
-<!--truncate-->
+<!-- truncate -->
 
-This time around, I've chosen a framework that I hope will allow me to focus on the contents of the site, rather than how the site is built and maintained. I've really enjoyed using [Docusaurus](https://v2.docusaurus.io) for building documentation on various projects—and since it has a built-in ability to write a blog by adding Markdown files, I figured that I'll give it a shot.
+```js live
+function foobar() {
+  return 'tacos';
+}
+```
 
-No promises on regular updates, but I'm going to do my best.
+:::note
+The content and title _can_ include markdown.
+:::
+
+:::tip You can specify an optional title
+Heads up! Here's a pro-tip.
+:::
+
+:::info
+Useful information.
+:::
+
+:::caution
+Warning! You better pay attention!
+:::
+
+:::danger
+Danger danger, mayday!
+:::

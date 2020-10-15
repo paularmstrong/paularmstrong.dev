@@ -27,30 +27,36 @@ module.exports = {
       ],
     },
     footer: {
-      style: 'dark',
       links: [
         {
-          title: 'Social',
+          title: 'GitHub',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
+              html: `<a href="https://github.com/paularmstrong" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrong on GitHub">@paularmstrong</a>`,
             },
+          ],
+        },
+        {
+          title: 'Twitter',
+          items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/paularmstrong',
+              html: `<a href="https://twitter.com/paularmstrong" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrong on Twitter">@paularmstrong</a>`,
             },
+          ],
+        },
+        {
+          title: 'Twitch',
+          items: [
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/paularmstrong',
+              html: `<a href="https://twitch.tv/paularmstrongdev" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrongdev on Twitch">@paularmstrongdev</a>`,
             },
+          ],
+        },
+        {
+          title: 'Youtube',
+          items: [
             {
-              label: 'Twitch',
-              href: 'https://twitch.tv/paularmstrongdev',
-            },
-            {
-              label: 'YouTube',
-              href: 'https://www.youtube.com/channel/UCo9XLvVgs9wFVP-S5gLyXwA',
+              html: `<a href="https://www.youtube.com/channel/UCo9XLvVgs9wFVP-S5gLyXwA" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrongdev on Youtube">@paularmstrongdev</a>`,
             },
           ],
         },
@@ -58,6 +64,7 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
     },
   },
+  themes: ['@docusaurus/theme-live-codeblock'],
   presets: [
     [
       '@docusaurus/preset-classic',
