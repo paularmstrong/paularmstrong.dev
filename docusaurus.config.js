@@ -132,6 +132,7 @@ module.exports = {
     [
       '@docusaurus/preset-classic',
       {
+        debug: true,
         blog: {
           feedOptions: {
             type: 'all',
