@@ -22,6 +22,8 @@
   --ifm-navbar-link-color: #fff;
   --ifm-navbar-link-hover-color: #fff;
 
+  --ifm-button-background-color: var(--ifm-color-primary);
+
   --ifm-alert-color: #000;
 }
 
@@ -34,6 +36,16 @@
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
+}
+
+.hero--primary {
+  background-image: url('/img/profile-banner.png');
+  background-repeat: repeat;
+  background-size: 40%;
+}
+
+.hero .button.button--secondary.button--outline:not(.button--active):not(:hover) {
+  color: #fff;
 }
 
 .navbar__brand:hover {
