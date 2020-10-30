@@ -1,5 +1,10 @@
 module.exports = {
-  someSidebar: {
-    Site: ['style-guide']
-  }
+  someSidebar: [
+    {
+      type: 'category',
+      label: 'Protips',
+      items: ['protips/index', 'protips/git'],
+    },
+    'about',
+  ],
 };

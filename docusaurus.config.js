@@ -18,7 +18,8 @@ module.exports = {
       },
       items: [
         { to: 'blog', label: 'Blog', position: 'left' },
-        { to: 'pages/about', label: 'About', position: 'left' },
+        { to: 'pages/protips/index', label: 'ProTips', position: 'left' },
+        { to: 'pages/about', label: 'About', position: 'right' },
         {
           href: 'https://github.com/paularmstrong',
           label: 'GitHub',
