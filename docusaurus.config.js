@@ -14,7 +14,7 @@ module.exports = {
       title: 'Paul Armstrong',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/icon.png',
       },
       items: [
         { to: 'blog', label: 'Blog', position: 'left' },
