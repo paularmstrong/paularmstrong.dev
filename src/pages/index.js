@@ -30,7 +30,18 @@ function Home() {
           </div>
         </div>
       </header>
-      <main></main>
+      <main>
+        <div className="iframe">
+          <iframe
+            src="https://player.twitch.tv/?channel=paularmstrongdev&parent=localhost&parent=paularmstrong.dev"
+            height="600"
+            width="1066"
+            frameBorder="0"
+            scrolling="no"
+            allowFullScreen="allowfullscreen"
+          ></iframe>
+        </div>
+      </main>
     </Layout>
   );
 }

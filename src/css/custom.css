@@ -39,3 +39,28 @@
 .navbar__brand:hover {
   color: var(--ifm-navbar-link-hover-color);
 }
+
+.footer__logo {
+  max-width: 5rem;
+}
+
+.iframe > :first-child {
+  width: 100%;
+}
+.iframe > img {
+  height: auto;
+}
+.iframe {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iframe::before {
+  content: '';
+  display: block;
+  padding-bottom: calc(100% / (16 / 9));
+}
+.iframe > :first-child {
+  max-width: 1024px;
+}

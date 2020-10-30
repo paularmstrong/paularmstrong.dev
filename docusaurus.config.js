@@ -28,6 +28,10 @@ module.exports = {
       ],
     },
     footer: {
+      logo: {
+        alt: 'Paul Armstrong',
+        src: 'img/logo.svg',
+      },
       links: [
         {
           title: 'GitHub',
@@ -62,7 +66,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong`,
     },
   },
   themes: ['@docusaurus/theme-live-codeblock'],
