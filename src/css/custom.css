@@ -40,6 +40,14 @@
   color: var(--ifm-navbar-link-hover-color);
 }
 
+.navbar__toggle {
+  color: var(--ifm-navbar-link-color);
+}
+
+.navbar-sidebar .menu__link {
+  color: var(--ifm-navbar-link-color);
+}
+
 .footer__logo {
   max-width: 5rem;
 }
