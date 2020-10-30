@@ -16,8 +16,10 @@ jobs:
           node-version: 12.x
       - run: npm install -g yarn
       - run: yarn install
+      - name: Build
+        run: yarn build
       - name: Deploy documentation
-        uses: paularmstrong/docusaurus-github-action@master
-        env:
-          BUILD_DIR: ./
-          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
