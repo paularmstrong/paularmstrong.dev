@@ -15,7 +15,7 @@ function main() {
 }
 ```
 
-### `rmbranch`
+## `rmbranch`
 
 Deletes your current branch and moves to the default tracked branch.
 
@@ -29,7 +29,7 @@ function rmbranch() {
 }
 ```
 
-### `rebase`
+## `rebase`
 
 Super helpful for workplaces that prefer flat commits and don't allow merge commits – or you just find it easier to rebase. Quickly fetches your default branch and rebases on top of the latest changes.
 
