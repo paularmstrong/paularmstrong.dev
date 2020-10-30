@@ -10,6 +10,7 @@ module.exports = {
     colorMode: {
       disableSwitch: true,
     },
+    image: 'img/og_image.png',
     navbar: {
       title: 'Paul Armstrong',
       logo: {
