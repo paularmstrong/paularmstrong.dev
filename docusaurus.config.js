@@ -135,6 +135,7 @@ module.exports = {
       {
         debug: true,
         blog: {
+          editUrl: 'https://github.com/paularmstrong/paularmstrong.dev/edit/main/',
           feedOptions: {
             type: 'all',
             copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
@@ -142,6 +143,7 @@ module.exports = {
           remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn'), require('@fec/remark-a11y-emoji')],
         },
         docs: {
+          editUrl: 'https://github.com/paularmstrong/paularmstrong.dev/edit/main/',
           sidebarPath: require.resolve('./sidebars.js'),
           path: 'pages',
           routeBasePath: 'pages',
