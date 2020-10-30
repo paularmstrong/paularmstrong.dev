@@ -3,7 +3,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Protips',
-      items: ['protips/index', 'protips/git'],
+      items: ['protips/index', 'protips/git', 'protips/presenting'],
     },
     'about',
   ],

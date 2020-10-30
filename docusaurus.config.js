@@ -79,11 +79,13 @@ module.exports = {
             type: 'all',
             copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
           },
+          remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
         },
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           path: 'pages',
           routeBasePath: 'pages',
+          remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
