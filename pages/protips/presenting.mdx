@@ -5,6 +5,40 @@ title: Presenting & Sharing
 
 import Image from '@theme/IdealImage';
 
+## General
+
+### Disable notifications
+
+Turn off your system & push notifications! On Mac OS X, it's as easy as <kbd aria-label="hold option">⌥</kbd>+<kbd aria-label="click left mouse button">click</kbd> on the notification icon in the top right of the menubar. This will disable all notifications from displaying until you re-enable them using the same action.
+
+### Clean the Desktop
+
+Short of deleting all of those files that you're hoarding, you can add a couple quick terminal shortcuts to hide and show all of the items on your desktop.
+
+```bash title="Add to your ~/.zshrc"
+function hide-desktop() {
+  defaults write com.apple.finder CreateDesktop false
+  killall Finderremark
+}
+
+function show-desktop() {
+  defaults write com.apple.finder CreateDesktop true
+  killall Finder
+}
+```
+
+Then, any time that you are about to start presenting, type `hide-desktop` into your terminal.
+
+### Close browser tabs
+
+Or just open a new window and minimize your current window. It's fine if you're a tab-hoarder and don't want to close any, but they're really distracting to anyone else looking at your screen.
+
+I even go one step further and create a separate Chrome profile just for presenting and screen-sharing. I keep no bookmarks and delete history frequently. This keeps my setup fresh, clean, and without any potential distractions.
+
+Also recommended, some blanked out start page. I use [Minim](https://chrome.google.com/webstore/detail/minim-new-tab-for-minimal/kpblgdhkligkbbnbpkigppblggflihgn) as my start tab.
+
+<Image img={require('../../static/img/minim.png')} alt="Screenshot of Chrome running Minim for a new tab" />
+
 ## Code samples
 
 ### Carbon
@@ -19,7 +53,7 @@ These images are _not_ accessible and you should include the code sample in an a
 
 ### Terminalizer
 
-Want to share your terminal input & output, but feel like the static image isn't very good? Use [Terminalizer](https://terminalizer.com) to record and generate animated gifs or videos.
+Don't chance the inevitable with a broken live demo in your commandline! Want to share your terminal input & output, but feel like the static image isn't very good? Use [Terminalizer](https://terminalizer.com) to record and generate animated gifs or videos.
 
 #### Install
 
