@@ -72,7 +72,7 @@ module.exports = {
   },
   themes: ['@docusaurus/theme-live-codeblock'],
   plugins: [
-    '@docusaurus/plugin-ideal-image',
+    ['@docusaurus/plugin-ideal-image', { disable: false }],
     [
       '@docusaurus/plugin-pwa',
       {
