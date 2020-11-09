@@ -125,6 +125,11 @@ module.exports = {
             name: 'msapplication-TileColor',
             content: '#3a57ab',
           },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: '#3a57ab',
+          },
         ],
       },
     ],
