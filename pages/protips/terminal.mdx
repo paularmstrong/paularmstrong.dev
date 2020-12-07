@@ -1,0 +1,32 @@
+---
+id: terminal
+title: Terminal
+---
+
+## ZSH Navigation
+
+I often find myself wanting to drop into a specific directory somewhere else in my system than my current path. Instead of always needing to run `cd ~/development/foo/bar/baz`, we can shorten that up by using `auto_cd` in ZSH (`CDPATH` in Bash).
+
+```bash title="~/.zshrc"
+setopt auto_cd
+cdpath=($HOME/development)
+```
+
+Once I've set this in my `~/.zshrc` and reloaded the configuration, I can run `cd foo/bar/baz` and it'll get me to the same spot that I tried previously.
+
+Or, you can take this one step further and add `autopushd`
+
+```bash title="~/.zshrc"
+setopt auto_cd
+cdpath=($HOME/development)
+```
+
+Now, you can automatically jump to directories without typing `cd`:
+
+```bash
+$ pwd
+/home
+$ foo/bar/baz
+$ pwd
+~/development/foo/bar/baz
+```
