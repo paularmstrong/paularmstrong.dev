@@ -17,6 +17,7 @@
     "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.66",
     "@fec/remark-a11y-emoji": "^2.0.0",
     "classnames": "^2.2.6",
+    "escape-html": "^1.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
