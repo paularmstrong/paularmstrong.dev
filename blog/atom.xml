@@ -2,12 +2,19 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://paularmstrong.dev/blog</id>
     <title>Paul Armstrong Blog</title>
-    <updated>2020-11-16T00:00:00.000Z</updated>
+    <updated>2020-12-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://paularmstrong.dev/blog"/>
     <subtitle>Paul Armstrong Blog</subtitle>
     <icon>https://paularmstrong.dev/img/favicon.ico</icon>
     <rights>Copyright © 2020 Paul Armstrong. Built with Docusaurus.</rights>
+    <entry>
+        <title type="html"><![CDATA[Safe Express.js HTML responses without a templating engine]]></title>
+        <id>javascript-html-templating</id>
+        <link href="https://paularmstrong.dev/blog/javascript-html-templating"/>
+        <updated>2020-12-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[There are too many choices for server-side rendering HTML pages. Avoiding the heavy hitter frameworks like React, that require a lot more work and will drain server resources quickly, you may find yourself reaching for a templating engine that can dynamically help you build up HTML responses for your JavaScript server.]]></summary>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Rubber Ducky Twitch Bot]]></title>
         <id>rubber-ducky-bot</id>

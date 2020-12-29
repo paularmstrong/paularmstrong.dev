@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[30],{57:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Rubber Ducky Twitch Bot","permalink":"/blog/rubber-ducky-bot"},{"title":"Goodbye Apple Magic Mouse","permalink":"/blog/computer-mouse"},{"title":"First post playground","permalink":"/blog/first-post"}]}')}}]);
