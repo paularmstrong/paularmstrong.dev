@@ -7,7 +7,7 @@
         <lastBuildDate>Tue, 22 Dec 2020 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
-        <copyright>Copyright © 2020 Paul Armstrong. Built with Docusaurus.</copyright>
+        <copyright>Copyright © 2021 Paul Armstrong. Built with Docusaurus.</copyright>
         <item>
             <title><![CDATA[Safe Express.js HTML responses without a templating engine]]></title>
             <link>https://paularmstrong.dev/blog/javascript-html-templating</link>

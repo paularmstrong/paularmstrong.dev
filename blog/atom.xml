@@ -7,7 +7,7 @@
     <link rel="alternate" href="https://paularmstrong.dev/blog"/>
     <subtitle>Paul Armstrong Blog</subtitle>
     <icon>https://paularmstrong.dev/img/favicon.ico</icon>
-    <rights>Copyright © 2020 Paul Armstrong. Built with Docusaurus.</rights>
+    <rights>Copyright © 2021 Paul Armstrong. Built with Docusaurus.</rights>
     <entry>
         <title type="html"><![CDATA[Safe Express.js HTML responses without a templating engine]]></title>
         <id>javascript-html-templating</id>
