@@ -3,6 +3,14 @@ id: git
 title: Git
 ---
 
+## Global default branch name
+
+Make a lot of new repos and want to ensure the initial branch is always `main` instead of some outdated, insensitive term? Git's config `init.defaultBranch` can fix that for you:
+
+```
+git config --global init.defaultBranch trunk
+```
+
 ## `main`
 
 Finds the default tracked (main) branch. Used to typically be `master`, but we are thankfully moving to `main`. This script can help remove the guessing game if you work with a bunch of repos.
