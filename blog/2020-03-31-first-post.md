@@ -1,7 +1,6 @@
 ---
 slug: first-post
 title: First post playground
-tags:
 ---
 
 I like tacos 🌮
