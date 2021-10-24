@@ -1,13 +1,14 @@
 ---
 slug: javascript-html-templating
 title: Safe Express.js HTML responses without a templating engine
+authors: paularmstrong
 tags:
   - express
   - javascript
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 There are too many choices for server-side rendering HTML pages. Avoiding the heavy hitter frameworks like React, that require a lot more work and will drain server resources quickly, you may find yourself reaching for a templating engine that can dynamically help you build up HTML responses for your JavaScript server.
 
@@ -18,12 +19,12 @@ Having written [a templating engine](https://github.com/paularmstrong/swig)<sup>
 The biggest feature that templating engines tend to provide is safety from Cross-Site Scripting (XSS). Let's look at a very simplistic example. Let's say you want to greet a person by name by using some user-submitted information. To make it easy, let's grab that value from the query param `?name` from the URL. Fire this snippet up with Node.js:
 
 ```js
-const express = require('express');
+const express = require("express");
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send(`<p>Hello, ${req.query.name}!</p>`)
+app.get("/", (req, res) => {
+  res.send(`<p>Hello, ${req.query.name}!</p>`);
 });
 
 app.listen(3000);
@@ -109,7 +110,7 @@ function example() {
 
   // Change this value to something that might be part of an XSS attack
   // eg: <script>alert("hello");</script>
-  const name = 'Paul';
+  const name = "Paul";
 
   return html`Hello, ${name}!`;
 }
@@ -117,8 +118,8 @@ function example() {
 
 In the above, you can see the two parts that make up a tagged template function:
 
-* `stringParts` is an array of strings. Think of these as each part of the tagged string split up by each variable `${...}`. If you don't have any variables, the length will be 1. For 1 variable, the length will be two; 2 variables will be length 3, and so on.
-* `name` (and any further arguments) are the variables that you are inserting into the `stringParts`
+- `stringParts` is an array of strings. Think of these as each part of the tagged string split up by each variable `${...}`. If you don't have any variables, the length will be 1. For 1 variable, the length will be two; 2 variables will be length 3, and so on.
+- `name` (and any further arguments) are the variables that you are inserting into the `stringParts`
 
 This works well, but we'd like it to accept any number of inserted variables. To do that, we can spread the arguments and write a reduce the stringParts, merging them with each value in order:
 
@@ -126,13 +127,13 @@ This works well, but we'd like it to accept any number of inserted variables. To
 function example() {
   function html(stringParts, ...values) {
     return stringParts.reduce((accumulator, part, i) => {
-      const value = values[i] || '';
+      const value = values[i] || "";
       return `${accumulator}${part}${value}`;
-    }, '');
+    }, "");
   }
 
-  const personOne = 'Jane';
-  const personTwo = 'Jimmy';
+  const personOne = "Jane";
+  const personTwo = "Jimmy";
 
   return html`Hello, ${personOne} and ${personTwo}!`;
 }
@@ -149,9 +150,9 @@ We still haven't fixed our big security hole, though! Starting with the most bas
 function example() {
   function html(stringParts, ...values) {
     return stringParts.reduce((accumulator, part, i) => {
-      const value = values[i] || '';
+      const value = values[i] || "";
       return `${accumulator}${part}${escape(value)}`;
-    }, '');
+    }, "");
   }
 
   const name = '<script>alert("hello");</script>';
@@ -171,40 +172,38 @@ This works really well, is simple and fast. For completeness, we can take it a c
 function example() {
   function html(stringParts, ...values) {
     return stringParts.reduce((accumulator, part, i) => {
-      const value = values[i] || '';
-      let escapedValue = '';
+      const value = values[i] || "";
+      let escapedValue = "";
 
       // If we have a string, just escape it
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         escapedValue = escape(value);
 
-      // Arrays and plain JavaScript objects can be JSON stringified with a custom function to ensure each individual value gets escaped
-      } else if (
-        value &&
-        (Array.isArray(value) || Object.prototype.toString.call(value) === '[object Object]')
-      ) {
-        escapedValue = JSON.stringify(value, (key, value) => typeof value === 'string' ? escape(value) : value);
+        // Arrays and plain JavaScript objects can be JSON stringified with a custom function to ensure each individual value gets escaped
+      } else if (value && (Array.isArray(value) || Object.prototype.toString.call(value) === "[object Object]")) {
+        escapedValue = JSON.stringify(value, (key, value) => (typeof value === "string" ? escape(value) : value));
 
-      // If we're dealing with a class of some other type, try to use the `toString` method
-      } else if ('toString' in Reflect.ownKeys(value)) {
+        // If we're dealing with a class of some other type, try to use the `toString` method
+      } else if ("toString" in Reflect.ownKeys(value)) {
         escapedValue = escape(value.toString());
 
-      // otherwise, just escape the String value
+        // otherwise, just escape the String value
       } else {
         escapedValue = escape(String(value));
       }
 
       return `${accumulator}${part}${escapedValue}`;
-    }, '');
+    }, "");
   }
 
-  const name = 'Paul';
-  const jsonContent = {content: '<script>alert("hello");</script>'};
+  const name = "Paul";
+  const jsonContent = { content: '<script>alert("hello");</script>' };
 
   return html`<h1>Hello, ${name}!</h1>
 
-<script>window.DATA = ${jsonContent};</script>
-`;
+    <script>
+      window.DATA = ${jsonContent};
+    </script> `;
 }
 ```
 
@@ -216,10 +215,15 @@ There are a few ways to take this a step further by implementing a way to mark s
 
 :::note Footnotes
 
-<sup id="footnote-1">1</sup> Swig has been unmaintained for years. Please don't use it.<br />
+<sup id="footnote-1">1</sup> Swig has been unmaintained for years. Please don't use it.
+<br />
 
-<sup id="footnote-2">2</sup> Content Security Policies (CSP) could protect us against this particular case, but it's just one example to illustrate the point.<br />
+<sup id="footnote-2">2</sup> Content Security Policies (CSP) could protect us against this particular case, but it's just
+one example to illustrate the point.
+<br />
 
-<sup id="footnote-3">3</sup> If you find any bugs or have suggestions, please <a href="https://github.com/paularmstrong/paularmstrong.dev/edit/main/blog/2020-12-22-javascript-html-templating.mdx">submit a PR on GitHub</a>
+<sup id="footnote-3">3</sup> If you find any bugs or have suggestions, please <a href="https://github.com/paularmstrong/paularmstrong.dev/edit/main/blog/2020-12-22-javascript-html-templating.mdx">
+  submit a PR on GitHub
+</a>
 
 :::

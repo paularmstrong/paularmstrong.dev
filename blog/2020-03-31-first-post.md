@@ -1,6 +1,7 @@
 ---
 slug: first-post
 title: First post playground
+authors: paularmstrong
 ---
 
 I like tacos 🌮
@@ -9,7 +10,7 @@ I like tacos 🌮
 
 ```js live
 function foobar() {
-  return 'tacos';
+  return "tacos";
 }
 ```
 
