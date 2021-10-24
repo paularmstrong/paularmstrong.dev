@@ -39,7 +39,7 @@
 }
 
 .hero--primary {
-  background-image: url('/img/profile-banner.png');
+  background-image: url("/static/img/profile-banner.png");
   background-repeat: repeat;
   background-size: 40%;
 }
@@ -92,7 +92,7 @@
   justify-content: center;
 }
 .iframe::before {
-  content: '';
+  content: "";
   display: block;
   padding-bottom: calc(100% / (16 / 9));
 }

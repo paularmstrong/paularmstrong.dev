@@ -4,6 +4,12 @@ title: Resume
 description: Resume/CV of Paul Armstrong
 ---
 
+:::danger Happily employed
+
+I am not looking for new opportunities at this time.
+
+:::
+
 ## Experience
 
 ### Microsoft for Startups, Remote – Principal Software Engineer
