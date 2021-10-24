@@ -1,6 +1,7 @@
 ---
 id: resume
-title: Résumé
+title: Resume
+description: Resume/CV of Paul Armstrong
 ---
 
 ## Experience
