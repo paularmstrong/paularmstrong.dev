@@ -1,6 +1,6 @@
 ---
 id: resume
-title: Résumeé
+title: Résumé
 ---
 
 ## Experience
