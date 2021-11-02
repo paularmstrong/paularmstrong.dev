@@ -171,4 +171,11 @@ module.exports = {
       },
     ],
   ],
+  scripts: [
+    {
+      src: "//gc.zgo.at/count.js",
+      async: true,
+      "data-goatcounter": "https://paularmstrong.goatcounter.com/count",
+    },
+  ],
 };
