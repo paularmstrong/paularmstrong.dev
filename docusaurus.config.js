@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   title: "Paul Armstrong",
   tagline: "Personal site of Paul Armstrong",
@@ -135,6 +137,12 @@ module.exports = {
       },
     ],
     [
+      path.resolve(__dirname, "./plugins/goat"),
+      {
+        goatcounter: "https://paularmstrong.goatcounter.com/count",
+      },
+    ],
+    [
       "@easyops-cn/docusaurus-search-local",
       {
         hashed: true,
@@ -171,11 +179,5 @@ module.exports = {
       },
     ],
   ],
-  scripts: [
-    {
-      src: "//gc.zgo.at/count.js",
-      async: true,
-      "data-goatcounter": "https://paularmstrong.goatcounter.com/count",
-    },
-  ],
+  scripts: [],
 };
