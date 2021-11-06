@@ -148,7 +148,7 @@ module.exports = {
         hashed: true,
         indexPages: true,
         docsRouteBasePath: "/pages",
-        docsDir: "/pages",
+        docsDir: "pages",
         blogRouteBasePath: "/blog",
       },
     ],
