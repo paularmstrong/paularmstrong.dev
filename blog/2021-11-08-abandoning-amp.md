@@ -9,7 +9,7 @@ tags:
 
 As of October 26<sup>th</sup>, 2021, I have resigned from the AMP Technical Steering Committee. Though no small part of it was brought ib by mounting responsibilities at work and at home, I cannot in good conscience recommend AMP to my peers due to recent disclosures about Google’s advertising conduct and its positioning of AMP.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Why not just stick to web standards and build meat and potatoes web pages that can work with whatever ad exchange you need?<br /><br />Because Google can also simultaneously exert pressure onto publishers to use AMP to increase likelihood of search ranking performance.</p>&mdash; Lívia Labate (@livlab) <a href="https://twitter.com/livlab/status/1452445878636224514?ref_src=twsrc%5Etfw">October 25, 2021</a></blockquote>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Why not just stick to web standards and build meat and potatoes web pages that can work with whatever ad exchange you need?<br /><br />Because Google can also simultaneously exert pressure onto publishers to use AMP to increase likelihood of search ranking performance.</p>&mdash; Lívia Labate (@livlab) <a href="https://twitter.com/livlab/status/1452445878636224514?ref_src=twsrc%5Etfw">October 25, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <!-- truncate -->
 
@@ -103,5 +103,3 @@ While I understand that Google employees likely aren’t allowed to respond to a
 Though it does appear that [I was removed from the list of members](https://github.com/ampproject/meta-tsc/commit/4ec9ca95f01be481ff976e8e78461857c2be3224) the following week.
 
 So, short to say, I'm _disappointed_ all around.
-
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
