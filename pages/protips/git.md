@@ -1,6 +1,7 @@
 ---
 id: git
 title: Git
+description: Working with git can be hard, verbose, and repetitive. Follow these tips and shortcuts to make things easier.
 ---
 
 ## Global default branch name
