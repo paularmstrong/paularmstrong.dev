@@ -38,36 +38,12 @@ module.exports = {
       },
       links: [
         {
-          title: "GitHub",
-          items: [
-            {
-              html: `<a href="https://github.com/paularmstrong" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrong on GitHub">@paularmstrong</a>`,
-            },
-          ],
+          label: "Github @paularmstrong",
+          href: "https://github.com/paularmstrong",
         },
         {
-          title: "Twitter",
-          items: [
-            {
-              html: `<a href="https://twitter.com/paularmstrong" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrong on Twitter">@paularmstrong</a>`,
-            },
-          ],
-        },
-        {
-          title: "Twitch",
-          items: [
-            {
-              html: `<a href="https://twitch.tv/paularmstrongdev" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrongdev on Twitch">@paularmstrongdev</a>`,
-            },
-          ],
-        },
-        {
-          title: "Youtube",
-          items: [
-            {
-              html: `<a href="https://www.youtube.com/channel/UCo9XLvVgs9wFVP-S5gLyXwA" target="_blank" rel="noopener noreferrer" aria-label="@paularmstrongdev on Youtube">@paularmstrongdev</a>`,
-            },
-          ],
+          label: "Twitter @paularmstrong",
+          href: "https://twitter.com/paularmstrong",
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong`,
