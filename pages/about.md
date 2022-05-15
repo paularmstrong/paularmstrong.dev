@@ -3,7 +3,7 @@ id: about
 title: About
 ---
 
-Paul Armstrong is an experienced Software Engineer specializing in JavaScript and web-based technology.
+Paul Armstrong is an experienced Software Engineer specializing in Node.js, JavaScript, and all things web.
 
 ## All the links to other places
 

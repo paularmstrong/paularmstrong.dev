@@ -2,27 +2,26 @@ const path = require("path");
 
 module.exports = {
   title: "Paul Armstrong",
-  tagline: "Personal site of Paul Armstrong",
+  tagline: "Random thoughts from a Software Engineer specializing in Node.js, JavaScript, and all things web.",
   url: "https://paularmstrong.dev",
   baseUrl: "/",
   favicon: "img/favicon.ico",
   organizationName: "paularmstrong", // Usually your GitHub org/user name.
   projectName: "paularmstrong.dev", // Usually your repo name.
   themeConfig: {
-    colorMode: {
-      disableSwitch: true,
-    },
-    hideableSidebar: true,
+    // colorMode: {
+    //   disableSwitch: true,
+    // },
     image: "img/og_image.png",
     navbar: {
       title: "Paul Armstrong",
+      style: "primary",
       logo: {
         alt: "My Site Logo",
         src: "img/icon.png",
       },
       items: [
         { to: "blog", label: "Blog", position: "left" },
-        { to: "pages/protips/index", label: "ProTips", position: "left" },
         { to: "pages/about", label: "About", position: "right" },
         {
           href: "https://github.com/paularmstrong",
@@ -30,6 +29,9 @@ module.exports = {
           position: "right",
         },
       ],
+    },
+    sidebar: {
+      hideable: true,
     },
     footer: {
       logo: {
@@ -128,20 +130,27 @@ module.exports = {
         blogRouteBasePath: "/blog",
       },
     ],
+    [
+      "./plugins/blog",
+      {
+        id: "blog",
+        routeBasePath: "/blog",
+        path: "./blog",
+        editUrl: "https://github.com/paularmstrong/paularmstrong.dev/edit/main/",
+        feedOptions: {
+          type: "all",
+          copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
+        },
+        remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn"), require("@fec/remark-a11y-emoji")],
+      },
+    ],
   ],
   presets: [
     [
       "@docusaurus/preset-classic",
       {
         debug: true,
-        blog: {
-          editUrl: "https://github.com/paularmstrong/paularmstrong.dev/edit/main/",
-          feedOptions: {
-            type: "all",
-            copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
-          },
-          remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn"), require("@fec/remark-a11y-emoji")],
-        },
+        blog: false,
         docs: {
           editUrl: "https://github.com/paularmstrong/paularmstrong.dev/edit/main/",
           sidebarPath: require.resolve("./sidebars.js"),

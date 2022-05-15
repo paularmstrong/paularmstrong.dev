@@ -1,14 +1,16 @@
 import React from "react";
+import BlogPostItem from "@theme/BlogPostItem";
 import classnames from "classnames";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import styles from "../pages/styles.module.css";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import styles from "./styles.module.css";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
-function Home() {
+export default function Home({ recentPosts }) {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
+
   return (
     <Layout
       title=""
@@ -21,21 +23,31 @@ function Home() {
           <div className={styles.buttons}>
             <Link
               className={classnames("button button--outline button--secondary button--lg", styles.button)}
-              to={useBaseUrl("blog")}
+              to={useBaseUrl("pages/about")}
             >
-              Read the Blog
-            </Link>
-            <Link
-              className={classnames("button button--outline button--secondary button--lg", styles.button)}
-              to={useBaseUrl("pages/protips/index")}
-            >
-              Learn some ProTips
+              About
             </Link>
           </div>
         </div>
       </header>
+
+      <div className="container">
+        <div className="row">
+          <div className="col col--9 col--offset-1">
+            {recentPosts.map(({ content: BlogPostContent }) => (
+              <BlogPostItem
+                key={BlogPostContent.metadata.permalink}
+                frontMatter={BlogPostContent.frontMatter}
+                assets={BlogPostContent.assets}
+                metadata={BlogPostContent.metadata}
+                truncated={BlogPostContent.metadata.truncated}
+              >
+                <BlogPostContent />
+              </BlogPostItem>
+            ))}
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }
-
-export default Home;
