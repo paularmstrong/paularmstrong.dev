@@ -1,7 +1,6 @@
 ---
 slug: open-source-break
 title: Taking a break from open source
-authors: paularmstrong
 tags:
   - open source
 ---

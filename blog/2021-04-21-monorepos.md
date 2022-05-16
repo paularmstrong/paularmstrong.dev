@@ -1,7 +1,6 @@
 ---
 title: Monorepo requirements
 draft: true
-authors: paularmstrong
 tags:
   - monorepo
   - tooling

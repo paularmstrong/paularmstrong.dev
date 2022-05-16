@@ -139,7 +139,7 @@ module.exports = {
         editUrl: "https://github.com/paularmstrong/paularmstrong.dev/edit/main/",
         feedOptions: {
           type: "all",
-          copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong. Built with Docusaurus.`,
+          copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong`,
         },
         remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn"), require("@fec/remark-a11y-emoji")],
       },

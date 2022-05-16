@@ -1,7 +1,6 @@
 ---
 title: Abandoning AMP
 description: Resigning from the AMP Technical Steering Committee
-authors: paularmstrong
 tags:
   - open source
   - google

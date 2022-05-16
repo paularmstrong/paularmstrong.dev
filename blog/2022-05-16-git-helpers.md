@@ -1,7 +1,6 @@
 ---
 title: Git helpers that I can no longer live without
 slug: git-helpers
-authors: paularmstrong
 tags:
   - git
 ---
