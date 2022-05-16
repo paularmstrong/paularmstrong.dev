@@ -6,13 +6,19 @@ tags:
   - git
 ---
 
-Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore. You can
+Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore. 
+
+- `main` - quickly jump back to the default/`HEAD` branch of your repo without needing to know what the name of that branch is.
+- `rebase` - rebase your current branch against the current state of the default/`HEAD` branch as it is on the remote server.
+- `rmbranch` - delete your current working branch and move to the default/`HEAD` branch. Great for PR cleanup!
+
+<!-- truncate -->
 
 ## `main`
 
 The industry seems to be agreeing that `main` is a much better default than the outdated term `master`. Unfortunately, there are still some repos that I’ve needed to work with that use other names.
 
-This function can help remove the guessing game if you work with a bunch of repos that are still transitioning and/or use different names for the `HEAD`/default branch and you want to quickly get there from your current branch:
+This function can help remove the guessing game if you work with a bunch of repos that are still transitioning and/or use different names for the default/`HEAD` branch and you want to quickly get there from your current branch:
 
 ```bash title="Add to your ~/.zshrc or ~/.bashrc"
 function main() {
