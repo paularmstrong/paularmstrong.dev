@@ -50,12 +50,6 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
-.hero--primary {
-  background-image: url("/img/profile-banner.png");
-  background-repeat: repeat;
-  background-size: 40%;
-}
-
 .hero .button.button--secondary.button--outline:not(.button--active):not(:hover) {
   color: #fff;
 }

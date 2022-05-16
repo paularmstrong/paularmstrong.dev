@@ -31,7 +31,7 @@ export default function Home({ recentPosts }) {
         </div>
       </header>
 
-      <div className="container">
+      <div className="container margin-vert--lg">
         <div className="row">
           <div className="col col--9 col--offset-1">
             {recentPosts.map(({ content: BlogPostContent }) => (
@@ -45,6 +45,12 @@ export default function Home({ recentPosts }) {
                 <BlogPostContent />
               </BlogPostItem>
             ))}
+
+            <nav class="pagination-nav" aria-label="Blog list page navigation">
+              <a class="pagination-nav__link pagination-nav__link--next" href="/blog">
+                <div class="pagination-nav__label">All blog entries</div>
+              </a>
+            </nav>
           </div>
         </div>
       </div>
