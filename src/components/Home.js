@@ -1,11 +1,11 @@
-import React from "react";
-import BlogPostItem from "@theme/BlogPostItem";
-import classnames from "classnames";
-import Layout from "@theme/Layout";
-import Link from "@docusaurus/Link";
-import styles from "../pages/styles.module.css";
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import React from 'react';
+import BlogPostItem from '@theme/BlogPostItem';
+import classnames from 'classnames';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import styles from '../pages/styles.module.css';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function Home({ recentPosts }) {
   const context = useDocusaurusContext();
@@ -16,14 +16,14 @@ export default function Home({ recentPosts }) {
       title=""
       description="Paul Armstrong is a senior web application developer, specializing in JavaScript, performance, and developer experience"
     >
-      <header className={classnames("hero hero--primary", styles.heroBanner)}>
+      <header className={classnames('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
             <Link
-              className={classnames("button button--outline button--secondary button--lg", styles.button)}
-              to={useBaseUrl("pages/about")}
+              className={classnames('button button--outline button--secondary button--lg', styles.button)}
+              to={useBaseUrl('pages/about')}
             >
               About
             </Link>

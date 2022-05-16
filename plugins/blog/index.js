@@ -1,4 +1,4 @@
-const blogPluginExports = require("@docusaurus/plugin-content-blog");
+const blogPluginExports = require('@docusaurus/plugin-content-blog');
 
 const defaultBlogPlugin = blogPluginExports.default;
 
@@ -17,11 +17,11 @@ async function blogPluginExtended(...pluginArgs) {
 
       data.actions.addRoute({
         // Add route for the home page
-        path: "/",
+        path: '/',
         exact: true,
 
         // The component to use for the "Home" page route
-        component: "@site/src/components/Home.js",
+        component: '@site/src/components/Home.js',
 
         // These are the props that will be passed to our "Home" page component
         modules: {

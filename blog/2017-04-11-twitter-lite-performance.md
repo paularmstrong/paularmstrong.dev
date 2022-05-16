@@ -43,7 +43,7 @@ After much wrangling, we were finally able to break up common areas by routes in
 const plugins = [
   // extract vendor and webpack's module manifest
   new webpack.optimize.CommonsChunkPlugin({
-    names: ["vendor", "manifest"],
+    names: ['vendor', 'manifest'],
     minChunks: Infinity,
   }),
   // extract common modules from all the chunks (requires no 'name' property)
@@ -150,13 +150,13 @@ For example, our original HeartIcon looked something like this:
 
 ```js
 const HeartIcon = (props) =>
-  React.createElement("svg", {
+  React.createElement('svg', {
     ...props,
     dangerouslySetInnerHTML: {
       __html:
         '<g><path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path></g>',
     },
-    viewBox: "0 0 54 72",
+    viewBox: '0 0 54 72',
   });
 ```
 
@@ -204,8 +204,8 @@ It turns out that mounting and unmounting large trees of components (like timeli
 At the very least, we wanted to remove the perception of the navigation bar not reacting to user input. For that, we created a small higher-order-component:
 
 ```js
-import hoistStatics from "hoist-non-react-statics";
-import React from "react";
+import hoistStatics from 'hoist-non-react-statics';
+import React from 'react';
 
 /**
  * Allows two animation frames to complete to allow other components to update

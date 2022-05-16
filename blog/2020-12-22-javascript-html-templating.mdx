@@ -6,8 +6,8 @@ tags:
   - javascript
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 There are too many choices for server-side rendering HTML pages. Avoiding the heavy hitter frameworks like React, that require a lot more work and will drain server resources quickly, you may find yourself reaching for a templating engine that can dynamically help you build up HTML responses for your JavaScript server.
 
@@ -18,11 +18,11 @@ Having written [a templating engine](https://github.com/paularmstrong/swig)<sup>
 The biggest feature that templating engines tend to provide is safety from Cross-Site Scripting (XSS). Let's look at a very simplistic example. Let's say you want to greet a person by name by using some user-submitted information. To make it easy, let's grab that value from the query param `?name` from the URL. Fire this snippet up with Node.js:
 
 ```js
-const express = require("express");
+const express = require('express');
 
 const app = express();
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send(`<p>Hello, ${req.query.name}!</p>`);
 });
 
@@ -70,7 +70,7 @@ So, with XSS in mind, many templating engines have, by default, protected agains
 Swig ouput syntax `{{ variable }}` is html-escaped, while `{{ variable|raw }}` is not.
 
 ```handlebars
-<p>Hello, {{ variable }}!</p>
+<p>Hello, {{variable}}!</p>
 ```
 
  </TabItem>
@@ -109,7 +109,7 @@ function example() {
 
   // Change this value to something that might be part of an XSS attack
   // eg: <script>alert("hello");</script>
-  const name = "Paul";
+  const name = 'Paul';
 
   return html`Hello, ${name}!`;
 }
@@ -126,13 +126,13 @@ This works well, but we'd like it to accept any number of inserted variables. To
 function example() {
   function html(stringParts, ...values) {
     return stringParts.reduce((accumulator, part, i) => {
-      const value = values[i] || "";
+      const value = values[i] || '';
       return `${accumulator}${part}${value}`;
-    }, "");
+    }, '');
   }
 
-  const personOne = "Jane";
-  const personTwo = "Jimmy";
+  const personOne = 'Jane';
+  const personTwo = 'Jimmy';
 
   return html`Hello, ${personOne} and ${personTwo}!`;
 }
@@ -149,9 +149,9 @@ We still haven't fixed our big security hole, though! Starting with the most bas
 function example() {
   function html(stringParts, ...values) {
     return stringParts.reduce((accumulator, part, i) => {
-      const value = values[i] || "";
+      const value = values[i] || '';
       return `${accumulator}${part}${escape(value)}`;
-    }, "");
+    }, '');
   }
 
   const name = '<script>alert("hello");</script>';
@@ -171,19 +171,19 @@ This works really well, is simple and fast. For completeness, we can take it a c
 function example() {
   function html(stringParts, ...values) {
     return stringParts.reduce((accumulator, part, i) => {
-      const value = values[i] || "";
-      let escapedValue = "";
+      const value = values[i] || '';
+      let escapedValue = '';
 
       // If we have a string, just escape it
-      if (typeof value === "string") {
+      if (typeof value === 'string') {
         escapedValue = escape(value);
 
         // Arrays and plain JavaScript objects can be JSON stringified with a custom function to ensure each individual value gets escaped
-      } else if (value && (Array.isArray(value) || Object.prototype.toString.call(value) === "[object Object]")) {
-        escapedValue = JSON.stringify(value, (key, value) => (typeof value === "string" ? escape(value) : value));
+      } else if (value && (Array.isArray(value) || Object.prototype.toString.call(value) === '[object Object]')) {
+        escapedValue = JSON.stringify(value, (key, value) => (typeof value === 'string' ? escape(value) : value));
 
         // If we're dealing with a class of some other type, try to use the `toString` method
-      } else if ("toString" in Reflect.ownKeys(value)) {
+      } else if ('toString' in Reflect.ownKeys(value)) {
         escapedValue = escape(value.toString());
 
         // otherwise, just escape the String value
@@ -192,10 +192,10 @@ function example() {
       }
 
       return `${accumulator}${part}${escapedValue}`;
-    }, "");
+    }, '');
   }
 
-  const name = "Paul";
+  const name = 'Paul';
   const jsonContent = { content: '<script>alert("hello");</script>' };
 
   return html`<h1>Hello, ${name}!</h1>

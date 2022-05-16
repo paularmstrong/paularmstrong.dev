@@ -5,7 +5,7 @@ tags:
   - git
 ---
 
-Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore. 
+Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore.
 
 - `main` - quickly jump back to the default/`HEAD` branch of your repo without needing to know what the name of that branch is.
 - `rebase` - rebase your current branch against the current state of the default/`HEAD` branch as it is on the remote server.

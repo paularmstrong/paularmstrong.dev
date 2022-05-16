@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 export default (function () {
   if (!ExecutionEnvironment.canUseDOM) {
@@ -16,7 +16,7 @@ export default (function () {
     onRouteUpdate({ location }) {
       window.goatcounter &&
         window.goatcounter.count({
-          path: location.pathname || "/",
+          path: location.pathname || '/',
         });
     },
   };

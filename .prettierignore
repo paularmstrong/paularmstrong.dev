@@ -1,0 +1,4 @@
+.yarn
+.docusaurus
+build/
+node_modules/
