@@ -15,10 +15,8 @@ module.exports = {
   organizationName: 'paularmstrong', // Usually your GitHub org/user name.
   projectName: 'paularmstrong.dev', // Usually your repo name.
   themeConfig: {
-    // colorMode: {
-    //   disableSwitch: true,
-    // },
-    image: 'img/og_image.png',
+    image: 'img/og_image_small.png',
+    metadata: [{ name: 'twitter:card', content: 'summary' }],
     navbar: {
       title: 'Paul Armstrong',
       style: 'primary',
