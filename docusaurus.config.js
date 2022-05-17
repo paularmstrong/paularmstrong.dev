@@ -1,5 +1,11 @@
 const path = require('path');
 
+const remarkPlugins = [
+  require('@docusaurus/remark-plugin-npm2yarn'),
+  require('@fec/remark-a11y-emoji'),
+  require('mdx-mermaid'),
+];
+
 module.exports = {
   title: 'Paul Armstrong',
   tagline: 'Random thoughts from a Software Engineer specializing in Node.js, JavaScript, and all things web.',
@@ -141,7 +147,7 @@ module.exports = {
           type: 'all',
           copyright: `Copyright © ${new Date().getFullYear()} Paul Armstrong`,
         },
-        remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn'), require('@fec/remark-a11y-emoji')],
+        remarkPlugins,
       },
     ],
   ],
@@ -156,7 +162,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           path: 'pages',
           routeBasePath: 'pages',
-          remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn'), require('@fec/remark-a11y-emoji')],
+          remarkPlugins,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
