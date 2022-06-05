@@ -17,6 +17,7 @@
     "@docusaurus/theme-live-codeblock": "2.0.0-beta.21",
     "@easyops-cn/docusaurus-search-local": "^0.25.0",
     "@fec/remark-a11y-emoji": "^2.0.0",
+    "@giscus/react": "^2.0.5",
     "classnames": "^2.2.6",
     "escape-html": "^1.0.3",
     "mdx-mermaid": "^1.2.2",

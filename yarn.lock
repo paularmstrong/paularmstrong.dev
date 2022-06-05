@@ -5091,6 +5091,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@giscus/react@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@giscus/react@npm:2.0.5"
+  dependencies:
+    giscus: ^1.0.5
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: 06da625c0f97e27f55fcbb4a21d244ebb86bfd47770a0d61b6e9bdefd7f45f8d50e9574767de75acb284df0889254451d8da2696e66a112029386ef89cdfcf27
+  languageName: node
+  linkType: hard
+
 "@hapi/hoek@npm:^9.0.0":
   version: 9.1.0
   resolution: "@hapi/hoek@npm:9.1.0"
@@ -5163,6 +5175,13 @@ __metadata:
   version: 2.0.4
   resolution: "@leichtgewicht/ip-codec@npm:2.0.4"
   checksum: 468de1f04d33de6d300892683d7c8aecbf96d1e2c5fe084f95f816e50a054d45b7c1ebfb141a1447d844b86a948733f6eebd92234da8581c84a1ad4de2946a2d
+  languageName: node
+  linkType: hard
+
+"@lit/reactive-element@npm:^1.3.0":
+  version: 1.3.2
+  resolution: "@lit/reactive-element@npm:1.3.2"
+  checksum: 0a89906ddebe2fe2772d942769fc6d69c53e445d476f449690daf371e196b73b99422b7722d262b97d8233e91528ee66b821d013032f0f9fd0f3fd178b4f6a45
   languageName: node
   linkType: hard
 
@@ -10244,6 +10263,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"giscus@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "giscus@npm:1.0.5"
+  dependencies:
+    lit: ^2.2.4
+  checksum: 609127f3b05863bbf7e330abe01557adf78cdba0b1567f93a6851168adfe1a9aee2e86adb0f2a5b1a5e2e9e981149baa7104245b8fd29c38a7bd46179ee8b657
+  languageName: node
+  linkType: hard
+
 "github-from-package@npm:0.0.0":
   version: 0.0.0
   resolution: "github-from-package@npm:0.0.0"
@@ -11884,6 +11912,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lit-element@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "lit-element@npm:3.2.0"
+  dependencies:
+    "@lit/reactive-element": ^1.3.0
+    lit-html: ^2.2.0
+  checksum: 64bd0f05f7a93921a5853e92f4b86b75affc088805f5ce0249c62a02a1d44445dea5c8319badc4cae6e5663afeb60296e3e0f63fd3af265b89fa482c8a846c3d
+  languageName: node
+  linkType: hard
+
+"lit-html@npm:^2.2.0":
+  version: 2.2.5
+  resolution: "lit-html@npm:2.2.5"
+  dependencies:
+    "@types/trusted-types": ^2.0.2
+  checksum: 688fed0a5cf16cd08d837ba89c894162e38798117bcdf8c588254920b4a5448c1a367c2f0ca5e88307a9b1293995de335cf60f0a43b4d6c521089ac3ae0154b1
+  languageName: node
+  linkType: hard
+
+"lit@npm:^2.2.4":
+  version: 2.2.5
+  resolution: "lit@npm:2.2.5"
+  dependencies:
+    "@lit/reactive-element": ^1.3.0
+    lit-element: ^3.2.0
+    lit-html: ^2.2.0
+  checksum: 0d3298ae9d333eef3cd30e9e76003a74db080831e64cc893964e119df0a99d26fe97114bae4bdea365ee93d0ee55f71379e1b004a475cd3ff3c8f28ad2bc152b
+  languageName: node
+  linkType: hard
+
 "loader-runner@npm:^4.2.0":
   version: 4.2.0
   resolution: "loader-runner@npm:4.2.0"
@@ -13340,6 +13398,7 @@ __metadata:
     "@docusaurus/theme-live-codeblock": 2.0.0-beta.21
     "@easyops-cn/docusaurus-search-local": ^0.25.0
     "@fec/remark-a11y-emoji": ^2.0.0
+    "@giscus/react": ^2.0.5
     classnames: ^2.2.6
     escape-html: ^1.0.3
     mdx-mermaid: ^1.2.2
