@@ -1,7 +1,7 @@
 const path = require('path');
 
 const remarkPlugins = [
-  require('@docusaurus/remark-plugin-npm2yarn'),
+  [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
   require('@fec/remark-a11y-emoji'),
   require('mdx-mermaid'),
 ];
@@ -168,5 +168,4 @@ module.exports = {
       },
     ],
   ],
-  scripts: [],
 };
