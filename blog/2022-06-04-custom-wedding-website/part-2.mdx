@@ -2,7 +2,7 @@
 title: 'Creating a modern wedding website in 2022 Part 2: Setting up the repository and Firebase'
 description: Don’t go with those junk off-the-shelf websites with all the upsells on them. Make your wedding website yourself.
 authors: paularmstrong
-date: 2022-06-04T02:00
+date: 2022-06-12T00:00
 tags:
   - parcel
   - preact
@@ -10,6 +10,12 @@ tags:
   - firebase
 draft: true
 ---
+
+:::info Multi-part series
+
+Previously in this series, we [introduced the reasoning and requirements](index.mdx) and [chose tools that we will use to build](part-1.mdx) our custom wedding website.
+
+:::
 
 ## Create a bare repo
 
@@ -56,13 +62,35 @@ From there, the initialization script actually walked through a few questions wh
 ## Setting up Parcel & Tailwindcss
 
 ```bash npm2yarn
-npm install --save typescript preact preact-router
+npm install --save preact preact-router
 npm install --save-dev autoprefixer parcel postcss tailwindcss
 ```
 
-Next we need an entrypoint HTML file for Parcel to pick up as well as the CSS and Preact application code references.
+:::caution Typescript
 
-```html title="src/index.html"
+I used Typescript, but you really don't have to. In fact, I didn't require that static types were correct at all. It was mostly just a helper to have automcomplete for working with Firebase. From here on out, I'll actually just strip all the types out and use `.js` & `.jsx` instead of `.ts` & `.tsx`.
+
+:::
+
+Next we need some basic setup for Parcel, Preact, and Tailwind. Create the following files following this structure, with copypasta contents to follow:
+
+```
+wedding-app/
+├─ src/
+│  ├─ index.html
+│  ├─ index.css
+│  └─ index.jsx
+├─ package.json
+└─ tailwind.config.js
+```
+
+<code>src/index.html</code> This will be the main entrypoint for Parcel to run its development server and build for production.
+
+- Line 8: Parcel will pick up reference to your CSS files and compile them as necessary
+- Line 11: This will be the root element that we use for the Preact application
+- Line 12: Parcel will pick up references to JavaScript files (or Typescript) and compile them
+
+```html title="src/index.html" showLineNumbers
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -76,11 +104,15 @@ Next we need an entrypoint HTML file for Parcel to pick up as well as the CSS an
   <body>
     // highlight-start
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
+    <script type="module" src="./index.jsx"></script>
     // highlight-end
   </body>
 </html>
 ```
+
+### Tailwindcss
+
+If you prefer a more in-depth setup, checkout [Tailwindcss‘s installation guide](https://tailwindcss.com/docs/installation).
 
 ```css title="src/index.css"
 @tailwind base;
@@ -88,7 +120,13 @@ Next we need an entrypoint HTML file for Parcel to pick up as well as the CSS an
 @tailwind utilities;
 ```
 
-```tsx title="src/index.tsx"
+```js title="tailwind.config.js"
+module.exports = {
+  content: ['./src/**/*.{html,ts,tsx}'],
+};
+```
+
+```tsx title="src/index.jsx"
 import { h, render } from 'preact';
 import { App } from './App';
 
@@ -107,17 +145,4 @@ render(<App />, root!);
   }
   // highlight-end
 }
-```
-
-```js title="tailwind.config.js"
-module.exports = {
-  content: ['./src/**/*.{html,ts,tsx}'],
-  theme: {
-    extend: {
-      fontFamily: {
-        display: ['Sacramento', 'cursive'],
-        sans: ['Yanone Kaffeesatz', 'sans-serif'],
-      },
-  },
-};
 ```

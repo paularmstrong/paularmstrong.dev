@@ -29,27 +29,19 @@ export function ImageWrapper({ children }) {
   );
 }
 
-## Requirements
+:::info Multi-part series
 
-As a reminder, my partner and I set some requirements for this website in [this series introduction](./). (I'll be honest though, she didn't care too much about details, so this was really mostly me going a bit above and beyond)
+In the [introduction](index.mdx) to this series, we covered the rationale for building a custom wedding website, as well as the requirements that we laid out for ourselves.
 
-- Free or _very cheap_ hosting (wedding websites like theknot are already free, afterall) with a custom domain and SSL
+:::
+
+Now that we know _what_ we need, it’s time to choose the right tools for the job. From our previously set requirements, the following items stood out as important for what we choose here:
+
+- Free or _very cheap_ hosting with a custom domain and SSL
 - Invitees must be able to
   - Sign in with their email address and no password (magic link email)
-  - Manage their RSVP, as well as their plus-one and/or family, directly on the site
-  - View a schedule of events with maps, times, details
-  - RSVP separately for optional hosted events
   - Receive automated emails for their invitation and RSVP confirmation
 - All significant information must come from a protected database
-  - For example, exact dates & locations should require authentication and not be compiled directly into JavaScript/HTML bundles
-  - Mostly this is minor paranoia on my part to have _some_ security on private information
-- Ability to import guest/invitee information from CSV
-  - Immediately send invitation emails upon import
-- Ability to export RSVPs to a CSV for use in a spreadsheet (no "admin" site necessary)
-  - Spreadsheets are much quicker for iteration and data manipulation than writing, committing, and deploying code
-  - Allows my partner to have freedom and ownership
-- Minimal maintenance overhead
-  - I'm not going to be "on-call" for this. I just want it up and running.
 
 <!-- truncate -->
 
