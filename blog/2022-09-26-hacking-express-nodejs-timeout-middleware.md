@@ -27,6 +27,8 @@ const app = express()
 
 Notice that you need to manually add the `haltOnTimedout` middleware after _each_ other middleware in the chain. This may be fine and dandy for a small personal project that you, as the sole developer, know all about. However, as you start distributing knowledge to a larger team, it's imperative that this is easy and automatic. There are few, if any, cases where you would want to opt-out of the behavior of timing out a request if it's taking too long.
 
+<!-- truncate -->
+
 So, here's a pattern that I've used a number of times for various purposes – [proxying](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) the Express application and wrapping the `use()` function for some automatic behavior. It's as simple as wrapping the initial express application (or the application after any setup):
 
 ```ts
