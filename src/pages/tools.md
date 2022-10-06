@@ -1,5 +1,5 @@
 ---
-layout: '../layouts/Page.astro'
+layout: '~/layouts/Page.astro'
 title: Useful tools
 updatedDate: 2022-10-05
 ---
