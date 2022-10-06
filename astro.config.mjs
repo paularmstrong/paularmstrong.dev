@@ -4,7 +4,6 @@ import solid from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 
-import { astroAsides } from './integrations/asides';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 
 // https://astro.build/config
@@ -14,10 +13,10 @@ export default defineConfig({
 		solid(),
 		tailwind(),
 		mdx({
+			remarkPlugins: [remarkReadingTime],
 			extendPlugins: 'astroDefaults',
 		}),
 		sitemap(),
-		astroAsides(),
 	],
 	markdown: {
 		remarkPlugins: [remarkReadingTime],

@@ -12,11 +12,13 @@ tags:
 draft: true
 ---
 
-:::info[Multi-part series]
+import Aside from '~/components/Aside.astro';
 
-Previously in this series, we [introduced the reasoning and requirements](index.mdx) and [chose tools that we will use to build](part-1.mdx) our custom wedding website.
+<Aside type="info" title="Multi-part series">
 
-:::
+Previously in this series, we [introduced the reasoning and requirements](/blog/2022/06/04/custom-wedding-website) and [chose tools that we will use to build](/blog/2022/06/04/custom-wedding-website/part-1) our custom wedding website.
+
+</Aside>
 
 ## Create a bare repo
 
@@ -58,8 +60,6 @@ firebase init hosting
 
 From there, the initialization script actually walked through a few questions which didn't seem patronizing for a _wizard_. Then it noticed that the origin for my git repo pointed to Github, so it asked if I wanted to set up automated Github actions to deploy on merge to `main` and stage deploys for PRs. _Heck yes!_
 
-<!-- truncate -->
-
 ## Setting up Parcel & Tailwindcss
 
 ```bash npm2yarn
@@ -67,11 +67,11 @@ npm install --save preact preact-router
 npm install --save-dev autoprefixer parcel postcss tailwindcss
 ```
 
-:::danger[Typescript]
+<Aside type="danger" title="Typescript">
 
 I used Typescript, but you really don't have to. In fact, I didn't require that static types were correct at all. It was mostly just a helper to have automcomplete for working with Firebase. From here on out, I'll actually just strip all the types out and use `.js` & `.jsx` instead of `.ts` & `.tsx`.
 
-:::
+</Aside>
 
 Next we need some basic setup for Parcel, Preact, and Tailwind. Create the following files following this structure, with copypasta contents to follow:
 
