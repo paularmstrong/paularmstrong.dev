@@ -8,11 +8,15 @@ tags:
   - google
 ---
 
+import Aside from '~/components/Aside.astro';
+
 As of October 26<sup>th</sup>, 2021, I have resigned from the AMP Technical Steering Committee. Though no small part of it was brought on by mounting responsibilities at work and at home, I cannot in good conscience recommend AMP to my peers due to recent disclosures about Google’s advertising conduct and its positioning of AMP.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Why not just stick to web standards and build meat and potatoes web pages that can work with whatever ad exchange you need?<br /><br />Because Google can also simultaneously exert pressure onto publishers to use AMP to increase likelihood of search ranking performance.</p>&mdash; Lívia Labate (@livlab) <a href="https://twitter.com/livlab/status/1452445878636224514?ref_src=twsrc%5Etfw">October 25, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<!-- truncate -->
+> Why not just stick to web standards and build meat and potatoes web pages that can work with whatever ad exchange you need?
+>
+> Because Google can also simultaneously exert pressure onto publishers to use AMP to increase likelihood of search ranking performance.
+>
+> &mdash; Lívia Labate (@livlab) [October 25, 2021](https://twitter.com/livlab/status/1452445878636224514)
 
 ## History
 
@@ -20,7 +24,7 @@ Communication from Google to the public has always been that AMP was not given d
 
 First, a Technical Steering Committee (TSC), an Advisory Committee (AC), and a set of working groups were formed.
 
-:::note Groups formed
+<Aside type="note" title="Groups formed">
 
 #### [TSC](https://github.com/ampproject/meta-tsc)
 
@@ -40,7 +44,7 @@ _My take: this is middle management._
 
 _My take: Project/product managers and people that actually did work._
 
-:::
+</Aside>
 
 The initial goal of the TSC was to have a group of diverse people with less than half of the members representing Google. But instead, we ended up with 50% of members being Google employees who were directly affiliated with AMP internally. The rest was made up as individual people from Twitter (me), Pantheon, Microsoft, and Pinterest.
 
@@ -60,7 +64,14 @@ I’m sorry that I didn’t do more to continue to push on the issue. I knew it 
   - [David Strauss](https://twitter.com/DavidStrauss), also since resigned from the TSC, worked very hard to help get this moving forward. He has a lot of great insight into this and I’ll avoid speaking for him. Hopefully he will share his opinions publicly soon.
 - Keeping AMP relevant
   - Google/Chrome’s pushing of [Core Web Vitals](https://web.dev/vitals/) has given everyone clearer targets to hit. They’ve also proved that [they’re achievable](https://twitter.com/addyosmani/status/1456316562609254406). Already we are seeing many companies and groups ditching AMP because other tools give them more freedom while still being able to deliver fast experiences.
-  <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Is performance on the web getting better? The answer is yes :) 33% of origins now meet the Core Web Vitals thresholds! Lots of improvements from sites using a framework too. <a href="https://t.co/4e1z1alFZb">pic.twitter.com/4e1z1alFZb</a></p>&mdash; Addy Osmani (@addyosmani) <a href="https://twitter.com/addyosmani/status/1456316562609254406?ref_src=twsrc%5Etfw">November 4, 2021</a></blockquote>
+    <blockquote class="twitter-tweet">
+    	<p lang="en" dir="ltr">
+    		Is performance on the web getting better? The answer is yes :) 33% of origins now meet the Core Web Vitals
+    		thresholds! Lots of improvements from sites using a framework too.{' '}
+    		<a href="https://t.co/4e1z1alFZb">pic.twitter.com/4e1z1alFZb</a>
+    	</p>
+    	&mdash; Addy Osmani (@addyosmani) <a href="https://twitter.com/addyosmani/status/1456316562609254406?ref_src=twsrc%5Etfw">November 4, 2021</a>
+    </blockquote>
 - Changing the perception that Google isn’t the controller of AMP
   - I don’t think this could have changed without getting a vast majority of contributions to the AMP codebase coming from the community instead of Google employees.
   - Google employs great developers whose sole priorities seem to be to work on AMP
@@ -68,7 +79,13 @@ I’m sorry that I didn’t do more to continue to push on the issue. I knew it 
 
 These last two points, along with [other mounting responsibilities](/blog/open-source-break), had been making me wonder if I really cared about AMP anymore. Honestly, I’d never actually used it–despite believing in it and believing that it really was/is a technologically amazing framework.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The dirtiest trick AMP pulled was to get really smart, earnest, well spoken developers to work on it and advocate for it. <a href="https://t.co/AadyWrBAC2">https://t.co/AadyWrBAC2</a></p>&mdash; Chris Coyier (@chriscoyier) <a href="https://twitter.com/chriscoyier/status/1452448918935990272?ref_src=twsrc%5Etfw">October 25, 2021</a></blockquote>
+<blockquote class="twitter-tweet">
+	<p lang="en" dir="ltr">
+		The dirtiest trick AMP pulled was to get really smart, earnest, well spoken developers to work on it and advocate
+		for it. <a href="https://t.co/AadyWrBAC2">https://t.co/AadyWrBAC2</a>
+	</p>
+	&mdash; Chris Coyier (@chriscoyier) <a href="https://twitter.com/chriscoyier/status/1452448918935990272?ref_src=twsrc%5Etfw">October 25, 2021</a>
+</blockquote>
 
 The original goals of the project are sound and something to admire. From a tech standpoint, I believe that AMP accomplished some amazing feats. A lot of incredible, smart, and thoughtful people put some seriously hard work into it and it shows. It’s performant, it’s fast, and it’s robust. That’s what we needed.
 

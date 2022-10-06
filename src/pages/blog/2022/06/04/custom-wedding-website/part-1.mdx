@@ -12,11 +12,13 @@ tags:
   - wedding
 ---
 
-:::info[Multi-part series]
+import Aside from '~/components/Aside.astro';
+
+<Aside type="info" title="Multi-part series">
 
 In the [introduction](index.mdx) to this series, we covered the rationale for building a custom wedding website, as well as the requirements that we laid out for ourselves.
 
-:::
+</Aside>
 
 Now that we know _what_ we need, it’s time to choose the right tools for the job. From our previously set requirements, the following items stood out as important for what we choose here:
 
@@ -25,8 +27,6 @@ Now that we know _what_ we need, it’s time to choose the right tools for the j
   - Sign in with their email address and no password (magic link email)
   - Receive automated emails for their invitation and RSVP confirmation
 - All significant information must come from a protected database
-
-<!-- truncate -->
 
 ## Hosting & backend
 
@@ -117,16 +117,16 @@ I have built a few things with Tailwind before and it really makes things simple
 
 I have used Parcel before for some really small projects like this and it's pretty dead simple as a bundler to get set up. I also didn't want to spend a week tweaking my compilation process to get things _just right_ like I tend to do with Webpack.
 
-:::info[Multi-part series]
+<Aside type="info" title="Multi-part series">
 
 This is the beginning of a multi-part series. The following other posts are ready now. Check back soon for more!
 
-1. [Introduction](.)
-2. [**Part 1: Choosing the tools**](part-1)
-3. [Part 2: Setup](part-2)
+1. [Introduction](/blog/2022/06/04/custom-wedding-website)
+2. [**Part 1: Choosing the tools**](/blog/2022/06/04/custom-wedding-website/part-1)
+3. [Part 2: Setup](/blog/2022/06/04/custom-wedding-website/part-2)
 4. _More coming soon!_
 
-:::
+</Aside>
 
 ## Coming soon…
 

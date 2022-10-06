@@ -11,6 +11,8 @@ module.exports = {
 	root: true,
 	rules: {
 		'@typescript-eslint/ban-ts-comment': 'off',
+		'@typescript-eslint/no-unused-vars': 'error',
+		'tailwindcss/no-custom-classname': 'error',
 	},
 	globals: {
 		astroHTML: 'readonly',
@@ -18,5 +20,10 @@ module.exports = {
 	env: {
 		node: true,
 		browser: true,
+	},
+	settings: {
+		tailwindcss: {
+			config: 'tailwind.config.cjs',
+		},
 	},
 };

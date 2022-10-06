@@ -8,11 +8,11 @@ tags:
   - javascript
 ---
 
+import Aside from '~/components/Aside.astro';
+
 There are too many choices for server-side rendering HTML pages. Avoiding the heavy hitter frameworks like React, that require a lot more work and will drain server resources quickly, you may find yourself reaching for a templating engine that can dynamically help you build up HTML responses for your JavaScript server.
 
 Having written [a templating engine](https://github.com/paularmstrong/swig)<sup>[1](#footnote-1)</sup>, I know that many of them include features that make them really attractive to many users. However, you may really not need one at all.
-
-<!-- truncate -->
 
 The biggest feature that templating engines tend to provide is safety from Cross-Site Scripting (XSS). Let's look at a very simplistic example. Let's say you want to greet a person by name by using some user-submitted information. To make it easy, let's grab that value from the query param `?name` from the URL. Fire this snippet up with Node.js:
 
@@ -36,17 +36,7 @@ You might see the problem without even pasting that in your browser. The server 
 
 So, with XSS in mind, many templating engines have, by default, protected against that by making their default variable insertion escape the output unless the developer marks it as safe.
 
-<Tabs
-defaultValue="handlebars"
-lazy
-values={[
-{ label: 'Handlebars', value: 'handlebars' },
-{ label: 'EJS', value: 'ejs'},
-{ label: 'Swig', value: 'swig'},
-{ label: 'Marko', value: 'marko'},
-]}
-
->   <TabItem value="handlebars">
+### Handlebars
 
 [Handlebars](https://handlebarsjs.com/guide/#html-escaping) output syntax `{{expression}}` is html-escaped, while `{{{expression}}}` (three curly-braces) is not.
 
@@ -54,35 +44,29 @@ values={[
 <p>Hello, {{name}}!</p>
 ```
 
-  </TabItem>
-  <TabItem value="ejs">
+### EJS
 
 [EJS](https://ejs.co/#features) ouput syntax `<%=` is html-escaped, while `<%-` is not.
 
-```handlebars
+```ejs
 <p>Hello, <%= name %>!</p>
 ```
 
- </TabItem>
-  <TabItem value="swig">
+### Swig
 
 Swig ouput syntax `{{ variable }}` is html-escaped, while `{{ variable|raw }}` is not.
 
-```handlebars
+```jinja
 <p>Hello, {{variable}}!</p>
 ```
 
- </TabItem>
-  <TabItem value="marko">
+### Marko
 
 [Marko](https://markojs.com/docs/syntax/) ouput syntax `${variable}` is html-escaped, while `$!{variable}` is not.
 
-```handlebars
+```marko
 <p>Hello, ${escaped}!</p>
 ```
-
- </TabItem>
-</Tabs>
 
 ---
 
@@ -207,21 +191,19 @@ function example() {
 
 And that's it! That's the full implementation<sup>[3](#footnote-3)</sup> of a Tagged Template function for JavaScript-based servers that allows you to output XSS-safe. Any HTML within the `stringParts` content will be written verbatim, while all variables injected will automatically be escaped.
 
-:::tip
-There are a few ways to take this a step further by implementing a way to mark strings as "not-escapable". You will likely need that ability, but I'll leave that up to you to decide how to implement
-:::
+<Aside type="tip">
 
-:::note Footnotes
+There are a few ways to take this a step further by implementing a way to mark strings as "not-escapable". You will likely need that ability, but I'll leave that up to you to decide how to implement.
+
+</Aside>
+
+<Aside type="note" title="Footnotes">
 
 <sup id="footnote-1">1</sup> Swig has been unmaintained for years. Please don't use it.
-<br />
 
 <sup id="footnote-2">2</sup> Content Security Policies (CSP) could protect us against this particular case, but it's just
 one example to illustrate the point.
-<br />
 
-<sup id="footnote-3">3</sup> If you find any bugs or have suggestions, please <a href="https://github.com/paularmstrong/paularmstrong.dev/edit/main/blog/2020-12-22-javascript-html-templating.mdx">
-submit a PR on GitHub
-</a>
+<sup id="footnote-3">3</sup> If you find any bugs or have suggestions, please [submit a PR on GitHub](https://github.com/paularmstrong/paularmstrong.dev/edit/main/blog/2020-12-22-javascript-html-templating.mdx).
 
-:::
+</Aside>

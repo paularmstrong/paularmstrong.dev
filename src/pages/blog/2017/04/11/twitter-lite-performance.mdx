@@ -9,13 +9,13 @@ tags:
   - performance
 ---
 
+import Aside from '~/components/Aside.astro';
+
 A look into removing common and uncommon performance bottlenecks in one of the worlds largest React.js PWAs, Twitter Lite.
 
 ![Web performance graph](/img/blog/twitter-lite/banner.png)
 
 Creating a fast web application involves many cycles of measuring where time is wasted, understanding why it’s happening, and applying potential solutions. Unfortunately, there’s never just one quick fix. Performance is a continuous game of watching and measuring for areas to improve. With Twitter Lite, we made small improvements across many areas: from initial load times, to React component rendering (and prevention re-rendering), to image loading, and much more. Most changes tend to be small, but they add up, and the end result is that we have one of the largest and fastest [progressive web applications](https://developers.google.com/web/progressive-web-apps/).
-
-<!-- truncate -->
 
 ## Before Reading On:
 
@@ -23,11 +23,11 @@ If you’re just starting to measure and work toward increasing the performance 
 
 Each section below includes example screenshots of timeline recordings from Chrome’s Developer Tools. To make things more clear, I’ve highlighted each pair of examples with what’s bad versus what’s good.
 
-:::tip Special note regarding timelines and flame graphs
+<Aside type="tip" title="Special note regarding timelines and flame graphs">
 
 Since we target a very large range of mobile devices, we typically record these in a simulated environment: 5x slower CPU and 3G network connection. This is not only more realistic, but makes problems much more apparent. These may also be further skewed if we’re using [React v15.4.0’s component profiling](https://facebook.github.io/react/blog/2016/11/16/react-v15.4.0.html#profiling-components-with-chrome-timeline). Actual values on desktop performance timelines will tend to be much faster than what’s illustrated here.
 
-:::
+</Aside>
 
 ---
 
@@ -77,13 +77,13 @@ Waypoints work by calculating many different heights, widths, and positions of e
 
 But first, we have to understand what the developer tools mean when they tell us that there is “jank”.
 
-:::tip Jank
+<Aside type="tip" title="Jank">
 
 > Most devices today refresh their screens 60 times a second. If there’s an animation or transition running, or the user is scrolling the pages, the browser needs to match the device’s refresh rate and put up 1 new picture, or frame, for each of those screen refreshes.
 >
 > Each of those frames has a budget of just over 16ms (1 second / 60 = 16.66ms). In reality, however, the browser has housekeeping work to do, so all of your work needs to be completed inside 10ms. When you fail to meet this budget the frame rate drops, and the content judders on screen. This is often referred to as jank, and it negatively impacts the user’s experience. — [Paul Lewis on Rendering Performance](https://developers.google.com/web/fundamentals/performance/rendering/)
 
-:::
+</Aside>
 
 Over time, we developed a new infinite scrolling component called _VirtualScroller_. With this new component, we know exactly what slice of Tweets are being rendered into a timeline at any given time, avoiding the need to make expensive calculations as to where we are visually.
 
