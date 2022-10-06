@@ -30,13 +30,14 @@ const AsideTagname = 'AutoImportedAside';
  * ```
  */
 function remarkAsides(): unified.Plugin<[], mdast.Root> {
-	const variants = new Set(['note', 'tip', 'caution', 'danger']);
+	const variants = new Set<string>(['note', 'tip', 'caution', 'danger']);
 
 	const transformer: unified.Transformer<mdast.Root> = (tree) => {
 		visit(tree, (node) => {
-			if (node.type !== 'containerDirective') return;
-			const type = node.name;
-			if (!variants.has(type)) return;
+			const type = node?.name;
+			if (!type || !variants.has(type as string)) {
+				return;
+			}
 
 			// remark-directive converts a container’s “label” to a paragraph in
 			// its children, but we want to pass it as the title prop to <Aside>, so
@@ -45,15 +46,18 @@ function remarkAsides(): unified.Plugin<[], mdast.Root> {
 			let title: string | undefined;
 			remove(node, (child) => {
 				if (child.data?.directiveLabel) {
-					if ('children' in child && 'value' in child.children[0]) {
-						title = child.children[0].value;
+					// @ts-ignore
+					const firstChild: mdast.Parent | undefined = child.children ? child.children[0] : undefined;
+					if (firstChild) {
+						title = firstChild.value as string;
 					}
-					return true;
+					return;
 				}
 			});
 
 			const data = node.data || (node.data = {});
 			data.hName = AsideTagname;
+			// @ts-ignore
 			data.hProperties = h(AsideTagname, { type, title }).properties;
 		});
 	};

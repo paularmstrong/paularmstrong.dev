@@ -21,6 +21,9 @@ export default defineConfig({
 	],
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
+		shikiConfig: {
+			theme: 'rose-pine-moon',
+		},
 		extendDefaultPlugins: true,
 	},
 });

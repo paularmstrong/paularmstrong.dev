@@ -4,8 +4,10 @@
 		"jsx": "preserve",
 		"jsxImportSource": "solid-js",
 		"baseUrl": ".",
+		"noEmit": true,
 		"paths": {
 			"~/*": ["src/*"]
-		}
+		},
+		"skipLibCheck": true
 	}
 }

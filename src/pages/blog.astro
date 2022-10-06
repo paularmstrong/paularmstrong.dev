@@ -1,45 +1,44 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Body from '../components/Body.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
+import Base from '~/layouts/Base.astro';
+import Prose from '~/components/Prose.astro';
 
-// Use Astro.glob() to fetch all posts, and then sort them by date.
 const posts = (await Astro.glob('./blog/**/*.{md,mdx}')).sort(
 	(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
 );
 const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<Body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => {
-							if (post.frontmatter.draft) {
-								return null
-							}
-							return (
-							<li class="mb-4 grid grid-cols-6 gap-4">
-								<time class="text-right text-slate-500" datetime={post.frontmatter.pubDate}>
-									{dateFormatter(new Date(post.frontmatter.pubDate))}
-								</time>
-								<span class="col-span-5"><a class="text-2xl text-blue-600 decoration-4 underline-offset-2 hover:underline dark:text-blue-200" href={post.url}>{post.frontmatter.title}</a></span>
-								<div class="prose lg:prose-xl dark:prose-invert col-span-5 col-start-2"><p>{post.frontmatter.description}</p></div>
-							</li>
-						) })
+<Base title="Blog">
+	<div class="pb-12"><Prose><h1>Blog</h1></Prose></div>
+	<section>
+		<ul>
+			{
+				posts.map((post) => {
+					if (post.frontmatter.draft) {
+						return null;
 					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</Body>
-</html>
+					return (
+						<li class="mb-4 grid grid-cols-6 gap-4">
+							<time class="text-right leading-8 text-slate-500" datetime={post.frontmatter.pubDate}>
+								{dateFormatter(new Date(post.frontmatter.pubDate))}
+							</time>
+							<span class="col-span-5">
+								<a
+									class="text-2xl font-bold text-blue-600 decoration-4 underline-offset-2 hover:underline dark:text-blue-200"
+									href={post.url}
+								>
+									{post.frontmatter.title}
+								</a>
+							</span>
+							<div class="col-span-5 col-start-2">
+								<Prose>
+									<p>{post.frontmatter.description}</p>
+								</Prose>
+							</div>
+						</li>
+					);
+				})
+			}
+		</ul>
+	</section>
+</Base>

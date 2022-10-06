@@ -1,7 +1,4 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
-
 export interface Props {
 	title: string;
 	description: string;
@@ -17,10 +14,15 @@ const { title, description, image = '/img/og_image_small' } = Astro.props;
 <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
 <meta name="generator" content={Astro.generator} />
 
+<meta name="theme-color" content="#c1ddf9" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for paularmstrong.dev" href="/rss.xml" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
