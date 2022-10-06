@@ -1,7 +1,7 @@
 ---
 import Base from './Base.astro';
+import PageInfo from '~/components/PageInfo.astro';
 import Prose from '~/components/Prose.astro';
-import Link from '~/components/Link.astro';
 
 export interface Props {
 	content: {
@@ -17,7 +17,6 @@ const {
 	content: { title, description, pubDate, updatedDate, heroImage, readingTime },
 	file,
 } = Astro.props;
-const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
 ---
 
 <Base title={title} description={description}>
@@ -26,30 +25,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 			{heroImage && <img width={720} height={360} src={heroImage} alt="" />}
 			<h1>{title}</h1>
 
-			<aside class="not-prose prose-sm mb-8 rounded-lg bg-slate-100 p-4 dark:bg-slate-800">
-				<ul class="flex flex-row justify-between gap-4 text-blue-900 dark:text-blue-100">
-					{
-						pubDate && (
-							<li>
-								<b>Published:</b> <time>{dateFormatter(new Date(pubDate))}</time>
-							</li>
-						)
-					}
-					{
-						updatedDate && (
-							<li>
-								<b>Last updated:</b> <time>{dateFormatter(new Date(updatedDate))}</time>
-							</li>
-						)
-					}
-					<li><b>Reading time:</b> {Math.round(readingTime.minutes)} minutes, {readingTime.words} words</li>
-					<li>
-						<Link href={`https://github.com/paularmstrong/paularmstrong.dev/tree/main/src/${file.split('/src/')[1]}`}
-							>Source</Link
-						>
-					</li>
-				</ul>
-			</aside>
+			<PageInfo file={file} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
 
 			<slot />
 		</Prose>

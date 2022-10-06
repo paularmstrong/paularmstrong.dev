@@ -1,5 +1,6 @@
 ---
 import Base from './Base.astro';
+import PageInfo from '~/components/PageInfo.astro';
 import Prose from '~/components/Prose.astro';
 
 export interface Props {
@@ -12,22 +13,17 @@ export interface Props {
 }
 
 const {
-	content: { title, description, updatedDate },
+	content: { title, description, updatedDate, file },
 } = Astro.props;
-const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
 ---
 
 <Base title={title} description={description}>
 	<Prose
 		><article>
 			<h1>{title}</h1>
-			{
-				updatedDate && (
-					<div>
-						Last updated on <time>{dateFormatter(new Date(updatedDate))}</time>
-					</div>
-				)
-			}
+
+			<PageInfo file={file} updatedDate={updatedDate} />
+
 			<slot />
 		</article>
 	</Prose>

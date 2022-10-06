@@ -48,7 +48,7 @@ So, with XSS in mind, many templating engines have, by default, protected agains
 
 [EJS](https://ejs.co/#features) ouput syntax `<%=` is html-escaped, while `<%-` is not.
 
-```ejs
+```html
 <p>Hello, <%= name %>!</p>
 ```
 
@@ -56,7 +56,7 @@ So, with XSS in mind, many templating engines have, by default, protected agains
 
 Swig ouput syntax `{{ variable }}` is html-escaped, while `{{ variable|raw }}` is not.
 
-```jinja
+```handlebars
 <p>Hello, {{variable}}!</p>
 ```
 
