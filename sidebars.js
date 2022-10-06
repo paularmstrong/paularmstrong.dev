@@ -1,3 +1,3 @@
 module.exports = {
-  docs: ['about', 'tools', 'resume'],
+	docs: ['about', 'tools', 'resume'],
 };

@@ -1,0 +1,328 @@
+---
+layout: '~/layouts/BlogPost.astro'
+title: Twitter Lite and High Performance React Progressive Web Apps at Scale
+pubDate: 2017-04-11
+slug: twitter-lite-and-high-performance-react-progressive-web-apps-at-scale
+tags:
+  - twitter
+  - react
+  - performance
+---
+
+A look into removing common and uncommon performance bottlenecks in one of the worlds largest React.js PWAs, Twitter Lite.
+
+![Web performance graph](/img/blog/twitter-lite/banner.png)
+
+Creating a fast web application involves many cycles of measuring where time is wasted, understanding why it’s happening, and applying potential solutions. Unfortunately, there’s never just one quick fix. Performance is a continuous game of watching and measuring for areas to improve. With Twitter Lite, we made small improvements across many areas: from initial load times, to React component rendering (and prevention re-rendering), to image loading, and much more. Most changes tend to be small, but they add up, and the end result is that we have one of the largest and fastest [progressive web applications](https://developers.google.com/web/progressive-web-apps/).
+
+<!-- truncate -->
+
+## Before Reading On:
+
+If you’re just starting to measure and work toward increasing the performance of your web application, I highly recommend [learning how to read flame graphs](http://www.brendangregg.com/flamegraphs.html), if you don’t know how already.
+
+Each section below includes example screenshots of timeline recordings from Chrome’s Developer Tools. To make things more clear, I’ve highlighted each pair of examples with what’s bad versus what’s good.
+
+:::tip Special note regarding timelines and flame graphs
+
+Since we target a very large range of mobile devices, we typically record these in a simulated environment: 5x slower CPU and 3G network connection. This is not only more realistic, but makes problems much more apparent. These may also be further skewed if we’re using [React v15.4.0’s component profiling](https://facebook.github.io/react/blog/2016/11/16/react-v15.4.0.html#profiling-components-with-chrome-timeline). Actual values on desktop performance timelines will tend to be much faster than what’s illustrated here.
+
+:::
+
+---
+
+## Optimizing for the Browser
+
+### Use Route-Based Code Splitting
+
+Webpack is powerful but difficult to learn. For some time, we had issues with the [CommonsChunkPlugin](https://webpack.js.org/plugins/commons-chunk-plugin/) and the way it worked with some of our circular code dependencies. Because of that, we ended up with only 3 JavaScript asset files, totaling over 1MB in size (420KB gzip transfer size).
+
+Loading a single, or even just a few very large JavaScript files in order to run a site is a huge bottleneck for mobile users to see and interact with a website. Not only does the amount of time it takes for your scripts to transfer over a network increase with their size, but the time it takes for the browser to parse increases as well.
+
+After much wrangling, we were finally able to break up common areas by routes into separate chunks (example below). The day finally came when this code review dropped into our inboxes:
+
+```js
+const plugins = [
+	// extract vendor and webpack's module manifest
+	new webpack.optimize.CommonsChunkPlugin({
+		names: ['vendor', 'manifest'],
+		minChunks: Infinity,
+	}),
+	// extract common modules from all the chunks (requires no 'name' property)
+	new webpack.optimize.CommonsChunkPlugin({
+		async: true,
+		children: true,
+		minChunks: 4,
+	}),
+];
+```
+
+> Adds granular, route-based code-splitting. Faster initial and HomeTimeline render is traded for greater overall app size, which is spread over 40 on-demand chunks and amortized over the length of the session. — [Nicolas Gallagher](https://twitter.com/necolas)
+
+![Network timeline before code splitting](/img/blog/twitter-lite/optimizing-before.png)
+
+Our original setup (above) took over 5 seconds to load our main bundle, while after splitting out code by routes and common chunks (below), it takes barely 3 seconds (on a simulated 3G network).
+
+![Network timeline before after splitting](/img/blog/twitter-lite/optimizing-after.png)
+
+This was done early on in our performance focus sprints, but this single change made a huge difference when running Google’s [Lighthouse](https://developers.google.com/web/tools/lighthouse/) web application auditing tool:
+
+![Lighthouse report before and after](/img/blog/twitter-lite/lighthouse.png)
+
+### Avoid Functions that Cause Jank
+
+Over many iterations of our [infinite scrolling timelines](http://itsze.ro/blog/2017/04/09/infinite-list-and-react.html), we used different ways to calculate your scroll position and direction to determine if we needed to ask the API for more Tweets to display. Up until recently, we were using [react-waypoint](https://github.com/brigade/react-waypoint), which worked well for us. However, in chasing the best possible performance for one of the main underlying components of our application, it just wasn’t fast enough.
+
+Waypoints work by calculating many different heights, widths, and positions of elements in order to determine your current scroll position, how far from each end you are, and which direction you’re going. All of this information is useful, but since it’s done on every scroll event it comes at a cost: making those calculations causes jank–and lots of it.
+
+But first, we have to understand what the developer tools mean when they tell us that there is “jank”.
+
+:::tip Jank
+
+> Most devices today refresh their screens 60 times a second. If there’s an animation or transition running, or the user is scrolling the pages, the browser needs to match the device’s refresh rate and put up 1 new picture, or frame, for each of those screen refreshes.
+>
+> Each of those frames has a budget of just over 16ms (1 second / 60 = 16.66ms). In reality, however, the browser has housekeeping work to do, so all of your work needs to be completed inside 10ms. When you fail to meet this budget the frame rate drops, and the content judders on screen. This is often referred to as jank, and it negatively impacts the user’s experience. — [Paul Lewis on Rendering Performance](https://developers.google.com/web/fundamentals/performance/rendering/)
+
+:::
+
+Over time, we developed a new infinite scrolling component called _VirtualScroller_. With this new component, we know exactly what slice of Tweets are being rendered into a timeline at any given time, avoiding the need to make expensive calculations as to where we are visually.
+
+![Jank before virtual scrolling](/img/blog/twitter-lite/jank-before.png)
+
+It may not look like much, but before (above) while scrolling, we would cause render jank by trying to calculate the height of various elements. After (below) we cause no jank and reduce the stuttering while scrolling timelines at fast speeds.
+
+![Jank after virtual scrolling](/img/blog/twitter-lite/jank-after.png)
+
+By avoiding function calls that cause extra jank, scrolling a timeline of Tweets looks and feels more seamless, giving us a much more rich, almost native experience. While it can always be better, this change makes a noticeable improvement to the smoothness of scrolling timelines. It was a good reminder that every little bit counts when looking at performance.
+
+### Use Smaller Images
+
+We first started pushing to use less bandwidth on Twitter Lite by working with multiple teams to get new and smaller sizes of images available from our [CDNs](https://en.wikipedia.org/wiki/Content_delivery_network). It turns out, that by reducing the size of the images we were rendering to be only what we absolutely needed (both in terms of dimensions and quality), we found that not only did we reduce bandwidth usage, but that we were also able to increase performance in the browser, especially while scrolling through image-heavy timelines of Tweets.
+
+In order to determine how much better smaller images are for performance, we can look at the _Raster_ timeline in Chrome Developer Tools. Before we reduced the size of images, it could take 300ms or more just to decode a single image, as shown in the timeline recording below. This is the processing time after an image has been downloaded, but before it can be displayed on the page.
+
+When you’re scrolling a page and aiming for the 60 frame-per-second rendering standard, we want to keep as much processing as possible under 16.667ms (1 frame). It’s taking us nearly 18 frames just to get a single image rendered into the viewport, which is too many. One other thing to note in the timeline: you can see that the _Main_ timeline is mostly blocked from continuing until this image has finished decoding (as shown by the whitespace). This means we’ve got quite a performance bottleneck here!
+
+![Large image rasterizing](/img/blog/twitter-lite/raster-before.png)
+
+Large images (above) can block the main thread from continuing for 18 frames. Small images (below) take only about 1 frame.
+
+![Small image rasterizing](/img/blog/twitter-lite/raster-after.png)
+
+Now, after we’ve reduced the size of our images (above), we’re looking at just over a single frame to decode our largest images.
+
+## Optimizing React
+
+### Make use of the `shouldComponentUpdate` method
+
+A common tip for optimizing the performance of React applications is to [use the `shouldComponentUpdate` method](https://facebook.github.io/react/docs/optimizing-performance.html#shouldcomponentupdate-in-action). We try to do this wherever possible, but sometimes things slip through the cracks.
+
+<figure>
+
+![Updates when liking a tweet](/img/blog/twitter-lite/liking.gif)
+
+<figcaption>Liking the first Tweet caused both it and the entire Conversation below it to re-render!</figcaption>
+
+</figure>
+
+Here’s an example of a component that was always updating: When clicking the heart icon to like a Tweet in the home timeline, any `Conversation` component on screen would also re-render. In the animated example, you should see green boxes highlighting where the browser has to re-paint because we’re making the entire `Conversation` component below the Tweet we’re acting on update.
+
+Below, you’ll see two flame graphs of this action. Without `shouldComponentUpdate`, we can see its entire tree updated and re-rendered, just to change the color of a heart somewhere else on the screen. After adding `shouldComponentUpdate` (second image below), we prevent the entire tree from updating and prevent wasting more than one-tenth of a second running unnecessary processing.
+
+![Unnecessary updates in performance timelines](/img/blog/twitter-lite/update-before.png)
+![No more ynnecessary updates in performance timelines](/img/blog/twitter-lite/update-after.png)
+
+### Defer Unnecessary Work until `componentDidMount`
+
+This change may seem like a bit of a no-brainer, but it’s easy to forget about the little things when developing a large application like Twitter Lite.
+
+We found that we had a lot of places in our code where we were doing expensive calculations for the sake of analytics during the [`componentWillMount` React lifecycle method](https://facebook.github.io/react/docs/react-component.html#componentwillmount). Every time we did this, we blocked rendering of components a little more. 20ms here, 90ms there, it all adds up quickly. Originally, we were trying to record which tweets were being rendered to our data analytics service in `componentWillMount`, before they were actually rendered (below).
+
+![componentWillMount timeline](/img/blog/twitter-lite/defer-before.png)
+
+By moving that calculation and network call to the React component’s componentDidMount method, we unblocked the main thread and reduced unwanted jank when rendering our components (below).
+
+![componentDidMount timeline](/img/blog/twitter-lite/defer-after.png)
+
+### Avoid `dangerouslySetInnerHTML`
+
+In Twitter Lite, we use SVG icons, as they’re the most portable and scalable option available to us. Unfortunately, in older versions of React, most SVG attributes were not supported when creating elements from components. So, when we first started writing the application, we were forced to use `dangerouslySetInnerHTML` in order to use SVG icons as React components.
+
+For example, our original HeartIcon looked something like this:
+
+```js
+const HeartIcon = (props) =>
+	React.createElement('svg', {
+		...props,
+		dangerouslySetInnerHTML: {
+			__html:
+				'<g><path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path></g>',
+		},
+		viewBox: '0 0 54 72',
+	});
+```
+
+Not only is it [discouraged to use `dangerouslySetInnerHTML`](http://reactjs.cn/react/tips/dangerously-set-inner-html.html), but it turns out that it’s actually a source of slowness when mounting and rendering.
+
+![dangerouslySetInnerHTML timeline](/img/blog/twitter-lite/dangerous-before.png)
+
+Before (above), you’ll see it takes roughly 20ms to mount 4 SVG icons, while after (below) it takes around 8.
+
+![dangerouslySetInnerHTML timeline](/img/blog/twitter-lite/dangerous-after.png)
+
+Analyzing the flame graphs above, our original code (above) shows that it takes about 20ms on a slow device to mount the actions at the bottom of a Tweet containing four SVG icons. While this may not seem like much on its own, knowing that we need to render many of these at once, all while scrolling a timeline of infinite Tweets, we realized that this is a huge waste of time.
+
+Since React v15 added support for most SVG attributes, we went ahead and looked to see what would happen if we avoided `dangerouslySetInnerHTML`. Checking the patched flame graph (above right), we get about an average of **60% savings** each time we need to mount and render one of these sets of icons!
+
+Now, our SVG icons are simple stateless components, don’t use “dangerous” functions, and mount an average of 60% faster. They look like this:
+
+```js
+const HeartIcon = (props = {}) => (
+  <svg {...props} viewBox=`0 0 ${width} ${height}`>
+    <g>
+      <path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path>
+    </g>
+  </svg>
+);
+```
+
+### Defer Rendering When Mounting & Unmounting Many Components
+
+On slower devices, we noticed that it could take a long time for our main navigation bar to appear to respond to taps, often leading us to tap multiple times, thinking that perhaps the first tap didn’t register.
+
+Notice in the image below how the Home icon takes nearly 2 seconds to update and show that it was tapped:
+
+<figure>
+
+![without deferred rendering](/img/blog/twitter-lite/defer-render-before.gif)
+
+<figcaption>Without deferring rendering, the navigation bar takes time to respond.</figcaption>
+
+</figure>
+
+No, that wasn’t just the GIF running a slow frame rate. It actually was that slow. But, all of the data for the Home screen was already loaded, so why is it taking so long to show anything?
+It turns out that mounting and unmounting large trees of components (like timelines of Tweets) is very expensive in React.
+
+At the very least, we wanted to remove the perception of the navigation bar not reacting to user input. For that, we created a small higher-order-component:
+
+```js
+import hoistStatics from 'hoist-non-react-statics';
+import React from 'react';
+
+/**
+ * Allows two animation frames to complete to allow other components to update
+ * and re-render before mounting and rendering an expensive `WrappedComponent`.
+ */
+export default function deferComponentRender(WrappedComponent) {
+	class DeferredRenderWrapper extends React.Component {
+		constructor(props, context) {
+			super(props, context);
+			this.state = { shouldRender: false };
+		}
+
+		componentDidMount() {
+			window.requestAnimationFrame(() => {
+				window.requestAnimationFrame(() => this.setState({ shouldRender: true }));
+			});
+		}
+
+		render() {
+			return this.state.shouldRender ? <WrappedComponent {...this.props} /> : null;
+		}
+	}
+
+	return hoistStatics(DeferredRenderWrapper, WrappedComponent);
+}
+```
+
+Once applied to our HomeTimeline, we saw near-instant responses of the navigation bar, leading to a perceived improvement overall.
+
+```js
+const DeferredTimeline = deferComponentRender(HomeTimeline);
+render(<DeferredTimeline />);
+```
+
+<figure>
+
+![with deferred rendering](/img/blog/twitter-lite/defer-render-after.gif)
+
+<figcaption>After deferring rendering, the navigation bar responds instantly.</figcaption>
+
+</figure>
+
+## Optimizing Redux
+
+### Avoid Storing State Too Often
+
+While [controlled components](https://facebook.github.io/react/docs/forms.html#controlled-components) seem to be the recommended approach, making inputs controlled means that they have to update and re-render for every keypress.
+
+While this is not very taxing on a 3GHz desktop computer, a small mobile device with very limited CPU will notice significant lag while typing–especially when deleting many characters from the input.
+
+In order to persist the value of composing Tweets, as well as calculating the number of characters remaining, we were using a controlled component and _also_ passing the current value of the input to our Redux state at each keypress.
+
+![store state timeline](/img/blog/twitter-lite/store-state-before.png)
+
+Above, on a typical Android 5 device, every keypress leading to a change could cause nearly 200ms of overhead. Compound this by a fast typist, and we ended up in a really bad state, with users often reporting that their character insertion point was moving all over the place, resulting in jumbled sentences.
+
+![store state timeline](/img/blog/twitter-lite/store-state-after.png)
+
+By removing the draft Tweet state from updating the main Redux state on every keypress and keeping things local in the React component’s state, we were able to reduce the overhead by over 50% (above).
+
+### Batch Actions into a Single Dispatch
+
+In Twitter Lite, we’re using [redux](http://redux.js.org/) with (react-redux)[http://redux.js.org/docs/basics/UsageWithReact.html] to subscribe our components to data state changes. We’ve optimized our data into separate areas of a larger store with [Normalizr](https://github.com/paularmstrong/normalizr) and [combineReducers](http://redux.js.org/docs/api/combineReducers.html). This all works wonderfully to prevent duplication of data and keep our stores small. However, each time we get new data, we have to dispatch multiple actions in order to add it to the appropriate stores.
+
+With the way that react-redux works, this means that every action dispatched will cause our connected components (called Containers) to recalculate changes and possibly re-render.
+
+While we use a custom middleware, there are [other](https://www.npmjs.com/package/redux-batched-actions) [batch](https://www.npmjs.com/package/redux-batch-middleware) [middleware](https://www.npmjs.com/package/redux-batch-enhancer) [available](https://www.npmjs.com/package/redux-batch-actions). Choose the one that’s right for you, or write your own.
+
+The best way to illustrate the benefits of batching actions is by using the [Chrome React Perf Extension](https://github.com/crysislinux/chrome-react-perf). After the initial load, we pre-cache and calculate unread DMs in the background. When that happens we add a lot of various entities (conversations, users, message entries, etc). Without _batching_ (first image below), you can see that we end up with double the number of times we render each component (~16) versus with batching (~8) (second image below).
+
+![without batching performance trace](/img/blog/twitter-lite/batching-before.png)
+![with batching performance trace](/img/blog/twitter-lite/batching-after.png)
+
+## Service Workers
+
+While Service Workers aren’t available in all browsers yet, they’re an invaluable part of Twitter Lite. When available, we use ours for push notifications, to pre-cache application assets, and more. Unfortunately, being a fairly new technology, there’s still a lot to learn around performance.
+
+### Pre-Cache Assets
+
+Like most products, Twitter Lite is by no means done. We’re still actively developing it, adding features, fixing bugs, and making it faster. This means we frequently need to deploy new versions of our JavaScript assets.
+
+Unfortunately, this can be a burden when users come back to the application and need to re-download a bunch of script files just to view a single Tweet.
+
+In ServiceWorker-enabled browsers, we get the benefit of being able to have the worker automatically update, download, and cache any changed files in the background, on its own, before you come back.
+
+So what does this mean for the user? Near instant subsequent application loads, even after we’ve deployed a new version!
+
+![without pre-caching assets](/img/blog/twitter-lite/precache-before.png)
+
+As illustrated (above) without ServiceWorker pre-caching, every asset for the current view is forced to load from the network when returning to the application. It takes about 6 seconds on a good 3G network to finish loading. However, when the assets are pre-cached by the ServiceWorker (below), the same 3G network takes less than 1.5 seconds before the page is finished loading. A 75% improvement!
+
+![with pre-caching assets](/img/blog/twitter-lite/precache-after.png)
+
+### Delay ServiceWorker Registration
+
+In many applications, it’s safe to register a ServiceWorker immediately on page load:
+
+```js
+<script>window.navigator.serviceWorker.register('/sw.js');</script>
+```
+
+While we try to send as much data to the browser as possible to render a complete-looking page, in Twitter Lite this isn’t always possible. We may not have sent enough data, or the page you’re landing on may not support data pre-filled from the server. Because of this and various other limitations, we need to make some API requests immediately after the initial page load.
+
+Normally, this isn’t a problem. However, if the browser hasn’t installed the current version of our ServiceWorker yet, we need to tell it to install–and with that comes about 50 requests to pre-cache various JS, CSS, and image assets.
+
+When we were using the simple approach of registering our ServiceWorker immediately, we could see the network contention happening within the browser, maxing out our parallel request limit (below).
+
+![immediately registering the service worker](/img/blog/twitter-lite/sw-register-before.png)
+
+Notice how when registering your service worker immediately, it can block all other network requests (above). Deferring the service worker (below) allows your initial page load to make required network requests without getting blocked by the concurrent connection limit of the browser.
+
+![delaying registering the service worker](/img/blog/twitter-lite/sw-register-after.png)
+
+By delaying the ServiceWorker registration until we’ve finished loading extra API requests, CSS and image assets, we allow the page to finish rendering and be responsive, as illustrated in the after screenshot (above).
+
+---
+
+Overall, this is a list of just some of the many improvements that we’ve made over time to Twitter Lite. There are certainly more to come and we hope to continue sharing the problems we find and the ways that we work to overcome them. For more about what’s going on in real-time and more React & PWA insights, follow [me](https://mobile.twitter.com/paularmstrong) and the team on Twitter.

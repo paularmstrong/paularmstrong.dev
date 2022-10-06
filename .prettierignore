@@ -1,4 +1,3 @@
 .yarn
-.docusaurus
-build/
+dist/
 node_modules/

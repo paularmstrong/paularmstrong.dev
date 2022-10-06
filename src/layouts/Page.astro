@@ -1,0 +1,42 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Body from '../components/Body.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
+
+export interface Props {
+  content: {
+    title: string;
+    description: string;
+    pubDate?: string;
+    updatedDate?: string;
+    heroImage?: string;
+  };
+}
+
+const {
+  content: { title, description, updatedDate },
+} = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={`${title} • ${SITE_TITLE}`} description={description || SITE_DESCRIPTION} />
+  </head>
+
+  <Body>
+    <Header />
+    <main>
+      <article class="prose lg:prose-xl prose-slate dark:prose-invert prose-img:rounded-lg">
+        <h1>{title}</h1>
+        {updatedDate && (
+          <div>Last updated on <time>{dateFormatter(new Date(updatedDate))}</time></div>
+        )}
+        <slot />
+      </article>
+    </main>
+    <Footer />
+  </Body>
+</html>
