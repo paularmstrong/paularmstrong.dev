@@ -3,6 +3,7 @@ layout: '~/layouts/BlogPost.astro'
 title: Hacking express middleware to automatically capture request timeouts
 description: When needing to run a highly available Express server with Node.js and a lot of middleware, it’s important to ensure that you don’t have any runaway processes blocking other requests. In this post, I share an easy wrapper for Express applications to always ensure every middleware is captured in a timeout loop.
 pubDate: 2022-09-26
+updatedDate: 2022-10-06
 tags:
   - javascript
   - node.js
@@ -17,23 +18,30 @@ import express from 'express';
 import timeout from 'connect-timeout';
 
 function haltOnTimedout(req, res, next) {
-  if (!req.timedout) next();
+	if (!req.timedout) next();
 }
 
-const app = express().use(timeout(5_000)).use(bodyParser()).use(haltOnTimedout).use(cookieParser()).use(haltOnTimedout);
+const app = express()
+	.use(timeout(5_000))
+	.use(bodyParser())
+	.use(haltOnTimedout)
+	.use(cookieParser())
+	.use(haltOnTimedout)
+	.use(myMiddleware())
+	.use(haltOnTimedout)
+	.use(handleRequest());
 ```
 
 Notice that you need to manually add the `haltOnTimedout` middleware after _each_ other middleware in the chain. This may be fine and dandy for a small personal project that you, as the sole developer, know all about. However, as you start distributing knowledge to a larger team, it’s imperative that this is easy and automatic. There are few, if any, cases where you would want to opt-out of the behavior of timing out a request if it’s taking too long.
-
-<!-- truncate -->
 
 So, here’s a pattern that I’ve used a number of times for various purposes – [proxying](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) the Express application and wrapping the `use()` function for some automatic behavior. It’s as simple as wrapping the initial express application (or the application after any setup):
 
 ```ts
 const app = proxyTimeoutMiddleware(express().use(timeout(5_000)))
-  .use(bodyParser())
-  .use(cookieParser());
-// .use(...)
+	.use(bodyParser())
+	.use(cookieParser())
+	.use(myMiddleware())
+	.use(handleRequest());
 ```
 
 ## How does it work?
@@ -42,26 +50,26 @@ We create a Proxy that wraps the `use()` function. This is fairly basic setup to
 
 ```ts
 function proxyTimeoutMiddleware<T extends Application | Router>(app: T) {
-  return new Proxy(app, {
-    get(this: T, target, property, receiver) {
-      // If the target property is not express's `.use()` function, pass through to the default behavior
-      if (property !== 'use') {
-        return Reflect.get(target, property, receiver);
-      }
+	return new Proxy(app, {
+		get(this: T, target, property, receiver) {
+			// If the target property is not express's `.use()` function, pass through to the default behavior
+			if (property !== 'use') {
+				return Reflect.get(target, property, receiver);
+			}
 
-      // Otherwise, return a new function that wraps the first argument, given that it is a function
-      // with our timeout wrapper
-      return function useWithTimeout(...args) {
-        const wrappedArgs = args.map((arg) => {
-          if (typeof arg === 'function') {
-            return wrapMiddlewareWithTimeout(arg);
-          }
-          return arg;
-        });
-        return Reflect.get(target, property, receiver).apply(this, wrappedArgs);
-      };
-    },
-  });
+			// Otherwise, return a new function that wraps the first argument, given that it is a function
+			// with our timeout wrapper
+			return function useWithTimeout(...args) {
+				const wrappedArgs = args.map((arg) => {
+					if (typeof arg === 'function') {
+						return wrapMiddlewareWithTimeout(arg);
+					}
+					return arg;
+				});
+				return Reflect.get(target, property, receiver).apply(this, wrappedArgs);
+			};
+		},
+	});
 }
 ```
 
@@ -71,22 +79,22 @@ Then as well, we wrap the `next()` function passed to our actual middleware and 
 
 ```ts
 function wrapMiddlewareWithTimeout(middleware: (req: Request, res: Response, next: NextFunction) => void) {
-  return function timeoutWrappedMiddleware(req: Request, res: Response, next: NextFunction) {
-    const { name } = middleware;
-    if (req.timedout) {
-      // logger.error(`Request timed out before middleware "${name}".`);
-      return;
-    }
+	return function timeoutWrappedMiddleware(req: Request, res: Response, next: NextFunction) {
+		const { name } = middleware;
+		if (req.timedout) {
+			// logger.error(`Request timed out before middleware "${name}".`);
+			return;
+		}
 
-    middleware(req, res, function wrappedNext(...args) {
-      if (req.timedout) {
-        // logger.error(`Request timed out after middleware "${name}".`);
-        return;
-      }
+		middleware(req, res, function wrappedNext(...args) {
+			if (req.timedout) {
+				// logger.error(`Request timed out after middleware "${name}".`);
+				return;
+			}
 
-      next.apply(this, args);
-    });
-  };
+			next.apply(this, args);
+		});
+	};
 }
 ```
 
@@ -101,19 +109,19 @@ const NANOSECONDS_PER_MILLISECOND = 1e6;
 const MILLISECONDS_PER_SECOND = 1e3;
 
 function wrapMiddlewareWithMetrics(middleware: (req: Request, res: Response, next: NextFunction) => void) {
-  return function metricsWrappedMiddleware(req: Request, res: Response, next: NextFunction) {
-    const { name } = middleware;
-    const [seconds, nseconds] = hrtime();
-    // Get the high resolution time in milliseconds
-    const start = seconds * MILLISECONDS_PER_SECOND + nseconds / NANOSECONDS_PER_MILLISECOND;
+	return function metricsWrappedMiddleware(req: Request, res: Response, next: NextFunction) {
+		const { name } = middleware;
+		const [seconds, nseconds] = hrtime();
+		// Get the high resolution time in milliseconds
+		const start = seconds * MILLISECONDS_PER_SECOND + nseconds / NANOSECONDS_PER_MILLISECOND;
 
-    middleware(req, res, function wrappedNext(...args) {
-      const [seconds, nseconds] = hrtime();
-      const end = seconds * MILLISECONDS_PER_SECOND + nseconds / NANOSECONDS_PER_MILLISECOND;
-      myMetrics.float({ metric: `middleware/${name || 'unknown'}`, value: end - start });
+		middleware(req, res, function wrappedNext(...args) {
+			const [seconds, nseconds] = hrtime();
+			const end = seconds * MILLISECONDS_PER_SECOND + nseconds / NANOSECONDS_PER_MILLISECOND;
+			myMetrics.float({ metric: `middleware/${name || 'unknown'}`, value: end - start });
 
-      next.apply(this, args);
-    });
-  };
+			next.apply(this, args);
+		});
+	};
 }
 ```

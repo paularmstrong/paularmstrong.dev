@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = 'Paul Armstrong';
 export const SITE_DESCRIPTION =
-  'Paul Armstrong is a senior web application developer, specializing in JavaScript, performance, and developer experience';
+	'Paul Armstrong is a senior web application developer, specializing in JavaScript, performance, and developer experience';
