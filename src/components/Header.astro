@@ -1,0 +1,18 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from '../config';
+import { ThemeSwitcher } from '~/components/ThemeSwitcher';
+---
+
+<header class="mb-8 grid auto-cols-fr auto-cols-max">
+	<h2 class="col-span-3"><a class="text-bold flex flex-row items-center gap-2 text-2xl font-bold text-blue-600 hover:text-blue-800 dark:text-blue-50 dark:hover:text-blue-200" style={{ alignItems: 'end' }} href="/"><img src="/img/logo.svg" alt="" class="h-12 w-12" />{SITE_TITLE}</a></h2>
+	<nav class="cols-span-2 h-max">
+		<ul class="flex flex-row gap-2">
+			<li><HeaderLink href="/">Home</HeaderLink></li>
+			<li><HeaderLink href="/blog">Blog</HeaderLink></li>
+			<li><HeaderLink href="/about">About</HeaderLink></li>
+			<li><HeaderLink href="/resume">Résumé</HeaderLink></li>
+		</ul>
+	</nav>
+	<div class=""><ThemeSwitcher client:load /></div>
+</header>

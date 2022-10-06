@@ -1,0 +1,45 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Body from '../components/Body.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
+
+export interface Props {
+	content: {
+		title: string;
+		description: string;
+		pubDate?: string;
+		updatedDate?: string;
+		heroImage?: string;
+	};
+}
+
+const {
+	content: { title, description, pubDate, updatedDate, heroImage, readingTime },
+} = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={`${title} • ${SITE_TITLE}`} description={description || SITE_DESCRIPTION} />
+	</head>
+
+	<Body>
+		<Header />
+		<main>
+			<article>
+				{heroImage && <img width={720} height={360} src={heroImage} alt="" />}
+				<h1 class="title">{title}</h1>
+				{pubDate && <time>{dateFormatter(new Date(pubDate))}</time>}
+				<p>Reading time: {Math.round(readingTime.minutes)} minutes, {readingTime.words} words</p>
+				{updatedDate && (
+					<div>Last updated on <time>{dateFormatter(new Date(updatedDate))}</time></div>
+				)}
+				<div class="prose lg:prose-xl prose-slate dark:prose-invert prose-img:rounded-lg"><slot /></div>
+			</article>
+		</main>
+		<Footer />
+	</Body>
+</html>
