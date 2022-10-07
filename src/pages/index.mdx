@@ -12,7 +12,11 @@ title: 'Hello!'
 		clipPath: 'polygon(60% 2%, 99% 35%, 100% 100%, 0 100%, 7% 22%)',
 	}}
 >
-	<img src="/img/icon-512.png" alt="" />
+	<picture>
+		<source srcset="/img/icon-512.avif" type="image/avif" />
+		<source srcset="/img/icon-512.webp" type="image/webp" />
+		<img src="/img/icon-512.png" alt="" />
+	</picture>
 </div>
 
 I am a Principal Software Engineer with deep experience leading teams and building amazing experiences using many different “front-end” web technologies. The list is deep and topics can range from JavaScript, Typescript, Node.js, React, Solid-js, CSS, Progressive Web Apps, developer experience, testing, continuous integration, and so much more.
