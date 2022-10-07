@@ -71,7 +71,7 @@ const { siblings } = Astro.props;
 					) : null
 				}
 				{
-					siblings.next ? (
+					siblings.next && !siblings.next.draft ? (
 						<li class="flex flex-row justify-end">
 							<a
 								href={`/blog/${siblings.next.slug}`}
