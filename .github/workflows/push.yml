@@ -38,6 +38,7 @@ jobs:
         uses: withastro/action@v0
 
   deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     environment:
