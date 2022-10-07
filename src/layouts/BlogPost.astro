@@ -4,19 +4,15 @@ import PageInfo from '~/components/PageInfo.astro';
 import Prose from '~/components/Prose.astro';
 
 export interface Props {
-	content: {
-		title: string;
-		description: string;
-		pubDate?: string;
-		updatedDate?: string;
-		heroImage?: string;
-	};
+	title: string;
+	description: string;
+	pubDate?: string;
+	updatedDate?: string;
+	heroImage?: string;
+	file?: string;
 }
 
-const {
-	content: { title, description, pubDate, updatedDate, heroImage, readingTime },
-	file,
-} = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, readingTime, file } = Astro.props;
 ---
 
 <Base title={title} description={description}>

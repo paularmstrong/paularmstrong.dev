@@ -1,5 +1,4 @@
 ---
-layout: '~/layouts/BlogPost.astro'
 title: Hacking express middleware to automatically capture request timeouts
 description: When needing to run a highly available Express server with Node.js and a lot of middleware, it’s important to ensure that you don’t have any runaway processes blocking other requests. In this post, I share an easy wrapper for Express applications to always ensure every middleware is captured in a timeout loop.
 pubDate: 2022-09-26
