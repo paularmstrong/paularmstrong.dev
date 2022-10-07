@@ -1,5 +1,4 @@
 ---
-layout: '~/layouts/BlogPost.astro'
 pubDate: 2022-05-16
 title: Git helpers that I can no longer live without
 slug: git-helpers

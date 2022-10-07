@@ -1,5 +1,4 @@
 ---
-layout: '../../layouts/BlogPost.astro'
 pubDate: 2021-04-21
 title: Monorepo requirements
 draft: true

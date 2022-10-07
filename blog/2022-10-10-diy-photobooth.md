@@ -1,5 +1,4 @@
 ---
-layout: '~/layouts/BlogPost.astro'
 title: DIY photo booth
 draft: true
 pubDate: 2022-10-10

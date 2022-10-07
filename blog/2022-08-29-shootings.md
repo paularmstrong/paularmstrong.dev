@@ -1,5 +1,4 @@
 ---
-layout: '~/layouts/BlogPost.astro'
 title: Mass shootings
 description: There was a shooting in my town last night.
 pubDate: 2022-8-29

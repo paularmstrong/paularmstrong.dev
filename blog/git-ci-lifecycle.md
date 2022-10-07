@@ -1,5 +1,4 @@
 ---
-layout: '~/layouts/BlogPost.astro'
 pubDate: 2022-05-16
 title: Why is CI and git lifecycle infrastructure so hard?
 draft: true
