@@ -18,12 +18,12 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 			<ul class="flex flex-row justify-between gap-4 text-blue-900 dark:text-blue-100">
 				{pubDate && (
 					<li>
-						<b>Published:</b> <time>{dateFormatter(new Date(pubDate))}</time>
+						<b>Published:</b> <time itemprop="datePublished">{dateFormatter(new Date(pubDate))}</time>
 					</li>
 				)}
 				{updatedDate && (
 					<li>
-						<b>Last updated:</b> <time>{dateFormatter(new Date(updatedDate))}</time>
+						<b>Last updated:</b> <time itemprop="dateUpdated">{dateFormatter(new Date(updatedDate))}</time>
 					</li>
 				)}
 				{readingTime && (

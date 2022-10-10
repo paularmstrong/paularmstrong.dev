@@ -1,4 +1,5 @@
 ---
+import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
 import Prose from '~/components/Prose.astro';
 
@@ -19,6 +20,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 		</Prose>
 	</div>
 	<section>
+		<AuthorMeta id="author" />
 		<ul class="flex flex-col gap-4">
 			{
 				posts.map((post) => {
@@ -34,17 +36,25 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 					const slug = `/blog/${Object.values(match.groups || {}).join('/')}`;
 
 					return (
-						<li class="mb-4 grid grid-cols-6 gap-4">
-							<time class="text-right leading-8 text-slate-600 dark:text-slate-300" datetime={post.frontmatter.pubDate}>
+						<li class="mb-4 grid grid-cols-6 gap-4" itemscope itemtype="http://schema.org/Article" itemref="author">
+							<time
+								class="text-right leading-8 text-slate-600 dark:text-slate-300"
+								datetime={post.frontmatter.pubDate}
+								itemprop="datePublished"
+								content={dateFormatter(new Date(post.frontmatter.pubDate))}
+							>
 								{dateFormatter(new Date(post.frontmatter.pubDate))}
 							</time>
 							<div class="col-span-5">
-								<a
-									class="text-2xl font-bold text-blue-600 decoration-4 underline-offset-4 hover:underline dark:text-blue-200"
-									href={slug}
-								>
-									{post.frontmatter.title}
-								</a>
+								<h2 class="text-purple-600 no-underline hover:underline hover:decoration-4 hover:underline-offset-4 dark:text-purple-400">
+									<a
+										class="bg-gradient-to-br from-blue-700 to-purple-600 bg-clip-text text-2xl font-bold text-transparent dark:from-blue-400 dark:to-purple-400"
+										href={slug}
+										itemprop="url"
+									>
+										<span itemprop="name headline">{post.frontmatter.title}</span>
+									</a>
+								</h2>
 								<Prose>
 									<p>{post.frontmatter.description}</p>
 								</Prose>
