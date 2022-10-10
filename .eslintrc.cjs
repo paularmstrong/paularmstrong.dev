@@ -26,4 +26,11 @@ module.exports = {
 			config: 'tailwind.config.cjs',
 		},
 	},
+	overrides: [
+		{
+			files: ['**/*.ts', '**/*.tsx', '**/*.mjs', '**/*.cjs', '**/*.js'],
+			parser: '@typescript-eslint/parser',
+			plugins: ['@typescript-eslint'],
+		},
+	],
 };

@@ -5,10 +5,10 @@ type Theme = 'light' | 'dark' | 'auto' | 'auto-dark' | 'auto-light';
 const themes: Array<Partial<Theme>> = ['light', 'dark', 'auto'];
 
 export const ThemeSwitcher: Component = () => {
-	const [theme, setTheme] = createSignal<Theme | null>(null);
+	const [theme, setTheme] = createSignal<Theme | null>('auto');
 
 	onMount(() => {
-		setTheme((localStorage?.getItem('theme') as Theme) || 'auto');
+		setTheme((localStorage?.getItem('theme') as Theme) || theme);
 	});
 
 	createEffect(() => {
