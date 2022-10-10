@@ -36,7 +36,13 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 					const slug = `/blog/${Object.values(match.groups || {}).join('/')}`;
 
 					return (
-						<li class="mb-4 grid grid-cols-6 gap-4" itemscope itemtype="http://schema.org/Article" itemref="author">
+						<li
+							class="mb-4 grid grid-cols-6 gap-4"
+							itemscope
+							itemprop="blogPost"
+							itemtype="http://schema.org/Article"
+							itemref="author"
+						>
 							<time
 								class="text-right leading-8 text-slate-600 dark:text-slate-300"
 								datetime={post.frontmatter.pubDate}
