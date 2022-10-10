@@ -1,33 +1,30 @@
-# Website
+# PaulArmstrong.dev
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+Oh hey! I’m [Paul Armstrong](https://paularmstrong.dev/about) and this is my website. Trying to figure out how this all works? Well here’s the high level:
 
-### Installation
+- Built on [Astro](https://astro.build)
+- Super minimal amount of Solid-js for dark/light/auto theme switching
+- Markdown and MDX for content
+- Github actions for lint, formatting, and type checks
+- Github actions for deploying – to Github pages
 
-```
-$ yarn
-```
+## Good stuff to know
 
-### Local Development
+| Command                         | What                              |
+| ------------------------------- | --------------------------------- |
+| `yarn start` (alias `yarn dev`) | Run the dev server                |
+| `yarn build`                    | Build for production deploy       |
+| `yarn preview`                  | Preview the production built site |
+| `yarn format`                   | Format code                       |
+| `yarn lint`                     | Lint code                         |
+| `yarn tsc`                      | Type check                        |
 
-```
-$ yarn start
-```
+## PR Etiquette
 
-This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+### I found a typo or grammatical error, should I open a PR?
 
-### Build
+Yes! Absolutely!. We all make mistakes – especially me. Your help is greatly appreciated.
 
-```
-$ yarn build
-```
+### I think you’re wrong, should I open a PR?
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-```
-$ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Probably not. It’s great that you disagree, but I probably don’t have the time to argue.
