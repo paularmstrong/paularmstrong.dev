@@ -3,19 +3,12 @@ layout: '~/layouts/Page.astro'
 title: 'Hello!'
 ---
 
-<div
-	class="not-prose"
-	style={{
-		margin: '0 10px 0 0',
-		width: '33%',
-		float: 'left',
-		clipPath: 'polygon(60% 2%, 99% 35%, 100% 100%, 0 100%, 7% 22%)',
-	}}
->
+<div class="not-prose home-profile-img">
 	<picture>
 		<source srcset="/img/icon-512.avif" type="image/avif" />
 		<source srcset="/img/icon-512.webp" type="image/webp" />
-		<img src="/img/icon-512.png" alt="" width="512" height="512" />
+		<source srcset="/img/icon-512.png" type="image/png" />
+		<img alt="" width="512" height="512" />
 	</picture>
 </div>
 

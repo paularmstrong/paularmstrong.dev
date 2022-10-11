@@ -24,7 +24,8 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 		<ul class="flex flex-col gap-4">
 			{
 				posts.map((post) => {
-					if (post.frontmatter.draft) {
+					const { draft, pubDate, title, description, heroImage } = post.frontmatter;
+					if (draft) {
 						return null;
 					}
 
@@ -45,11 +46,11 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 						>
 							<time
 								class="text-right leading-8 text-slate-600 dark:text-slate-300"
-								datetime={post.frontmatter.pubDate}
+								datetime={pubDate}
 								itemprop="datePublished"
-								content={dateFormatter(new Date(post.frontmatter.pubDate))}
+								content={dateFormatter(new Date(pubDate))}
 							>
-								{dateFormatter(new Date(post.frontmatter.pubDate))}
+								{dateFormatter(new Date(pubDate))}
 							</time>
 							<div class="col-span-5">
 								<h2 class="text-purple-600 no-underline hover:underline hover:decoration-4 hover:underline-offset-4 dark:text-purple-400">
@@ -58,11 +59,30 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 										href={slug}
 										itemprop="url"
 									>
-										<span itemprop="name headline">{post.frontmatter.title}</span>
+										<span itemprop="name headline">{title}</span>
+										{heroImage ? (
+											<div class="my-2">
+												<Prose>
+													<picture>
+														{(Array.isArray(heroImage?.src) ? heroImage.src : [heroImage.src]).map((img) => (
+															<source srcset={img} type={`image/${img.split('.')[img.split('.').length - 1]}`} />
+														))}
+														<img
+															itemprop="image"
+															class="!mt-0 w-full max-w-none"
+															src={heroImage[0]}
+															alt=""
+															width={heroImage.width}
+															height={heroImage.height}
+														/>
+													</picture>
+												</Prose>
+											</div>
+										) : null}
 									</a>
 								</h2>
 								<Prose>
-									<p>{post.frontmatter.description}</p>
+									<p>{description}</p>
 								</Prose>
 							</div>
 						</li>

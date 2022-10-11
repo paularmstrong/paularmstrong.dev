@@ -7,9 +7,24 @@ tags:
   - twitter
   - react
   - performance
+toc: true
+heroImage:
+  src:
+    - /img/blog/twitter-lite/banner.avif
+    - /img/blog/twitter-lite/banner.webp
+    - /img/blog/twitter-lite/banner.png
+    - /img/blog/twitter-lite/banner.jpg
+  width: 2000
+  height: 513
 ---
 
 import Aside from '~/components/Aside.astro';
+
+A look into removing common and uncommon performance bottlenecks in one of the worlds largest React.js PWAs, Twitter Lite.
+
+Creating a fast web application involves many cycles of measuring where time is wasted, understanding why it’s happening, and applying potential solutions. Unfortunately, there’s never just one quick fix. Performance is a continuous game of watching and measuring for areas to improve. With Twitter Lite, we made small improvements across many areas: from initial load times, to React component rendering (and prevention re-rendering), to image loading, and much more. Most changes tend to be small, but they add up, and the end result is that we have one of the largest and fastest [progressive web applications](https://developers.google.com/web/progressive-web-apps/).
+
+## Before Reading On:
 
 <Aside type="warning" title="Historic document">
 
@@ -18,14 +33,6 @@ This post was original published to [Medium](https://medium.com/@paularmstrong/t
 I have preserved it here for historical purposes. Please keep in mind that while React has changed greatly since this was first published in 2017, some of the ideas and techniques are still valuable lessons and worth remembering for future performance deep dives.
 
 </Aside>
-
-A look into removing common and uncommon performance bottlenecks in one of the worlds largest React.js PWAs, Twitter Lite.
-
-![Web performance graph](/img/blog/twitter-lite/banner.png)
-
-Creating a fast web application involves many cycles of measuring where time is wasted, understanding why it’s happening, and applying potential solutions. Unfortunately, there’s never just one quick fix. Performance is a continuous game of watching and measuring for areas to improve. With Twitter Lite, we made small improvements across many areas: from initial load times, to React component rendering (and prevention re-rendering), to image loading, and much more. Most changes tend to be small, but they add up, and the end result is that we have one of the largest and fastest [progressive web applications](https://developers.google.com/web/progressive-web-apps/).
-
-## Before Reading On:
 
 If you’re just starting to measure and work toward increasing the performance of your web application, I highly recommend [learning how to read flame graphs](http://www.brendangregg.com/flamegraphs.html), if you don’t know how already.
 
@@ -186,11 +193,11 @@ Now, our SVG icons are simple stateless components, don’t use “dangerous” 
 
 ```js
 const HeartIcon = (props = {}) => (
-  <svg {...props} viewBox=`0 0 ${width} ${height}`>
-    <g>
-      <path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path>
-    </g>
-  </svg>
+	<svg {...props} viewBox=`0 0 ${width} ${height}`>
+		<g>
+			<path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path>
+		</g>
+	</svg>
 );
 ```
 

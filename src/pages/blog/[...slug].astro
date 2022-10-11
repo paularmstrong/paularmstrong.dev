@@ -3,6 +3,7 @@ import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
 import PageInfo from '~/components/PageInfo.astro';
 import Prose from '~/components/Prose.astro';
+import TocList from '~/components/TocList.astro';
 
 export async function getStaticPaths() {
 	const posts = (await Astro.glob('../../../blog/*.{md,mdx}'))
@@ -29,23 +30,68 @@ export async function getStaticPaths() {
 }
 
 const {
-	frontmatter: { title, pubDate, updatedDate, readingTime, description, file },
+	frontmatter: { title, pubDate, updatedDate, readingTime, description, file, toc, heroImage },
+	getHeadings,
 	Content,
 } = Astro.props.post;
 const { slug } = Astro.params;
 const { siblings } = Astro.props;
+
+const headings = [];
+const levels = [{ headings }];
+
+for (const h of getHeadings()) {
+	const depth = h.depth - 2;
+	if (depth < 0 || depth > 1) {
+		continue;
+	}
+	levels[depth].headings = levels[depth]?.headings || [];
+	levels[depth].headings.push((levels[depth + 1] = h));
+}
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} image={Array.isArray(heroImage?.src) ? heroImage.src[0] : heroImage?.src}>
 	<article itemprop="blogPost" itemscope itemtype="http://schema.org/Article">
 		<meta itemprop="mainEntityOfPage" content={slug} />
 		<Prose>
 			<h1 itemprop="name headline">{title}</h1>
 
 			<PageInfo file={file} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
+
+			{
+				heroImage?.src ? (
+					<div class="lg:bustout">
+						<picture>
+							{(Array.isArray(heroImage?.src) ? heroImage.src : [heroImage.src]).map((img) => (
+								<source srcset={img} type={`image/${img.split('.')[img.split('.').length - 1]}`} />
+							))}
+							<img
+								itemprop="image"
+								class="!mt-0 w-full max-w-none"
+								src={heroImage[0]}
+								width={heroImage.width}
+								height={heroImage.height}
+								alt=""
+							/>
+						</picture>
+					</div>
+				) : null
+			}
+
 			<AuthorMeta />
 
-			<div itemprop="articleBody"><Content /></div>
+			<div itemprop="articleBody">
+				{
+					toc ? (
+						<aside class="prose-base mx-4 mb-4 max-w-[50%] rounded-xl bg-slate-200 px-4 py-1 text-slate-900 dark:bg-slate-800 sm:float-right sm:ml-8 sm:mr-0 md:-mr-32">
+							<h2 class="!mt-4">Table of contents</h2>
+							<TocList headings={headings} />
+						</aside>
+					) : null
+				}
+
+				<Content />
+			</div>
 		</Prose>
 	</article>
 

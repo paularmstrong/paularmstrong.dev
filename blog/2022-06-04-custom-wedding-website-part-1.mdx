@@ -35,13 +35,13 @@ Now that we know _what_ we need, it’s time to choose the right tools for the j
 
 I’ve used [Google Firebase](https://firebase.google.com/) before, but never deployed a full web application for it. It has always been a bit more tailored for native mobile apps, but I have seen that they’ve worked really hard in making the web tools top-notch.
 
-#### Downsides
+<h4>Downsides</h4>
 
 - Locking in to Google
 - Worse, Firebase is full lock-in and you can’t just replace the API with a different REST of GraphQL endpoint like you could with Amplify. Maybe you could refactor out to [Supabase](https://supabase.com/) or another similar alternative, but your options are still very limited.
 - Despite efforts to trim bundle sizes, Firebase JavaScript packages still come in pretty hefty.
 
-#### Blockers
+<h4>Blockers</h4>
 
 There are no blockers given the [requirements](#requirements) that I initially laid out.
 
@@ -52,13 +52,13 @@ Hosting and backend framework evalutation can get long and tiring. I considered 
 <details>
   <summary>Click to expand alternatives considered ↕</summary>
 
-#### AWS Amplify
+<h4>AWS Amplify</h4>
 
 ![AWS Amplify logo](/img/blog/wedding/aws-amplify.png)
 
 Initially, I had hoped to be able to try out [AWS Amplify](https://docs.amplify.aws/). It would be an opportunity to learn something new that I hadn’t worked with before. It has a free tier and I thought it should cover everything that I wanted. Unfortunately there were roadblocks from the start.
 
-##### Downsides
+<h5>Downsides</h5>
 
 - The documentation pushed me through a web wizard. This wizard, while neat and provided a small overview to me of what might be capable, I tend to only really learn by _doing_ and writing code. I did find the docs I needed eventually by searching for "AWS Amplify getting started JavaScript".
 - "To set up the project, we’ll first create a new React app with create-react-app" -- I don’t want create-react-app! Where are the instructions to do this differently?
@@ -66,7 +66,7 @@ Initially, I had hoped to be able to try out [AWS Amplify](https://docs.amplify.
 - Locking in to Amazon
 - It seemed like Amplify is really just a little piece of the Amazon puzzle and I’d mostly need to string a bunch of services together, eg SES for sending emails.
 
-##### Blockers
+<h5>Blockers</h5>
 
 Unfortunately, there were a number of blockers that came up for me during investigation and prototyping:
 
@@ -74,7 +74,7 @@ Unfortunately, there were a number of blockers that came up for me during invest
 - I really didn’t want to use GraphQL, even if it’s the "new hotness". That’s just overkill for what I was looking to do.
 - REST might have been okay, but also still overkill needing to pick & choose the right tools to fetch data and manage state.
 
-#### Supabase
+<h4>Supabase</h4>
 
 ![Supabase logo](/img/blog/wedding/supabase.png)
 
@@ -83,7 +83,7 @@ I would have liked to have tried [Supabase](https://supabase.com) since it's ope
 - Cloud functions are only experimental and very limited
 - No automated HTML email sending available
 
-#### Parse Platform
+<h4>Parse Platform</h4>
 
 ![Parse Platform logo](/img/blog/wedding/parse.png)
 

@@ -3,15 +3,13 @@
 module.exports = {
 	extends: [
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
 		'plugin:astro/recommended',
 		'plugin:tailwindcss/recommended',
+		'plugin:mdx/recommended',
 	],
-	plugins: ['astro', 'tailwindcss'],
+	plugins: ['astro', 'tailwindcss', 'mdx'],
 	root: true,
 	rules: {
-		'@typescript-eslint/ban-ts-comment': 'off',
-		'@typescript-eslint/no-unused-vars': 'error',
 		'tailwindcss/no-custom-classname': 'error',
 	},
 	globals: {
@@ -27,10 +25,16 @@ module.exports = {
 		},
 	},
 	overrides: [
+		{ files: ['**/*.mdx'], rules: { 'no-unused-vars': 'off' } },
 		{
 			files: ['**/*.ts', '**/*.tsx', '**/*.mjs', '**/*.cjs', '**/*.js'],
+			extends: ['plugin:@typescript-eslint/recommended'],
 			parser: '@typescript-eslint/parser',
 			plugins: ['@typescript-eslint'],
+			rules: {
+				'@typescript-eslint/ban-ts-comment': 'off',
+				'@typescript-eslint/no-unused-vars': 'error',
+			},
 		},
 	],
 };

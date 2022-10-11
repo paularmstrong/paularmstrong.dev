@@ -6,6 +6,8 @@ import tailwind from '@astrojs/tailwind';
 
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 
+const remarkPlugins = [remarkReadingTime];
+
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
@@ -13,13 +15,13 @@ export default defineConfig({
 		solid(),
 		tailwind(),
 		mdx({
-			remarkPlugins: [remarkReadingTime],
+			remarkPlugins,
 			extendPlugins: 'astroDefaults',
 		}),
 		sitemap(),
 	],
 	markdown: {
-		remarkPlugins: [remarkReadingTime],
+		remarkPlugins,
 		shikiConfig: {
 			theme: 'rose-pine-moon',
 		},

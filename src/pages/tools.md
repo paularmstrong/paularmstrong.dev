@@ -14,7 +14,7 @@ This is a collection of tools and things that I use on a daily basis that I just
 
 ## Terminal
 
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Suggests commands from your history without needing to type <kbd aria-label="hold control">⌃</kbd>+<kbd>R</kbd>. Hit your <kbd aria-label="right arrow">→</kbd> key to accept the suggestion, then <kbd>Enter</kbd> to run – or keep typing to do something else.
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Suggests commands from your history without needing to type <kbd aria-label="hold control">⌃</kbd>+<kbd>R</kbd>. Hit your <kbd aria-label="right arrow">→</kbd> key to accept the suggestion, then <kbd>Enter</kbd> to run – or keep typing to do something else.
 - [Terminalizer](https://terminalizer.com) - record terminal input/output and create GIFs and videos for sharing how-to and examples.
 - [Powerline](https://powerline.readthedocs.io/en/latest/) - Better looking and more informative PS1 and status lines.
 - [tmux](https://github.com/tmux/tmux) - terminal multiplexer

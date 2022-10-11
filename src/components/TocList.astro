@@ -1,0 +1,33 @@
+---
+interface Heading {
+	text: string;
+	slug: string;
+	headings: Array<Heading>;
+}
+export interface Props {
+	headings: Array<Heading>;
+}
+
+const { headings } = Astro.props as Props;
+---
+
+<div class="prose-ol:!my-1 prose-li:!my-1">
+	<ol>
+		{
+			headings.map(({ slug, text, headings }) => (
+				<li>
+					<a href={`#${slug}`}>{text}</a>
+					{headings ? (
+						<ol>
+							{headings.map(({ slug, text }) => (
+								<li>
+									<a href={`#${slug}`}>{text}</a>
+								</li>
+							))}
+						</ol>
+					) : null}
+				</li>
+			))
+		}
+	</ol>
+</div>

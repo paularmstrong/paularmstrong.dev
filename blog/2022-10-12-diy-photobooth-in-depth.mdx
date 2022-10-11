@@ -1,18 +1,21 @@
 ---
-title: DIY photo booth
+title: DIY photobooth, in-depth
+description: I created my own photobooth application with Electron, Node.js, React, and Tailwindcss and used a GoPro as a webcam for my wedding instead of renting a commercial booth. It was fun to build and even more fun to use.
+pubDate: 2022-10-12
+toc: true
 draft: true
-pubDate: 2022-10-10
+heroImage:
+  src:
+    - /img/blog/photobooth/main-screen.jpg
+    - /img/blog/photobooth/main-screen.avif
+    - /img/blog/photobooth/main-screen.webp
+  width: 1277
+  height: 799
 ---
 
-I recently [got married]() and as we know, weddings are _expensive_. Previously, I documented saving money by [creating my own website]() and foregoing spending money on paper RSVPs. We also decided to skip paying a photographer the exorbitant extra fees to also photograph our reception, but we still wanted to have lots of memories from the event.
+## The plan
 
-I've always loved getting in photo booths, having a bunch of laughs, and keeping the printed photos for later. But do you know how much a photobooth rental is? At _least_ $1,500! And even then, they usually print out photos instead of providing a digital version that you can actually save and use long-term.
-
-Well, in keeping with my theme of not spending money, but instead spending _way too much time_ over-engineering a similar solution: I set out to build my own. And I succeeded.
-
----
-
-## Plan
+Create an application with an easy to use user-interface
 
 - Website w/ webcam
   - Electron application
@@ -30,7 +33,7 @@ Well, in keeping with my theme of not spending money, but instead spending _way 
 - controls: touch screen
 - cost breakdown
 
-## Original plan
+### Original plan
 
 GoPro has an API called [Open GoPro](https://gopro.github.io/OpenGoPro/)? It's a fully documented API spec to control their cameras over Bluetooth LE, WiFi, and USB (some protocols better than others).
 
@@ -38,7 +41,48 @@ Unfortunately, after buying a brand new GoPro Hero 10 ($350) and spending at lea
 
 However, GoPros can also be used as webcams now, given that you have [the GoPro Webcam app](https://community.gopro.com/s/article/GoPro-Webcam) installed.
 
-## Backup plan
+### Backup plan
+
+## User interface
+
+### Screens
+
+- Main
+  - Help
+- Preferences
+- Photo
+  - Prepare
+  - Taking photos
+  - Choose layout
+  - Save confirmation
+- Record video
+  - Prepare
+  - Record video
+  - Save confirmation
+
+## State Machine
+
+Given the complexity of managing state across two user interfaces, the screen and the StreamDeck Mini, I wanted to ensure that both were in sync at all times. To do this, I chose to build a full [state machine](https://github.com/paularmstrong/photobooth/blob/main/packages/main/src/state/machine.ts) using [x-state](https://xstate.js.org/), run by the Electron Node.js process.
+
+<iframe
+	class="aspect-square w-full"
+	src="https://stately.ai/viz/embed/96da6066-02dc-448e-a9f9-7a8511767b31?mode=viz&panel=code&showOriginalLink=1&readOnly=1&pan=1&zoom=1&controls=1"
+	sandbox="allow-same-origin allow-scripts"
+/>
+
+You can play with this more on the [Stately visualizer](https://stately.ai/viz/96da6066-02dc-448e-a9f9-7a8511767b31#).
+
+## What went wrong
+
+### GoPro overheating
+
+Originally, I had bought a USB passthrough door for the battery cover. I took the battery out in hopes that it would both not drain on the battery and not overheat. Well, turns out that the door and lack of battery increased the heat of the GoPro and it ended up overheating. Thankfully, this was during our family dinner the night before the wedding. I set up the “Memory Shack” in our living room so that we could have a full test-run with it. Everything was great until I noticed that the video was really distorted, pointed downward, despite the camera being completely upright.
+
+A very weird experience for sure. I took off the passthrough door and just left the unit completely open. This allowed enough air to fully flow in and out of the device, fixing the overheating problem.
+
+### WiFi restrictions
+
+I wrote a separate script to watch the folder that photos were saved into and automatically resize, compress, and upload to Firebase storage and add into the [wedding website](/blog/2022/06/04/custom-wedding-website-part-1). This worked great during the test run, but turns out our venue's wifi had some weird network restrictions running and no photos uploaded. It was a bummer that no one was able to download their photos at the event and share, but a quick fix the next morning got all of the photos uploaded to our gallery.
 
 ## Cost breakdown
 

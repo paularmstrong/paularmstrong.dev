@@ -1,5 +1,5 @@
 module.exports = {
-	content: ['src/**/*.{astro,md,tsx}'],
+	content: ['src/**/*.{astro,md,tsx}', 'blog/**/*.{md,mdx}'],
 	plugins: [require('@tailwindcss/typography')],
 	darkMode: 'class',
 	theme: {
