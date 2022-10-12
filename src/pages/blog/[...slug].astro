@@ -10,12 +10,14 @@ import TocList from '~/components/TocList.astro';
 export async function getStaticPaths() {
 	const posts = (await Astro.glob('../../../blog/*.{md,mdx}'))
 		.map((post) => {
-			const filename = post.file.split('/blog/')[1].replace(/\.mdx?$/, '');
-			const match = filename.match(/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
+			const filename = `blog/${post.file.split('/blog/')[1]}`;
+			const match = filename
+				.replace(/\.mdx?$/, '')
+				.match(/^blog\/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
 			if (!match) {
 				return false;
 			}
-			return { params: { slug: Object.values(match.groups).join('/') }, props: { post } };
+			return { params: { slug: Object.values(match.groups).join('/') }, props: { post: { ...post, filename } } };
 		})
 		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.post?.frontmatter?.draft));
 
@@ -32,7 +34,7 @@ export async function getStaticPaths() {
 }
 
 const {
-	file,
+	filename,
 	frontmatter: { draft, title, pubDate, updatedDate, readingTime, description, toc, heroImage },
 	getHeadings,
 	Content,
@@ -68,7 +70,7 @@ for (const h of getHeadings()) {
 				}
 			</h1>
 
-			<PageInfo file={file} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
+			<PageInfo file={filename} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
 
 			{
 				heroImage?.src ? (

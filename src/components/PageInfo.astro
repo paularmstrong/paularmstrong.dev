@@ -33,13 +33,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 				)}
 				{file && (
 					<li>
-						<Link
-							href={`https://github.com/paularmstrong/paularmstrong.dev/tree/main/${
-								file.split('paularmstrong.dev/')[1]
-							}`}
-						>
-							Source
-						</Link>
+						<Link href={`https://github.com/paularmstrong/paularmstrong.dev/tree/main/${file}`}>Source</Link>
 					</li>
 				)}
 			</ul>
