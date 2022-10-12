@@ -1,0 +1,46 @@
+---
+draft: true
+pubDate: 2022-10-12
+title: New site, who dis?
+description: I needed an escape while stressing about my (previously) upcoming wedding. Having some personal annoyances with how difficult it would be to personalize Docusaurus, I sat down and hacked at Astro for a day and a half. I came up with a fully working static website & blog in no time.
+heroImage:
+  src:
+    - /img/blog/2022-new-site/browser.webp
+    - /img/blog/2022-new-site/browser.avif
+    - /img/blog/2022-new-site/browser.png
+  width: 1200
+  height: 600
+---
+
+I needed an escape while stressing about my (previously) upcoming wedding. Having some personal annoyances with how difficult it would be to personalize <a href="https://docusaurus.io" rel="noopener" target="_blank">Docusaurus</a>, I sat down and hacked at <a href="https://astro.build" rel="noopener" target="_blank">Astro</a> for a day and a half. I came up with a fully working static website & blog in no time.
+
+## Requirements
+
+I had just a few requirements for my site:
+
+- The ability to write pages and blog posts with Markdown and MDX.
+  - I originally used Docusaurus because I wanted to force myself to spend more time _writing_ than tinkering with the page. This worked, to a point, and I’d like to keep it easy to focus on writing.
+- The site should be served as statically built HTML pages.
+  - There really should be no need for a big backend CMS. Just write pages and push to a source control origin.
+- The layout should be fully customizable.
+  - This is the kicker that is moving me away from Docusaurus. While much of the framework’s built-in components can be _swizzled_ and replaced with custom versions, much of it still cannot, and I do not feel like I have the knowledge depth to contribute.
+
+## Options
+
+I set out looking at options:
+
+- **Docusaurus** I absolutely love Docusaurus. I will continue to use it for documentation sites as the first tool I reach for. But for my personal site, it just wasn’t cutting it.
+- **Next.js** People seem to love this. I’m still not fully convinced that the weight of the development environment and the prescriptive way of building things is best for me. I _have_ been forcing myself to use it for a couple things, but it just isn’t clicking as _the killer_ framework to me.
+- **Gatsby** No. Just no. Every time I see a Gatsby site, it pulls down at least 10MB of JavaScript. Honestly, I haven’t actually tried Gatsby in a number of years, but last I did, I was turned off by the ergonomics of it. I have no idea if the anecdote about JS size is real or just a red herring.
+- **Eleventy** Looks great, haven’t tried it. (aside: The amount of effort the <a href="https://www.11ty.dev/docs/" target="_blank" rel="noopener noreferrer">eleventy documentation</a> spends trying to convince me to use it makes me extra skeptical)
+- **Astro** I’ve heard a lot of rave reviews. So I started with this one, just thought I was diving in.
+
+## Accidentally choosing Astro
+
+I started just toying with Astro for building my site, and before I knew it, within just a few hours, I was mostly done building the basic framework with something that was pleasing enough to look at and work with.
+
+Sitting back for a minute on it, I decided to just run with it. So far, it has been a pleasure to work with and has actually inspired me to really get some content written. Let’s hope it continues.
+
+## Source code
+
+All of this site’s source code is on Github at [paularmstrong/paularmstrong.dev](https://github.com/paularmstrong.dev).
