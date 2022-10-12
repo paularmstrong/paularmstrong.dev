@@ -13,6 +13,7 @@ tags:
 
 import { Picture } from '@astrojs/image/components';
 import Aside from '~/components/Aside.astro';
+import Details from '~/components/Details.astro';
 
 <Aside type="info" title="Multi-part series">
 
@@ -52,8 +53,7 @@ There are no blockers given the [requirements](#requirements) that I initially l
 
 Hosting and backend framework evalutation can get long and tiring. I considered a few others otuside of Google Firebase – at least one of them I had initially thought I would end up using before considering Firebase.
 
-<details>
-  <summary>Click to expand alternatives considered ↕</summary>
+<Details title="Click to expand alternatives considered">
 
 <h4>AWS Amplify</h4>
 
@@ -106,9 +106,9 @@ Parse is another open source platform that I looked at briefly. Unfortunately, i
 - No email sending available
 - It’s not possible to sign in with just an email address.
 - Hosting limitations and potential cost
-  - Hosting a Parse Platform application would either require a lot of setup and cost with another provider, or using [Back4App's free plan](https://www.back4app.com/compare-all-plans, which doesn't appear to have SSL.
+  - Hosting a Parse Platform application would either require a lot of setup and cost with another provider, or using [Back4App's free plan](https://www.back4app.com/compare-all-plans), which doesn't appear to have SSL.
 
-</details>
+</Details>
 
 ## Application frameworks & tools
 
