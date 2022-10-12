@@ -29,6 +29,7 @@ export default defineConfig({
 		remarkPlugins,
 		shikiConfig: {
 			theme: 'rose-pine-moon',
+			wrap: true,
 		},
 		extendDefaultPlugins: true,
 	},

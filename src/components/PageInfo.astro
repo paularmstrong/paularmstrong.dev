@@ -15,7 +15,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 {
 	Boolean(pubDate || updatedDate || readingTime) && (
 		<aside class="not-prose prose-sm mb-8 rounded-lg bg-slate-200 p-4 dark:bg-slate-800">
-			<ul class="flex flex-row justify-between gap-4 text-blue-900 dark:text-blue-100">
+			<ul class="flex flex-row flex-wrap justify-between gap-4 text-blue-900 dark:text-blue-100">
 				{pubDate && (
 					<li>
 						<b>Published:</b> <time itemprop="datePublished">{dateFormatter(new Date(pubDate))}</time>
@@ -33,7 +33,11 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 				)}
 				{file && (
 					<li>
-						<Link href={`https://github.com/paularmstrong/paularmstrong.dev/tree/main/src/${file.split('/src/')[1]}`}>
+						<Link
+							href={`https://github.com/paularmstrong/paularmstrong.dev/tree/main/${
+								file.split('paularmstrong.dev/')[1]
+							}`}
+						>
 							Source
 						</Link>
 					</li>

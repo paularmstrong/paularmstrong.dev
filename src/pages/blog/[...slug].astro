@@ -32,7 +32,8 @@ export async function getStaticPaths() {
 }
 
 const {
-	frontmatter: { draft, title, pubDate, updatedDate, readingTime, description, file, toc, heroImage },
+	file,
+	frontmatter: { draft, title, pubDate, updatedDate, readingTime, description, toc, heroImage },
 	getHeadings,
 	Content,
 } = Astro.props.post;
