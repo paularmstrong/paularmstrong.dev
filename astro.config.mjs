@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import image from '@astrojs/image';
+import compress from 'astro-compress';
 const remarkPlugins = [remarkReadingTime];
 
 // https://astro.build/config
@@ -19,6 +20,10 @@ export default defineConfig({
 		}),
 		sitemap(),
 		image(),
+		compress({
+			img: false,
+			svg: false,
+		}),
 	],
 	markdown: {
 		remarkPlugins,
