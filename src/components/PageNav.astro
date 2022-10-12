@@ -1,0 +1,55 @@
+---
+export interface Props {
+  next?: { slug: string; title: string; draft?: boolean };
+  prev?: { slug: string; title: string; draft?: boolean };
+}
+
+const { next, prev } = Astro.props as Props;
+---
+
+<nav aria-labelledby="post-nav">
+  <ul class="grid w-full grid-cols-1 justify-between gap-x-12 gap-y-4 overflow-hidden sm:grid-cols-2">
+    {
+      next && !next.draft ? (
+        <li class="order-last flex flex-row justify-end">
+          <a
+            href={`/blog/${next.slug}`}
+            class="inline-flex flex-row-reverse items-center gap-2 rounded p-4 text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="h-6 w-6 shrink-0"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+            <span class="text-right">{next.title}</span>
+          </a>
+        </li>
+      ) : null
+    }
+    {
+      prev ? (
+        <li class="order-first flex flex-row justify-start">
+          <a
+            href={`/blog/${prev.slug}`}
+            class="inline-flex flex-row items-center gap-2 rounded p-4 text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="h-6 w-6 shrink-0"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+            <span>{prev.title}</span>
+          </a>
+        </li>
+      ) : null
+    }
+  </ul>
+</nav>
