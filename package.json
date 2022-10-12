@@ -12,8 +12,8 @@
 		"format:cmd": "prettier . --ignore-unknown",
 		"format": "yarn format:cmd --write",
 		"format:ci": "yarn format:cmd",
-		"lint:cmd": "eslint . --ext .astro,.ts,.tsx,.js,.jsx,.mjs,.cjs,.md,.mdx",
-		"lint": "yarn lint:cmd --fix",
+		"lint:cmd": "eslint --ext .astro,.ts,.tsx,.js,.jsx,.mjs,.cjs,.md,.mdx",
+		"lint": "yarn lint:cmd --fix .",
 		"lint:ci": "yarn lint:cmd",
 		"tsc": "tsc"
 	},
