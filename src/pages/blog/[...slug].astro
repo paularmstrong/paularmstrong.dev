@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 			}
 			return { params: { slug: Object.values(match.groups).join('/') }, props: { post } };
 		})
-		.filter(Boolean);
+		.filter((post) => Boolean(post) && !post?.props?.post?.frontmatter?.draft);
 
 	for (let i = 0; i < posts.length; i++) {
 		const prev = posts[i - 1];
