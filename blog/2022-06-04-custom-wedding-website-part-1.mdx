@@ -11,6 +11,7 @@ tags:
   - wedding
 ---
 
+import { Picture } from '@astrojs/image/components';
 import Aside from '~/components/Aside.astro';
 
 <Aside type="info" title="Multi-part series">
@@ -31,7 +32,9 @@ Now that we know _what_ we need, it’s time to choose the right tools for the j
 
 ### Google Firebase
 
-![Firebase logo](/img/blog/wedding/firebase.png)
+<div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
+	<Picture src="/img/blog/wedding/firebase.png" alt="Firebase logo" widths={[300, 600]} aspectRatio={1024 / 288} />
+</div>
 
 I’ve used [Google Firebase](https://firebase.google.com/) before, but never deployed a full web application for it. It has always been a bit more tailored for native mobile apps, but I have seen that they’ve worked really hard in making the web tools top-notch.
 
@@ -54,7 +57,14 @@ Hosting and backend framework evalutation can get long and tiring. I considered 
 
 <h4>AWS Amplify</h4>
 
-![AWS Amplify logo](/img/blog/wedding/aws-amplify.png)
+<div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
+	<Picture
+		src="/img/blog/wedding/aws-amplify.png"
+		alt="AWS Amplify logo"
+		widths={[300, 600]}
+		aspectRatio={1838 / 550}
+	/>
+</div>
 
 Initially, I had hoped to be able to try out [AWS Amplify](https://docs.amplify.aws/). It would be an opportunity to learn something new that I hadn’t worked with before. It has a free tier and I thought it should cover everything that I wanted. Unfortunately there were roadblocks from the start.
 
@@ -76,7 +86,9 @@ Unfortunately, there were a number of blockers that came up for me during invest
 
 <h4>Supabase</h4>
 
-![Supabase logo](/img/blog/wedding/supabase.png)
+<div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
+	<Picture src="/img/blog/wedding/supabase.png" alt="Supabase logo" widths={[300, 600]} aspectRatio={2159 / 420} />
+</div>
 
 I would have liked to have tried [Supabase](https://supabase.com) since it's open-source and free. However, I didn't dive too far into it after the two blockers that I found:
 
@@ -85,7 +97,9 @@ I would have liked to have tried [Supabase](https://supabase.com) since it's ope
 
 <h4>Parse Platform</h4>
 
-![Parse Platform logo](/img/blog/wedding/parse.png)
+<div class="not-prose max-w-[480px] rounded bg-white p-4">
+	<Picture src="/img/blog/wedding/parse.png" alt="Parse Platform logo" widths={[300, 378]} aspectRatio={378 / 133} />
+</div>
 
 Parse is another open source platform that I looked at briefly. Unfortunately, it had too many blockers to consider even prototyping.
 
@@ -100,19 +114,25 @@ Parse is another open source platform that I looked at briefly. Unfortunately, i
 
 ### [Preact](https://preactjs.com/)
 
-![Preact logo](/img/blog/wedding/preact.webp)
+<div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
+	<Picture src="/img/blog/wedding/preact.webp" alt="Preact logo" widths={[300, 600]} aspectRatio={1900 / 572} />
+</div>
 
 I could have used React, but I initially wanted to see how small I could keep the build size and didn’t think I'd need any of the extra weight from React for such a small site.
 
 ### [Tailwindcss](https://tailwindcss.com/)
 
-![Tailwindcss logo](/img/blog/wedding/tailwind.png)
+<div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
+	<Picture src="/img/blog/wedding/tailwind.png" alt="Tailwindcss logo" widths={[300, 600]} aspectRatio={2560 / 315} />
+</div>
 
 I have built a few things with Tailwind before and it really makes things simple while keeping the final build sizes small.
 
 ### [Parcel](https://parceljs.org/)
 
-![Parcel logo](/img/blog/wedding/parcel.png)
+<div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
+	<Picture src="/img/blog/wedding/parcel.png" alt="Parcel logo" widths={[300, 600]} aspectRatio={1492 / 516} />
+</div>
 
 I have used Parcel before for some really small projects like this and it's pretty dead simple as a bundler to get set up. I also didn't want to spend a week tweaking my compilation process to get things _just right_ like I tend to do with Webpack.
 

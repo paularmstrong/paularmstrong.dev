@@ -1,4 +1,5 @@
 ---
+import { Picture } from '@astrojs/image/components';
 import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
 import PageInfo from '~/components/PageInfo.astro';
@@ -71,19 +72,14 @@ for (const h of getHeadings()) {
 			{
 				heroImage?.src ? (
 					<div class="lg:bustout">
-						<picture>
-							{(Array.isArray(heroImage?.src) ? heroImage.src : [heroImage.src]).map((img) => (
-								<source srcset={img} type={`image/${img.split('.')[img.split('.').length - 1]}`} />
-							))}
-							<img
-								itemprop="image"
-								class="!mt-0 w-full max-w-none"
-								src={heroImage[0]}
-								width={heroImage.width}
-								height={heroImage.height}
-								alt=""
-							/>
-						</picture>
+						<Picture
+							src={heroImage.src}
+							alt=""
+							widths={[480, 640, 1200, Math.max(heroImage.width, 1600)]}
+							aspectRatio={heroImage.width / heroImage.height}
+							itemprop="image"
+							class="!mt-0 w-full max-w-none"
+						/>
 					</div>
 				) : null
 			}

@@ -3,6 +3,7 @@ layout: '~/layouts/Page.astro'
 title: Styleguide
 ---
 
+import { Picture } from '@astrojs/image/components';
 import Aside from '~/components/Aside.astro';
 import PageInfo from '~/components/PageInfo.astro';
 import TocList from '~/components/TocList.astro';
@@ -52,22 +53,18 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ## Images
 
-<picture>
-	<source srcset="/img/carbon.webp" type="image/webp" />
-	<source srcset="/img/carbon.avif" type="image/avif" />
-	<source srcset="/img/carbon.png" type="image/png" />
-	<img itemprop="image" class="!mt-0 w-full max-w-none" width={3576} height={1328} alt=" " />
-</picture>
+<Picture src="/img/carbon.png" widths={[480, 640, 1200, 1600]} aspectRatio={3576 / 1328} alt="" />
 
 ### Hero images
 
 <div class="lg:bustout">
-	<picture>
-		<source srcset="/img/carbon.webp" type="image/webp" />
-		<source srcset="/img/carbon.avif" type="image/avif" />
-		<source srcset="/img/carbon.png" type="image/png" />
-		<img itemprop="image" class="!mt-0 w-full max-w-none" width={3576} height={1328} alt=" " />
-	</picture>
+	<Picture
+		src="/img/carbon.png"
+		class="!mt-0 w-full max-w-none"
+		widths={[480, 640, 1200, 1600]}
+		aspectRatio={3576 / 1328}
+		alt=""
+	/>
 </div>
 
 ## Blockquotes

@@ -3,9 +3,8 @@ import mdx from '@astrojs/mdx';
 import solid from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
-
+import image from '@astrojs/image';
 const remarkPlugins = [remarkReadingTime];
 
 // https://astro.build/config
@@ -19,6 +18,7 @@ export default defineConfig({
 			extendPlugins: 'astroDefaults',
 		}),
 		sitemap(),
+		image(),
 	],
 	markdown: {
 		remarkPlugins,

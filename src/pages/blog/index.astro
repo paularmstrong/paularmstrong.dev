@@ -1,4 +1,5 @@
 ---
+import { Picture } from '@astrojs/image/components';
 import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
 import Prose from '~/components/Prose.astro';
@@ -65,19 +66,14 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 										{heroImage ? (
 											<div class="my-2">
 												<Prose>
-													<picture>
-														{(Array.isArray(heroImage?.src) ? heroImage.src : [heroImage.src]).map((img) => (
-															<source srcset={img} type={`image/${img.split('.')[img.split('.').length - 1]}`} />
-														))}
-														<img
-															itemprop="image"
-															class="!mt-0 w-full max-w-none"
-															src={heroImage[0]}
-															alt=""
-															width={heroImage.width}
-															height={heroImage.height}
-														/>
-													</picture>
+													<Picture
+														src={heroImage.src}
+														alt=""
+														widths={[640]}
+														aspectRatio={heroImage.width / heroImage.height}
+														itemprop="image"
+														class="!mt-0 w-full max-w-none"
+													/>
 												</Prose>
 											</div>
 										) : null}

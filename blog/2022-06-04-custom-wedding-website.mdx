@@ -11,15 +11,26 @@ tags:
   - wedding
 ---
 
+import { Picture } from '@astrojs/image/components';
 import Aside from '~/components/Aside.astro';
 
 Weddings are _expensive_. Trying to do one on a budget while following the social norms and expectations of planning and putting on a wedding just don't really mix. After getting engaged, Kelly and I discussed what we did and _definitely did not_ want when it came to our wedding.
 
-![Proposal](/img/blog/wedding/proposal.jpg)
+<Picture
+	src="/img/blog/wedding/proposal.jpg"
+	alt="My proposal, skiing at sunrise"
+	widths={[640, 1200, 1600]}
+	aspectRatio={3406 / 1916}
+/>
 
 One of the first things to do that we threw out was the idea of sending paper invites. Not only is it incredibly wasteful, but we had just received a wedding invitation in the mail and it just seemed expensive, tacky, and impersonal. Take this RSVP card option that comes from _popular wedding registry website redacted_:
 
-![RSVP cards from The Knot](/img/blog/wedding/the-knot-rsvp.jpg)
+<Picture
+	src="/img/blog/wedding/the-knot-rsvp.jpg"
+	alt="RSVP cards from The Knot"
+	widths={[640, 1200, 1600]}
+	aspectRatio={1200 / 875}
+/>
 
 Call me _not_ old-fashioned, but the “M\_\_\_\_” line makes no sense to me. After researching, I guess you're supposed to fill in “Mr…”, “Mrs…”, or “Ms…”, but who uses that anymore? And what if you’re extra fancy and it should be “Dr…”? But really, _why isn't this filled in **for me**_? You should know who I am!
 
