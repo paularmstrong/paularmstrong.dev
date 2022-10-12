@@ -1,13 +1,16 @@
 ---
-draft: true
 pubDate: 2022-10-12
 title: New site, who dis?
 description: I needed an escape while stressing about my (previously) upcoming wedding. Having some personal annoyances with how difficult it would be to personalize Docusaurus, I sat down and hacked at Astro for a day and a half. I came up with a fully working static website & blog in no time.
+toc: true
 heroImage:
   src: /img/blog/2022-new-site/browser.png
   width: 1200
   height: 600
 ---
+
+import { Picture } from '@astrojs/image/components';
+import Aside from '~/components/Aside.astro';
 
 I needed an escape while stressing about my (previously) upcoming wedding. Having some personal annoyances with how difficult it would be to personalize <a href="https://docusaurus.io" rel="noopener" target="_blank">Docusaurus</a>, I sat down and hacked at <a href="https://astro.build" rel="noopener" target="_blank">Astro</a> for a day and a half. I came up with a fully working static website & blog in no time.
 
@@ -38,6 +41,58 @@ I started just toying with Astro for building my site, and before I knew it, wit
 
 Sitting back for a minute on it, I decided to just run with it. So far, it has been a pleasure to work with and has actually inspired me to really get some content written. Let’s hope it continues.
 
-## Source code
+## Details
 
-All of this site’s source code is on Github at [paularmstrong/paularmstrong.dev](https://github.com/paularmstrong.dev).
+### Framework: Astro
+
+As stated above, I sort of accidentally ended up going to production with <a href="https://astro.build" rel="noopener" target="_blank">Astro</a>. I really liked how easy the plugin system is and the things the community has build:
+
+- [@astrojs/mdx](https://docs.astro.build/en/guides/integrations-guide/mdx/)
+  - While I want to write with
+    Markdown, it’s really hard to make things beautiful without some carefully crafted, reusable components. Being able to
+    import and use them directly in Markdown is mostly a necessity now.
+- [@astrojs/solid](https://docs.astro.build/en/guides/integrations-guide/solid-js/)
+  - See [Interaction: Solid-js](#interaction--solid--js) for details.
+- [@astrojs/tailwind](https://docs.astro.build/en/guides/integrations-guide/tailwind/)
+  - See [CSS: Tailwind
+    CSS](#css--tailwind-css) for details.
+- [@astrojs/image](https://docs.astro.build/en/guides/integrations-guide/image/)
+  - I first started out manually creating multiple variants of images with webp, avif, png, and jpeg and writing the HTML by hand. That was a mistake. This plugin does it for you.
+  - It definitely increases build times, but they’re still tolerable at this time. I’d love to see if this plugin could get a mode to pre-build the image variants and add them to source control.
+
+### Interaction: Solid-js
+
+I originally thought that I wouldn’t need any interactive components, so I wasn’t going to add any React/Preact/Solid-js/etc framework.
+
+But then I realized that I’d like a dark-mode theme switcher with the ability to use both automatic selection as well as user-defined preference.
+
+I’ve used Solid-js for some small things before, and the small weight of the library seemed like a good choice for now. I’d like to do a comparison using Svelte, Vue, Lit, and bare web components. That’s going to be for another day, though.
+
+### CSS: Tailwind CSS
+
+I've been here since CSS was first introduced. Heck, I was here using nested `<table>` and `<imagemap>` elements. CSS is great, but if there's one thing that has really changed the way that I write CSS since CSS-in-JS, it's [Tailwind CSS](https://tailwindcss.com).
+
+Mostly, it's easy, it's predictable, and I don't really have to think too hard to create something beautiful. _Especially_ paired with the [typography plugin](https://tailwindcss.com/docs/typography-plugin) – making a plain markdown post easy to read has never been more simple.
+
+### Hosting
+
+I was originally hosting my site on Github pages, until I realized that the longest cache time set for any resource is 10 minutes. I quickly changed over to Netlify today without much fuss.
+
+I really can't complain after measuring using various tools and having the home page come out super fast, performant, accessible, and search optimized.
+
+<Picture
+	src="/img/blog/lighthouse.png"
+	widths={[1200, 640, 480]}
+	aspectRatio={1272 / 832}
+	alt="Lighthouse score for paularmstrong.dev showing a perfect score of 100 for all metrics"
+/>
+
+## View source
+
+Go and take a look! I have kept the code for this site open source and MIT-licensed (except for blog posts, images, and page content).
+
+<Aside type="danger" title="Open source">
+
+All of this site’s source code is on Github at [paularmstrong/paularmstrong.dev](https://github.com/paularmstrong/paularmstrong.dev).
+
+</Aside>
