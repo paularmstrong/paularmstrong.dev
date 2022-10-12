@@ -18,6 +18,10 @@ pre {
 .home-profile-img {
 	margin: 0 10px 0 0;
 	width: 33%;
-	float: left;
+	aspect-ratio: 1;
+	float: right;
+	shape-outside: polygon(60% 2%, 99% 35%, 100% 100%, 0 100%, 7% 22%);
 	clip-path: polygon(60% 2%, 99% 35%, 100% 100%, 0 100%, 7% 22%);
+	overflow: hidden;
+	margin-left: 0.25rem;
 }
