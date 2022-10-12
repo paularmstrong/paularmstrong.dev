@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 			}
 			return { params: { slug: Object.values(match.groups).join('/') }, props: { post } };
 		})
-		.filter((post) => Boolean(post) && !post?.props?.post?.frontmatter?.draft);
+		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.post?.frontmatter?.draft));
 
 	for (let i = 0; i < posts.length; i++) {
 		const prev = posts[i - 1];
@@ -30,7 +30,7 @@ export async function getStaticPaths() {
 }
 
 const {
-	frontmatter: { title, pubDate, updatedDate, readingTime, description, file, toc, heroImage },
+	frontmatter: { draft, title, pubDate, updatedDate, readingTime, description, file, toc, heroImage },
 	getHeadings,
 	Content,
 } = Astro.props.post;
@@ -54,7 +54,16 @@ for (const h of getHeadings()) {
 	<article itemprop="blogPost" itemscope itemtype="http://schema.org/Article">
 		<meta itemprop="mainEntityOfPage" content={slug} />
 		<Prose>
-			<h1 itemprop="name headline">{title}</h1>
+			<h1 itemprop="name headline">
+				{title}{
+					draft ? (
+						<>
+							{' '}
+							<sup class="text-red-400">(draft)</sup>
+						</>
+					) : null
+				}
+			</h1>
 
 			<PageInfo file={file} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
 
