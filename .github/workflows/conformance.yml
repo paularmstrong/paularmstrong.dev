@@ -1,6 +1,10 @@
 name: Conformance checks
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 permissions:
   contents: read
@@ -30,9 +34,6 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - run: yarn install
-
-      - name: Build
-        run: yarn build
 
       - name: Typecheck
         run: yarn tsc
