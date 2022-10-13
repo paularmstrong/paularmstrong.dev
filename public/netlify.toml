@@ -6,7 +6,4 @@
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    cache-control: '''
-    public,
-    max-age=365000000,
-    immutable'''
+    Cache-Control = "public, max-age=365000000, immutable"
