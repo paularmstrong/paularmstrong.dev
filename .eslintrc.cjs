@@ -11,6 +11,7 @@ module.exports = {
 	root: true,
 	rules: {
 		'tailwindcss/no-custom-classname': 'error',
+		'no-console': 'error',
 	},
 	globals: {
 		astroHTML: 'readonly',

@@ -22,8 +22,6 @@ const posts = Object.values(postResult)
 	})
 	.filter(Boolean);
 
-console.log(posts);
-
 export const get = () =>
 	rss({
 		title: SITE_TITLE,
