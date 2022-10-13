@@ -1,4 +1,4 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "base-uri 'self'; default-src 'self'; style-src 'self'; script-src 'self' https://gc.zgo.at; img-src 'self' https://paularmstrong.goatcounter.com/count; connect-src 'self' https://www.youtube-nocookie.com/oembed; frame-src 'self' https://www.youtube-nocookie.com;"
+    Content-Security-Policy = "base-uri 'self'; default-src 'self'; style-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; img-src 'self' https://paularmstrong.goatcounter.com/count; connect-src 'self' https://www.youtube-nocookie.com/oembed; frame-src 'self' https://www.youtube-nocookie.com;"
