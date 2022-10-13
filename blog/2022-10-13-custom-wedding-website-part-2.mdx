@@ -1,36 +1,19 @@
 ---
-title: 'Creating a modern wedding website in 2022 Part 2: Setting up the repository and Firebase'
+title: 'Creating a modern wedding website in 2022 Part 2: Setting up the repository and frameworks'
 description: Don’t go with those junk off-the-shelf websites with all the upsells on them. Make your wedding website yourself.
-authors: paularmstrong
-pubDate: 2022-06-12T00:00
-tags:
-  - parcel
-  - preact
-  - tailwindcss
-  - firebase
-draft: true
+pubDate: 2022-10-13T00:00
+toc: true
 ---
 
 import Aside from '~/components/Aside.astro';
 
 <Aside type="info" title="Multi-part series">
 
-Previously in this series, we [introduced the reasoning and requirements](/blog/2022/06/04/custom-wedding-website) and [chose tools that we will use to build](/blog/2022/06/04/custom-wedding-website/part-1) our custom wedding website.
+Previously in this series, we [introduced the reasoning and requirements](/blog/2022/06/04/custom-wedding-website) and [chose tools that we will use to build](/blog/2022/06/04/custom-wedding-website-part-1) our custom wedding website.
 
 </Aside>
 
-## Create a bare repo
-
-First, [initialize a blank repository on Github](https://github.com/new) and name it `wedding-app`. I chose to keep my repository private, just in case I accidentally push some personal info. Once that's created, set up your repo locally and connect it to the Github remote:
-
-```bash
-mkdir wedding-app
-cd wedding-app
-git init
-git remote add origin git@github.com:YOURNAME/wedding-app.git
-```
-
-## Initializing Firebase
+## Setting up Firebase
 
 Setting up a Firebase project was _actually_ a delightful experience.
 
@@ -40,7 +23,7 @@ After creating the project in the Firebase console, you need to hook something u
 
 If you don't have it already, install `firebase-tools` and log into the commandline interface:
 
-```bash npm2yarn
+```bash
 npm install -g firebase-tools
 firebase login
 ```
@@ -59,11 +42,13 @@ firebase init hosting
 
 From there, the initialization script actually walked through a few questions which didn't seem patronizing for a _wizard_. Then it noticed that the origin for my git repo pointed to Github, so it asked if I wanted to set up automated Github actions to deploy on merge to `main` and stage deploys for PRs. _Heck yes!_
 
-## Setting up Parcel & Tailwindcss
+## Parcel dev environment & bundling
+
+Let me get one thing straight: using Parcel was the absolute most straightforward and easy dev/build framework that I've ever picked up. I don't know that I needed to do anything more than point it at a root `index.html` file – and that was really it!
 
 ```bash npm2yarn
-npm install --save preact preact-router
-npm install --save-dev autoprefixer parcel postcss tailwindcss
+yarn add preact preact-router
+yarn add --dev autoprefixer parcel postcss tailwindcss
 ```
 
 <Aside type="danger" title="Typescript">
@@ -86,11 +71,7 @@ wedding-app/
 
 <code>src/index.html</code> This will be the main entrypoint for Parcel to run its development server and build for production.
 
-- Line 8: Parcel will pick up reference to your CSS files and compile them as necessary
-- Line 11: This will be the root element that we use for the Preact application
-- Line 12: Parcel will pick up references to JavaScript files (or Typescript) and compile them
-
-```html title="src/index.html" showLineNumbers
+```html title="src/index.html"
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
@@ -98,33 +79,20 @@ wedding-app/
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Kelly & Paul’s wedding</title>
 
-		// highlight-next-line
+		// Parcel will pick up references to CSS files and compile them as necessary // This makes Tailwind setup in the
+		next step a breeze
 		<link rel="stylesheet" href="./index.css" />
 	</head>
 	<body>
-		// highlight-start
+		// This will be the root element that we use for the Preact application
 		<div id="root"></div>
+		// Parcel will pick up references to JavaScript files (or Typescript) and compile them
 		<script type="module" src="./index.jsx"></script>
-		// highlight-end
 	</body>
 </html>
 ```
 
-### Tailwindcss
-
-If you prefer a more in-depth setup, checkout [Tailwindcss‘s installation guide](https://tailwindcss.com/docs/installation).
-
-```css title="src/index.css"
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-```js title="tailwind.config.js"
-module.exports = {
-	content: ['./src/**/*.{html,ts,tsx}'],
-};
-```
+`./src/index.jsx`
 
 ```tsx title="src/index.jsx"
 import { h, render } from 'preact';
@@ -134,15 +102,62 @@ const root = document.getElementById('root');
 render(<App />, root!);
 ```
 
+## Tailwind CSS
+
+If you prefer a more in-depth setup, checkout [Tailwindcss‘s installation guide](https://tailwindcss.com/docs/installation).
+
+`./src/index.css`
+
+```css title="src/index.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+`./tailwind.config.js`
+
+```js title="tailwind.config.js"
+module.exports = {
+	content: ['./src/**/*.{html,ts,tsx}'],
+};
+```
+
+`./postcssrc.json` One little gotcha here: don't forget to add a Postcss configuration for Parcel to pick up so that it knows it should be using Tailwind!
+
+```json
+{
+	"plugins": {
+		"tailwindcss": {}
+	}
+}
+```
+
+## That's all!
+
+`./package.json` We just need a couple quick scripts in our root package configuration in order to run the Parcel dev server and build for production
+
 ```json title="package.json"
 {
 	"name": "wedding-app",
 	"private": true,
-	// highlight-start
 	"scripts": {
 		"start": "parcel src/index.html",
 		"build": "rm -rf dist && NODE_ENV=production parcel build ./src/*.html --public-url /"
 	}
-	// highlight-end
 }
 ```
+
+Honestly, this was kind of everything that I needed to get started. I know this is a little nitty gritty into some weird details, but hopefully helpful for someone (or myself) down the line.
+
+From here, we can run `yarn start` and see our application running in the browser immediately.
+
+<Aside type="info" title="Multi-part series">
+
+The following other posts are ready now. Check back soon for more!
+
+1. [Introduction](/blog/2022/06/04/custom-wedding-website)
+2. [Part 1: Choosing the tools](/blog/2022/06/04/custom-wedding-website-part-1)
+3. [**Part 2: Setting up the repository and frameworks**](/blog/2022/10/13/custom-wedding-website-part-2)
+4. _More coming soon!_
+
+</Aside>

@@ -19,6 +19,7 @@ export async function getStaticPaths() {
 			}
 			return { params: { slug: Object.values(match.groups).join('/') }, props: { post: { ...post, filename } } };
 		})
+		.sort((a, b) => new Date(a.props.post.frontmatter.pubDate) - new Date(b.props.post.frontmatter.pubDate))
 		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.post?.frontmatter?.draft));
 
 	for (let i = 0; i < posts.length; i++) {
