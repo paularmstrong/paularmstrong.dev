@@ -1,4 +1,4 @@
-# PaulArmstrong.dev
+# PaulArmstrong.dev [![Netlify Status](https://api.netlify.com/api/v1/badges/40d2f705-c2c2-47a5-b3c9-ce6772a29847/deploy-status)](https://app.netlify.com/sites/paularmstrongdev/deploys)
 
 Oh hey! I’m [Paul Armstrong](https://paularmstrong.dev/about) and this is my website. Trying to figure out how this all works? Well here’s the high level:
 
