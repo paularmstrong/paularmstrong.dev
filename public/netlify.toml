@@ -7,3 +7,8 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=365000000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=365000000, immutable"
