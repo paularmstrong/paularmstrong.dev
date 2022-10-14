@@ -3,10 +3,11 @@ import clsx from 'clsx';
 export type Props = astroHTML.JSX.AnchorHTMLAttributes;
 
 const { href, ...props } = Astro.props;
-const isActive = href === Astro.url.pathname.replace(/\/$/, '');
+const isActive = Astro.url.pathname.replace(/\/$/, '').startsWith(href);
 ---
 
 <a
+	aria-current={isActive ? 'page' : undefined}
 	href={href}
 	class={clsx(
 		'block whitespace-nowrap rounded py-2 px-4 font-bold text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:text-blue-100 dark:hover:bg-blue-50/20',
