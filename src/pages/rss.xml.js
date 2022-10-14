@@ -20,6 +20,7 @@ const posts = Object.values(postResult)
 			pubDate: new Date(post.frontmatter.pubDate),
 		};
 	})
+	.sort((a, b) => b.pubDate - a.pubDate)
 	.filter(Boolean);
 
 export const get = () =>
