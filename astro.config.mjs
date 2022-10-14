@@ -18,7 +18,17 @@ export default defineConfig({
 			remarkPlugins,
 			extendPlugins: 'astroDefaults',
 		}),
-		sitemap(),
+		sitemap({
+			serialize(item) {
+				if (item.url.endsWith('paularmstrong.dev/')) {
+					item.priority = 1.0;
+				} else if (item.url.endsWith('paularmstrong.dev/blog/')) {
+					item.changefreq = 'daily';
+					item.priority = 0.9;
+				}
+				return item;
+			},
+		}),
 		image(),
 		compress({
 			img: false,
