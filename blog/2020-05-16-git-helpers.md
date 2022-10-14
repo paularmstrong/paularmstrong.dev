@@ -1,9 +1,7 @@
 ---
-pubDate: 2022-05-16
+pubDate: 5/15/2020, 7:40:02 AM GMT-0700
 title: Git helpers that I can no longer live without
-slug: git-helpers
-tags:
-  - git
+description: Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore.
 ---
 
 Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore.

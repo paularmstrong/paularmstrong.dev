@@ -1,7 +1,7 @@
 ---
 title: Mass shootings
 description: There was a shooting in my town last night.
-pubDate: 2022-8-29
+pubDate: 8/29/2022, 7:40:02 AM GMT-0700
 ---
 
 There was a shooting in my town last night.
