@@ -4,14 +4,20 @@ import { SITE_TITLE } from '../config';
 import { ThemeSwitcher } from '~/components/ThemeSwitcher';
 ---
 
-<>
-	<header class="flex flex-row items-center justify-between gap-2">
+<header
+	id="header"
+	class="sticky top-0 z-40 border-b border-slate-100/0 bg-slate-100/0 py-2 px-4 backdrop-blur transition-all delay-300 duration-300 ease-in-out dark:border-slate-900/0 dark:bg-slate-900/0"
+>
+	<div class="mx-auto flex max-w-4xl flex-row items-center justify-between gap-2">
 		<h1 class="shrink-0">
 			<a
 				class="flex flex-row items-center gap-2 whitespace-nowrap text-2xl font-bold text-blue-600 hover:text-blue-800 dark:text-blue-50 dark:hover:text-blue-200"
 				style={{ alignItems: 'end' }}
-				href="/"><img src="/img/logo.svg" alt="" class="h-12 w-12" width={512} height={512} />{SITE_TITLE}</a
+				href="/"
 			>
+				<img src="/img/logo.svg" alt="" class="h-12 w-12" width={512} height={512} />
+				{SITE_TITLE}
+			</a>
 		</h1>
 		<nav class="flex min-h-[56px] shrink flex-row items-end">
 			<ul class="flex flex-row flex-wrap justify-end gap-2">
@@ -21,5 +27,53 @@ import { ThemeSwitcher } from '~/components/ThemeSwitcher';
 				<li class="w-24 shrink-0"><ThemeSwitcher client:load /></li>
 			</ul>
 		</nav>
-	</header>
-</>
+	</div>
+</header>
+
+<script>
+	const showClasses = [
+		'shadow-lg',
+		'bg-slate-100/90',
+		'dark:bg-slate-900/90',
+		'border-slate-200',
+		'dark:border-slate-900',
+	];
+	const hideClasses = ['-translate-y-full', 'bg-slate-100/90', 'dark:bg-slate-900/90'];
+	let lastScroll = 0;
+
+	function handleScroll(header) {
+		return () => {
+			const hasShowClasses = header.classList.contains(showClasses[0]);
+			const hasHideClasses = header.classList.contains(hideClasses[0]);
+
+			const currentScroll = window.pageYOffset;
+
+			if (currentScroll <= 0 && (hasShowClasses || hasHideClasses)) {
+				header.classList.remove(...showClasses, ...hideClasses);
+				lastScroll = currentScroll;
+				return;
+			}
+
+			if (currentScroll === lastScroll) {
+				return;
+			}
+
+			if (currentScroll > lastScroll && !hasHideClasses) {
+				header.classList.remove(...showClasses);
+				header.classList.add(...hideClasses);
+			} else if (currentScroll < lastScroll && !hasShowClasses) {
+				header.classList.remove(...hideClasses);
+				header.classList.add(...showClasses);
+			}
+			lastScroll = currentScroll;
+		};
+	}
+
+	window.addEventListener('DOMContentLoaded', () => {
+		const header = document.getElementById('header');
+		const handler = handleScroll(header);
+		handler();
+
+		window.addEventListener('scroll', handler);
+	});
+</script>

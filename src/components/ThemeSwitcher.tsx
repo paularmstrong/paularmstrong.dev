@@ -67,7 +67,7 @@ export const ThemeSwitcher: Component = () => {
 			aria-label="auto"
 			aria-live="polite"
 			title="Toggle site theme"
-			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:text-blue-100 dark:hover:bg-blue-50/20"
+			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100"
 			onClick={toggle}
 		>
 			{theme()?.startsWith('auto') ? (
