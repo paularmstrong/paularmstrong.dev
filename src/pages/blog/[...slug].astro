@@ -79,6 +79,7 @@ for (const h of getHeadings()) {
 						<Picture
 							src={heroImage.src}
 							alt=""
+							fetchpriority="high"
 							loading="eager"
 							widths={[480, 640, 1200, Math.max(heroImage.width, 1600)]}
 							aspectRatio={heroImage.width / heroImage.height}

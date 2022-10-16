@@ -1,12 +1,15 @@
 ---
+import Content from '~/components/Content.astro';
 import HeaderLink from '~/components/HeaderLink.astro';
 
 const today = new Date();
 ---
 
-<div class="px-4 py-10">
-	<footer class="mx-auto flex max-w-4xl flex-row flex-wrap items-center justify-between gap-y-4">
-		<p class="text-blue-800 dark:text-blue-200">&copy;{today.getFullYear()} Paul Armstrong. All rights reserved.</p>
+<Content>
+	<footer class="flex flex-row flex-wrap items-center justify-between gap-y-4">
+		<p class="text-xs text-blue-800 dark:text-blue-200">
+			&copy;{today.getFullYear()} Paul Armstrong. All rights reserved.
+		</p>
 		<nav class="grow">
 			<ul class="flex flex-row flex-wrap justify-end gap-2">
 				<li>
@@ -68,4 +71,4 @@ const today = new Date();
 			</ul>
 		</nav>
 	</footer>
-</div>
+</Content>
