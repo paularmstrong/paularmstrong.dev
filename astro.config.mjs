@@ -8,7 +8,7 @@ import image from '@astrojs/image';
 import compress from 'astro-compress';
 const remarkPlugins = [remarkReadingTime];
 
-// https://astro.build/config
+/** @type {import('@types/astro').AstroUserConfig} */
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	integrations: [

@@ -1,3 +1,6 @@
+'use strict';
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['src/**/*.{astro,md,tsx}', 'blog/**/*.{md,mdx}'],
 	plugins: [require('@tailwindcss/typography')],

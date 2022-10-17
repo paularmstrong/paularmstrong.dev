@@ -12,3 +12,8 @@
   for = "*.js"
   [headers.values]
     Cache-Control = "public, max-age=365000000, immutable"
+
+[[redirects]]
+  from = "/rss.xml"
+  to = "/feed.xml"
+  status = 301
