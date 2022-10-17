@@ -6,7 +6,7 @@ const today = new Date();
 ---
 
 <Content>
-	<footer class="flex flex-row flex-wrap items-center justify-between gap-y-4">
+	<footer class="mb-4 flex flex-row flex-wrap items-center justify-between gap-y-4">
 		<p class="text-xs text-blue-800 dark:text-blue-200">
 			&copy;{today.getFullYear()} Paul Armstrong. All rights reserved.
 		</p>
@@ -57,15 +57,25 @@ const today = new Date();
 					</HeaderLink>
 				</li>
 				<li>
-					<HeaderLink href="/rss.xml" title="RSS feed for paularmstrong.dev">
+					<HeaderLink href="/feed.xml" title="RSS feed for paularmstrong.dev">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="inline h-6 w-6 fill-current">
 							<path
 								fill-rule="evenodd"
 								d="M3.75 4.5a.75.75 0 01.75-.75h.75c8.284 0 15 6.716 15 15v.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75v-.75C18 11.708 12.292 6 5.25 6H4.5a.75.75 0 01-.75-.75V4.5zm0 6.75a.75.75 0 01.75-.75h.75a8.25 8.25 0 018.25 8.25v.75a.75.75 0 01-.75.75H12a.75.75 0 01-.75-.75v-.75a6 6 0 00-6-6H4.5a.75.75 0 01-.75-.75v-.75zm0 7.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
 								clip-rule="evenodd"></path>
 						</svg>
-
 						RSS Feed
+					</HeaderLink>
+				</li>
+				<li>
+					<HeaderLink href="/feed.json" title="JSON feed for paularmstrong.dev">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="inline h-6 w-6 fill-current">
+							<path
+								fill-rule="evenodd"
+								d="M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm14.25 6a.75.75 0 01-.22.53l-2.25 2.25a.75.75 0 11-1.06-1.06L15.44 12l-1.72-1.72a.75.75 0 111.06-1.06l2.25 2.25c.141.14.22.331.22.53zm-10.28-.53a.75.75 0 000 1.06l2.25 2.25a.75.75 0 101.06-1.06L8.56 12l1.72-1.72a.75.75 0 10-1.06-1.06l-2.25 2.25z"
+								clip-rule="evenodd"></path>
+						</svg>
+						JSON Feed
 					</HeaderLink>
 				</li>
 			</ul>
