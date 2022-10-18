@@ -20,8 +20,8 @@ pre {
 	width: 33%;
 	aspect-ratio: 1;
 	float: right;
-	shape-outside: polygon(60% 2%, 99% 35%, 100% 100%, 0 100%, 7% 22%);
-	clip-path: polygon(60% 2%, 99% 35%, 100% 100%, 0 100%, 7% 22%);
+	shape-outside: circle(50%);
+	clip-path: circle(50%);
 	overflow: hidden;
 	margin-left: 0.25rem;
 }
