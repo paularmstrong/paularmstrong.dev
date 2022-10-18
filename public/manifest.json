@@ -1,23 +1,22 @@
 {
-	"short_name": "Paul Armstrong",
-	"name": "Paul Armstrong",
-	"description": "Personal website of Paul Armstrong",
+	"background_color": "#c1ddf9",
+	"display": "standalone",
 	"icons": [
 		{
-			"src": "/img/icon-192.png",
-			"type": "image/png",
-			"sizes": "192x192"
+			"sizes": "192x192",
+			"src": "/img/android-chrome-192x192.png",
+			"type": "image/png"
 		},
 		{
-			"src": "/img/icon-512.png",
-			"type": "image/png",
-			"sizes": "512x512"
+			"sizes": "512x512",
+			"src": "/img/android-chrome-512x512.png",
+			"type": "image/png"
 		}
 	],
-	"start_url": "/?source=pwa",
-	"background_color": "#3a57ab",
-	"display": "standalone",
+	"start_url": "/blog",
 	"scope": "/",
-	"theme_color": "#3a57ab",
-	"shortcuts": []
+	"name": "Paul Armstrong",
+	"short_name": "Paul Armstrong",
+	"description": "Paul Armstrong’s blog - Rambling, ranting, and raving… But mostly just whatever seems important in the moment about JavaScript, frontend development, and life surrounding us.",
+	"theme_color": "#0f172a"
 }

@@ -16,12 +16,11 @@ pre {
 }
 
 .home-profile-img {
-	margin: 0 10px 0 0;
-	width: 33%;
+	width: 38%;
 	aspect-ratio: 1;
 	float: right;
 	shape-outside: circle(50%);
 	clip-path: circle(50%);
+	shape-margin: 1rem;
 	overflow: hidden;
-	margin-left: 0.25rem;
 }
