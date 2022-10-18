@@ -27,18 +27,18 @@ const { title, description, image } = Astro.props;
 			class="flex min-h-screen flex-col gap-4 bg-slate-100 bg-gradient-to-bl from-blue-400/20 via-slate-100 to-slate-100 bg-fixed dark:bg-slate-900 dark:from-blue-800/30 dark:via-slate-900 dark:to-slate-900 md:gap-8"
 		>
 			<a
-				class="absolute inset-x-0 z-10 -translate-y-full bg-slate-100/50 p-4 text-center font-bold text-blue-600 underline decoration-4 underline-offset-4 shadow-lg outline-0 backdrop-blur-lg transition-transform duration-150 focus:translate-y-0 dark:bg-slate-800/50 dark:text-blue-400"
+				class="absolute inset-x-0 z-10 -translate-y-full bg-slate-100/50 p-4 text-center font-bold text-blue-600 underline decoration-4 underline-offset-4 outline-none backdrop-blur-lg transition-transform duration-150 focus:translate-y-0 focus:shadow-lg dark:bg-slate-800/50 dark:text-blue-400"
 				href="#main">Skip to main content</a
 			>
 
 			<Header />
 
 			<div class="grow">
-				<Content>
-					<main id="main">
+				<main id="main">
+					<Content>
 						<slot />
-					</main>
-				</Content>
+					</Content>
+				</main>
 			</div>
 
 			<Footer />
