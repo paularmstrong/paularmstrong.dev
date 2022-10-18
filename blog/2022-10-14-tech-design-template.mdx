@@ -5,6 +5,7 @@ description: As teams grow, become distributed, and not everyone is able to be i
 ---
 
 import Aside from '~/components/Aside.astro';
+import Details from '~/components/Details.astro';
 
 As teams grow, become distributed, and not everyone is able to be involved in every decision, it becomes more important to record what’s happening and why decisions are and were made. From a technical standpoint, _Tech Designs_ are a great way to structure this information and keep around long-term for posterity.
 
@@ -94,7 +95,7 @@ The following is a template that I’ve used and introduced to teams I’ve work
 
 Grab the markdown formatted source for this template and modify it for your own needs!
 
-<details>
+<Details title="Expand for Markdown">
 
 ```md
 # A short but descriptive title
@@ -140,6 +141,6 @@ _A good technical design also considers alternative approaches and explains why 
 _If you’re unsure about anything, list some open questions here. This is a good spot to get extra feedback from reviewers before proceeding to build your solution._
 ```
 
-</details>
+</Details>
 
 </Aside>

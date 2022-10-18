@@ -14,7 +14,7 @@ const { next, prev } = Astro.props as Props;
 				<li class="order-last flex flex-row justify-end">
 					<a
 						href={`/blog/${next.slug}`}
-						class="inline-flex flex-row-reverse items-center gap-2 rounded p-4 text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
+						class="inline-flex flex-row-reverse items-center gap-2 rounded p-4 text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus:underline focus:decoration-4 focus:underline-offset-4 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ const { next, prev } = Astro.props as Props;
 				<li class="order-first flex flex-row justify-start">
 					<a
 						href={`/blog/${prev.slug}`}
-						class="inline-flex flex-row items-center gap-2 rounded p-4 text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
+						class="inline-flex flex-row items-center gap-2 rounded p-4 text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus:underline focus:decoration-4 focus:underline-offset-4 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
