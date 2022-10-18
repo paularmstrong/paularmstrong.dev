@@ -14,13 +14,12 @@ const { title, description, image = '/img/og_image_small.png' } = Astro.props;
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<link rel="icon" href="/favicon.ico" sizes="any" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-
-<meta name="generator" content={Astro.generator} />
-
 <meta name="theme-color" content="#c1ddf9" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+<link rel="manifest" href="/manifest.json" />
 
 {/* Primary Meta Tags */}
 <title>{title}</title>
