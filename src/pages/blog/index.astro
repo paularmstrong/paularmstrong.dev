@@ -35,7 +35,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 					if (!match) {
 						return null;
 					}
-					const slug = `/blog/${Object.values(match.groups || {}).join('/')}/`;
+					const slug = `/blog/${Object.values(match.groups || {}).join('/')}`;
 					const date = dateFormatter(new Date(pubDate));
 
 					return (
