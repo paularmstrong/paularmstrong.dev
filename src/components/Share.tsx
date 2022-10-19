@@ -3,7 +3,7 @@ import type { Component } from 'solid-js';
 import { SITE_URL } from '../config';
 
 interface Props {
-	text: string;
+	text?: string;
 	title: string;
 	url: string;
 }
@@ -15,7 +15,7 @@ export const Share: Component<Props> = (props) => {
 	const toggle = async () => {
 		if (typeof navigator.share === 'function') {
 			await navigator.share({
-				text: props.text,
+				text: props.text || `${props.title} • Paul Armstrong`,
 				title: props.title,
 				url: props.url,
 			});
