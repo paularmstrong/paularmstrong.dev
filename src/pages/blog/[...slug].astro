@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 			if (!match) {
 				return false;
 			}
-			return { params: { slug: Object.values(match.groups).join('/') }, props: { post: { ...post, filename } } };
+			return { params: { slug: `${Object.values(match.groups).join('/')}/` }, props: { post: { ...post, filename } } };
 		})
 		.sort((a, b) => new Date(a.props.post.frontmatter.pubDate) - new Date(b.props.post.frontmatter.pubDate))
 		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.post?.frontmatter?.draft));
@@ -109,7 +109,7 @@ for (const h of getHeadings()) {
 				<div class="prose-base prose-p:!mt-0">
 					<h2 class="!my-2">Thoughts?</h2>
 					<div class="flex flex-row gap-4 items-start">
-						<Share client:load title={title} text={description} url={slug} />
+						<Share client:load title={title} text={description} url={`/blog/${slug}`} />
 						<p>
 							Since you’ve made it this far, hopefully you have formed some thoughts and opinions about this topic
 							yourself. Please share the post or <Link href="https://twitter.com/paularmstrong">ping me on Twitter</Link
