@@ -7,7 +7,7 @@ import PageInfo from '~/components/PageInfo.astro';
 import PageNav from '~/components/PageNav.astro';
 import Prose from '~/components/Prose.astro';
 import TocList from '~/components/TocList.astro';
-import { Share } from '~/components/Share.tsx';
+import { Share, ShareLink } from '~/components/Share.tsx';
 
 export async function getStaticPaths() {
 	const posts = (await Astro.glob('../../../blog/*.{md,mdx}'))
@@ -102,23 +102,26 @@ for (const h of getHeadings()) {
 
 				<Content />
 			</div>
-		</Prose>
 
-		<aside class="mx-2 mb-4 rounded-xl px-4 py-1 bg-slate-200 dark:bg-slate-800">
-			<Prose>
+			<hr />
+
+			<aside class="mx-2 my-8 rounded-xl bg-slate-200 px-4 py-1 dark:bg-slate-800">
 				<div class="prose-base prose-p:!mt-0">
-					<h2 class="!my-2">Thoughts?</h2>
-					<div class="flex flex-row gap-4 items-start">
-						<Share client:load title={title} url={`/blog/${slug}`} />
+					<h2 class="!my-2">Share your thoughts</h2>
+					<div class="flex flex-row items-start gap-4">
+						<div class="w-28 shrink-0"><Share client:load title={title} url={`/blog/${slug}`} /></div>
 						<p>
 							Since you’ve made it this far, hopefully you have formed some thoughts and opinions about this topic
-							yourself. Please share the post or <Link href="https://twitter.com/paularmstrong">ping me on Twitter</Link
+							yourself. Please <ShareLink client:load title={title} url={`/blog/${slug}`} /> the post or <Link
+								href="https://twitter.com/paularmstrong"
+								target="_blank"
+								rel="noopener noreferrer">ping me on Twitter</Link
 							>.
 						</p>
 					</div>
 				</div>
-			</Prose>
-		</aside>
+			</aside>
+		</Prose>
 	</article>
 
 	<aside>
