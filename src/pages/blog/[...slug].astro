@@ -2,10 +2,12 @@
 import { Picture } from '@astrojs/image/components';
 import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
+import Link from '~/components/Link.astro';
 import PageInfo from '~/components/PageInfo.astro';
 import PageNav from '~/components/PageNav.astro';
 import Prose from '~/components/Prose.astro';
 import TocList from '~/components/TocList.astro';
+import { Share } from '~/components/Share.tsx';
 
 export async function getStaticPaths() {
 	const posts = (await Astro.glob('../../../blog/*.{md,mdx}'))
@@ -61,14 +63,8 @@ for (const h of getHeadings()) {
 		<meta itemprop="mainEntityOfPage" content={slug} />
 		<Prose>
 			<h1 itemprop="name headline">
-				{title}{
-					draft ? (
-						<>
-							{' '}
-							<sup class="text-red-400">(draft)</sup>
-						</>
-					) : null
-				}
+				{title}
+				{draft ? <sup class="text-red-400">(draft)</sup> : null}
 			</h1>
 
 			<PageInfo file={filename} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
@@ -107,10 +103,26 @@ for (const h of getHeadings()) {
 				<Content />
 			</div>
 		</Prose>
+
+		<aside class="mx-2 mb-4 rounded-xl px-4 py-1 bg-slate-200 dark:bg-slate-800">
+			<Prose>
+				<div class="prose-base prose-p:!mt-0">
+					<h2 class="!my-2">Thoughts?</h2>
+					<div class="flex flex-row gap-4 items-start">
+						<Share client:load title={title} text={description} url={slug} />
+						<p>
+							Since you’ve made it this far, hopefully you have formed some thoughts and opinions about this topic
+							yourself. Please share the post or <Link href="https://twitter.com/paularmstrong">ping me on Twitter</Link
+							>.
+						</p>
+					</div>
+				</div>
+			</Prose>
+		</aside>
 	</article>
 
-	<aside class="mt-10">
-		<Prose><h2 id="post-nav" class="!text-lg">Post navigation</h2></Prose>
+	<aside>
+		<Prose><h2 id="post-nav" class="!text-lg">More posts</h2></Prose>
 		<PageNav next={siblings.next} prev={siblings.prev} />
 	</aside>
 </Base>
