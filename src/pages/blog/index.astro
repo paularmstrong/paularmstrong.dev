@@ -11,15 +11,13 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 ---
 
 <Base title="Blog">
-	<div class="pb-12">
-		<Prose>
-			<h1>Blog</h1>
-			<p>
-				Rambling, ranting, and raving… But mostly just whatever seems important in the moment about JavaScript, frontend
-				development, and life surrounding me.
-			</p>
-		</Prose>
-	</div>
+	<Prose>
+		<h1>Blog</h1>
+		<p>
+			Rambling, ranting, and raving… But mostly just whatever seems important in the moment about JavaScript, frontend
+			development, and life surrounding me.
+		</p>
+	</Prose>
 	<section>
 		<AuthorMeta id="author" />
 		<ul class="flex flex-col gap-4">
