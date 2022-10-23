@@ -13,6 +13,13 @@ pre {
 		width: 80vw;
 		transform: translateX(calc(50vw - 50%));
 	}
+
+	.small-bustout {
+		margin-left: calc(50% - 50vw);
+		margin-right: calc(50% - 50vw);
+		width: 60vw;
+		transform: translateX(calc(50vw - 50%));
+	}
 }
 
 .home-profile-img {

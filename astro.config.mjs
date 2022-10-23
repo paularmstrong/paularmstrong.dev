@@ -29,7 +29,7 @@ export default defineConfig({
 				return item;
 			},
 		}),
-		image(),
+		image({ serviceEntryPoint: '@astrojs/image/sharp' }),
 		compress({
 			img: false,
 			svg: false,
