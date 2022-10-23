@@ -1,0 +1,335 @@
+---
+draft: true
+title: DIY Photo Booth, in-depth
+description: I created my own Photo Booth application with Electron, Node.js, React, and Tailwindcss and used a GoPro as a webcam for my wedding instead of renting a commercial booth. It was fun to build and even more fun to use.
+pubDate: 2022-10-23
+toc: true
+heroImage:
+  src: /img/blog/photobooth/main-screen.jpg
+  width: 1277
+  height: 799
+---
+
+import { Picture } from '@astrojs/image/components';
+
+Previously, I wrote about how [I created a DIY Photobooth](/blog/2022/10/11/diy-photobooth) for my wedding reception and [the results were amazing](/blog/2022/10/11/diy-photobooth#the-result). In this follow-up, I'll go into the technical details, hurdles, and details about actually writing the Photo Booth application. You might consider this a _post-mortem tech design_.
+
+## High-level plan
+
+Create an application with an easy to use user-interface
+
+- Website w/ webcam
+  - Electron application
+  - Webcam
+- controls: streamdeck
+- state machine
+  - xstate
+  - save files
+  - uploads
+- ui
+  - tailwindcss
+  - ever-present video
+
+### Electron application
+
+Most software developers would instantly judge that a native application would be the best choice to build a Photo Booth. And really, they're probably right. A native application would likely give the speed and stability you want from something incredibly interactive that that needs to work with large images and videos.
+
+That being said, I decided to use Electron for two reasons:
+
+1. I didn't have the time to spend re-learning native app development.
+1. I really wanted to have a reason to learn and use the [`MediaStream` & `MediaRecorder` web APIs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API) and [`x-state`](https://xstate.js.org/) as a full-blown state-machine.
+
+So, while Electron is not the best choice, it's still a choice that worked and there's nothing wrong with that.
+
+### Webcam
+
+In a best-case scenario, I would hook up a DSLR camera through an HDMI capture card and run it as a webcam to get the best quality images out of any photo taken through the `MediaStream` API. Unfortunately, I didn't want to jump into buying an HDMI capture card and I also wanted to keep my DSLR handy for other purposes. Otherwise, I'd need to buy both another DSLR and capture card. That would quickly blow up the budget (and then some) on this project.
+
+So we're stuck using a webcams, but unfortunately, webcams are notoriously crappy. Most are 720p and the ones that say they are 1080p have poor sensors that don't process light well and make your images come out pretty grainy. Even the “top end” webcams are not without their issues.
+
+However, GoPros can also be used as webcams now, given that you have [the GoPro Webcam app](https://community.gopro.com/s/article/GoPro-Webcam) installed. Well guess what, I just happen to have a GoPro Hero 10 that can do this.
+
+While still running at a maximum of 1080p, the images from the GoPro over the `MediaStream` API come out crisp, clear, bright, and all-around better than good enough!
+
+### User interaction
+
+Assuming I would not have access to a large touch-screen, I already owned an [Elgato Stream Deck Mini](https://www.elgato.com/en/stream-deck-mini). I could use the 6 buttons on here as an interactive user interface for navigating menus and options.
+
+## Execution
+
+### Electron
+
+Finding the right path to get started with Electron using modern Javascript (or TypeScript) and frameworks that require build tooling took longer than I would have liked. Similar to trying to figure out what is needed to just set up a website built with JS these days, Electron was just as bad or worse.
+
+I stepped in thinking it would just be built-in that webpack would build my application with some useful defaults. Unfortunately, there really isn't any build tooling to be found out of the box other than compiling to a runnable application.
+
+I first tried [electron-vite](https://github.com/electron-vite/electron-vite-boilerplate), wanting _the new hotness_ of building esmodules, thinking it'd make things faster to iterate. Unfortunately, I quickly hit the limitations of that when pulling in the [`@elgato-stream-deck/node`](https://www.npmjs.com/package/@elgato-stream-deck/node) package, as it requires linking to a native dependency, which I couldn't figure out how to do with Vite, but am well familiar with it in webpack. (If anyone knows, please reach out and point me in the right direction!)
+
+So after attempting to set up a bunch of inter-connected webpack processes myself, I thankfully gave up and replaced everything with [Electron Forge](https://www.electronforge.io/). This simplified the whole setup process, allowed me to hook into the webpack module rules and add the [node-loader](https://github.com/paularmstrong/photobooth/blob/6a136af7d3202319403c248c03050255b95c2a2e/packages/webpack/src/index.js#L12-L28).
+
+After that, most of the Electron setup is pretty run-of-the-mill stuff. I tried to follow best-practices for inter-process communication between node and the client, as well as only allowing the ability to load and save to directories with the correct permissions.
+
+My biggest criticism for Electron is that there is far too much outdate information around the web on how to do the more detailed bits with security, best practices, and even event listeners. The documentation is pretty good, but naming conventions don't always match what I would expect, coming frmo a Node.js server and JavaScript client background.
+
+### State machine
+
+Given the complexity of managing state across two user interfaces, the screen and the StreamDeck Mini, I wanted to ensure that both were in sync at all times. To do this, I chose to build a full [state machine](https://github.com/paularmstrong/photobooth/blob/main/packages/main/src/state/machine.ts) using [x-state](https://xstate.js.org/), run by the Electron Node.js process.
+
+<figure class="lg:bustout">
+	<a href="https://stately.ai/viz/96da6066-02dc-448e-a9f9-7a8511767b31" rel="noopener noreferrer" target="_blank">
+		<div class="dark:hidden">
+			<Picture
+				src="/img/blog/photobooth/xstate-hero-light.png"
+				alt="Visualizer of the Photo Booth’s state machine on stately.ai"
+				width="1600"
+				height="836"
+				widths={[480, 640, 1200, 1600]}
+				loading="lazy"
+				itemprop="image"
+				aspectRatio={1600 / 836}
+			/>
+		</div>
+		<div class="hidden dark:block">
+			<Picture
+				src="/img/blog/photobooth/xstate-hero.png"
+				alt="Visualizer of the Photo Booth’s state machine on stately.ai"
+				width="1600"
+				height="836"
+				widths={[480, 640, 1200, 1600]}
+				loading="lazy"
+				itemprop="image"
+				aspectRatio={1600 / 836}
+			/>
+		</div>
+	</a>
+	<figcaption class="pointer-events-auto text-center">
+		Check out the interactive version of the Photo Booth state machine on the [Stately
+		visualizer](https://stately.ai/viz/96da6066-02dc-448e-a9f9-7a8511767b31#).
+	</figcaption>
+</figure>
+
+##### Custom `useLocation()` hook
+
+Since the routing and location needed to be determined by the state machine that's run in the main node.js process, I added a new faux-context wrapper `NavigationProvider`, that listens to the `transition` event passed to the renderer process, and calls React Router’s `navigate()` function.
+
+```tsx
+import { useLocation as useRRLocation, useNavigate } from 'react-router-dom';
+
+export function NavigationProvider({ children }: { children: React.ReactNode }) {
+	const navigate = useNavigate();
+
+	React.useEffect(() => {
+		const remove = window.api.addListener('transition', ({ value, meta }) => {
+			navigate(
+				{
+					// Important: need to convert x-state value from an array/dot-notation to URL-compatible paths
+					// eg. ['photo', 'capturing', 'photo.capturing'] -> /photo/capturing
+					pathname: `/${value[value.length - 1].replace(/\./g, '/')}`,
+				},
+				{ state: meta }
+			);
+		});
+
+		return remove;
+	}, []);
+
+	return <>{children}</>;
+}
+```
+
+Then, in order to ensure that our state object always reported to Typescript with the correct shape, I needed a custom `useLocation()` hook that forced the type.
+
+```tsx
+import type { TransitionData } from '@pb/main';
+
+export function useLocation() {
+	const { state, ...location } = useRRLocation();
+	return { state: state as TransitionData['meta'], ...location };
+}
+```
+
+### User interface
+
+I left this detail out of the plan, because I didn't care too much about what I ended up going with. I picked React and Tailwindcss, as I figured that'd be the least overhead in terms of familiarity – I wouldn't need to learn something new here.
+
+#### Animation
+
+In the initial working iterations, the application still felt a bit too much like it was meant to be a web application, not eagerly loading the next view and not able to smoothly transition from one state to another. I decided that this was jarring in practice, so I explored how I could make everything feel like it was flowing, fun, and more like a “native” application.
+
+Given that I was using Tailwindcss, `CSSTransition` from [React Transition Group](https://reactcommunity.org/react-transition-group/css-transition) came through as an obvious choice. With it, you can easily add and remove CSS classes for various states of transitioning from one state to another. The hard part came in hooking this into `react-router` in order to transition from one view to another via animating the different parts of the screen.
+
+After a bunch of trial and error, the key was to forego using react-router's `Routes` (v6+) or `Switch` (v5) in favor of my own implementation that could pass the transition state down through to each view. This required a few parts:
+
+First, we need a route mapping for _all_ views that will be shown. In order for every view to receive transition state, we _cannot_ use nested routing. So we create a `routeMap`
+
+```tsx
+const routeMap: Record<string, React.FunctionComponent<Props>> = {
+	'/photo/confirming': PhotoConfirm,
+	'/photo/capturing': PhotoCapture,
+	// This state may have multiple sub-states, but they are mostly invisible to the user
+	'/photo/reviewing/*': PhotoSave,
+	'/photo/complete': PhotoReview,
+	'/video/confirming': VideoConfirm,
+	'/video/recording/readying': Readying,
+	// This state may have multiple sub-states, but they are mostly invisible to the user
+	'/video/recording/*': VideoRecord,
+	'/video/reviewing': VideoReview,
+	'/main/preferences': Preferences,
+	'/main/help': MainHelp,
+	'/main/*': Main,
+	'/setup': Startup,
+};
+
+const routes = Object.keys(routeMap).map((path) => ({ path }));
+```
+
+Once that's set up, we can use the `SwitchTransition` and `CSSTransition` components from React Transition Group to handle moving from one route to another
+
+```tsx
+import { HashRouter, matchRoutes } from 'react-router-dom';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { useLocation } from './context';
+
+function Router() {
+	const location = useLocation();
+
+	const match = React.useMemo(() => {
+		const matched = matchRoutes(routes, location);
+		return !matched ? null : matched[0].route;
+	}, [location]);
+
+	return (
+		<SwitchTransition>
+			<CSSTransition
+				// ensuring match.path here should not be necessary if we had a better guarantee
+				// that every route would be accounted for
+				timeout={match?.path ? 250 : 0}
+				key={match?.path || ''}
+			>
+				{(status) => {
+					// Again, just in-case, so we don't crash during development
+					if (!match || !match.path) {
+						return null;
+					}
+					const Component = routeMap[match.path];
+					// Important! The CSS Transition status gets sent through to be handled by
+					// each individual View, since all may have their own layout and components
+					// needing specific animations
+					return <Component status={status} />;
+				}}
+			</CSSTransition>
+		</SwitchTransition>
+	);
+}
+```
+
+Okay, that was a bit of setup, but not too bad. Now, for the payoff, each route's view can accept the `status` property and add CSS classes for each possible transition status:
+
+```tsx
+import clsx from 'clsx';
+
+export function ExampleView({ status }: Props) {
+	return (
+		<div
+			className={clsx({
+				'opacity-0': status === 'entering' || status === 'exited' || status === 'unmounted',
+				'transition-all ease-out opacity-1': status === 'entered',
+				'transition-all ease-in opacity-0': status === 'exiting',
+			})}
+		>
+			{/* content to fade in/out */}
+		</div>
+	);
+}
+```
+
+In use, that became cumbersome to remember, so I ended up creating a [`transition()` function helper](https://github.com/paularmstrong/photobooth/blob/6a136af7d3202319403c248c03050255b95c2a2e/packages/renderer/src/modules/transitions.ts). This made it easy to reuse transitions across different views and components.
+
+```tsx
+import { transition } from '../modules/transition';
+
+export function ExampleView({ status }: Props) {
+	return (
+		<div className={clsx('...', status ? transition(status, 'slideUp') : undefined)}>
+			{/* content to slide up when entering and down when exiting */}
+		</div>
+	);
+}
+```
+
+### Screens
+
+- Main
+  - Help
+- Preferences
+- Photo
+  - Prepare
+  - Taking photos
+  - Choose layout
+  - Save confirmation
+- Record video
+  - Prepare
+  - Record video
+  - Save confirmation
+
+## Result
+
+<iframe
+	class="aspect-video w-full"
+	loading="lazy"
+	src="https://www.youtube-nocookie.com/embed/e6I4G3Bf0Qk"
+	title="The Photo Booth application in action"
+	frameborder="0"
+	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+	allowfullscreen
+/>
+
+## What went wrong
+
+### Open GoPro API
+
+GoPro has an API called [Open GoPro](https://gopro.github.io/OpenGoPro/). It's a fully documented API spec to control their cameras over Bluetooth LE, WiFi, and USB[^1].
+
+[^1]: Some protocols for the Open GoPro API are more comprehensive and stable than others. In my testing, USB was the most stable, but still fell short due to timing issues.
+
+Unfortunately, after buying a brand new GoPro Hero 10 ($350) and spending at least 30 hours with the API over USB, I had to throw out the idea of using the API. The fact of it is that GoPro cameras are just _very slow_ at taking photos and being ready to take another photo. Probably fine out in the wild, since the cameras are rarely used for photos – typically just action video, but in a setting where timing and speed are key, controlling the camera with the API was just an absolute failure.
+
+### GoPro overheating
+
+Originally, I had bought a USB passthrough door for the battery cover. I took the battery out in hopes that it would both not drain on the battery and not overheat. Well, turns out that the door and lack of battery increased the heat of the GoPro and it ended up overheating. Thankfully, this was during our family dinner the night before the wedding. I set up the “Memory Shack” in our living room so that we could have a full test-run with it. Everything was great until I noticed that the video was really distorted, pointed downward, despite the camera being completely upright.
+
+A very weird experience for sure. I took off the passthrough door and just left the unit completely open. This allowed enough air to fully flow in and out of the device, fixing the overheating problem.
+
+### WiFi restrictions
+
+I wrote a separate script to watch the folder that photos were saved into and automatically resize, compress, and upload to Firebase storage and add into the [wedding website](/blog/2022/06/04/custom-wedding-website-part-1). This worked great during the test run, but turns out our venue's wifi had some weird network restrictions running and no photos uploaded. It was a bummer that no one was able to download their photos at the event and share, but a quick fix the next morning got all of the photos uploaded to our gallery.
+
+### No touch screen
+
+After watching my 10-year-old nephew try to use the Photo Booth, it was instantly obvious that a touch screen would have been the most intuitive choice.
+
+I was thankful that I had covered the borrowed screen with a thin acrylic sheet, lest his finger jabbing go right through the screen.
+
+While the Stream Deck Mini worked well and people figured out the buttons quickly, it still required a learning moment that I would have loved to remove.
+
+## Cost breakdown
+
+| What                                                                                                                               | Cost     | Actual cost   |
+| ---------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| [Elgato Stream Deck Mini](https://www.elgato.com/en/stream-deck-mini)                                                              | owned    | $80           |
+| [Portable USB-C screen](https://www.amazon.com/Lepow-C2S-1920%C3%971080P-Kickstand-Black/dp/B09H2WF8TY?ref_=ast_sto_dp&th=1&psc=1) | borrowed | $190          |
+| [GoPro Hero 10](https://gopro.com/en/us/shop/cameras/hero10-black/CHDHX-101-master.html)                                           | owned    | $350          |
+| [12" LED ring light](https://www.amazon.com/gp/product/B08DD36M29/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&psc=1)                | $40      | $40           |
+| Wood & supplies for structure                                                                                                      | gifted   | ?             |
+| Acrylic sheet to cover the screen                                                                                                  | $16      | $16           |
+| Total                                                                                                                              | $56      | at least $676 |
+
+So, given the cost breakdown, I like to tell myself that I only spent about $60 on the entire photo booth – and even if I count every piece of hardware (less the actual computer that has to run the app), I would still be spending about $1,000 less than if I had rented a Photo Booth.
+
+However, if you count how my time is worth money as well, I probably spent at least 100 hours in total across software and physical structure building – maybe more. I don't even want to try calculating a dollar amount on this.
+
+I like to keep in mind that the time spent was also an investment into my own skills. I can now say that I've gone through building at least a decent piece of software using Electron, dug pretty deep into proper state machines, and become intimately familiar with the web Media APIs.
+
+```
+
+```
