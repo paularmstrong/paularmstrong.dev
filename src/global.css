@@ -23,11 +23,13 @@ pre {
 }
 
 .home-profile-img {
+	@apply aspect-square float-right overflow-hidden;
 	width: 38%;
-	aspect-ratio: 1;
-	float: right;
 	shape-outside: circle(50%);
 	clip-path: circle(50%);
 	shape-margin: 1rem;
-	overflow: hidden;
+}
+
+.prose :where(a img):not(:where([class~='not-prose'] *)) {
+	@apply hover:ring-4 hover:ring-blue-500/70;
 }
