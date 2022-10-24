@@ -38,7 +38,7 @@ export const BackToTop: Component = () => {
 			ref={link!}
 			id="to-top"
 			href="#top"
-			class="fixed bottom-6 right-6 flex translate-y-full flex-col items-center rounded bg-slate-200/80 py-2 px-4 font-bold text-blue-600 opacity-0 shadow-lg outline-none ring-blue-600/70 backdrop-blur-md transition-all duration-700 ease-in-out focus:ring-4 dark:bg-slate-800/80"
+			class="fixed bottom-6 right-6 flex translate-y-full flex-col items-center rounded bg-slate-200/60 py-2 px-4 font-bold text-blue-600 opacity-0 shadow-lg outline-none ring-blue-600/70 backdrop-blur-md transition-all duration-700 ease-in-out focus:ring-4 dark:bg-slate-800/60 dark:text-blue-300"
 			aria-label="Back to top"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="inline h-6 w-6 fill-current" aria-hidden>
@@ -46,7 +46,7 @@ export const BackToTop: Component = () => {
 					fill-rule="evenodd"
 					d="M11.47 4.72a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 6.31l-6.97 6.97a.75.75 0 01-1.06-1.06l7.5-7.5zm.53 7.59l-6.97 6.97a.75.75 0 01-1.06-1.06l7.5-7.5a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 12.31z"
 					clip-rule="evenodd"
-				></path>
+				/>
 			</svg>
 			Top
 		</a>
