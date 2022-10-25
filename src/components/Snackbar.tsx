@@ -10,7 +10,7 @@ export const Toast: Component<Props> = (props) => {
 		<aside
 			role="status"
 			aria-relevant="additions"
-			class="rounded bg-slate-300 px-6 py-4 text-slate-900 shadow dark:bg-slate-700 dark:text-slate-50"
+			class="rounded bg-slate-200/60 px-6 py-4 text-slate-900 shadow backdrop-blur-md dark:bg-slate-800/60 dark:text-slate-50"
 		>
 			<div aria-atomic="false">{props.children}</div>
 		</aside>
@@ -51,7 +51,7 @@ export const Snackbar: Component<void> = () => {
 	});
 
 	return (
-		<div class="pointer-events-none fixed inset-0 z-10 flex items-end justify-center p-4 md:p-8">
+		<div class="pointer-events-none fixed inset-0 z-10 flex items-end justify-center p-6">
 			{current() ? <Toast>{current()!}</Toast> : null}
 		</div>
 	);
