@@ -72,7 +72,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 													<Picture
 														src={heroImage.src}
 														alt=""
-														widths={[640]}
+														widths={[480, 640]}
+														width={heroImage.width}
+														height={heroImage.height}
 														aspectRatio={heroImage.width / heroImage.height}
 														itemprop="image"
 														class="!mt-0 w-full max-w-none"
