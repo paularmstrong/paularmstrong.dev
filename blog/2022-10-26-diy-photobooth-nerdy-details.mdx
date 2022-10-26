@@ -1,19 +1,24 @@
 ---
-draft: true
-title: "DIY Photo Booth: the nerdy details"
+pubDate: 10/26/2022, 7:40:02 AM GMT-0700
+title: 'DIY Photo Booth: the nerdy details'
 description: I created my own Photo Booth application with Electron, Node.js, React, and Tailwindcss and used a GoPro as a webcam for my wedding instead of renting a commercial booth. It was fun to build and even more fun to use.
-pubDate: 2022-10-23
-toc: true
 heroImage:
-	src: /img/blog/photobooth/main-screen.jpg
-	width: 1277
-	height: 799
+  src: /img/blog/photobooth/diy-hero.jpg
+  width: 1600
+  height: 836
+toc: true
 ---
 
 import Aside from '~/components/Aside.astro';
 import { Picture } from '@astrojs/image/components';
 
 Previously, I wrote about how [I created a DIY Photobooth](/blog/2022/10/11/diy-photobooth) for my wedding reception and [the results were amazing](/blog/2022/10/11/diy-photobooth#the-result). Now we can get to the choices, technical details, and hurdles I went through writing the Photo Booth application. You might consider this a _post-mortem tech design_.
+
+<Aside type="info" title="Source code">
+
+If you’re anything like me and you prefer seeing code first, don’t forget that this entire project is open source! Please feel free to skip the whole post and jump right into the [photobooth source code](https://github.com/paularmstrong/photobooth).
+
+</Aside>
 
 ## High-level plan
 
@@ -118,6 +123,24 @@ Given the complexity of managing state across two user interfaces, the screen an
 
 This machine handles the entire state of the application: backend, frontend (GUI), and _other_ frontend (Stream Deck). When entering any state, we assign an array of possible keys and their transition type to the machine’s context, then call the `renderKeys` action.
 
+#### Communicating between the `main` and `renderer` process
+
+Sending messages back and forth between the two processes is crucial for most Electron applications, since they run in separate sandboxed processes.
+
+```tsx
+const service = interpret(machine);
+service.start();
+
+service.onTransition((state) => {
+	const { streamdeck, ...meta } = state.context;
+	webContents.send('transition', { value: state.toStrings(), meta } as TransitionData);
+});
+
+ipcMain.on('transition', (event, action) => {
+	service.send(action);
+});
+```
+
 Let’s look at what happens when taking our four photos has completed and we want to prompt the participants to select a layout for their collage. We have four layouts to choose from, so we render those to the first four buttons, then we want our “Done” action as the last, bottom-right action. So we set up our `entry` `assign` handler to assign the keys and actions:
 
 ```tsx
@@ -163,9 +186,21 @@ Then our `renderKeys` action is immediately fired and renders the defined images
 }
 ```
 
-On each state transition, we also pass the state context to the renderer application and use a custom [`useLocation()` hook](#syncing-state-between-main-and-renderer-process) to merge the state machine’s context into the React Router Location state. This then lets us extract out each key and render it to a `<HelpCard />` on screen.
+One small design choice: It was inefficient to send the entire Stream Deck object into the state machine’s context and didn’t mesh well with normal patterns in x-state. However, not passing the entire Stream Deck object to the state machine’s context required a bit of digging into the state’s key context to send the correct action back into the service. Turns out that this really wasn’t too bad.
 
-##### Syncing state between main and renderer process
+```tsx
+streamdeck.on('up', (keyIndex: number)) {
+	const action = service.state.context.keys[keyIndex];
+	if (!action) {
+		return;
+	}
+	service.send(action);
+}
+```
+
+#### Syncing state between main and renderer process
+
+On each state transition, we also pass the state context to the renderer application and use a custom [`useLocation()` hook](#syncing-state-between-main-and-renderer-process) to merge the state machine’s context into the React Router Location state. This then lets us extract out each key and render it to a `<HelpCard />` on screen.
 
 Since the routing and location needed to be determined by the state machine that’s run in the main node.js process, I added a new faux-context wrapper `NavigationProvider`, that listens to the `transition` event passed to the renderer process, and calls React Router’s `navigate()` function.
 
@@ -314,32 +349,42 @@ export function ExampleView({ status }: Props) {
 }
 ```
 
-### Screens
+## Last minute additions
 
-- Main
-  - Help
-- Preferences
-- Photo
-  - Prepare
-  - Taking photos
-  - Choose layout
-  - Save confirmation
-- Record video
-  - Prepare
-  - Record video
-  - Save confirmation
+After confirming that the GoPro worked as a webcam, I didn’t really leave it set up to run all of the time during development, as it was just a bit too much to have hanging around. What I didn’t realize though was that if you had multiple cameras available, eg: a laptop with a built-in camera, the GoPro would never be chosen as the default camera.
+
+I quickly needed to add preferences to the application, so I threw together a few settings that would probably make it helpful if anyone else ever wanted to pick up [the source code](https://github.com/paularmstrong/photobooth) and repurpose it for their own party.
+
+<Picture
+	src="/img/blog/photobooth/preferences.png"
+	alt="Screenshot of the Photo Booth’s preferences view"
+	width="2550"
+	height="1590"
+	widths={[480, 640, 1200, 1600]}
+	loading="lazy"
+	itemprop="image"
+	aspectRatio={2550 / 1590}
+/>
 
 ## Result
 
-<iframe
-	class="aspect-video w-full"
-	loading="lazy"
-	src="https://www.youtube-nocookie.com/embed/e6I4G3Bf0Qk"
-	title="The Photo Booth application in action"
-	frameborder="0"
-	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-	allowfullscreen
-/>
+I’m super happy with the end result. There isn’t much more to say other than _it worked_ and it worked _well_ – just as well as a $1,500 rental would have.
+
+So here’s me messing around with it at home and trying to get Milo to pose with me.
+
+<div class="lg:bustout">
+	<iframe
+		class="aspect-video w-full"
+		loading="lazy"
+		src="https://www.youtube-nocookie.com/embed/e6I4G3Bf0Qk"
+		title="The Photo Booth application in action"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+		allowfullscreen
+	/>
+</div>
+
+---
 
 ## What went wrong
 
