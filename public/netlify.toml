@@ -26,7 +26,7 @@
 [[headers]]
   for = "manifest.json"
   [headers.values]
-    Cache-Control = "public, max-age=365000000, immutable"
+    Cache-Control = "public, max-age=86400, immutable"
 
 [[redirects]]
   from = "/rss.xml"
