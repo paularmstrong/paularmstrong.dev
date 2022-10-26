@@ -11,6 +11,7 @@ const remarkPlugins = [remarkReadingTime];
 /** @type {import('@types/astro').AstroUserConfig} */
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
+	trailingSlash: 'always',
 	integrations: [
 		solid(),
 		tailwind(),
