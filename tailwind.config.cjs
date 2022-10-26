@@ -2,10 +2,51 @@
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ['src/**/*.{astro,md,tsx}', 'blog/**/*.{md,mdx}'],
-	plugins: [require('@tailwindcss/typography')],
+	content: ['src/**/*.{astro,md,mdx,tsx}', 'blog/**/*.{md,mdx}'],
+	plugins: [
+		require('@tailwindcss/typography'),
+		function ({ matchUtilities, theme }) {
+			matchUtilities(
+				{
+					tab: (value) => ({
+						tabSize: value,
+					}),
+				},
+				{ values: theme('tabSize') }
+			);
+		},
+		function ({ addUtilities }) {
+			addUtilities({
+				'.bustout': {
+					marginLeft: 'calc(50% - 50vw)',
+					marginRight: 'calc(50% - 50vw)',
+					width: '80vw',
+					transform: 'translateX(calc(50vw - 50%))',
+				},
+				'.bustout-sm': {
+					marginLeft: 'calc(50% - 50vw)',
+					marginRight: 'calc(50% - 50vw)',
+					width: '60vw',
+					transform: 'translateX(calc(50vw - 50%))',
+				},
+				'.shape-circle': {
+					aspectRatio: 1,
+					shapeOutside: 'circle(50%)',
+					clipPath: 'circle(50%)',
+					shapeMargin: '1.25rem',
+					overflow: 'hidden',
+				},
+			});
+		},
+	],
 	darkMode: 'class',
 	theme: {
+		tabSize: {
+			1: '1',
+			2: '2',
+			4: '4',
+			8: '8',
+		},
 		extend: {
 			colors: {
 				blue: {
@@ -81,6 +122,15 @@ module.exports = {
 					900: '#0c2a19',
 				},
 			},
+			typography: (theme) => ({
+				'a-img': {
+					css: {
+						'a:hover img': {
+							outline: `4px solid ${theme('colors.blue.500')}77`,
+						},
+					},
+				},
+			}),
 		},
 	},
 };

@@ -6524,6 +6524,7 @@ fsevents@~2.3.2:
     reading-time: ^1.5.0
     sharp: ^0.31.1
     solid-js: ^1.5.7
+    tailwind-clip-path: ^1.0.0
     tailwindcss: ^3.2.1
     typescript: ^4.8.4
   languageName: unknown
@@ -7947,6 +7948,13 @@ fsevents@~2.3.2:
     "@pkgr/utils": ^2.3.1
     tslib: ^2.4.0
   checksum: 83e054fe4494dab42114fc4ed36a11b85e18742d304ade3f40d3afb4ba4145d76183adba1f29e2c36e9a0a453b93a83e2387505f96a0efd901f562927a968c44
+  languageName: node
+  linkType: hard
+
+"tailwind-clip-path@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tailwind-clip-path@npm:1.0.0"
+  checksum: 119424d851770dfa297fab45d309bd3a31724e3e7ebfa96ff838384d0a5076d8f2ad13b88f96bfadfe2c99ffe3838fa3cb8d619eae8cf0fc72400f572ad8ca3a
   languageName: node
   linkType: hard
 
