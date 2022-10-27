@@ -1,0 +1,20 @@
+---
+import { Picture } from '@astrojs/image/components';
+
+export interface Props {
+	class?: string;
+	src: string;
+	alt: string;
+	fetchPriority?: 'high' | 'low' | 'auto';
+	loading?: 'eager' | 'lazy';
+	widths: Array<number>;
+	width: number;
+	height: number;
+	itemprop?: string;
+}
+
+const { width, height, ...props } = Astro.props as Props;
+---
+
+{/* @ts-ignore */}
+<Picture {...props} width={width} height={height} aspectRatio={width / height} />

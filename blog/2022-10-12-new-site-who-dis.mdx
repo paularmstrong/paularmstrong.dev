@@ -9,7 +9,7 @@ heroImage:
   height: 600
 ---
 
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 import Aside from '~/components/Aside.astro';
 
 I needed an escape while stressing about my (previously) upcoming wedding. Having some personal annoyances with how difficult it would be to personalize <a href="https://docusaurus.io" rel="noopener" target="_blank">Docusaurus</a>, I sat down and hacked at <a href="https://astro.build" rel="noopener" target="_blank">Astro</a> for a day and a half. I came up with a fully working static website & blog in no time.
@@ -85,7 +85,6 @@ I really can't complain after measuring using various tools and having the home 
   width={1272}
   height={832}
   widths={[1200, 640, 480]}
-  aspectRatio={1272 / 832}
   itemprop="image"
   loading="lazy"
 

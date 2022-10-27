@@ -3,7 +3,7 @@ import Content from '~/components/Content.astro';
 import HeaderLink from '~/components/HeaderLink.astro';
 import { SITE_TITLE } from '../config';
 import { ThemeSwitcher } from '~/components/ThemeSwitcher';
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 ---
 
 <Content>
@@ -21,7 +21,6 @@ import { Picture } from '@astrojs/image/components';
 						widths={[48, 96]}
 						width={96}
 						height={96}
-						aspectRatio={1}
 						alt="Paul Armstrong’s profile picture"
 					/>
 					{SITE_TITLE}

@@ -10,7 +10,7 @@ toc: true
 ---
 
 import Aside from '~/components/Aside.astro';
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 
 I recently [got married]() – and as we know, weddings are _expensive_. Previously, I documented saving money by [creating my own website](/blog/2022/06/04/custom-wedding-website) and foregoing spending money on paper RSVPs. We also decided to skip paying a photographer the exorbitant extra fees to also photograph our reception, but we still wanted to have lots of memories from the event.
 
@@ -44,7 +44,6 @@ All of the wood used was donated from a friend and it was all pretty warped. We 
 
 <Picture
 	src="/img/blog/photobooth/shack.jpg"
-	aspectRatio={3 / 4}
 	widths={[640, 1200]}
 	width={1200}
 	height={900}
@@ -67,7 +66,6 @@ It may have looked janky and silly, but this thing was a _hit_! We had props, ha
 		widths={[240, 640]}
 		width={640}
 		height={394}
-		aspectRatio={1.625}
 		itemprop="image"
 		loading="lazy"
 		alt="Sample photo from the “Memory Shack” DIY photobooth"
@@ -78,7 +76,6 @@ It may have looked janky and silly, but this thing was a _hit_! We had props, ha
 		widths={[240, 640]}
 		width={640}
 		height={394}
-		aspectRatio={1.625}
 		itemprop="image"
 		loading="lazy"
 		alt="Sample photo from the “Memory Shack” DIY photobooth"
@@ -89,7 +86,6 @@ It may have looked janky and silly, but this thing was a _hit_! We had props, ha
 		widths={[240, 640]}
 		width={640}
 		height={394}
-		aspectRatio={1.625}
 		itemprop="image"
 		loading="lazy"
 		alt="Sample photo from the “Memory Shack” DIY photobooth"
@@ -100,7 +96,6 @@ It may have looked janky and silly, but this thing was a _hit_! We had props, ha
 		widths={[240, 640]}
 		width={640}
 		height={394}
-		aspectRatio={1.625}
 		itemprop="image"
 		loading="lazy"
 		alt="Sample photo from the “Memory Shack” DIY photobooth"
@@ -111,7 +106,6 @@ It may have looked janky and silly, but this thing was a _hit_! We had props, ha
 		widths={[240, 640]}
 		width={640}
 		height={394}
-		aspectRatio={1.625}
 		itemprop="image"
 		loading="lazy"
 		alt="Sample photo from the “Memory Shack” DIY photobooth"
@@ -122,7 +116,6 @@ It may have looked janky and silly, but this thing was a _hit_! We had props, ha
 		widths={[240, 640]}
 		width={640}
 		height={394}
-		aspectRatio={1.625}
 		itemprop="image"
 		loading="lazy"
 		alt="Sample photo from the “Memory Shack” DIY photobooth"

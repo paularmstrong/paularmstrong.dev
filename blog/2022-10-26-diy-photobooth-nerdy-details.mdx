@@ -10,7 +10,7 @@ toc: true
 ---
 
 import Aside from '~/components/Aside.astro';
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 
 Previously, I wrote about how [I created a DIY Photobooth](/blog/2022/10/11/diy-photobooth/) for my wedding reception and [the results were amazing](/blog/2022/10/11/diy-photobooth/#the-result). Now we can get to the choices, technical details, and hurdles I went through writing the Photo Booth application. You might consider this a _post-mortem tech design_.
 
@@ -99,7 +99,6 @@ Given the complexity of managing state across two user interfaces, the screen an
 				widths={[480, 640, 1200, 1600]}
 				loading="lazy"
 				itemprop="image"
-				aspectRatio={1600 / 836}
 			/>
 		</div>
 		<div class="hidden dark:block">
@@ -111,7 +110,6 @@ Given the complexity of managing state across two user interfaces, the screen an
 				widths={[480, 640, 1200, 1600]}
 				loading="lazy"
 				itemprop="image"
-				aspectRatio={1600 / 836}
 			/>
 		</div>
 	</a>
@@ -363,7 +361,6 @@ I quickly needed to add preferences to the application, so I threw together a fe
 	widths={[480, 640, 1200, 1600]}
 	loading="lazy"
 	itemprop="image"
-	aspectRatio={2550 / 1590}
 />
 
 ## Result

@@ -2,10 +2,10 @@
 import Link from '~/components/Link.astro';
 
 export interface Props {
-	file?: string;
-	pubDate?: string;
-	updatedDate?: string;
-	readingTime?: { minutes: number; words: number };
+	file?: string | undefined;
+	pubDate?: string | undefined;
+	updatedDate?: string | undefined;
+	readingTime?: { minutes: number; words: number } | undefined;
 }
 
 const { file, pubDate, updatedDate, readingTime } = Astro.props as Props;

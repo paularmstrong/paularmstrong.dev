@@ -3,7 +3,7 @@ layout: '~/layouts/Page.astro'
 title: Styleguide
 ---
 
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 import Aside from '~/components/Aside.astro';
 import Details from '~/components/Details.astro';
 import PageInfo from '~/components/PageInfo.astro';
@@ -54,14 +54,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ## Images
 
-<Picture
-	src="/img/blog/twitter-lite/banner.png"
-	widths={[480, 640, 1200, 1600]}
-	width={3576}
-	height={1328}
-	aspectRatio={3576 / 1328}
-	alt=""
-/>
+<Picture src="/img/blog/twitter-lite/banner.png" widths={[480, 640, 1200, 1600]} width={3576} height={1328} alt="" />
 
 ### Hero images
 
@@ -72,7 +65,6 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 		widths={[480, 640, 1200, 1600]}
 		width={3576}
 		height={1328}
-		aspectRatio={3576 / 1328}
 		alt=""
 	/>
 </div>

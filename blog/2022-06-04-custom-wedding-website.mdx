@@ -11,7 +11,7 @@ tags:
   - wedding
 ---
 
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 import Aside from '~/components/Aside.astro';
 
 Weddings are _expensive_. Trying to do one on a budget while following the social norms and expectations of planning and putting on a wedding just don't really mix. After getting engaged, Kelly and I discussed what we did and _definitely did not_ want when it came to our wedding.
@@ -20,7 +20,6 @@ Weddings are _expensive_. Trying to do one on a budget while following the socia
 	src="/img/blog/wedding/proposal.jpg"
 	alt="My proposal, skiing at sunrise"
 	widths={[640, 1200, 1600]}
-	aspectRatio={3406 / 1916}
 	height={1916}
 	width={3406}
 	loading="lazy"
@@ -33,7 +32,6 @@ One of the first things to do that we threw out was the idea of sending paper in
 	src="/img/blog/wedding/the-knot-rsvp.jpg"
 	alt="RSVP cards from The Knot"
 	widths={[640, 1200, 1600]}
-	aspectRatio={1200 / 875}
 	height={875}
 	width={1200}
 	loading="lazy"

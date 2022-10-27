@@ -11,7 +11,7 @@ tags:
   - wedding
 ---
 
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 import Aside from '~/components/Aside.astro';
 import Details from '~/components/Details.astro';
 
@@ -38,7 +38,6 @@ Now that we know _what_ we need, it’s time to choose the right tools for the j
 		src="/img/blog/wedding/firebase.png"
 		alt="Firebase logo"
 		widths={[300, 600]}
-		aspectRatio={1024 / 288}
 		width={1024}
 		height={288}
 		loading="lazy"
@@ -71,7 +70,6 @@ Hosting and backend framework evalutation can get long and tiring. I considered 
 		src="/img/blog/wedding/aws-amplify.png"
 		alt="AWS Amplify logo"
 		widths={[300, 600]}
-		aspectRatio={1838 / 550}
 		width={1838}
 		height={550}
 		loading="lazy"
@@ -104,7 +102,6 @@ Unfortunately, there were a number of blockers that came up for me during invest
 		src="/img/blog/wedding/supabase.png"
 		alt="Supabase logo"
 		widths={[300, 600]}
-		aspectRatio={2159 / 420}
 		width={2159}
 		height={420}
 		loading="lazy"
@@ -124,7 +121,6 @@ I would have liked to have tried [Supabase](https://supabase.com) since it's ope
 		src="/img/blog/wedding/parse.png"
 		alt="Parse Platform logo"
 		widths={[300, 378]}
-		aspectRatio={378 / 133}
 		width={378}
 		height={133}
 		loading="lazy"
@@ -150,7 +146,6 @@ Parse is another open source platform that I looked at briefly. Unfortunately, i
 		src="/img/blog/wedding/preact.webp"
 		alt="Preact logo"
 		widths={[300, 600]}
-		aspectRatio={1900 / 572}
 		width={1900}
 		height={572}
 		loading="lazy"
@@ -167,7 +162,6 @@ I could have used React, but I initially wanted to see how small I could keep th
 		src="/img/blog/wedding/tailwind.png"
 		alt="Tailwindcss logo"
 		widths={[300, 600]}
-		aspectRatio={2560 / 315}
 		width={2560}
 		height={315}
 		loading="lazy"
@@ -184,7 +178,6 @@ I have built a few things with Tailwind before and it really makes things simple
 		src="/img/blog/wedding/parcel.png"
 		alt="Parcel logo"
 		widths={[300, 600]}
-		aspectRatio={1492 / 516}
 		width={1492}
 		height={516}
 		loading="lazy"

@@ -1,5 +1,5 @@
 ---
-import { Picture } from '@astrojs/image/components';
+import Picture from '~/components/Picture.astro';
 import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
 import Prose from '~/components/Prose.astro';
@@ -48,7 +48,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 								class="text-right leading-8 text-slate-600 dark:text-slate-300"
 								datetime={date}
 								itemprop="datePublished"
-								content={date}
 							>
 								{date}
 							</time>
@@ -75,7 +74,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 														widths={[480, 640]}
 														width={heroImage.width}
 														height={heroImage.height}
-														aspectRatio={heroImage.width / heroImage.height}
 														itemprop="image"
 														class="!mt-0 w-full max-w-none"
 													/>

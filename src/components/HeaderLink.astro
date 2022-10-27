@@ -1,6 +1,8 @@
 ---
 import clsx from 'clsx';
-export type Props = astroHTML.JSX.AnchorHTMLAttributes;
+export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
+	href: string;
+}
 
 const { href, ...props } = Astro.props;
 const isActive = Astro.url.pathname.startsWith(href);

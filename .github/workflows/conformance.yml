@@ -35,6 +35,9 @@ jobs:
 
       - run: yarn install
 
+      - name: Astro typecheck
+        run: yarn astro check
+
       - name: Typecheck
         run: yarn tsc
 
