@@ -18,9 +18,9 @@ This function can help remove the guessing game if you work with a bunch of repo
 
 ```bash title="Add to your ~/.zshrc or ~/.bashrc"
 function main() {
-    DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
-    git checkout $DEFAULT_BRANCH
-    git pull
+	DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
+	git checkout $DEFAULT_BRANCH
+	git pull
 }
 ```
 
@@ -38,11 +38,11 @@ This function deletes the current branch and moves to the default tracked branch
 
 ```bash title="Add to your ~/.zshrc or ~/.bashrc"
 function rmbranch() {
-    BRANCH=`git rev-parse --abbrev-ref HEAD`
-    DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
-    git checkout $DEFAULT_BRANCH
-    git branch -D $BRANCH
-    git pull
+	BRANCH=`git rev-parse --abbrev-ref HEAD`
+	DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
+	git checkout $DEFAULT_BRANCH
+	git branch -D $BRANCH
+	git pull
 }
 ```
 
@@ -60,9 +60,9 @@ Again, this figures out the default/`HEAD` branch automatically so you don’t h
 
 ```bash title="Add to your ~/.zshrc or ~/.bashrc"
 function rebase() {
-    DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
-    git fetch origin $DEFAULT_BRANCH
-    git rebase origin/$DEFAULT_BRANCH
+	DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
+	git fetch origin $DEFAULT_BRANCH
+	git rebase origin/$DEFAULT_BRANCH
 }
 ```
 
