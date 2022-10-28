@@ -43,13 +43,13 @@ for (const post of Object.values(rawPosts)) {
 	}
 
 	const urlMatch = post.url
-		.replace(/\.mdx?$/, '')
-		.match(/^blog\/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
+		.replace(/\.mdx?\/?$/, '')
+		.match(/^blog\/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)$/);
 	if (!urlMatch?.groups) {
 		continue;
 	}
 
-	const url = `${SITE_URL}/blog/${Object.values(urlMatch.groups).join('/')}`;
+	const url = `${SITE_URL}/blog/${Object.values(urlMatch.groups).join('/')}/`;
 
 	const item: Item = {
 		title: post.frontmatter.title,
