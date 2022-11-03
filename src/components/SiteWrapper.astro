@@ -1,0 +1,18 @@
+---
+import clsx from 'clsx';
+
+export interface Props {
+	fullscreen?: boolean;
+}
+
+const { fullscreen } = Astro.props as Props;
+---
+
+<div
+	class={clsx(
+		'flex flex-col gap-4 bg-slate-100 bg-gradient-to-bl from-blue-400/20 via-slate-100 to-slate-100 bg-fixed selection:bg-purple-400/60 dark:bg-slate-900 dark:from-blue-800/30 dark:via-slate-900 dark:to-slate-900 dark:selection:bg-purple-400/80 dark:selection:text-slate-900 md:gap-8',
+		fullscreen && 'min-h-screen'
+	)}
+>
+	<slot />
+</div>

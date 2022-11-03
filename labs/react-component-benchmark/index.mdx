@@ -1,0 +1,66 @@
+---
+title: React Component Benchmark
+description: Benchmark your React components in production using a simple library.
+heroImage:
+  src: /img/labs/benchmark.png
+  width: 1200
+  height: 627
+---
+
+import App from './App';
+import Prose from '~/components/Prose.astro';
+
+<div class="flex grow flex-col bg-slate-100 p-2 dark:bg-slate-900 md:p-4 lg:p-8">
+
+<Prose>
+# React Component Benchmark
+
+<div class="not-prose">
+	<ul class="flex flex-row gap-4">
+		<li>
+			<a
+				href="https://npmjs.com/package/react-component-benchmark"
+				class="flex flex-row gap-2 whitespace-nowrap rounded py-2 px-4 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20"
+			>
+				<svg class="inline w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 975" aria-hidden>
+					<path d="M1114.86 555.02H1250V279.922H1114.86V555.02Z" />
+					<path
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+						d="M0 834.941V0H2500V834.941H1250V974.902H694.98V834.941H0ZM139.961 139.961H694.98V694.98H555.02V279.922H415.059V694.98H139.961V139.961ZM834.941 834.941V139.961H1389.96V694.98H1114.86V834.941H834.941ZM1529.92 139.961H2364.86V694.98H2224.9V279.922H2084.94V694.98H1944.98V279.922H1805.02V694.98H1529.92V139.961Z"
+					/>
+				</svg>
+				Install from npm
+			</a>
+		</li>
+		<li>
+			<a
+				href="https://github.com/paularmstrong/react-component-benchmark"
+				class="flex flex-row gap-2 whitespace-nowrap rounded py-2 px-4 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20"
+			>
+				<svg class="inline h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden>
+					<path d="M10.9,2.1c-4.6,0.5-8.3,4.2-8.8,8.7c-0.5,4.7,2.2,8.9,6.3,10.5C8.7,21.4,9,21.2,9,20.8v-1.6c0,0-0.4,0.1-0.9,0.1 c-1.4,0-2-1.2-2.1-1.9c-0.1-0.4-0.3-0.7-0.6-1C5.1,16.3,5,16.3,5,16.2C5,16,5.3,16,5.4,16c0.6,0,1.1,0.7,1.3,1c0.5,0.8,1.1,1,1.4,1 c0.4,0,0.7-0.1,0.9-0.2c0.1-0.7,0.4-1.4,1-1.8c-2.3-0.5-4-1.8-4-4c0-1.1,0.5-2.2,1.2-3C7.1,8.8,7,8.3,7,7.6C7,7.2,7,6.6,7.3,6 c0,0,1.4,0,2.8,1.3C10.6,7.1,11.3,7,12,7s1.4,0.1,2,0.3C15.3,6,16.8,6,16.8,6C17,6.6,17,7.2,17,7.6c0,0.8-0.1,1.2-0.2,1.4 c0.7,0.8,1.2,1.8,1.2,3c0,2.2-1.7,3.5-4,4c0.6,0.5,1,1.4,1,2.3v2.6c0,0.3,0.3,0.6,0.7,0.5c3.7-1.5,6.3-5.1,6.3-9.3 C22,6.1,16.9,1.4,10.9,2.1z" />
+				</svg>
+				Fork on Github
+			</a>
+		</li>
+	</ul>
+</div>
+
+This project aims to provide a method for gathering benchmarks of React component tree mount, update, and unmount timings. It can also estimate browser layout timing!
+
+Select a component test case, a lifecycle, and a reasonable number of samples, then press “Start” to run the benchmark.
+
+</Prose>
+<div class="py-12">
+  <App client:load />
+</div>
+
+<Prose>
+<div class="prose-sm">
+
+Please note that the values returned are estimates. Since this project does not hook into the React renderer directly, the values gathered are not 100% accurate and may vary slightly because they're taken from a wrapping component. That being said, running a large sample set should give you a confident benchmark metric.
+
+</div>
+</Prose>
+</div>
