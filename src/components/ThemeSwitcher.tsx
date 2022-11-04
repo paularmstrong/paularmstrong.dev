@@ -64,21 +64,32 @@ export const ThemeSwitcher: Component = () => {
 	return (
 		<div
 			role="button"
-			aria-label="auto"
+			aria-label={`Toggle site theme. Currently: ${
+				theme()?.startsWith('auto') ? 'Auto' : theme() === 'dark' ? 'Dark' : 'Light'
+			}`}
 			aria-live="polite"
-			title="Toggle site theme"
-			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100"
+			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 outline-0 hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20"
 			onClick={toggle}
+			onKeyDown={toggle}
+			tabindex={0}
 		>
 			{theme()?.startsWith('auto') ? (
-				<>{theme() === 'auto-light' ? <Sun /> : <Moon />} Auto</>
+				<div class="relative flex w-5 flex-row items-center justify-center overflow-hidden">
+					<div class="absolute shape-half-tl">
+						<Moon />
+					</div>
+					<div class="absolute h-8 w-px origin-center rotate-45 overflow-hidden bg-blue-800 dark:bg-blue-200" />
+					<div class="shape-half-br">
+						<Sun />
+					</div>
+				</div>
 			) : theme() === 'dark' ? (
 				<>
-					<Moon /> Dark
+					<Moon />
 				</>
 			) : (
 				<>
-					<Sun /> Light
+					<Sun />
 				</>
 			)}
 		</div>

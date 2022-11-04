@@ -36,6 +36,12 @@ module.exports = {
 					shapeMargin: '1.25rem',
 					overflow: 'hidden',
 				},
+				'.shape-half-tl': {
+					clipPath: 'polygon(0 0, 0 100%, 100% 0)',
+				},
+				'.shape-half-br': {
+					clipPath: 'polygon(100% 0, 0 100%, 100% 100%)',
+				},
 			});
 		},
 	],
