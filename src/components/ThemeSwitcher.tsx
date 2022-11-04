@@ -12,12 +12,12 @@ export const ThemeSwitcher: Component = () => {
 	});
 
 	createEffect(() => {
-		const t = theme();
-		if (!t) {
+		const currTheme = theme();
+		if (!currTheme) {
 			return;
 		}
-		localStorage.setItem('theme', t);
-		if (t.endsWith('dark')) {
+		localStorage.setItem('theme', currTheme);
+		if (currTheme.endsWith('dark')) {
 			document.body.classList.add('dark');
 		} else {
 			document.body.classList.remove('dark');
@@ -25,16 +25,16 @@ export const ThemeSwitcher: Component = () => {
 	});
 
 	const toggle = () => {
-		const t = theme();
-		if (!theme()) {
+		const currTheme = theme();
+		if (!currTheme) {
 			return;
 		}
-		if (t?.startsWith('auto')) {
+		if (currTheme.startsWith('auto')) {
 			setTheme('light');
 			return;
 		}
 
-		let idx = t ? themes.indexOf(t) : -1;
+		let idx = themes.indexOf(currTheme);
 		idx = idx === themes.length - 1 ? 0 : idx + 1;
 		setTheme(themes[idx] as Theme);
 	};
@@ -84,13 +84,9 @@ export const ThemeSwitcher: Component = () => {
 					</div>
 				</div>
 			) : theme() === 'dark' ? (
-				<>
-					<Moon />
-				</>
+				<Moon />
 			) : (
-				<>
-					<Sun />
-				</>
+				<Sun />
 			)}
 		</div>
 	);
