@@ -20,7 +20,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 	</Prose>
 	<section>
 		<AuthorMeta id="author" />
-		<ul class="flex flex-col gap-4">
+		<ul class="flex flex-col gap-12">
 			{
 				posts.map((post) => {
 					const { draft, pubDate, title, description, heroImage } = post.frontmatter;
