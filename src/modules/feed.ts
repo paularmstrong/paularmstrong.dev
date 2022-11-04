@@ -53,7 +53,7 @@ for (const post of Object.values(rawPosts)) {
 
 	const item: Item = {
 		title: post.frontmatter.title,
-		description: post.frontmatter.description || '',
+		description: `<p>${post.frontmatter.description || ''}</p><p><a href="${url}">Continue reading…</a></p>`,
 		id: url,
 		link: url,
 		date: new Date(post.frontmatter.pubDate),
