@@ -26,7 +26,6 @@ export const ThemeSwitcher: Component = () => {
 
 	const toggle = (event: KeyboardEvent | MouseEvent) => {
 		const currTheme = theme();
-		console.log(event.key);
 		if (!currTheme || ('key' in event && event.key.toLowerCase() !== 'enter')) {
 			return;
 		}
