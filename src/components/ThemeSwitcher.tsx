@@ -24,9 +24,9 @@ export const ThemeSwitcher: Component = () => {
 		}
 	});
 
-	const toggle = () => {
+	const toggle = (event: KeyboardEvent | MouseEvent) => {
 		const currTheme = theme();
-		if (!currTheme) {
+		if (!currTheme || ('key' in event && event.key.toLowerCase() !== 'enter')) {
 			return;
 		}
 		if (currTheme.startsWith('auto')) {
@@ -68,7 +68,7 @@ export const ThemeSwitcher: Component = () => {
 				theme()?.startsWith('auto') ? 'Auto' : theme() === 'dark' ? 'Dark' : 'Light'
 			}`}
 			aria-live="polite"
-			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 outline-0 hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20"
+			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20"
 			onClick={toggle}
 			onKeyDown={toggle}
 			tabindex={0}
