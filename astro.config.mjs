@@ -6,14 +6,17 @@ import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import image from '@astrojs/image';
 import compress from 'astro-compress';
+import react from '@astrojs/react';
 const remarkPlugins = [remarkReadingTime];
-
 /** @type {import('@types/astro').AstroUserConfig} */
+
+// https://astro.build/config
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	trailingSlash: 'always',
 	integrations: [
 		solid(),
+		react(),
 		tailwind(),
 		mdx({
 			remarkPlugins,
@@ -27,10 +30,13 @@ export default defineConfig({
 					item.changefreq = 'daily';
 					item.priority = 0.9;
 				}
+
 				return item;
 			},
 		}),
-		image({ serviceEntryPoint: '@astrojs/image/sharp' }),
+		image({
+			serviceEntryPoint: '@astrojs/image/sharp',
+		}),
 		compress({
 			img: false,
 			svg: false,
@@ -43,5 +49,10 @@ export default defineConfig({
 			wrap: true,
 		},
 		extendDefaultPlugins: true,
+	},
+	vite: {
+		ssr: {
+			noExternal: ['react-component-benchmark'],
+		},
 	},
 });

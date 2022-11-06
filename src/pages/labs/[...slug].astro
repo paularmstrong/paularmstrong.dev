@@ -1,0 +1,19 @@
+---
+import Labs from '~/layouts/Labs.astro';
+export async function getStaticPaths() {
+	const pages = (await Astro.glob('../../../labs/**/*.mdx')).map((page) => {
+		const slug = `${page.file.split('/labs/')[1]}`.replace(/(?:\/index)\.mdx$/, '');
+		return { params: { slug }, props: { page } };
+	});
+	return pages;
+}
+
+const {
+	frontmatter: { title, description, heroImage },
+	Content,
+} = Astro.props.page;
+---
+
+<Labs title={title} description={description} image={heroImage}>
+	<Content />
+</Labs>

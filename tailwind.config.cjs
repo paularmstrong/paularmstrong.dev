@@ -2,7 +2,7 @@
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ['src/**/*.{astro,md,mdx,tsx}', 'blog/**/*.{md,mdx}'],
+	content: ['src/**/*.{astro,md,mdx,tsx}', 'blog/**/*.{md,mdx}', 'labs/**/*.{mdx,tsx,ts}'],
 	plugins: [
 		require('@tailwindcss/typography'),
 		function ({ matchUtilities, theme }) {
@@ -41,6 +41,12 @@ module.exports = {
 				},
 				'.shape-half-br': {
 					clipPath: 'polygon(100% 0, 0 100%, 100% 100%)',
+				},
+				'.shape-triangle-up': {
+					clipPath: 'polygon(50% 0, 100% 100%, 0 100%)',
+				},
+				'.shape-triangle-down': {
+					clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
 				},
 			});
 		},
