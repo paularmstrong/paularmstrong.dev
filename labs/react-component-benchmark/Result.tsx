@@ -16,7 +16,7 @@ function ms(value: number | void) {
 
 export default function Results({ results }: { results: Array<ResultEntry> }) {
 	return (
-		<table className="w-full border-collapse border border-slate-900 dark:border-slate-900">
+		<table className="w-full border-collapse border border-slate-900 text-sm dark:border-slate-600 md:text-base">
 			<thead>
 				<tr>
 					<th title="Run" className={clsx(headerClasses, cellClasses)}>
@@ -42,10 +42,9 @@ export function Result({ component, index, type, result }: ResultEntry & { index
 	return (
 		<tr>
 			<th className={clsx(cellClasses, dataClasses)}>{index}</th>
-			<th className={clsx(cellClasses, dataClasses)}>
+			<th className={clsx(cellClasses, 'text-left')}>
 				{component}
-				<br />
-				{type}
+				<span className="block text-xs font-normal">{type}</span>
 			</th>
 			<td className={clsx(cellClasses, dataClasses)}>
 				{ms(result.mean)} (±{ms(result.stdDev)})

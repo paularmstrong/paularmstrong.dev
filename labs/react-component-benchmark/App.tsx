@@ -95,13 +95,13 @@ export default function BenchmarkHome() {
 					</div>
 				</div>
 
-				<div className="relative grow">
+				<div className="relative grow overflow-x-scroll">
 					<h3 className="text-2xl font-bold">Results</h3>
 					{results.length ? <Results results={results} /> : <p>Run a benchmark to see results</p>}
 				</div>
 			</div>
 
-			<div className="col-span-12 rounded-lg bg-slate-50 p-12 dark:bg-slate-200 lg:col-start-10">
+			<div className="col-span-12 rounded-lg bg-slate-50 p-12 dark:bg-slate-200 dark:text-slate-900 lg:col-start-10">
 				<Benchmark
 					key={`${TestCases[componentName].component}-${benchmarkType}-${results.length}`}
 					component={TestCases[componentName].component}
