@@ -1,0 +1,58 @@
+---
+title: The case for Astro
+pubDate: 11/09/2022, 8:00:00 AM GMT-0800
+description: I built my website with Astro, without having intended to. I often use my own personal site as a test-bed for learning new frameworks and tech. In testing out Astro, it just sort of stuck. As I continued, it became clear why – but the reason isn’t what I thought it would be.
+ogImage:
+  src: /img/labs/benchmark.png
+  width: 1200
+  height: 627
+---
+
+import Picture from '~/components/Picture.astro';
+
+I built [my website with Astro](/blog/2022/10/12/new-site-who-dis/), without having intended to. I often use my own personal site as a test-bed for learning new frameworks and tech. In testing out Astro, it just sort of stuck. As I continued, it became clear why – but the reason may be surprising.
+
+The current headline on the [Astro.build home page](https://astro.build) is **“Build faster websites.”** This was a big selling point, initially, in getting me to try Astro. When building a static website, there’s not a lot of point in sending large frameworks (like React) over the wire – even for server-generated content, really. While this is one of my main requirements, it’s not the reason I’ve found to stick with Astro.
+
+Astro also uses [**Vite**](https://vitejs.dev/) for development and building. It’s a nice bonus how fast the site runs in dev and builds for production. But again, it’s not why Astro is best for me now.
+
+The real icing on the cake comes from two parts of Astro combined:
+
+1. [Astro Islands](https://docs.astro.build/en/concepts/islands/)
+
+   Statically generated content getting hydrated as minimal _islands_ for small interactive pieces of the UI is just what I found I ended up needing over time. While I could have done dark & light mode for the site automatically chosen by the `prefers-color-scheme` CSS media query, I wanted to be able to manually toggle modes as well – and who knows, maybe one day I’ll add a third or more other themes. This type of thing _requires_ JavaScript.
+
+2. [Astro integrations](https://docs.astro.build/en/guides/integrations-guide/)
+
+   Now here’s the kicker. I wanted to use Astro Islands, but I didn’t want to have to load all of React in order to get it done. I went with [SolidJS](https://www.solidjs.com/) for the main interactive bits of the site. At the moment there are 3: the theme switcher, the “scroll to top” button that appears on longer pages when scrolling, and the “share widget” at the bottom of every blog post.
+
+But wait! There’s more! It isn’t just that I could use one framework (an integration) for islands. The fact is that where I want it, I can use _any_ framework. I’ve started a [labs section](/labs/) of the site using just that!
+
+<aside class="mx-4 mb-4 rounded-xl bg-slate-200 px-4 py-1 dark:bg-slate-800 sm:float-right sm:ml-8 sm:mr-0 sm:max-w-[50%] md:-mr-8 lg:-mr-32" aria-labelledby="aside-title">
+
+<p id="aside-title">Check out the React Component Benchmark project example in [the Labs](/labs/).</p>
+
+<a href="/labs/react-component-benchmark/">
+  <Picture
+    src="/img/labs/benchmark.png"
+    width={1200}
+    height={627}
+    widths={[480, 768, 1200]}
+    alt="React Component Benchmark"
+  />
+</a>
+</aside>
+
+There’s only one item there so far, but I’m so excited about how it turned out, that I wanted to boast about Astro and the fact that I have a super fast, statically generated, multi-page site that allows me to use almost any tech without worry about bleeding JS libraries across pages.
+
+Open up your network inspector as you browse across my site and you can see for yourself how the page weight is as minimal as possible from one page to another:
+
+| Page                                                          | Total JS transfer | JS cached from previous pages | Non-cache transfer |
+| ------------------------------------------------------------- | ----------------- | ----------------------------- | ------------------ | ------ |
+| [Home](/)                                                     | 7.5 kB            | _n/a_                         | _n/a_              |
+| [Blog](/blog/)                                                | 7.5 kB            | 7.5 kB                        | 0 kB               |
+| [This page!](/blog/2022/11/09/the-case-for-astro/)            | 7.6 kB            |                               | 6.5 kB             | 1.1 kB |
+| [Labs](/labs/)                                                | 7.5 kB            | 7.5 kB                        | 0 kB               |
+| [React Component Benchmark](/labs/react-component-benchmark/) | 48 kB             | 3.7 kB                        | 44.3 kB            |
+
+Want to see how this is all built? My website’s code is available for browsing on [Github at paularmstrong/paularmstrong.dev](https://github.com/paularmstrong/paularmstrong.dev)!

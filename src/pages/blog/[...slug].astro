@@ -45,7 +45,7 @@ export async function getStaticPaths() {
 
 const {
 	filename,
-	frontmatter: { draft, title, pubDate, updatedDate, readingTime, description, toc, heroImage },
+	frontmatter: { draft, title, pubDate, updatedDate, readingTime, description, toc, heroImage, ogImage },
 	getHeadings,
 	Content,
 } = Astro.props.post;
@@ -71,7 +71,7 @@ for (const h of getHeadings()) {
 }
 ---
 
-<Base title={title} description={description} image={heroImage?.src}>
+<Base title={title} description={description} image={ogImage?.src || heroImage?.src}>
 	<article itemprop="blogPost" itemscope itemtype="http://schema.org/Article">
 		<meta itemprop="mainEntityOfPage" content={`${slug}`} />
 		<Prose>
