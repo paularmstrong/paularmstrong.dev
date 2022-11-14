@@ -28,7 +28,7 @@ export default async (req: Request, context: Context) => {
 	}
 
 	const auto = cookieVal.auto as boolean;
-	const theme = (auto ? prefers : cookieVal.theme) as 'light' | 'dark';
+	const theme = (auto && prefers ? prefers : cookieVal.theme) as 'light' | 'dark';
 
 	console.log({ rawCookie, auto, prefers, theme, ua: req.headers.get('user-agent') });
 
