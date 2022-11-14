@@ -3,9 +3,6 @@
   targetPort = 3000
   autoLaunch = false
 
-[[plugins]]
-  package = "@helloample/netlify-plugin-replace"
-
 [[redirects]]
   from = "/rss.xml"
   to = "/feed.xml"
