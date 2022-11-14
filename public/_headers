@@ -14,12 +14,12 @@
   cache-control: max-age=365000000
   cache-control: immutable
 
-*.js
+/*.js
   cache-control: public
   cache-control: max-age=365000000
   cache-control: immutable
 
-*.json
+/*.json
   cache-control: public
   cache-control: max-age=365000000
   cache-control: immutable
