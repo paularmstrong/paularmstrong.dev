@@ -15,7 +15,9 @@ export const ThemeSwitcher: Component = () => {
 	const save = debounce(callApi, 300);
 
 	onMount(() => {
-		setTheme((document.body.dataset.theme as Theme) || 'auto');
+		const isAuto = document.body.dataset.auto === 'true';
+		const isDark = document.body.classList.contains('dark');
+		setTheme(`${isAuto ? 'auto-' : ''}${isDark ? 'dark' : 'light'}`);
 	});
 
 	createEffect(() => {
@@ -24,10 +26,20 @@ export const ThemeSwitcher: Component = () => {
 			return;
 		}
 
-		if (newTheme.endsWith('dark')) {
-			document.body.dataset.theme = 'dark';
-		} else if (newTheme.endsWith('light')) {
-			document.body.dataset.theme = 'light';
+		const currentThemeDark = document.body.classList.contains('dark');
+		const currentAuto = document.body.dataset['auto-theme'] === 'true';
+		const newThemeDark = newTheme.endsWith('dark');
+		const newThemeAuto = newTheme.startsWith('auto');
+
+		if (currentThemeDark === newThemeDark && currentAuto === newThemeAuto) {
+			return;
+		}
+
+		document.body.dataset['auto-theme'] = newThemeAuto ? 'true' : 'false';
+		if (newThemeDark) {
+			document.body.classList.add('dark');
+		} else {
+			document.body.classList.remove('dark');
 		}
 
 		save(newTheme);

@@ -5,10 +5,11 @@ const COOKIE_NAME = 'dt';
 type Theme = 'light' | 'dark' | 'auto-dark' | 'auto-light';
 const themes: Array<Theme> = ['light', 'dark', 'auto-dark', 'auto-light'];
 
-export default async (request: Request, context: Context) => {
-	const url = new URL(request.url);
+export default async (req: Request, context: Context) => {
+	const url = new URL(req.url);
 
 	if (!url.searchParams.has('theme')) {
+		console.log('missing theme');
 		return new Response(JSON.stringify({ error: 'Missing theme parameter' }), {
 			status: 400,
 			headers: {
@@ -20,6 +21,7 @@ export default async (request: Request, context: Context) => {
 	const theme = url.searchParams.get('theme') as Theme;
 
 	if (!themes.includes(theme)) {
+		console.log('invalid theme', theme);
 		return new Response(JSON.stringify({ error: `Invalid theme: ${theme}` }), {
 			status: 400,
 			headers: {
@@ -27,6 +29,8 @@ export default async (request: Request, context: Context) => {
 			},
 		});
 	}
+
+	console.log({ theme, ua: req.headers.get('user-agent') });
 
 	context.cookies.set({
 		name: COOKIE_NAME,

@@ -1,35 +1,43 @@
-[[headers]]
-  for = "/*"
-  [headers.values]
-    content-security-policy = "base-uri 'self'; default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; img-src 'self' https://paularmstrong.goatcounter.com/count; connect-src 'self' https://www.youtube-nocookie.com/oembed; frame-src 'self' https://www.youtube-nocookie.com;"
-    accept-ch = "sec-ch-prefers-color-scheme"
-    link = "<https://paularmstrong.dev/>; rel=preconnect"
-    permissions-policy = ''' ch-prefers-color-scheme=("https://paularmstrong.dev") '''
+[dev]
+  framework = "astro"
+  targetPort = 3000
+  autoLaunch = false
 
-[[headers]]
-  for = "/*.txt"
-  [headers.values]
-    cache-control = "public, max-age=365000000, immutable"
+[[plugins]]
+  package = "@helloample/netlify-plugin-replace"
 
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    cache-control = "public, max-age=365000000, immutable"
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     content-security-policy = "base-uri 'self'; default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; img-src 'self' https://paularmstrong.goatcounter.com/count; connect-src 'self' https://www.youtube-nocookie.com/oembed; frame-src 'self' https://www.youtube-nocookie.com;"
+#     accept-ch = "sec-ch-prefers-color-scheme"
+#     link = "<${env:URL}/>; rel=preconnect"
+#     permissions-policy = ''' ch-prefers-color-scheme=("${env:URL}") '''
 
-[[headers]]
-  for = "/img/*"
-  [headers.values]
-    cache-control = "public, max-age=365000000, immutable"
+# [[headers]]
+#   for = "/*.txt"
+#   [headers.values]
+#     cache-control = "public, max-age=365000000, immutable"
 
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    cache-control = "public, max-age=365000000, immutable"
+# [[headers]]
+#   for = "/assets/*"
+#   [headers.values]
+#     cache-control = "public, max-age=365000000, immutable"
 
-[[headers]]
-  for = "manifest.json"
-  [headers.values]
-    cache-control = "public, max-age=86400, immutable"
+# [[headers]]
+#   for = "/img/*"
+#   [headers.values]
+#     cache-control = "public, max-age=365000000, immutable"
+
+# [[headers]]
+#   for = "*.js"
+#   [headers.values]
+#     cache-control = "public, max-age=365000000, immutable"
+
+# [[headers]]
+#   for = "manifest.json"
+#   [headers.values]
+#     cache-control = "public, max-age=86400, immutable"
 
 [[redirects]]
   from = "/rss.xml"

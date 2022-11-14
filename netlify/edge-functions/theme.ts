@@ -13,16 +13,21 @@ export default async (req: Request, context: Context) => {
 	}
 
 	const prefers = req.headers.get('sec-ch-prefers-color-scheme');
-	let theme = context.cookies.get(COOKIE_NAME) ?? 'auto';
+	const cookie = context.cookies.get(COOKIE_NAME);
 
+	let theme = cookie ?? 'auto';
 	if (theme.startsWith('auto')) {
 		theme = prefers ?? (theme.split('-')[1] || 'auto');
 	}
 
+	console.log({ cookie, prefers, theme, ua: req.headers.get('user-agent') });
+
 	return new HTMLRewriter()
 		.on('body', {
 			element(element: Element) {
-				element.setAttribute('data-theme', theme);
+				const original = element.getAttribute('class') || false;
+				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
+				element.setAttribute('data-auto-theme', `${!cookie || cookie.startsWith('auto')}`);
 			},
 		})
 		.transform(res);
