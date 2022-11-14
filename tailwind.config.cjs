@@ -3,6 +3,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ['src/**/*.{astro,md,mdx,tsx}', 'blog/**/*.{md,mdx}', 'labs/**/*.{mdx,tsx,ts}'],
+	darkMode: 'class',
 	plugins: [
 		require('@tailwindcss/typography'),
 		function ({ matchUtilities, theme }) {
@@ -51,7 +52,6 @@ module.exports = {
 			});
 		},
 	],
-	darkMode: 'class',
 	theme: {
 		tabSize: {
 			1: '1',
