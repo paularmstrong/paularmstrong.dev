@@ -2,13 +2,13 @@
 import type { Context } from 'https://edge.netlify.com/';
 
 const COOKIE_NAME = 'dt';
-type Theme = 'light' | 'dark' | 'auto-dark' | 'auto-light';
-const themes: Array<Theme> = ['light', 'dark', 'auto-dark', 'auto-light'];
+const themes = ['light', 'dark'] as const;
 
 export default async (req: Request, context: Context) => {
 	const url = new URL(req.url);
+	const params = url.searchParams;
 
-	if (!url.searchParams.has('theme')) {
+	if (!params.has('theme')) {
 		console.log('missing theme');
 		return new Response(JSON.stringify({ error: 'Missing theme parameter' }), {
 			status: 400,
@@ -18,7 +18,8 @@ export default async (req: Request, context: Context) => {
 		});
 	}
 
-	const theme = url.searchParams.get('theme') as Theme;
+	const theme = params.get('theme') as typeof themes[number];
+	const auto = params.get('auto') === 'true';
 
 	if (!themes.includes(theme)) {
 		console.log('invalid theme', theme);
@@ -30,11 +31,11 @@ export default async (req: Request, context: Context) => {
 		});
 	}
 
-	console.log({ theme, ua: req.headers.get('user-agent') });
+	console.log({ auto, theme, ua: req.headers.get('user-agent') });
 
 	context.cookies.set({
 		name: COOKIE_NAME,
-		value: theme,
+		value: params.toString(),
 		path: '/',
 		secure: true,
 		httpOnly: true,

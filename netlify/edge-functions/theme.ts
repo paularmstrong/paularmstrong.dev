@@ -13,21 +13,31 @@ export default async (req: Request, context: Context) => {
 	}
 
 	const prefers = req.headers.get('sec-ch-prefers-color-scheme');
-	const cookie = context.cookies.get(COOKIE_NAME);
-
-	let theme = cookie ?? 'auto';
-	if (theme.startsWith('auto')) {
-		theme = prefers ?? (theme.split('-')[1] || 'auto');
+	const rawCookie = context.cookies.get(COOKIE_NAME);
+	let cookieVal = { auto: true, theme: 'light' };
+	if (rawCookie) {
+		try {
+			const params = new URLSearchParams(rawCookie);
+			cookieVal = {
+				auto: params.get('auto') === 'true',
+				theme: params.get('theme') || 'light',
+			};
+		} catch (e) {
+			console.error('Invalid cookie', rawCookie);
+		}
 	}
 
-	console.log({ cookie, prefers, theme, ua: req.headers.get('user-agent') });
+	const auto = cookieVal.auto as boolean;
+	const theme = (auto ? prefers : cookieVal.theme) as 'light' | 'dark';
+
+	console.log({ rawCookie, auto, prefers, theme, ua: req.headers.get('user-agent') });
 
 	return new HTMLRewriter()
 		.on('body', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
 				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
-				element.setAttribute('data-auto-theme', `${!cookie || cookie.startsWith('auto')}`);
+				element.setAttribute('data-auto-theme', auto ? 'true' : 'false');
 			},
 		})
 		.transform(res);
