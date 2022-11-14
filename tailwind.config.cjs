@@ -51,7 +51,7 @@ module.exports = {
 			});
 		},
 	],
-	darkMode: 'class',
+	darkMode: ['class', '[data-theme="dark"]'],
 	theme: {
 		tabSize: {
 			1: '1',

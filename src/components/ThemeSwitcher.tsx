@@ -1,27 +1,36 @@
 import { createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 import type { Component } from 'solid-js';
+import debounce from 'debounce';
 
 type Theme = 'light' | 'dark' | 'auto' | 'auto-dark' | 'auto-light';
 const themes: Array<Partial<Theme>> = ['light', 'dark', 'auto'];
 
+function callApi(theme: Theme) {
+	const params = new URLSearchParams({ theme });
+	fetch(`/api/theme/?${params.toString()}`);
+}
+
 export const ThemeSwitcher: Component = () => {
 	const [theme, setTheme] = createSignal<Theme | null>('auto');
+	const save = debounce(callApi, 300);
 
 	onMount(() => {
-		setTheme((localStorage?.getItem('theme') as Theme) || theme);
+		setTheme((document.body.dataset.theme as Theme) || 'auto');
 	});
 
 	createEffect(() => {
-		const currTheme = theme();
-		if (!currTheme) {
+		const newTheme = theme();
+		if (!newTheme) {
 			return;
 		}
-		localStorage.setItem('theme', currTheme);
-		if (currTheme.endsWith('dark')) {
-			document.body.classList.add('dark');
-		} else {
-			document.body.classList.remove('dark');
+
+		if (newTheme.endsWith('dark')) {
+			document.body.dataset.theme = 'dark';
+		} else if (newTheme.endsWith('light')) {
+			document.body.dataset.theme = 'light';
 		}
+
+		save(newTheme);
 	});
 
 	const toggle = (event: KeyboardEvent | MouseEvent) => {

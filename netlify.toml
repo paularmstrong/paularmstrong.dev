@@ -1,0 +1,63 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    content-security-policy = "base-uri 'self'; default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; img-src 'self' https://paularmstrong.goatcounter.com/count; connect-src 'self' https://www.youtube-nocookie.com/oembed; frame-src 'self' https://www.youtube-nocookie.com;"
+    accept-ch = "sec-ch-prefers-color-scheme"
+    link = "<https://paularmstrong.dev/>; rel=preconnect"
+    permissions-policy = ''' ch-prefers-color-scheme=("https://paularmstrong.dev") '''
+
+[[headers]]
+  for = "/*.txt"
+  [headers.values]
+    cache-control = "public, max-age=365000000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    cache-control = "public, max-age=365000000, immutable"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    cache-control = "public, max-age=365000000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    cache-control = "public, max-age=365000000, immutable"
+
+[[headers]]
+  for = "manifest.json"
+  [headers.values]
+    cache-control = "public, max-age=86400, immutable"
+
+[[redirects]]
+  from = "/rss.xml"
+  to = "/feed.xml"
+  status = 301
+
+# Annoyingly, there's only an "include" directive
+# and not any form of "exclude" directive for functions
+[[edge_functions]]
+  path = "/"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/blog/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/labs/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/about/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/resume/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/api/theme/*"
+  function = "set-theme"
