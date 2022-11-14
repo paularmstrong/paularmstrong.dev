@@ -7,6 +7,7 @@ import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import image from '@astrojs/image';
 import compress from 'astro-compress';
 import react from '@astrojs/react';
+
 const remarkPlugins = [remarkReadingTime];
 /** @type {import('@types/astro').AstroUserConfig} */
 

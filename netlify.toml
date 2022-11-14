@@ -1,0 +1,35 @@
+[dev]
+  framework = "astro"
+  targetPort = 3000
+  autoLaunch = false
+
+[[redirects]]
+  from = "/rss.xml"
+  to = "/feed.xml"
+  status = 301
+
+# Annoyingly, there's only an "include" directive
+# and not any form of "exclude" directive for functions
+[[edge_functions]]
+  path = "/"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/blog/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/labs/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/about/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/resume/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/api/theme/*"
+  function = "set-theme"

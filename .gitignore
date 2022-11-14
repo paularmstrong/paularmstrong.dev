@@ -27,3 +27,5 @@ pnpm-debug.log*
 !.yarn/versions
 
 .eslintcache
+# Local Netlify folder
+.netlify
