@@ -3,6 +3,9 @@
   accept-ch: sec-ch-prefers-color-scheme
   link: <https://paularmstrong.dev/>; rel=preconnect
   permissions-policy: ch-prefers-color-scheme=("https://paularmstrong.dev")
+  x-frame-options: SAMEORIGIN
+  x-content-type-options: nosniff
+  x-xss-protection: 1; mode=block
 
 /assets/*
   cache-control: public
