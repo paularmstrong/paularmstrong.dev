@@ -1,0 +1,202 @@
+---
+draft: true
+title: Using client hints to prevent FARTs with website dark mode themes
+pubDate: 11/15/2022, 12:00:00 PM GMT-0700
+description: I originally wanted to avoid using any sort of server-side code for my site, getting around the FART completely is not currently possible when you have a statically generated site. In this post, I'll walk through how I got rid of the flash of inaccurate color themes for Tailwindcss dark mode (with auto media query support!), building off of some others' examples using Netlify Edge Functions.
+toc: true
+---
+
+import Aside from '~/components/Aside.astro';
+
+Flash of inAccurate coloR Themes[^1], or FART, as [coined by Chris Coyier](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/) is the _fancy_ term for the effect when your device is set to prefer a "dark mode" of all UIs and you see a website flash itself in a light theme and then quickly flip to its dark variant. It's minor, yes, but also super annoying to anyone with a slightly slower connection, as the time at which the theme will switch to dark is dependent on the speed that the JavaScript can download and execute.
+
+I originally wanted to avoid using any sort of server-side code for my site, getting around the FART completely is not currently possible when you have a statically generated site. In this post, I'll walk through how I got rid of the flash of inaccurate color themes for Tailwindcss dark mode (with auto media query support!), building off of some others' examples using Netlify Edge Functions.
+
+This is similar to [a post by Jason Lengstorf](https://www.learnwithjason.dev/blog/css-color-theme-switcher-no-flash), but takes it a big step forward.
+
+I originally wanted to get away with never using cookies for this site, but unfortunately, that’s the only way to have stored information for browsers without using a database to manage sessions.
+
+## Theme switcher component
+
+I’m going to mostly skip over the [theme switch toggle button code](https://github.com/paularmstrong/paularmstrong.dev/blob/e29bd3d602bcd625f9e29360b422c7e1dc0cf86e/src/components/ThemeSwitcher.tsx), as mine is in Solid-js and may look a little funky if you’re used to React.
+
+Here are the important bits of the theme switcher, in React:
+
+To save our theme and whether or not auto-selection is preferred, we can use a basic `fetch` call with `URLSearchParams`. Nothing too special is necessary here:
+
+```tsx
+function saveTheme(theme: Theme, auto: boolean) {
+	const params = new URLSearchParams({ theme, auto: auto ? 'true' : 'false' });
+	fetch(`/api/theme/?${params.toString()}`);
+}
+```
+
+Then, in our `<ThemeSwitcher />`, we need to create an effect that runs any time our `theme` or `auto` modes have changed and call our API.
+
+As I'm using Tailwindcss, the switch between `dark` and `light` mode only requires that I add or remove the className `dark` on a root element (I’m using `<body />`). I also opted to track whether the theme should be in `auto` mode via a data attribute, `data-auto-theme`.
+
+```tsx
+export function ThemeSwitcher() {
+	const [theme, setTheme] = React.useState(document.body.classList.contains('dark') ? 'dark' : 'light');
+	const [auto, setAuto] = React.useState(document.body.dataset.autoTheme === 'true');
+
+	React.useEffect(() => {
+		document.body.dataset.autoTheme = auto ? 'true' : 'false';
+
+		if (theme === 'dark') {
+			document.body.classList.add('dark');
+		} else {
+			document.body.classList.remove('dark');
+		}
+
+		save(theme, auto);
+	}, [theme, auto]);
+
+	// ...
+	// there’s more needed here, this is just for demonstration purposes
+	// ...
+}
+```
+
+All in all, this should result in two things:
+
+1. The theme is tracked on the body element, like `<body class="dark" data-auto-theme="true">`
+2. Our API (up next) is called every time the user preference changes.
+
+### Prefers color scheme media query
+
+```tsx
+React.useEffect(() => {
+	if (!auto) {
+		// do nothing if not in auto mode
+		return;
+	}
+
+	// on initial change to auto-mode, set the theme based on the current
+	// media query preference
+	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		setTheme('dark');
+	} else {
+		setTheme('light');
+	}
+
+	// Add an event listener any time the device requests a change to the color scheme
+	function listener(event: MediaQueryListEvent) {
+		setTheme(event.matches ? 'dark' : 'light');
+	}
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
+
+	// on unload, remove the event listener
+	return () => {
+		window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
+	};
+}, [auto]);
+```
+
+## Edge Function as an API
+
+So, let's write our little cookie-setting API as a Netlify Edge Function:
+
+```toml
+# netlify.toml
+
+[[edge_functions]]
+	path = "/api/theme/*"
+	function = "set-theme"
+```
+
+One particular big caveat: Netlify edge functions use Deno, not Node.js! So when you see an `import` statement that pulls from a URL, just know that this is _not_ a mistake.
+
+First off, let’s set up the plumbing for saving our theme choice cookie:
+
+```ts
+import type { Context } from 'https://edge.netlify.com/';
+
+const themes = ['light', 'dark'] as const;
+
+export default async (req: Request, context: Context) => {
+	const url = new URL(req.url);
+	const params = url.searchParams;
+
+	const theme = params.get('theme') as typeof themes[number];
+	const auto = params.get('auto') === 'true';
+
+	console.log({ auto, theme });
+
+	context.cookies.set({
+		name: 'theme',
+		value: params.toString(),
+		path: '/',
+		secure: true,
+		httpOnly: true,
+		sameSite: 'Strict',
+		expires: new Date(Date.now() + 2_592_000_000),
+	});
+
+	return new Response(JSON.stringify({ error: false }), {
+		status: 200,
+		headers: {
+			'content-type': 'application/json',
+		},
+	});
+};
+```
+
+## Accepting Client Hint headers
+
+Now comes some of the magic for auto-selecting color themes for users in the future. We need to tell browsers that we will accept the [`prefers-color-scheme` client hint](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
+
+To do this, in our Netlify `_headers` file, add the following so that all pages respond with the `accept-ch` header:
+
+```
+/*
+	accept-ch: sec-ch-prefers-color-scheme
+```
+
+Alternatively, if you're using Vercel, you get to be more verbose in your `vercel.json` file:
+
+```json
+{
+	"headers": [
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "accept-ch",
+					"value": "sec-ch-prefers-color-scheme"
+				}
+			]
+		}
+	]
+}
+```
+
+<Aside type="danger" title="Client hints*">
+
+It is important to note a really huge asterisk here, that I will likely have written [multiple times](#downsides) once this is all done[^2]: client hints only work in some browsers and require at least one full network round-trip before the browser will start sending them to the server.
+
+</Aside>
+
+## Rewriting static HTML responses
+
+TODO
+
+## Downsides
+
+First and foremost: Client Hints are still considered "experimental" and only available in Chromium-based browsers. For anyone not using one of those, the auto-theme selection won't work and the [theme setting edge function](#edge-functions-as-an-api) will fall back on the last known `theme` value per the cookie.
+
+Secondly, Client Hints are not provided by the browser to the server on _first_ load. While there are ongoing discussions about allows this to happen, there are technical challenges in making browsers first check which hints are being requested in order to send them. All this means that the even if you're using a browser that supports Client Hints, your first page load to the site will always have a FART.
+
+We _could_ work around that by forcing a redirect/reload on first load, but that would require quite a bit of extra work that is frankly not worth the effort.
+
+[^1]: I tried to avoid using this silly acronym in the title, but it is kinda fun. Sorry if you’re too mature for 💨 jokes, because I’m not.
+[^2]: Client hints are currently only supported by Chromium-based browsers. This is a huge shame, but hopefully more pressure will be put on other browsers to get traction soon. See the section on [downsides](#downsides) for more information.
+
+<Aside type="info" title="Alternative post titles">
+
+I had some other stupid post titles in mind, but eventually settled on the safe, SEO-friendly one. But thought I'd share some here anyway:
+
+- It’s like Gas-X, but for websites!
+- Warn me with a _hint_ before you FART
+
+</Aside>

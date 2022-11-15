@@ -7,8 +7,8 @@ const COOKIE_NAME = 'dt';
 
 export default async (req: Request, context: Context) => {
 	const res = await context.next();
-	const type = res.headers.get('content-type') as string;
-	if (!type.startsWith('text/html')) {
+	const type = res.headers.get('content-type');
+	if (!type?.startsWith('text/html')) {
 		return;
 	}
 
