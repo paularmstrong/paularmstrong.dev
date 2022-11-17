@@ -1,6 +1,6 @@
 ---
 draft: true
-title: Using client hints to prevent FARTs with website dark mode themes
+title: Using client hints to prevent FARTs with website auto dark mode themes
 pubDate: 11/15/2022, 12:00:00 PM GMT-0700
 description: I originally wanted to avoid using any sort of server-side code for my site, getting around the FART completely is not currently possible when you have a statically generated site. In this post, I'll walk through how I got rid of the flash of inaccurate color themes for Tailwindcss dark mode (with auto media query support!), building off of some others' examples using Netlify Edge Functions.
 toc: true
@@ -35,7 +35,7 @@ Then, in our `<ThemeSwitcher />`, we need to create an effect that runs any time
 
 As I'm using Tailwindcss, the switch between `dark` and `light` mode only requires that I add or remove the className `dark` on a root element (I’m using `<body />`). I also opted to track whether the theme should be in `auto` mode via a data attribute, `data-auto-theme`.
 
-```tsx
+```tsx title="ThemeSwitcher.tsx (partial)"
 export function ThemeSwitcher() {
 	const [theme, setTheme] = React.useState(document.body.classList.contains('dark') ? 'dark' : 'light');
 	const [auto, setAuto] = React.useState(document.body.dataset.autoTheme === 'true');
@@ -65,7 +65,7 @@ All in all, this should result in two things:
 
 ### Prefers color scheme media query
 
-```tsx
+```tsx title="ThemeSwitcher.tsx (partial)"
 React.useEffect(() => {
 	if (!auto) {
 		// do nothing if not in auto mode
@@ -95,21 +95,13 @@ React.useEffect(() => {
 
 ## Edge Function as an API
 
-So, let's write our little cookie-setting API as a Netlify Edge Function:
-
-```toml
-# netlify.toml
-
-[[edge_functions]]
-	path = "/api/theme/*"
-	function = "set-theme"
-```
+So, let's write our little cookie-setting API as a Netlify Edge Function.
 
 One particular big caveat: Netlify edge functions use Deno, not Node.js! So when you see an `import` statement that pulls from a URL, just know that this is _not_ a mistake.
 
 First off, let’s set up the plumbing for saving our theme choice cookie:
 
-```ts
+```ts title="netlify/edge-functions/set-theme.ts"
 import type { Context } from 'https://edge.netlify.com/';
 
 const themes = ['light', 'dark'] as const;
@@ -120,8 +112,6 @@ export default async (req: Request, context: Context) => {
 
 	const theme = params.get('theme') as typeof themes[number];
 	const auto = params.get('auto') === 'true';
-
-	console.log({ auto, theme });
 
 	context.cookies.set({
 		name: 'theme',
@@ -142,33 +132,23 @@ export default async (req: Request, context: Context) => {
 };
 ```
 
+Lastly, don't forget to add the edge function declaration to the `netlify.toml` configuration:
+
+```toml title="netlify.toml"
+[[edge_functions]]
+	path = "/api/theme/*"
+	function = "set-theme"
+```
+
 ## Accepting Client Hint headers
 
 Now comes some of the magic for auto-selecting color themes for users in the future. We need to tell browsers that we will accept the [`prefers-color-scheme` client hint](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
 
 To do this, in our Netlify `_headers` file, add the following so that all pages respond with the `accept-ch` header:
 
-```
+```text title="_headers"
 /*
 	accept-ch: sec-ch-prefers-color-scheme
-```
-
-Alternatively, if you're using Vercel, you get to be more verbose in your `vercel.json` file:
-
-```json
-{
-	"headers": [
-		{
-			"source": "/(.*)",
-			"headers": [
-				{
-					"key": "accept-ch",
-					"value": "sec-ch-prefers-color-scheme"
-				}
-			]
-		}
-	]
-}
 ```
 
 <Aside type="danger" title="Client hints*">
@@ -179,9 +159,50 @@ It is important to note a really huge asterisk here, that I will likely have wri
 
 ## Rewriting static HTML responses
 
-Once again, we’ll use an edge function from Netlify for this
+Once again, we’ll use an edge function from Netlify for this. I'll walk through this one a bit to help explain better.
+
+First, let's start with a barebones edge function:
+
+```ts title="netlify/edge-functions/theme.ts"
+// Remember: this is Deno, not Node.js!
+import type { Context } from 'https://edge.netlify.com/';
+import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
+
+export default async (req: Request, context: Context) => {
+	// Get the default response for this URL. This will grab the actual response as if we were not running this function
+	const res = await context.next();
+
+	// Check the content type. If we're not serving HTML, running the rest of this function is a waste of compute time and power
+	const type = res.headers.get('content-type');
+	if (!type?.startsWith('text/html')) {
+		return;
+	}
+};
+```
+
+Next, we need to try to read the cookie and fall back on a default value if it's not available. Using nullish-coalescing, we can make this fairly simple, as long as we trust no one in the middle is messing withour cookie value:
 
 ```ts
+const rawCookie = context.cookies.get(COOKIE_NAME) ?? 'auto=true&theme=light';
+const params = new URLSearchParams(rawCookie);
+const isAuto = params.get('auto') === 'true';
+const theme = params.get('theme') || 'light';
+```
+
+But the whole point of the `auto` setting on our theme switcher is that we want to read from the `prefers-color-scheme` client hint. So we'll modify this block just a smidge to read the header and if the cookie states that auto-mode is preferred, we'll use the header value if it's available!
+
+```diff
++ const prefers = req.headers.get('sec-ch-prefers-color-scheme');
+	const rawCookie = context.cookies.get(COOKIE_NAME) ?? 'auto=true&theme=light';
+	const params = new URLSearchParams(rawCookie);
+	const isAuto = params.get('auto') === 'true';
+- const theme = params.get('theme') || 'light';
++ const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
+```
+
+Lastly, just like in [the inspiration from “Learn with Jason”](https://www.learnwithjason.dev/blog/css-color-theme-switcher-no-flash#update-the-currently-selected-theme-in-the-dropdown), we'll use the HTMLRewriter and update the `className` and `data-auto-theme` attributes on our `<body>` element. All-together, our function looks like this:
+
+```tsx showLineNumbers title="netlify/edge-functions/theme.ts" {17-25}
 import type { Context } from 'https://edge.netlify.com/';
 import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
@@ -193,35 +214,49 @@ export default async (req: Request, context: Context) => {
 	}
 
 	const prefers = req.headers.get('sec-ch-prefers-color-scheme');
-	const rawCookie = context.cookies.get('theme');
-	let cookieVal = { auto: true, theme: 'light' };
-	if (rawCookie) {
-		try {
-			const params = new URLSearchParams(rawCookie);
-			cookieVal = {
-				auto: params.get('auto') === 'true',
-				theme: params.get('theme') || 'light',
-			};
-		} catch (e) {
-			console.error('Invalid cookie', rawCookie);
-		}
-	}
-
-	const auto = cookieVal.auto as boolean;
-	const theme = (auto && prefers ? prefers : cookieVal.theme) as 'light' | 'dark';
-
-	console.log({ rawCookie, auto, prefers, theme, ua: req.headers.get('user-agent') });
+	const rawCookie = context.cookies.get('theme') ?? 'auto=true&theme=light';
+	const params = new URLSearchParams(rawCookie);
+	const isAuto = params.get('auto') === 'true';
+	const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
 
 	return new HTMLRewriter()
 		.on('body', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
 				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
-				element.setAttribute('data-auto-theme', auto ? 'true' : 'false');
+				element.setAttribute('data-auto-theme', isAuto ? 'true' : 'false');
 			},
 		})
 		.transform(res);
 };
+```
+
+Now we actually need to enable the edge function. In our `netlify.toml`, like we did before for the `set-theme` function:
+
+```toml title="netlify.toml"
+[[edge_functions]]
+  path = "/*"
+  function = "theme"
+```
+
+Another caveat: even though we're ejecting early from our edge function if the response does not have the `text/html` content type, there is still a limited number of edge function runs on the Netlify free plan. Yes, the limit is a big number, current 3 million, but, let's do our best not to get hit by any surprises.
+
+I've split up my edge function into only running on known HTML page paths. I would have liked to have seen better path matching or a way to do an exclude-list along with a path glob, but alas, that feature does not exist yet.
+
+```toml title="netlify.toml"
+[[edge_functions]]
+  path = "/"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/blog/*"
+  function = "theme"
+
+[[edge_functions]]
+  path = "/about/*"
+  function = "theme"
+
+# ...etc... add as needed
 ```
 
 ## Downsides
