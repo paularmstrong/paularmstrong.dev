@@ -18,7 +18,7 @@ const { headings } = Astro.props as Props;
 				<li>
 					<a href={`#${slug}`}>{text}</a>
 					{headings ? (
-						<ol>
+						<ol class="list-[lower-alpha]">
 							{headings.map(({ slug, text }) => (
 								<li>
 									<a href={`#${slug}`}>{text}</a>

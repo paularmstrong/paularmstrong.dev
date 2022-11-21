@@ -1,0 +1,36 @@
+[data-rehype-pretty-code-title] {
+	@apply rounded-t-lg;
+	@apply px-4;
+	@apply py-3;
+	@apply font-mono;
+	@apply text-slate-300;
+	@apply bg-slate-700;
+	@apply dark:bg-slate-800;
+	@apply text-sm;
+	@apply lg:bustout-sm;
+	@apply border-b;
+	@apply border-slate-600;
+}
+
+[data-rehype-pretty-code-title]::before {
+	content: 'file: ';
+}
+
+[data-rehype-pretty-code-title] + pre {
+	@apply rounded-t-none;
+	@apply mt-0;
+}
+
+[data-line-numbers] {
+	counter-reset: line;
+}
+
+[data-line-numbers] .line::before {
+	counter-increment: line;
+	content: counter(line);
+	@apply inline-block;
+	@apply w-4;
+	@apply mr-6;
+	@apply text-right;
+	@apply text-slate-400;
+}

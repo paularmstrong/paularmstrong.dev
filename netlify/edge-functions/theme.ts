@@ -7,37 +7,31 @@ const COOKIE_NAME = 'dt';
 
 export default async (req: Request, context: Context) => {
 	const res = await context.next();
-	const type = res.headers.get('content-type') as string;
-	if (!type.startsWith('text/html')) {
+	const type = res.headers.get('content-type');
+	if (!type?.startsWith('text/html')) {
 		return;
 	}
 
 	const prefers = req.headers.get('sec-ch-prefers-color-scheme');
-	const rawCookie = context.cookies.get(COOKIE_NAME);
-	let cookieVal = { auto: true, theme: 'light' };
-	if (rawCookie) {
-		try {
-			const params = new URLSearchParams(rawCookie);
-			cookieVal = {
-				auto: params.get('auto') === 'true',
-				theme: params.get('theme') || 'light',
-			};
-		} catch (e) {
-			console.error('Invalid cookie', rawCookie);
-		}
-	}
+	const rawCookie = context.cookies.get(COOKIE_NAME) ?? 'auto=true&theme=light';
+	const params = new URLSearchParams(rawCookie);
+	const isAuto = params.get('auto') === 'true';
+	const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
 
-	const auto = cookieVal.auto as boolean;
-	const theme = (auto && prefers ? prefers : cookieVal.theme) as 'light' | 'dark';
-
-	console.log({ rawCookie, auto, prefers, theme, ua: req.headers.get('user-agent') });
+	console.log({
+		cookie: context.cookies.get(COOKIE_NAME) || undefined,
+		isAuto,
+		prefers,
+		theme,
+		ua: req.headers.get('user-agent'),
+	});
 
 	return new HTMLRewriter()
 		.on('body', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
 				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
-				element.setAttribute('data-auto-theme', auto ? 'true' : 'false');
+				element.setAttribute('data-auto-theme', isAuto ? 'true' : 'false');
 			},
 		})
 		.transform(res);
