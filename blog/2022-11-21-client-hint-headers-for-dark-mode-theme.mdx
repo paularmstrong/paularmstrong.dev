@@ -1,13 +1,14 @@
 ---
 title: Using client hints to prevent FARTs with website auto dark mode themes
-pubDate: 11/15/2022, 12:00:00 PM GMT-0700
+pubDate: 11/21/2022, 9:00:00 AM GMT-0700
 description: I originally wanted to avoid using any sort of server-side code for my site, getting around the FART completely is not currently possible when you have a statically generated site. In this post, I’ll walk through how I got rid of the flash of inaccurate color themes for Tailwindcss dark mode (with auto media query support!), building off of some others’ examples using Netlify Edge Functions.
 toc: true
 ---
 
 import Aside from '~/components/Aside.astro';
+import { ThemeSwitcher } from '~/components/ThemeSwitcher.tsx';
 
-Flash of inAccurate coloR Themes[^acronym], or <acronym title="Flash of inAccurate coloR Themes">FART</acronym>, as [coined by Chris Coyier](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/) is the _fancy_ term for the effect when your device is set to prefer a "dark mode" of all UIs and you see a website flash itself in a light theme and then quickly flip to its dark variant. It’s minor, yes, but also super annoying to anyone with a slightly slower connection, as the time at which the theme will switch to dark is dependent on the speed that the JavaScript can download and execute.
+Flash of inAccurate coloR Themes[^acronym], or <acronym title="Flash of inAccurate coloR Themes">FART</acronym>, as [coined by Chris Coyier](https://css-tricks.com/flash-of-inaccurate-color-theme-fart/) is the _fancy_ acronym visit a website and it quickly flashes from one color theme to another. This is most prominent for those that prefer dark mode and see pages render in light mode for a split second, then flipping over to the dark variant. It’s minor, yes, but also super annoying to anyone with a slightly slower connection, as the time at which the theme will switch to dark is dependent on the speed that the JavaScript can download and execute.
 
 [^acronym]: I tried to avoid using this silly acronym in the title, but it is kinda fun. Sorry if you’re too mature for 💨 jokes, because I’m not.
 
@@ -15,19 +16,21 @@ I came across [a post by Jason Lengstorf](https://www.learnwithjason.dev/blog/cs
 
 _**Except there was a big issue.**_
 
-Many theme pickers, including the example I was following, allow picking only “light” or “dark” as your theme. While it’s kind to provide a choice, for those who want one versus another, it misses out on providing those that would love to keep their system preference instead.
+Many theme pickers, including the example I was following, allow picking one theme and then sticking to it. While it’s kind to provide a choice, most theme pickers miss out on providing an option for their own system to choose for them. This is handled by the CSS media query [`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
 
-Tailwindcss, which I’m using, allows a one-or-the-other approach as well. By default, you can let it use the `prefers-color-scheme` approach. Alternatively, you can change it to `darkMode: 'class'` to control it yourself.
+Tailwindcss, which I’m using, allows a one-or-the-other approach as well. By default it uses the `prefers-color-scheme` approach. Alternatively, you can change it to `darkMode: 'class'` to control it yourself.
 
-I originally wanted to avoid using any sort of server-side code for my site, getting around the <acronym title="Flash of inAccurate coloR Themes">FART</acronym> completely is not currently possible when you have a statically generated site. In this post, I’ll walk through how I got rid of the flash of inaccurate color themes for Tailwindcss dark mode, building upon [Jason’s work](https://www.learnwithjason.dev/blog/css-color-theme-switcher-no-flash) to add “auto” theme support using [HTTP client hints](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints) and media queries.
+I originally wanted to avoid using any sort of server-side code for my site, but getting around the <acronym title="Flash of inAccurate coloR Themes">FART</acronym> is not possible without _some_ level of server-side processing.
+
+In this post, I’ll walk through how I got rid of the flash of inaccurate color themes for Tailwindcss dark mode, building upon [Jason’s work](https://www.learnwithjason.dev/blog/css-color-theme-switcher-no-flash) to add “auto” theme support using [HTTP client hints](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints) and media queries.
 
 ## Theme switcher component
 
-I’m going to mostly skip over the [theme switch toggle button code](https://github.com/paularmstrong/paularmstrong.dev/blob/e29bd3d602bcd625f9e29360b422c7e1dc0cf86e/src/components/ThemeSwitcher.tsx), as mine is in Solid-js and may look a little funky if you’re used to React.
+I’m going to skip over most of my [theme switch toggle button code](https://github.com/paularmstrong/paularmstrong.dev/blob/e29bd3d602bcd625f9e29360b422c7e1dc0cf86e/src/components/ThemeSwitcher.tsx), as mine is in Solid-js and may look a little funky if you’re used to React.
 
-Here are the important bits of the theme switcher, in React:
+However, here are the important bits of the theme switcher, translated into React:
 
-First, as I’m using Tailwindcss, the switch between `dark` and `light` mode only requires that I add or remove the className `dark` on a root element (I’m using `<body />`). To ensure Tailwind is set up for this, we need to set `darkMode: 'class'`:
+First, in order to manually control the `light` and `dark` mode themes with Tailwindcss, we need toset `darkMode: 'class'` in our configuration:
 
 ```js title="tailwind.conf.cjs" {3}
 module.exports = {
@@ -47,9 +50,9 @@ function saveTheme(theme: Theme, auto: boolean) {
 
 Then, in our `<ThemeSwitcher />`, we need to create an effect that runs any time our `theme` or `auto` modes have changed and call our API. Note that I’m also tracking the source of truth for “auto” mode with a data attribute attached to the `<body>` element.
 
-Here’s an example effect in React. If you’d prefer the full component written for Solid-js, check the [source on Github](https://github.com/paularmstrong/paularmstrong.dev/blob/8683b83f5fcebaa223b658bc1881d2db0be14524/src/components/ThemeSwitcher.tsx).
+Here’s an example effect in React. Take special note of the highlighted lines regarding the “auto” mode:
 
-```tsx title="ThemeSwitcher.tsx"
+```tsx title="ThemeSwitcher.tsx" {3,6,14}
 export function ThemeSwitcher() {
 	const [theme, setTheme] = React.useState(document.body.classList.contains('dark') ? 'dark' : 'light');
 	const [auto, setAuto] = React.useState(document.body.dataset.autoTheme === 'true');
@@ -74,12 +77,14 @@ export function ThemeSwitcher() {
 
 This results in our first two steps:
 
-1. The theme is tracked on the body element, like `<body class="dark" data-auto-theme="true">`
-2. Our API (up next) is called every time the user preference changes.
+1. The theme is tracked on the body element, using the `className` and `data-` attribute: `<body class="dark" data-auto-theme="true">`
+2. Our API (which we’ll cover later) is called every time the user setting changes manually.
 
 ### Prefers color scheme media query
 
-Now that the basic plumbing is set up, we need to make sure that when theme switching is set to “auto” mode that we start respecting the `prefers-color-scheme` media query using the [matchMedia API](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia):
+Now that the basic plumbing is set up and we have manual tracking, we need to make sure that when theme switching is set to “auto” mode that we start respecting the `prefers-color-scheme` media query using the [matchMedia API](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
+
+Follow the comments inline for any needed explanations.
 
 ```tsx title="ThemeSwitcher.tsx (partial)"
 React.useEffect(() => {
@@ -105,15 +110,17 @@ React.useEffect(() => {
 }, [auto]);
 ```
 
-That should be it for our theme switcher. Your implementation is really up to you, whether you’re using a dropdown, button, or some other UI is up to you. I’m going to gloss over all of that in favor of getting into the trickier parts of this article. If you’d like an example, you can always check out my [Solid-js implementation: `ThemeSwitcher.tsx`](https://github.com/paularmstrong/paularmstrong.dev/blob/8683b83f5fcebaa223b658bc1881d2db0be14524/src/components/ThemeSwitcher.tsx).
+That should be it for our theme switcher. Your implementation is really up to you; whether you’re using a dropdown, button, or some other UI is up to you. I’m going to gloss over all of that in favor of getting into the trickier parts of this article. If you’d like an example, you can always check out my [Solid-js implementation: `ThemeSwitcher.tsx`](https://github.com/paularmstrong/paularmstrong.dev/blob/8683b83f5fcebaa223b658bc1881d2db0be14524/src/components/ThemeSwitcher.tsx).
+
+<hr />
 
 ## Edge functions
 
-As mentioned previously, we’re going to use [Netlify’s Edge Functions](https://docs.netlify.com/edge-functions/overview/) to handle the server-side portion of our requests. On the free plan, Netlify gives you three million edge function calls per month. That will be more than suitable for most small site’s like mine.
+As mentioned previously, we’re going to use [Netlify’s Edge Functions](https://docs.netlify.com/edge-functions/overview/) to handle the server-side portion of our requests.
 
 ### API endpoint
 
-First, let’s write our little cookie-setting API as a Netlify Edge Function. To start accepting calls to a URL, edit our Netlify config and add an `edge_functions` declaration. In my case, I put the pathname as `/api/theme/` and I'll name my function `netlify/edge-functions/set-theme.ts`:
+First, let’s write our little cookie-setting API as a Netlify Edge Function. To start accepting calls to a URL, edit the Netlify config and add an `edge_functions` declaration. In my case, I put the pathname as `/api/theme/` and I'll place the code in `netlify/edge-functions/set-theme.ts`:
 
 ```toml title="netlify.toml"
 [[edge_functions]]
@@ -126,16 +133,11 @@ Now that we have declared our endpoint, let’s actually write it to save the us
 ```ts title="netlify/edge-functions/set-theme.ts"
 import type { Context } from 'https://edge.netlify.com/';
 
-// If you support more themes, this would be a great place to add them
-const themes = ['light', 'dark'] as const;
-
 export default async (req: Request, context: Context) => {
 	const url = new URL(req.url);
 	const params = url.searchParams;
 
-	const theme = params.get('theme') as typeof themes[number];
-	const auto = params.get('auto') === 'true';
-
+	// Set a server-side secure cookie with the requested URL search params
 	context.cookies.set({
 		name: 'theme',
 		value: params.toString(),
@@ -147,6 +149,7 @@ export default async (req: Request, context: Context) => {
 		expires: new Date(Date.now() + 2_592_000_000),
 	});
 
+	// Respond with a success JSON payload
 	return new Response(JSON.stringify({ error: false }), {
 		status: 200,
 		headers: {
@@ -166,7 +169,7 @@ Well, astute reader… did you notice that I didn’t add any error handling her
 
 Let’s make sure we handle that both if a theme setting is not sent and if the theme is invalid:
 
-```tsx title="netlify/edge-functions/set-theme.ts" {9-16,21-28}
+```tsx title="netlify/edge-functions/set-theme.ts" {9-28}
 import type { Context } from 'https://edge.netlify.com/';
 
 const themes = ['light', 'dark'] as const;
@@ -175,6 +178,7 @@ export default async (req: Request, context: Context) => {
 	const url = new URL(req.url);
 	const params = url.searchParams;
 
+	// Didn't include a default or fallback theme
 	if (!params.has('theme')) {
 		return new Response(JSON.stringify({ error: 'Missing theme parameter' }), {
 			status: 400,
@@ -187,6 +191,7 @@ export default async (req: Request, context: Context) => {
 	const theme = params.get('theme') as typeof themes[number];
 	const auto = params.get('auto') === 'true';
 
+	// Sent a theme that's not valid for our site?
 	if (!themes.includes(theme)) {
 		return new Response(JSON.stringify({ error: `Invalid theme: ${theme}` }), {
 			status: 400,
@@ -221,9 +226,11 @@ Next, again, we’ll take a hint from our [inspiration article](https://www.lear
 
 #### Accepting Client Hint headers
 
-Since we want to be able to allow users to select an “auto” select for the “light” or “dark” mode, we need a way for the browser to tell us ahead of time what it actually wants on page load. In comes a new standard, [Client Hint Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints) and the [`prefers-color-scheme` client hint](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints#user_preference_media_features_client_hints).
+Since we want to be able to allow users to select an “auto” select for the “light” or “dark” mode, we need a way for the browser to tell us ahead of time what it actually wants on page load. In comes a new standard, [Client Hint Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints).
 
-To do this, in our Netlify `_headers` file, add the following so that all pages respond with the `accept-ch` header:
+Client hints are a newer set of HTTP request headers that enable a server to request more information from a browser about the device, network, user, and user-agent specific preferences. In particular, we're interested in the [`prefers-color-scheme` client hint](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints#user_preference_media_features_client_hints), which will instruct browsers to send back to our server the same data that would normally only be available in CSS media queries.
+
+To get started accepting Client Headers, we need our HTTP responses to add an `accept-ch` header with each hint that we’re asking for. Since we only need one, this is fairly short to add to the Netlify `_headers` file:
 
 ```text title="_headers"
 /*
@@ -238,12 +245,9 @@ It is important to note a really huge asterisk here, that I will likely have wri
 
 [^clienthints]: Client hints are currently only supported by Chromium-based browsers. This is a huge shame, but hopefully more pressure will be put on other browsers to get traction soon. See the section on [downsides](#downsides) for more information.
 
-Once again, we’ll use an edge function from Netlify for this. I’ll walk through this one a bit to help explain better.
-
-First, let’s start with a barebones edge function:
+Now that we’re requesting the client hints, we need to actually do something with them. First, let’s start with a barebones edge function that merely:
 
 ```ts title="netlify/edge-functions/theme.ts"
-// Remember: this is Deno, not Node.js!
 import type { Context } from 'https://edge.netlify.com/';
 import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
@@ -251,11 +255,13 @@ export default async (req: Request, context: Context) => {
 	// Get the default response for this URL. This will grab the actual response as if we were not running this function
 	const res = await context.next();
 
-	// Check the content type. If we're not serving HTML, running the rest of this function is a waste of compute time and power
+	// Check the content type. If we're not serving HTML, running the rest of this function will be a waste of compute time and power
 	const type = res.headers.get('content-type');
 	if (!type?.startsWith('text/html')) {
 		return;
 	}
+
+	return res;
 };
 ```
 
@@ -317,6 +323,8 @@ Now we actually need to enable the edge function. In our `netlify.toml`, like we
   function = "theme"
 ```
 
+And that’s it! You can try it out on the page that you’re currently reading! Just click the theme switcher button in the site header to something different, reload or browse around the site and be amazed as there is no more <acronym title="Flash of inAccurate coloR Themes">FART</acronym> on a statically generated HTML site!
+
 [^htmlrewrite]:
     Even though we’re ejecting early from our HTML rewriting edge function if the response does not have the `text/html` content type, there is still a limited number of edge function runs on the Netlify free plan. Yes, the limit is a big number, currently 3 million, but, let’s do our best not to get hit by any surprises.
 
@@ -324,11 +332,13 @@ Now we actually need to enable the edge function. In our `netlify.toml`, like we
 
 ## Downsides
 
-First and foremost: Client Hints are still considered "experimental" and only available in Chromium-based browsers. For anyone not using one of those, the auto-theme selection won’t work and the [theme setting edge function](#edge-functions-as-an-api) will fall back on the last known `theme` value per the cookie.
+First and foremost: Client Hints are still considered "experimental" and only available in Chromium-based browsers. For anyone not using one of those, the auto-theme selection won’t work and the [theme setting edge function](#edge-functions-as-an-api) will fall back on the last known `theme` value per the cookie. That fallback should be mostly okay, but still a bummer.
 
-Secondly, Client Hints are not provided by the browser to the server on _first_ load. While there are ongoing discussions about allows this to happen, there are technical challenges in making browsers first check which hints are being requested in order to send them. All this means that the even if you’re using a browser that supports Client Hints, your first page load to the site will always have a <acronym title="Flash of inAccurate coloR Themes">FART</acronym>.
+Secondly, Client Hints are not provided by the browser to the server on _first_ load. While there are ongoing discussions about allowing this to happen, there are technical challenges in making browsers first check which hints are being requested in order to send them. All this means that the even if you’re using a browser that supports Client Hints, your first page load to the site will always have a <acronym title="Flash of inAccurate coloR Themes">FART</acronym>.
 
 We _could_ work around that by forcing a redirect/reload on first load, but that would require quite a bit of extra work that is frankly not worth the effort.
+
+<hr />
 
 <Aside type="info" title="Alternative post titles">
 
@@ -336,5 +346,6 @@ I had some other stupid post titles in mind, but eventually settled on the safe,
 
 - It’s like Gas-X, but for websites!
 - Warn me with a _hint_ before you <acronym title="Flash of inAccurate coloR Themes">FART</acronym>
+- Client hint headers: like potpourri for your website
 
 </Aside>
