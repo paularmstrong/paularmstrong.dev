@@ -4,8 +4,10 @@ export function get() {
 		body: `/* TEAM */
 Author: Paul Armstrong
 Site: https://paularmstrong.dev
-Twitter: @paularmstrong
+Mastodon: @paularmstrong@mstdn.io
 Github: @paularmstrong
+LinkedIn: https://linkedin.com/in/paularmstrong-dev/
+Twitter: @paularmstrong
 
 /* SITE */
 Last updated: ${date.toISOString().split('T')[0]}
