@@ -58,11 +58,17 @@ export const Share: Component<Props> = (props) => {
 
 async function share(props: Props) {
 	if (typeof navigator.share === 'function') {
-		await navigator.share({
-			text: props.text || `${props.title} • Paul Armstrong`,
-			title: props.title,
-			url: props.url,
-		});
+		try {
+			await navigator.share({
+				text: props.text || `${props.title} • Paul Armstrong`,
+				title: props.title,
+				url: props.url,
+			});
+		} catch (e) {
+			if (!(e instanceof DOMException && e.name !== 'AbortError')) {
+				throw e;
+			}
+		}
 	} else {
 		navigator.clipboard.writeText(`${SITE_URL}${props.url}`);
 		addToast('URL copied to clipboard!');
