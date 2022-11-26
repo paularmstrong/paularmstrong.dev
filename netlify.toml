@@ -33,3 +33,11 @@
 [[edge_functions]]
   path = "/api/theme/*"
   function = "set-theme"
+
+[[plugins]]
+  package = "@sentry/netlify-build-plugin"
+
+  [plugins.inputs]
+    sentryOrg = "paul-armstrong"
+    sentryProject = "paularmstrongdev"
+    deployPreviews = false
