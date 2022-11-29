@@ -20,12 +20,12 @@ For the most part now, all <acronym title="React Native for Web">RNW</acronym> i
 And while <acronym title="React Native for Web">RNW</acronym> is not a hit on performance directly, pseudo-selectors and interactivity must be handled through React hooks, even just for simple style changes on hover or focus. This _does_ actually translate to an interactivity performance issue.
 
 <iframe
-	class="aspect-video w-full"
-	loading="lazy"
-	src="https://www.youtube-nocookie.com/embed/PYXMMYvNn8k?rel=0"
-	frameborder="0"
-	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-	allowfullscreen
+  class="aspect-video w-full"
+  loading="lazy"
+  src="https://www.youtube-nocookie.com/embed/PYXMMYvNn8k?rel=0"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
 />
 
 ## Solid-js or another non-virtual DOM framework
@@ -83,7 +83,7 @@ Module federation presumably would have a net benefit to end users as well. Bund
 
 ## Deno vs Node.js
 
-I would look at using [Deno](deno.land) instead of [Node.js](https://nodejs.org) with a big up-front evaluation. There are a lot of unknowns in running a new service with a new runtime, so it would be really important to feel confident using one vs another.
+I would look at using [Deno](https://deno.land) instead of [Node.js](https://nodejs.org) with a big up-front evaluation. There are a lot of unknowns in running a new service with a new runtime, so it would be really important to feel confident using one vs another.
 
 Node.js is great, tried, and tested and performant enough for even a globally scaled service, but the ergonomics, patterns, and core APIs within Deno make Node.js a bit of a nuisance to maintain. Things have gotten better for sure, but why not re-evaluate if we’ve got the chance?
 
