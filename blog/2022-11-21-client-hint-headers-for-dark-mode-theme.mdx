@@ -1,6 +1,7 @@
 ---
 title: Using client hints to prevent FARTs with website auto dark mode themes
 pubDate: 11/21/2022, 9:00:00 AM GMT-0700
+updatedDate: 12/4/2022, 3:32:00 PM GMT-0700
 description: I originally wanted to avoid using any sort of server-side code for my site, getting around the FART completely is not currently possible when you have a statically generated site. In this post, I’ll walk through how I got rid of the flash of inaccurate color themes for Tailwindcss dark mode (with auto media query support!), building off of some others’ examples using Netlify Edge Functions.
 toc: true
 ---
@@ -48,22 +49,22 @@ function saveTheme(theme: Theme, auto: boolean) {
 }
 ```
 
-Then, in our `<ThemeSwitcher />`, we need to create an effect that runs any time our `theme` or `auto` modes have changed and call our API. Note that I’m also tracking the source of truth for “auto” mode with a data attribute attached to the `<body>` element.
+Then, in our `<ThemeSwitcher />`, we need to create an effect that runs any time our `theme` or `auto` modes have changed and call our API. Note that I’m also tracking the source of truth for “auto” mode with a data attribute attached to the `<html>` element.
 
 Here’s an example effect in React. Take special note of the highlighted lines regarding the “auto” mode:
 
 ```tsx title="ThemeSwitcher.tsx" {3,6,14}
 export function ThemeSwitcher() {
-	const [theme, setTheme] = React.useState(document.body.classList.contains('dark') ? 'dark' : 'light');
-	const [auto, setAuto] = React.useState(document.body.dataset.autoTheme === 'true');
+	const [theme, setTheme] = React.useState(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+	const [auto, setAuto] = React.useState(document.documentElement.dataset.autoTheme === 'true');
 
 	React.useEffect(() => {
-		document.body.dataset.autoTheme = auto ? 'true' : 'false';
+		document.documentElement.dataset.autoTheme = auto ? 'true' : 'false';
 
 		if (theme === 'dark') {
-			document.body.classList.add('dark');
+			document.documentElement.classList.add('dark');
 		} else {
-			document.body.classList.remove('dark');
+			document.documentElement.classList.remove('dark');
 		}
 
 		save(theme, auto);
@@ -77,7 +78,7 @@ export function ThemeSwitcher() {
 
 This results in our first two steps:
 
-1. The theme is tracked on the body element, using the `className` and `data-` attribute: `<body class="dark" data-auto-theme="true">`
+1. The theme is tracked on the `<html>` element, using the `className` and `data-` attribute: `<html class="dark" data-auto-theme="true">`
 2. Our API (which we’ll cover later) is called every time the user setting changes manually.
 
 ### Prefers color scheme media query
@@ -284,7 +285,7 @@ const isAuto = params.get('auto') === 'true';
 const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
 ```
 
-Lastly, just like in [the inspiration from “Learn with Jason”](https://www.learnwithjason.dev/blog/css-color-theme-switcher-no-flash#update-the-currently-selected-theme-in-the-dropdown), we’ll use the HTMLRewriter and update the `className` and `data-auto-theme` attributes on our `<body>` element. All-together, our function looks like this:
+Lastly, just like in [the inspiration from “Learn with Jason”](https://www.learnwithjason.dev/blog/css-color-theme-switcher-no-flash#update-the-currently-selected-theme-in-the-dropdown), we’ll use the HTMLRewriter and update the `className` and `data-auto-theme` attributes on our `<html>` element. All-together, our function looks like this:
 
 ```tsx showLineNumbers title="netlify/edge-functions/theme.ts" {17-25}
 import type { Context } from 'https://edge.netlify.com/';
@@ -304,7 +305,7 @@ export default async (req: Request, context: Context) => {
 	const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
 
 	return new HTMLRewriter()
-		.on('body', {
+		.on('html', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
 				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
@@ -349,3 +350,12 @@ I had some other stupid post titles in mind, but eventually settled on the safe,
 - Client hint headers: like potpourri for your website
 
 </Aside>
+
+## Updates
+
+I’ve made some changes to how things are done since originally posting this. Hopefully I’ll remember to keep things up to date:
+
+- <time class="font-bold">2022-12-04</time>: Switched the theme tracking from the `body` element to the
+  `documentElement`/`html` element. This fixes an issue in some mobile browsers where they showed a white background at
+  the bottom of a full-page scroll by moving the background color classNames up from a wrapping `div` element and onto
+  the `body` element – then moving the `dark` className up to the `html` element.

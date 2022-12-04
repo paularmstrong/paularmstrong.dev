@@ -27,7 +27,7 @@ export default async (req: Request, context: Context) => {
 	});
 
 	return new HTMLRewriter()
-		.on('body', {
+		.on('html', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
 				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));

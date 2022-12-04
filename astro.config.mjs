@@ -78,10 +78,6 @@ export default defineConfig({
 		remarkPlugins,
 		rehypePlugins,
 		syntaxHighlight: false,
-		// shikiConfig: {
-		// 	theme: 'rose-pine-moon',
-		// 	wrap: true,
-		// },
 		extendDefaultPlugins: true,
 	},
 	vite: {
