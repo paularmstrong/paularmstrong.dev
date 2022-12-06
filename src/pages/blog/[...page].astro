@@ -1,12 +1,21 @@
 ---
+import type { GetStaticPathsOptions } from 'astro';
 import Picture from '~/components/Picture.astro';
 import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
 import Prose from '~/components/Prose.astro';
+import Pagination from '~/components/Pagination.astro';
 
-const posts = (await Astro.glob('../../../blog/*.{md,mdx}')).sort(
-	(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
-);
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+	const posts = (await Astro.glob('../../../blog/*.{md,mdx}')).sort(
+		(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+	);
+	return paginate(posts, {
+		pageSize: 10,
+	});
+}
+
+const { page } = Astro.props;
 const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
 ---
 
@@ -22,13 +31,14 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 		<AuthorMeta id="author" />
 		<ul class="flex flex-col gap-12">
 			{
-				posts.map((post) => {
+				// @ts-ignore very not good. any bad.
+				page.data.map((post: any) => {
 					const { draft, pubDate, title, description, heroImage } = post.frontmatter;
 					if (import.meta.env.PROD && draft) {
 						return null;
 					}
 
-					const filename = post.file.split('/blog/')[1].replace(/\.mdx?$/, '');
+					const filename = post.file?.split('/blog/')[1]?.replace(/\.mdx?$/, '') || '';
 					const match = filename?.match(/^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)-(?<slug>.+)$/);
 					if (!match) {
 						return null;
@@ -92,4 +102,6 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 			}
 		</ul>
 	</section>
+
+	<Pagination nextUrl={page.url.next} prevUrl={page.url.prev} current={page.currentPage} total={page.lastPage} />
 </Base>
