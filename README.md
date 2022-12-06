@@ -6,7 +6,7 @@ Oh hey! I’m [Paul Armstrong](https://paularmstrong.dev/about) and this is my w
 - Super minimal amount of Solid-js for dark/light/auto theme switching
 - Markdown and MDX for content
 - Github actions for lint, formatting, and type checks
-- Github actions for deploying – to Github pages
+- Netlify for deploying
 
 ## Good stuff to know
 
