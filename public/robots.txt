@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: *
+Disallow: /styleguide/
+
 Sitemap: https://paularmstrong.dev/sitemap-index.xml
