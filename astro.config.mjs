@@ -80,9 +80,6 @@ export default defineConfig({
 		extendDefaultPlugins: true,
 	},
 	vite: {
-		build: {
-			sourcemap: true,
-		},
 		ssr: {
 			noExternal: ['react-component-benchmark'],
 		},

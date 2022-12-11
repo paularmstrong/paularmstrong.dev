@@ -3,41 +3,49 @@ import type { Component } from 'solid-js';
 import debounce from 'debounce';
 
 type Theme = 'light' | 'dark' | 'auto' | 'auto-dark' | 'auto-light';
-const themes: Array<Partial<Theme>> = ['light', 'dark'];
+
+const query = '(prefers-color-scheme: dark)';
+const dark = 'dark';
+const light = 'light';
+const themes: Array<Partial<Theme>> = [light, dark];
+const trueString = 'true';
+const falseString = 'false';
 
 function callApi(theme: Theme, auto: boolean) {
-	const params = new URLSearchParams({ theme, auto: auto ? 'true' : 'false' });
+	const params = new URLSearchParams({ theme, auto: auto ? trueString : falseString });
 	fetch(`/api/theme/?${params.toString()}`);
 }
 
 export const ThemeSwitcher: Component = () => {
-	const [theme, setTheme] = createSignal<Theme>('light');
+	const [theme, setTheme] = createSignal<Theme>(light);
 	const [auto, setAuto] = createSignal<boolean>(true);
 	const save = debounce(callApi, 300);
 
 	onMount(() => {
-		const isAuto = document.documentElement.dataset.autoTheme === 'true';
-		const isDark = document.documentElement.classList.contains('dark');
+		const doc = document.documentElement;
+		const isAuto = doc.dataset.autoTheme === trueString;
+		const isDark = doc.classList.contains(dark);
 		setAuto(isAuto);
-		setTheme(isDark ? 'dark' : 'light');
+		setTheme(isDark ? dark : light);
 	});
 
 	createEffect(() => {
+		const doc = document.documentElement;
 		const newTheme = theme();
 		const newAuto = auto();
 
-		const currentThemeDark = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-		const currentAuto = document.documentElement.dataset.autoTheme === 'true';
+		const currentThemeDark = doc.classList.contains(dark) ? dark : light;
+		const currentAuto = doc.dataset.autoTheme === trueString;
 
 		if (currentThemeDark === newTheme && currentAuto === newAuto) {
 			return;
 		}
 
-		document.documentElement.dataset.autoTheme = newAuto ? 'true' : 'false';
-		if (newTheme === 'dark') {
-			document.documentElement.classList.add('dark');
+		doc.dataset.autoTheme = newAuto ? trueString : falseString;
+		if (newTheme === dark) {
+			doc.classList.add(dark);
 		} else {
-			document.documentElement.classList.remove('dark');
+			doc.classList.remove(dark);
 		}
 
 		save(newTheme, newAuto);
@@ -50,7 +58,7 @@ export const ThemeSwitcher: Component = () => {
 			return;
 		}
 
-		if (currTheme === 'dark' && !currAuto) {
+		if (currTheme === dark && !currAuto) {
 			setAuto(true);
 			return;
 		}
@@ -66,27 +74,27 @@ export const ThemeSwitcher: Component = () => {
 			return;
 		}
 
-		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-			setTheme('dark');
+		if (window.matchMedia && window.matchMedia(query).matches) {
+			setTheme(dark);
 		} else {
-			setTheme('light');
+			setTheme(light);
 		}
 
 		const listener = (event: MediaQueryListEvent) => {
-			setTheme(event.matches ? 'dark' : 'light');
+			setTheme(event.matches ? dark : light);
 		};
 
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
+		window.matchMedia(query).addEventListener('change', listener);
 
 		onCleanup(() => {
-			window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
+			window.matchMedia(query).removeEventListener('change', listener);
 		});
 	});
 
 	return (
 		<div
 			role="button"
-			aria-label={`Toggle site theme. Currently: ${auto() ? 'Auto' : theme() === 'dark' ? 'Dark' : 'Light'}`}
+			aria-label={`Toggle site theme. Currently: ${auto() ? 'Auto' : theme() === dark ? 'Dark' : 'Light'}`}
 			aria-live="polite"
 			class="flex flex-row items-center gap-1 rounded py-2 px-3 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20"
 			onClick={toggle}
@@ -103,7 +111,7 @@ export const ThemeSwitcher: Component = () => {
 						<Sun />
 					</div>
 				</div>
-			) : theme() === 'dark' ? (
+			) : theme() === dark ? (
 				<Moon />
 			) : (
 				<Sun />
