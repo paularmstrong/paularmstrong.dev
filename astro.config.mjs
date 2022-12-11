@@ -39,9 +39,8 @@ const rehypePlugins = [
 		},
 	],
 ];
-/** @type {import('@types/astro').AstroUserConfig} */
 
-// https://astro.build/config
+/** @type {import('@types/astro').AstroUserConfig} */
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	trailingSlash: 'always',
