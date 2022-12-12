@@ -21,7 +21,7 @@ module.exports = {
 					},
 				},
 				'[data-rehype-pretty-code-fragment]': {
-					[`@media (min-width: ${theme('screens.xl')})`]: {
+					[`@media screen and (min-width: ${theme('screens.xl')})`]: {
 						marginLeft: 'calc(50% - 50vw)',
 						marginRight: 'calc(50% - 50vw)',
 						width: '60vw',
