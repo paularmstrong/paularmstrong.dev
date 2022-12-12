@@ -10,45 +10,42 @@ module.exports = {
 			addBase({
 				'[data-line-numbers]': {
 					counterReset: 'line',
+					'& .line::before': {
+						counterIncrement: 'line',
+						content: 'counter(line)',
+						display: 'inline-block',
+						width: theme('width.5'),
+						marginRight: theme('spacing.6'),
+						textAlign: 'right',
+						color: theme('colors.slate.400'),
+					},
 				},
-				'[data-line-numbers] .line::before': {
-					counterIncrement: 'line',
-					content: 'counter(line)',
-					display: 'inline-block',
-					width: theme('width.5'),
-					marginRight: theme('spacing.6'),
-					textAlign: 'right',
-					color: theme('colors.slate.400'),
-				},
-				'[data-rehype-pretty-code-title]': {
-					borderTopLeftRadius: theme('borderRadius.lg'),
-					borderTopRightRadius: theme('borderRadius.lg'),
-					padding: `${theme('spacing.3')} ${theme('spacing.4')}`,
-					fontFamily: theme('fontFamily.mono'),
-					color: theme('colors.slate.800'),
-					backgroundColor: theme('colors.slate.300'),
-					fontSize: theme('fontSize.sm'),
-					borderBottom: `1px solid ${theme('colors.slate.600')}`,
-					[`@media (min-width: ${theme('screens.sm')})`]: {
+				'[data-rehype-pretty-code-fragment]': {
+					[`@media (min-width: ${theme('screens.xl')})`]: {
 						marginLeft: 'calc(50% - 50vw)',
 						marginRight: 'calc(50% - 50vw)',
 						width: '60vw',
 						transform: 'translateX(calc(50vw - 50%))',
 					},
 				},
-				'.dark [data-rehype-pretty-code-title]': {
-					backgroundColor: theme('colors.slate.800'),
-					color: theme('colors.slate.300'),
-				},
-				'[data-rehype-pretty-code-title]::before': {
-					display: 'inline-block',
-					content: '"file: "',
-					marginRight: theme('spacing.2'),
-				},
-				'[data-rehype-pretty-code-title] + pre': {
-					borderTopLeftRadius: theme('borderRadius.none'),
-					borderTopRightRadius: theme('borderRadius.none'),
-					marginTop: theme('spacing.0'),
+				'[data-rehype-pretty-code-title]': {
+					width: 'max-content',
+					borderTopLeftRadius: theme('borderRadius.lg'),
+					borderTopRightRadius: theme('borderRadius.lg'),
+					padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
+					fontFamily: theme('fontFamily.mono'),
+					color: theme('colors.slate.800'),
+					backgroundColor: theme('colors.slate.300'),
+					fontSize: theme('fontSize.sm'),
+					borderBottom: `1px solid ${theme('colors.slate.600')}`,
+					'.dark &': {
+						backgroundColor: theme('colors.slate.800'),
+						color: theme('colors.slate.300'),
+					},
+					'+ pre': {
+						borderTopLeftRadius: theme('borderRadius.none'),
+						marginTop: theme('spacing.0'),
+					},
 				},
 			});
 		},
@@ -88,12 +85,6 @@ module.exports = {
 				},
 				'.shape-half-br': {
 					clipPath: 'polygon(100% 0, 0 100%, 100% 100%)',
-				},
-				'.shape-triangle-up': {
-					clipPath: 'polygon(50% 0, 100% 100%, 0 100%)',
-				},
-				'.shape-triangle-down': {
-					clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
 				},
 			});
 		},
