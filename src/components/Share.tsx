@@ -22,11 +22,10 @@ export const Share: Component<Props> = (props) => {
 	};
 	0.5;
 	return (
-		<div
-			role="button"
-			aria-label="auto"
+		<button
+			tabIndex={0}
 			aria-live="polite"
-			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 motion-safe:animate-ring-ping dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 motion-safe:dark:animate-ring-ping-dark"
+			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 motion-safe:animate-ring-ping dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20 motion-safe:dark:animate-ring-ping-dark"
 			onClick={toggle}
 		>
 			{shared() ? (
@@ -52,7 +51,7 @@ export const Share: Component<Props> = (props) => {
 					Share
 				</>
 			)}
-		</div>
+		</button>
 	);
 };
 
@@ -75,19 +74,18 @@ async function share(props: Props) {
 	}
 }
 
-export const ShareLink: Component<Props> = (props) => {
+export const ShareLink: Component<Props & { children: string }> = (props) => {
 	const toggle = async () => {
 		await share(props);
 	};
 
 	return (
-		<span
-			role="button"
+		<button
 			onClick={toggle}
-			tabindex="0"
+			tabIndex={0}
 			class="text-blue-600 no-underline outline-none hover:underline hover:decoration-4 hover:underline-offset-2 focus:underline focus:decoration-4 focus:underline-offset-4 dark:text-blue-300"
 		>
-			share
-		</span>
+			{props.children || 'share'}
+		</button>
 	);
 };
