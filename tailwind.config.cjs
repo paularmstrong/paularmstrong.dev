@@ -96,7 +96,36 @@ module.exports = {
 			4: '4',
 			8: '8',
 		},
+
 		extend: {
+			keyframes: (theme) => ({
+				'ring-ping': {
+					'0%': {
+						'box-shadow': `0 0 0 0 ${theme('colors.slate.200')}ff, 0 0 0 0 ${theme('colors.blue.500')}00`,
+					},
+					'5%': {
+						'box-shadow': `0 0 0 0px ${theme('colors.slate.200')}ff, 0 0 0 4px ${theme('colors.blue.500')}aa`,
+					},
+					'20%, 100%': {
+						'box-shadow': `0 0 0 4px ${theme('colors.slate.200')}ff, 0 0 0 8px ${theme('colors.blue.500')}00`,
+					},
+				},
+				'ring-ping-dark': {
+					'0%': {
+						'box-shadow': `0 0 0 0 ${theme('colors.slate.800')}ff, 0 0 0 0 ${theme('colors.blue.500')}00`,
+					},
+					'5%': {
+						'box-shadow': `0 0 0 0px ${theme('colors.slate.800')}ff, 0 0 0 4px ${theme('colors.blue.500')}aa`,
+					},
+					'20%, 100%': {
+						'box-shadow': `0 0 0 4px ${theme('colors.slate.800')}ff, 0 0 0 8px ${theme('colors.blue.500')}00`,
+					},
+				},
+			}),
+			animation: {
+				'ring-ping': 'ring-ping 2s linear infinite',
+				'ring-ping-dark': 'ring-ping-dark 2s linear infinite',
+			},
 			colors: {
 				blue: {
 					50: '#f6f9fb',

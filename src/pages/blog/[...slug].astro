@@ -120,16 +120,17 @@ for (const h of getHeadings()) {
 			<aside class="mx-2 my-8 rounded-xl bg-slate-200 px-4 py-1 dark:bg-slate-800">
 				<div class="prose-base prose-p:!mt-0">
 					<h2 class="!my-2">Share your thoughts</h2>
-					<div class="grid grid-cols-6 items-start gap-x-4 gap-y-0">
-						<p class="col-span-4 !mb-2 md:col-span-5">
-							Since you’ve made it this far, hopefully you have formed some thoughts and opinions about this topic
-							yourself. Please <ShareLink client:load title={title} url={`/blog/${slug}/`} /> the post or <Link
-								href="https://mstdn.io/@paularmstrong"
-								target="_blank"
-								rel="noopener noreferrer">ping me on Mastodon</Link
-							>.
+					<div class="flex flex-row items-start gap-x-4 gap-y-0">
+						<p class="!mb-2">
+							Since you’ve made it this far, hopefully you enjoyed reading! Please <ShareLink
+								client:load
+								title={title}
+								url={`/blog/${slug}/`}
+							/> the post or <Link href="https://mstdn.io/@paularmstrong" target="_blank" rel="noopener noreferrer"
+								>ping me on Mastodon</Link
+							>
 						</p>
-						<div class="col-span-2 justify-self-center md:col-span-1">
+						<div class="justify-self-center">
 							<div class="w-28"><Share client:load title={title} url={`/blog/${slug}/`} /></div>
 						</div>
 					</div>

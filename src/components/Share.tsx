@@ -20,13 +20,13 @@ export const Share: Component<Props> = (props) => {
 			setShared(false);
 		}, 5_000);
 	};
-
+	0.5;
 	return (
 		<div
 			role="button"
 			aria-label="auto"
 			aria-live="polite"
-			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100"
+			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 hover:bg-blue-400/20 hover:text-blue-800 motion-safe:animate-ring-ping dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 motion-safe:dark:animate-ring-ping-dark"
 			onClick={toggle}
 		>
 			{shared() ? (
@@ -85,7 +85,7 @@ export const ShareLink: Component<Props> = (props) => {
 			role="button"
 			onClick={toggle}
 			tabindex="0"
-			class="mx-1 inline-flex items-center gap-1 text-blue-600 no-underline outline-none hover:underline hover:decoration-4 hover:underline-offset-2 focus:underline focus:decoration-4 focus:underline-offset-4 dark:text-blue-300"
+			class="text-blue-600 no-underline outline-none hover:underline hover:decoration-4 hover:underline-offset-2 focus:underline focus:decoration-4 focus:underline-offset-4 dark:text-blue-300"
 		>
 			share
 		</span>
