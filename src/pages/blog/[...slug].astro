@@ -122,11 +122,11 @@ for (const h of getHeadings()) {
 					<h2 class="!my-2">Share your thoughts</h2>
 					<div class="flex flex-row items-start gap-x-4 gap-y-0">
 						<p class="!mb-2">
-							Since you’ve made it this far, hopefully you enjoyed reading! Please <ShareLink
+							Since you’ve made it this far, hopefully you enjoyed reading! Please{' '}<ShareLink
 								client:load
 								title={title}
 								url={`/blog/${slug}/`}
-							/> the post or <Link href="https://mstdn.io/@paularmstrong" target="_blank" rel="noopener noreferrer"
+							/>{' '}the post or <Link href="https://mstdn.io/@paularmstrong" target="_blank" rel="noopener noreferrer"
 								>ping me on Mastodon</Link
 							>
 						</p>
