@@ -96,7 +96,7 @@ export const ThemeSwitcher: Component = () => {
 			role="button"
 			aria-label={`Toggle site theme. Currently: ${auto() ? 'Auto' : theme() === dark ? 'Dark' : 'Light'}`}
 			aria-live="polite"
-			class="flex flex-row items-center gap-1 rounded py-2 px-3 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20"
+			class="inline-flex items-center gap-1 whitespace-nowrap rounded py-2 px-3 font-bold text-blue-600 shadow-none outline-none ring-4 ring-transparent transition-all duration-200 hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-400 active:shadow-inner active:ring-4 active:ring-blue-200/70 dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/50 dark:active:ring-blue-500/10"
 			onClick={toggle}
 			onKeyDown={toggle}
 			tabindex={0}

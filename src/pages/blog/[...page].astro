@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPathsOptions } from 'astro';
+import Link from '~/components/Link.astro';
 import Picture from '~/components/Picture.astro';
 import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
@@ -62,12 +63,8 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 								{date}
 							</time>
 							<div class="col-span-5">
-								<h2 class="text-purple-600 dark:text-purple-400">
-									<a
-										class="text-2xl text-purple-600 no-underline outline-none hover:underline hover:decoration-4 hover:underline-offset-2 focus:underline focus:decoration-4 focus:underline-offset-2 dark:text-purple-400"
-										href={slug}
-										itemprop="url"
-									>
+								<h2>
+									<Link class="text-2xl text-purple-600 dark:text-purple-400" href={slug} itemprop="url">
 										<span
 											class="bg-gradient-to-br from-blue-700 to-purple-600 bg-clip-text font-bold text-transparent dark:from-blue-400 dark:to-purple-400"
 											itemprop="name headline"
@@ -90,7 +87,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 												</Prose>
 											</div>
 										) : null}
-									</a>
+									</Link>
 								</h2>
 								<Prose>
 									<p>{description}</p>

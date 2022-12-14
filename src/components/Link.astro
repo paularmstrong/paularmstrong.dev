@@ -1,17 +1,15 @@
 ---
-export interface Props {
-	href?: string;
-	target?: string;
-	rel?: string;
-}
+import clsx from 'clsx';
+export type Props = astroHTML.JSX.AnchorHTMLAttributes;
 
-const { href, target, rel } = Astro.props;
+const { class: className, ...props } = Astro.props;
 ---
 
 <a
-	class="text-blue-600 no-underline outline-none hover:underline hover:decoration-4 hover:underline-offset-2 focus:underline focus:decoration-4 focus:underline-offset-4 dark:text-blue-300"
-	href={href}
-	target={target}
-	rel={rel}
+	class={clsx(
+		'text-blue-600 no-underline underline-offset-2 outline-none transition-all duration-100 hover:underline hover:decoration-4 hover:underline-offset-4 focus:underline focus:decoration-4 focus:underline-offset-4 dark:text-blue-300',
+		className
+	)}
+	{...props}
 	><slot />
 </a>

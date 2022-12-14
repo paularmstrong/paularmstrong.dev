@@ -19,7 +19,7 @@ const { type = 'note', title = typeToTitle[type] } = Astro.props as Props;
 ---
 
 <aside
-	class={clsx('prose-base mx-8 mb-4 rounded-xl px-4 py-1 text-slate-900 dark:prose-invert', {
+	class={clsx('prose-base mx-8 mb-4 rounded-xl px-4 py-1 text-slate-900 shadow dark:prose-invert', {
 		'bg-slate-200 dark:bg-slate-800': type === 'note',
 		'bg-blue-200 dark:bg-blue-800': type === 'info',
 		'bg-green-200 dark:bg-green-800': type === 'tip',

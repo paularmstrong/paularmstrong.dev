@@ -1,5 +1,6 @@
 ---
 import clsx from 'clsx';
+import Button from '~/components/Button.astro';
 
 export interface Props {
 	prevUrl?: string;
@@ -12,19 +13,11 @@ const { current, nextUrl, prevUrl, total } = Astro.props as Props;
 ---
 
 <nav role="navigation" aria-label="Pagination">
-	<ul
-		class={clsx(
-			'grid w-full grid-cols-1 justify-between gap-x-12 gap-y-4 overflow-hidden ',
-			prevUrl && nextUrl && 'sm:grid-cols-2'
-		)}
-	>
+	<ul class={clsx('grid w-full grid-cols-1 justify-between gap-x-12 gap-y-4', prevUrl && nextUrl && 'sm:grid-cols-2')}>
 		{
 			nextUrl ? (
 				<li class="order-last flex flex-row justify-end" aria-setsize={total} aria-posinset={current + 1}>
-					<a
-						href={nextUrl}
-						class="inline-flex flex-row-reverse items-center gap-2 rounded p-4 text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus:underline focus:decoration-4 focus:underline-offset-4 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
-					>
+					<Button href={nextUrl} class="inline-flex flex-row-reverse py-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -35,17 +28,14 @@ const { current, nextUrl, prevUrl, total } = Astro.props as Props;
 							<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 						</svg>
 						<span class="text-right">Older posts</span>
-					</a>
+					</Button>
 				</li>
 			) : null
 		}
 		{
 			prevUrl ? (
 				<li class="order-first flex flex-row justify-start" aria-setsize={total} aria-posinset={current - 1}>
-					<a
-						href={prevUrl}
-						class="inline-flex flex-row items-center gap-2 rounded p-4 text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus:underline focus:decoration-4 focus:underline-offset-4 dark:border-slate-600 dark:text-blue-100 dark:hover:bg-blue-50/20"
-					>
+					<Button href={prevUrl} class="inline-flex flex-row py-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -56,7 +46,7 @@ const { current, nextUrl, prevUrl, total } = Astro.props as Props;
 							<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
 						</svg>
 						<span>Newer posts</span>
-					</a>
+					</Button>
 				</li>
 			) : null
 		}

@@ -10,7 +10,7 @@ export const Toast: Component<Props> = (props) => {
 		<aside
 			role="status"
 			aria-relevant="additions"
-			class="rounded bg-slate-200/60 px-6 py-4 text-slate-900 shadow backdrop-blur-md dark:bg-slate-800/60 dark:text-slate-50"
+			class="rounded bg-slate-200/60 px-6 py-4 text-slate-900 shadow-xl backdrop-blur-md dark:bg-slate-800/60 dark:text-slate-50"
 		>
 			<div aria-atomic="false">{props.children}</div>
 		</aside>

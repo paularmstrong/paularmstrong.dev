@@ -1,5 +1,6 @@
 ---
 import Picture from '~/components/Picture.astro';
+import Aside from '~/components/Aside.astro';
 import AuthorMeta from '~/components/AuthorMeta.astro';
 import Base from '~/layouts/Base.astro';
 import Link from '~/components/Link.astro';
@@ -117,23 +118,20 @@ for (const h of getHeadings()) {
 
 			<hr />
 
-			<aside class="mx-2 my-8 rounded-xl bg-slate-200 px-4 py-1 dark:bg-slate-800">
-				<div class="prose-base prose-p:!mt-0">
-					<h2 class="!my-2">Share your thoughts</h2>
-					<div class="flex flex-row items-start gap-x-4 gap-y-0">
-						<p class="!mb-2 inline-flex flex-wrap gap-x-1">
-							Since you’ve made it this far, hopefully you enjoyed reading! Please
-							<ShareLink client:load title={title} url={`/blog/${slug}/`}>share</ShareLink>
-							the post or <Link href="https://mstdn.io/@paularmstrong" target="_blank" rel="noopener noreferrer"
-								>ping me on Mastodon</Link
-							>
-						</p>
-						<div class="justify-self-center">
-							<div class="w-28"><Share client:load title={title} url={`/blog/${slug}/`} /></div>
-						</div>
+			<Aside title="Share your thoughts">
+				<div class="flex flex-row items-start gap-x-4 gap-y-0">
+					<p class="!mb-2 inline-flex flex-wrap gap-x-1">
+						Since you’ve made it this far, hopefully you enjoyed reading! Please
+						<ShareLink client:load title={title} url={`/blog/${slug}/`}>share</ShareLink>
+						the post or <Link href="https://mstdn.io/@paularmstrong" target="_blank" rel="noopener noreferrer"
+							>ping me on Mastodon</Link
+						>
+					</p>
+					<div class="justify-self-center">
+						<div class="w-28"><Share client:load title={title} url={`/blog/${slug}/`} /></div>
 					</div>
 				</div>
-			</aside>
+			</Aside>
 		</Prose>
 	</article>
 

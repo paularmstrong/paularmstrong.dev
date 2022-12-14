@@ -1,4 +1,5 @@
 ---
+import Link from '~/components/Link.astro';
 interface Heading {
 	text: string;
 	slug: string;
@@ -16,12 +17,12 @@ const { headings } = Astro.props as Props;
 		{
 			headings.map(({ slug, text, headings }) => (
 				<li>
-					<a href={`#${slug}`}>{text}</a>
+					<Link href={`#${slug}`}>{text}</Link>
 					{headings ? (
 						<ol class="list-[lower-alpha]">
 							{headings.map(({ slug, text }) => (
 								<li>
-									<a href={`#${slug}`}>{text}</a>
+									<Link href={`#${slug}`}>{text}</Link>
 								</li>
 							))}
 						</ol>
