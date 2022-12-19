@@ -1,0 +1,23 @@
+{
+	"subject": "acct:paularmstrong@mstdn.io",
+	"aliases": [
+		"https://mstdn.io/@paularmstrong",
+		"https://mstdn.io/users/paularmstrong"
+	],
+	"links": [
+		{
+			"rel": "http://webfinger.net/rel/profile-page",
+			"type": "text/html",
+			"href": "https://mstdn.io/@paularmstrong"
+		},
+		{
+			"rel": "self",
+			"type": "application/activity+json",
+			"href": "https://mstdn.io/users/paularmstrong"
+		},
+		{
+			"rel": "http://ostatus.org/schema/1.0/subscribe",
+			"template": "https://mstdn.io/authorize_interaction?uri={uri}"
+		}
+	]
+}
