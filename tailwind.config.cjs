@@ -17,7 +17,7 @@ module.exports = {
 					position: 'absolute',
 					backgroundColor: theme('colors.purple.400'),
 					borderRadius: theme('borderRadius.DEFAULT'),
-					opacity: 0.4,
+					opacity: 0.2,
 					zIndex: -1,
 					inset: `-${theme('spacing.2')}`,
 				},
