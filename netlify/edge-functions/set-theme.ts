@@ -40,7 +40,7 @@ export default async (req: Request, context: Context) => {
 		secure: true,
 		httpOnly: true,
 		sameSite: 'Strict',
-		expires: new Date(Date.now() + 2_592_000_000),
+		expires: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000), // 10 years
 	});
 
 	return new Response(JSON.stringify({ error: false }), {
