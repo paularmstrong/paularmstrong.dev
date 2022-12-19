@@ -8,6 +8,19 @@ module.exports = {
 		require('@tailwindcss/typography'),
 		function ({ addBase, theme }) {
 			addBase({
+				'[id]': {
+					position: 'relative',
+					zIndex: 1,
+				},
+				'*:target::before': {
+					content: '" "',
+					position: 'absolute',
+					backgroundColor: theme('colors.purple.400'),
+					borderRadius: theme('borderRadius.DEFAULT'),
+					opacity: 0.4,
+					zIndex: -1,
+					inset: `-${theme('spacing.2')}`,
+				},
 				'[data-line-numbers]': {
 					counterReset: 'line',
 					'& .line::before': {

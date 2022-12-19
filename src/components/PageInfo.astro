@@ -16,7 +16,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 	Boolean(pubDate || updatedDate || readingTime) && (
 		<aside
 			aria-label="Page information"
-			class="not-prose prose-sm mb-8 rounded-lg bg-slate-200 p-4 shadow-inner dark:bg-slate-800"
+			class="not-prose prose-sm mb-8 rounded-lg bg-slate-200 p-4 shadow-inner transition-colors duration-500 dark:bg-slate-800"
 		>
 			<ul class="flex flex-row flex-wrap justify-between gap-4 text-blue-900 dark:text-blue-100">
 				{pubDate && (
