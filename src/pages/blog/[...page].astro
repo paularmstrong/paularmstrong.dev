@@ -8,7 +8,7 @@ import Prose from '~/components/Prose.astro';
 import Pagination from '~/components/Pagination.astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-	const posts = (await Astro.glob('../../../blog/*.md')).sort(
+	const posts = (await Astro.glob('../../../blog/*.mdx')).sort(
 		(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
 	);
 	return paginate(posts, {
