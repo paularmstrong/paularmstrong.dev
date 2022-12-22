@@ -14,7 +14,7 @@ const pages = await Astro.glob('../../../labs/**/*.mdx');
 				pages.map((page) => (
 					<li>
 						<a href={`/${page.url?.replace(/(?:index)\.mdx\/?$/, '')}`} class="group h-full">
-							<div class="flex h-full flex-col gap-2">
+							<div class="flex flex-col gap-2">
 								<div class="pointer-events-none flex h-full items-center justify-center justify-self-stretch overflow-hidden rounded border border-slate-200 bg-slate-100 group-hover:shadow group-hover:shadow-blue-500/30 group-active:shadow-inner dark:border-slate-600 dark:bg-slate-700">
 									<div class="w-full blur-[1px] grayscale transition duration-150 group-hover:blur-none group-hover:grayscale-0">
 										<Picture
