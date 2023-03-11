@@ -27,9 +27,36 @@ In my experience, Web Components really had a few big pieces that made them comp
 
   Honestly, I don't know – you’re probably on your own here. This just goes straight back to the previous point about lack of unified frameworks.
 
+- **Three languages in one**
+
+  I thought CSS-in-JS was such a bad thing? That’s what all the purists told me. Well now we’ve got CSS-in-JS and HTML-in-JS and now my editor needs to support three syntax higlighters in ever file and I need to hope my string templates all compile correctly.
+
+  ```js title="lit-element-example.js"
+  import { html, css, LitElement } from 'lit';
+  import { customElement, property } from 'lit/decorators.js';
+
+  @customElement('simple-greeting')
+  export class SimpleGreeting extends LitElement {
+    static styles = css`
+      p {
+        color: blue;
+      }
+    `;
+
+    @property()
+    name = 'Somebody';
+
+    render() {
+      return html`<p>Hello, ${this.name}!</p>`;
+    }
+  }
+  ```
+
 - **Purists…**
 
-  And the biggest thing that has put me off of Web Components? The people who I refer to as “purists” that keep shouting about how we’re all wrong for using something else. I get it, Web Components probably _are_ the better choice for the browser, performance, and end user when it is all said and done. But you’re the ones that created this stuff in a void – have you ever had to build a web application and maintain it for at least 5 years? Probably not since before 2010. Things were _different_ then.
+  Speaking of those same purists that yell about CSS-in-JS being bad, they are the biggest thing that has put me off of Web Components.
+
+  The people who I refer to as “purists” that keep shouting about how we’re all wrong for using something else. I get it, Web Components probably _are_ the better choice for the browser, performance, and end user when it is all said and done. But you’re the ones that created this stuff in a void – have you ever had to build a web application and maintain it for at least 5 years? Probably not since before 2010. Things were _different_ then.
 
   Just go build stuff and be proud of it. Stop shouting at me that I’m terrible for trying to get my job done.
 

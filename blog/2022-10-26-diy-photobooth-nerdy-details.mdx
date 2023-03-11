@@ -89,34 +89,34 @@ My biggest criticism for Electron is that there is far too much outdate informat
 Given the complexity of managing state across two user interfaces, the screen and the StreamDeck Mini, I wanted to ensure that both were in sync at all times. To do this, I chose to build a full [state machine (`main/src/state/machine.ts`)](https://github.com/paularmstrong/photobooth/blob/main/packages/main/src/state/machine.ts) using [x-state](https://xstate.js.org/), run by the Electron Node.js process.
 
 <figure class="lg:bustout">
-	<a href="https://stately.ai/viz/96da6066-02dc-448e-a9f9-7a8511767b31" rel="noopener noreferrer" target="_blank">
-		<div class="dark:hidden">
-			<Picture
-				src="/img/blog/photobooth/xstate-hero-light.png"
-				alt="Visualizer of the Photo Booth’s state machine on stately.ai"
-				width="1600"
-				height="836"
-				widths={[480, 640, 1200, 1600]}
-				loading="lazy"
-				itemprop="image"
-			/>
-		</div>
-		<div class="hidden dark:block">
-			<Picture
-				src="/img/blog/photobooth/xstate-hero.png"
-				alt="Visualizer of the Photo Booth’s state machine on stately.ai"
-				width="1600"
-				height="836"
-				widths={[480, 640, 1200, 1600]}
-				loading="lazy"
-				itemprop="image"
-			/>
-		</div>
-	</a>
-	<figcaption class="pointer-events-auto text-center">
-		Check out the interactive version of the Photo Booth state machine on the [Stately
-		visualizer](https://stately.ai/viz/96da6066-02dc-448e-a9f9-7a8511767b31#).
-	</figcaption>
+  <a href="https://stately.ai/viz/96da6066-02dc-448e-a9f9-7a8511767b31" rel="noopener noreferrer" target="_blank">
+    <div class="dark:hidden">
+      <Picture
+        src="/img/blog/photobooth/xstate-hero-light.png"
+        alt="Visualizer of the Photo Booth’s state machine on stately.ai"
+        width="1600"
+        height="836"
+        widths={[480, 640, 1200, 1600]}
+        loading="lazy"
+        itemprop="image"
+      />
+    </div>
+    <div class="hidden dark:block">
+      <Picture
+        src="/img/blog/photobooth/xstate-hero.png"
+        alt="Visualizer of the Photo Booth’s state machine on stately.ai"
+        width="1600"
+        height="836"
+        widths={[480, 640, 1200, 1600]}
+        loading="lazy"
+        itemprop="image"
+      />
+    </div>
+  </a>
+  <figcaption class="pointer-events-auto text-center">
+    Check out the interactive version of the Photo Booth state machine on the [Stately
+    visualizer](https://stately.ai/viz/96da6066-02dc-448e-a9f9-7a8511767b31#).
+  </figcaption>
 </figure>
 
 This machine handles the entire state of the application: backend, frontend (GUI), and _other_ frontend (Stream Deck). When entering any state, we assign an array of possible keys and their transition type to the machine’s context, then call the `renderKeys` action.
@@ -130,12 +130,12 @@ const service = interpret(machine);
 service.start();
 
 service.onTransition((state) => {
-	const { streamdeck, ...meta } = state.context;
-	webContents.send('transition', { value: state.toStrings(), meta } as TransitionData);
+  const { streamdeck, ...meta } = state.context;
+  webContents.send('transition', { value: state.toStrings(), meta } as TransitionData);
 });
 
 ipcMain.on('transition', (event, action) => {
-	service.send(action);
+  service.send(action);
 });
 ```
 
@@ -206,24 +206,24 @@ Since the routing and location needed to be determined by the state machine that
 import { useLocation as useRRLocation, useNavigate } from 'react-router-dom';
 
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	React.useEffect(() => {
-		const remove = window.api.addListener('transition', ({ value, meta }) => {
-			navigate(
-				{
-					// Important: need to convert x-state value from an array/dot-notation to URL-compatible paths
-					// eg. ['photo', 'capturing', 'photo.capturing'] -> /photo/capturing
-					pathname: `/${value[value.length - 1].replace(/\./g, '/')}`,
-				},
-				{ state: meta }
-			);
-		});
+  React.useEffect(() => {
+    const remove = window.api.addListener('transition', ({ value, meta }) => {
+      navigate(
+        {
+          // Important: need to convert x-state value from an array/dot-notation to URL-compatible paths
+          // eg. ['photo', 'capturing', 'photo.capturing'] -> /photo/capturing
+          pathname: `/${value[value.length - 1].replace(/\./g, '/')}`,
+        },
+        { state: meta }
+      );
+    });
 
-		return remove;
-	}, []);
+    return remove;
+  }, []);
 
-	return <>{children}</>;
+  return <>{children}</>;
 }
 ```
 
@@ -233,8 +233,8 @@ Then, in order to ensure that our state object always reported to Typescript wit
 import type { TransitionData } from '@pb/main';
 
 export function useLocation() {
-	const { state, ...location } = useRRLocation();
-	return { state: state as TransitionData['meta'], ...location };
+  const { state, ...location } = useRRLocation();
+  return { state: state as TransitionData['meta'], ...location };
 }
 ```
 
@@ -254,20 +254,20 @@ First, we need a route mapping for _all_ views that will be shown. In order for 
 
 ```tsx
 const routeMap: Record<string, React.FunctionComponent<Props>> = {
-	'/photo/confirming': PhotoConfirm,
-	'/photo/capturing': PhotoCapture,
-	// This state may have multiple sub-states, but they are mostly invisible to the user
-	'/photo/reviewing/*': PhotoSave,
-	'/photo/complete': PhotoReview,
-	'/video/confirming': VideoConfirm,
-	'/video/recording/readying': Readying,
-	// This state may have multiple sub-states, but they are mostly invisible to the user
-	'/video/recording/*': VideoRecord,
-	'/video/reviewing': VideoReview,
-	'/main/preferences': Preferences,
-	'/main/help': MainHelp,
-	'/main/*': Main,
-	'/setup': Startup,
+  '/photo/confirming': PhotoConfirm,
+  '/photo/capturing': PhotoCapture,
+  // This state may have multiple sub-states, but they are mostly invisible to the user
+  '/photo/reviewing/*': PhotoSave,
+  '/photo/complete': PhotoReview,
+  '/video/confirming': VideoConfirm,
+  '/video/recording/readying': Readying,
+  // This state may have multiple sub-states, but they are mostly invisible to the user
+  '/video/recording/*': VideoRecord,
+  '/video/reviewing': VideoReview,
+  '/main/preferences': Preferences,
+  '/main/help': MainHelp,
+  '/main/*': Main,
+  '/setup': Startup,
 };
 
 const routes = Object.keys(routeMap).map((path) => ({ path }));
@@ -281,35 +281,35 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { useLocation } from './context';
 
 function Router() {
-	const location = useLocation();
+  const location = useLocation();
 
-	const match = React.useMemo(() => {
-		const matched = matchRoutes(routes, location);
-		return !matched ? null : matched[0].route;
-	}, [location]);
+  const match = React.useMemo(() => {
+    const matched = matchRoutes(routes, location);
+    return !matched ? null : matched[0].route;
+  }, [location]);
 
-	return (
-		<SwitchTransition>
-			<CSSTransition
-				// ensuring match.path here should not be necessary if we had a better guarantee
-				// that every route would be accounted for
-				timeout={match?.path ? 250 : 0}
-				key={match?.path || ''}
-			>
-				{(status) => {
-					// Again, just in-case, so we don't crash during development
-					if (!match || !match.path) {
-						return null;
-					}
-					const Component = routeMap[match.path];
-					// Important! The CSS Transition status gets sent through to be handled by
-					// each individual View, since all may have their own layout and components
-					// needing specific animations
-					return <Component status={status} />;
-				}}
-			</CSSTransition>
-		</SwitchTransition>
-	);
+  return (
+    <SwitchTransition>
+      <CSSTransition
+        // ensuring match.path here should not be necessary if we had a better guarantee
+        // that every route would be accounted for
+        timeout={match?.path ? 250 : 0}
+        key={match?.path || ''}
+      >
+        {(status) => {
+          // Again, just in-case, so we don't crash during development
+          if (!match || !match.path) {
+            return null;
+          }
+          const Component = routeMap[match.path];
+          // Important! The CSS Transition status gets sent through to be handled by
+          // each individual View, since all may have their own layout and components
+          // needing specific animations
+          return <Component status={status} />;
+        }}
+      </CSSTransition>
+    </SwitchTransition>
+  );
 }
 ```
 
@@ -319,17 +319,17 @@ Okay, that was a bit of setup, but not too bad. Now, for the payoff, each route�
 import clsx from 'clsx';
 
 export function ExampleView({ status }: Props) {
-	return (
-		<div
-			className={clsx({
-				'opacity-0': status === 'entering' || status === 'exited' || status === 'unmounted',
-				'transition-all ease-out opacity-1': status === 'entered',
-				'transition-all ease-in opacity-0': status === 'exiting',
-			})}
-		>
-			{/* content to fade in/out */}
-		</div>
-	);
+  return (
+    <div
+      className={clsx({
+        'opacity-0': status === 'entering' || status === 'exited' || status === 'unmounted',
+        'transition-all ease-out opacity-1': status === 'entered',
+        'transition-all ease-in opacity-0': status === 'exiting',
+      })}
+    >
+      {/* content to fade in/out */}
+    </div>
+  );
 }
 ```
 
@@ -339,11 +339,11 @@ In use, that became cumbersome to remember, so I ended up creating a [`transitio
 import { transition } from '../modules/transition';
 
 export function ExampleView({ status }: Props) {
-	return (
-		<div className={clsx('...', status ? transition(status, 'slideUp') : undefined)}>
-			{/* content to slide up when entering and down when exiting */}
-		</div>
-	);
+  return (
+    <div className={clsx('...', status ? transition(status, 'slideUp') : undefined)}>
+      {/* content to slide up when entering and down when exiting */}
+    </div>
+  );
 }
 ```
 
@@ -354,13 +354,13 @@ After confirming that the GoPro worked as a webcam, I didn’t really leave it s
 I quickly needed to add preferences to the application, so I threw together a few settings that would probably make it helpful if anyone else ever wanted to pick up [the source code](https://github.com/paularmstrong/photobooth) and repurpose it for their own party.
 
 <Picture
-	src="/img/blog/photobooth/preferences.png"
-	alt="Screenshot of the Photo Booth’s preferences view"
-	width="2550"
-	height="1590"
-	widths={[480, 640, 1200, 1600]}
-	loading="lazy"
-	itemprop="image"
+  src="/img/blog/photobooth/preferences.png"
+  alt="Screenshot of the Photo Booth’s preferences view"
+  width="2550"
+  height="1590"
+  widths={[480, 640, 1200, 1600]}
+  loading="lazy"
+  itemprop="image"
 />
 
 ## Result
@@ -370,15 +370,15 @@ I’m super happy with the end result. There isn’t much more to say other than
 So here’s me messing around with it at home and trying to get Milo to pose with me.
 
 <div class="lg:bustout">
-	<iframe
-		class="aspect-video w-full"
-		loading="lazy"
-		src="https://www.youtube-nocookie.com/embed/e6I4G3Bf0Qk"
-		title="The Photo Booth application in action"
-		frameborder="0"
-		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-		allowfullscreen
-	/>
+  <iframe
+    class="aspect-video w-full"
+    loading="lazy"
+    src="https://www.youtube-nocookie.com/embed/e6I4G3Bf0Qk"
+    title="The Photo Booth application in action"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  />
 </div>
 
 ---

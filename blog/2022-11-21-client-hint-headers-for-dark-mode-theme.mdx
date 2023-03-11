@@ -35,8 +35,8 @@ First, in order to manually control the `light` and `dark` mode themes with Tail
 
 ```js title="tailwind.conf.cjs" {3}
 module.exports = {
-	content: ['src/**/*.{astro,md,mdx,tsx,ts}'],
-	darkMode: 'class',
+  content: ['src/**/*.{astro,md,mdx,tsx,ts}'],
+  darkMode: 'class',
 };
 ```
 
@@ -44,8 +44,8 @@ To save our theme and whether or not auto-selection is preferred, we can use a b
 
 ```tsx
 function saveTheme(theme: Theme, auto: boolean) {
-	const params = new URLSearchParams({ theme, auto: auto ? 'true' : 'false' });
-	fetch(`/api/theme/?${params.toString()}`);
+  const params = new URLSearchParams({ theme, auto: auto ? 'true' : 'false' });
+  fetch(`/api/theme/?${params.toString()}`);
 }
 ```
 
@@ -55,24 +55,24 @@ Here’s an example effect in React. Take special note of the highlighted lines 
 
 ```tsx title="ThemeSwitcher.tsx" {3,6,14}
 export function ThemeSwitcher() {
-	const [theme, setTheme] = React.useState(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-	const [auto, setAuto] = React.useState(document.documentElement.dataset.autoTheme === 'true');
+  const [theme, setTheme] = React.useState(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  const [auto, setAuto] = React.useState(document.documentElement.dataset.autoTheme === 'true');
 
-	React.useEffect(() => {
-		document.documentElement.dataset.autoTheme = auto ? 'true' : 'false';
+  React.useEffect(() => {
+    document.documentElement.dataset.autoTheme = auto ? 'true' : 'false';
 
-		if (theme === 'dark') {
-			document.documentElement.classList.add('dark');
-		} else {
-			document.documentElement.classList.remove('dark');
-		}
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
 
-		save(theme, auto);
-	}, [theme, auto]);
+    save(theme, auto);
+  }, [theme, auto]);
 
-	// ...
-	// there’s more needed here, this is just for demonstration purposes
-	// ...
+  // ...
+  // there’s more needed here, this is just for demonstration purposes
+  // ...
 }
 ```
 
@@ -89,25 +89,25 @@ Follow the comments inline for any needed explanations.
 
 ```tsx title="ThemeSwitcher.tsx (partial)"
 React.useEffect(() => {
-	if (!auto) {
-		// do nothing if not in auto mode.
-		return;
-	}
+  if (!auto) {
+    // do nothing if not in auto mode.
+    return;
+  }
 
-	// On change to auto-mode, set the theme based on the current media query preference
-	const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-	setTheme(isDark ? 'dark' : 'light');
+  // On change to auto-mode, set the theme based on the current media query preference
+  const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(isDark ? 'dark' : 'light');
 
-	// Add an event listener any time the device requests a change to the color scheme
-	function listener(event: MediaQueryListEvent) {
-		setTheme(event.matches ? 'dark' : 'light');
-	}
-	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
+  // Add an event listener any time the device requests a change to the color scheme
+  function listener(event: MediaQueryListEvent) {
+    setTheme(event.matches ? 'dark' : 'light');
+  }
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
 
-	// Return a cleanup function when unloading so we stop listening to the media change
-	return () => {
-		window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
-	};
+  // Return a cleanup function when unloading so we stop listening to the media change
+  return () => {
+    window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
+  };
 }, [auto]);
 ```
 
@@ -135,28 +135,28 @@ Now that we have declared our endpoint, let’s actually write it to save the us
 import type { Context } from 'https://edge.netlify.com/';
 
 export default async (req: Request, context: Context) => {
-	const url = new URL(req.url);
-	const params = url.searchParams;
+  const url = new URL(req.url);
+  const params = url.searchParams;
 
-	// Set a server-side secure cookie with the requested URL search params
-	context.cookies.set({
-		name: 'theme',
-		value: params.toString(),
-		path: '/',
-		secure: true,
-		httpOnly: true,
-		sameSite: 'Strict',
-		// Set a *REALLY* big expires value
-		expires: new Date(Date.now() + 2_592_000_000),
-	});
+  // Set a server-side secure cookie with the requested URL search params
+  context.cookies.set({
+    name: 'theme',
+    value: params.toString(),
+    path: '/',
+    secure: true,
+    httpOnly: true,
+    sameSite: 'Strict',
+    // Set a *REALLY* big expires value
+    expires: new Date(Date.now() + 2_592_000_000),
+  });
 
-	// Respond with a success JSON payload
-	return new Response(JSON.stringify({ error: false }), {
-		status: 200,
-		headers: {
-			'content-type': 'application/json',
-		},
-	});
+  // Respond with a success JSON payload
+  return new Response(JSON.stringify({ error: false }), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
 };
 ```
 
@@ -176,48 +176,48 @@ import type { Context } from 'https://edge.netlify.com/';
 const themes = ['light', 'dark'] as const;
 
 export default async (req: Request, context: Context) => {
-	const url = new URL(req.url);
-	const params = url.searchParams;
+  const url = new URL(req.url);
+  const params = url.searchParams;
 
-	// Didn't include a default or fallback theme
-	if (!params.has('theme')) {
-		return new Response(JSON.stringify({ error: 'Missing theme parameter' }), {
-			status: 400,
-			headers: {
-				'content-type': 'application/json',
-			},
-		});
-	}
+  // Didn't include a default or fallback theme
+  if (!params.has('theme')) {
+    return new Response(JSON.stringify({ error: 'Missing theme parameter' }), {
+      status: 400,
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  }
 
-	const theme = params.get('theme') as typeof themes[number];
-	const auto = params.get('auto') === 'true';
+  const theme = params.get('theme') as typeof themes[number];
+  const auto = params.get('auto') === 'true';
 
-	// Sent a theme that's not valid for our site?
-	if (!themes.includes(theme)) {
-		return new Response(JSON.stringify({ error: `Invalid theme: ${theme}` }), {
-			status: 400,
-			headers: {
-				'content-type': 'application/json',
-			},
-		});
-	}
+  // Sent a theme that's not valid for our site?
+  if (!themes.includes(theme)) {
+    return new Response(JSON.stringify({ error: `Invalid theme: ${theme}` }), {
+      status: 400,
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  }
 
-	context.cookies.set({
-		name: 'theme',
-		value: params.toString(),
-		path: '/',
-		secure: true,
-		httpOnly: true,
-		sameSite: 'Strict',
-		expires: new Date(Date.now() + 2_592_000_000),
-	});
+  context.cookies.set({
+    name: 'theme',
+    value: params.toString(),
+    path: '/',
+    secure: true,
+    httpOnly: true,
+    sameSite: 'Strict',
+    expires: new Date(Date.now() + 2_592_000_000),
+  });
 
-	return new Response(JSON.stringify({ error: false }), {
-		status: 200,
-		headers: {
-			'content-type': 'application/json',
-		},
-	});
+  return new Response(JSON.stringify({ error: false }), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
 };
 ```
 
@@ -253,16 +253,16 @@ import type { Context } from 'https://edge.netlify.com/';
 import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
 export default async (req: Request, context: Context) => {
-	// Get the default response for this URL. This will grab the actual response as if we were not running this function
-	const res = await context.next();
+  // Get the default response for this URL. This will grab the actual response as if we were not running this function
+  const res = await context.next();
 
-	// Check the content type. If we're not serving HTML, running the rest of this function will be a waste of compute time and power
-	const type = res.headers.get('content-type');
-	if (!type?.startsWith('text/html')) {
-		return;
-	}
+  // Check the content type. If we're not serving HTML, running the rest of this function will be a waste of compute time and power
+  const type = res.headers.get('content-type');
+  if (!type?.startsWith('text/html')) {
+    return;
+  }
 
-	return res;
+  return res;
 };
 ```
 
@@ -292,27 +292,27 @@ import type { Context } from 'https://edge.netlify.com/';
 import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
 export default async (req: Request, context: Context) => {
-	const res = await context.next();
-	const type = res.headers.get('content-type');
-	if (!type?.startsWith('text/html')) {
-		return;
-	}
+  const res = await context.next();
+  const type = res.headers.get('content-type');
+  if (!type?.startsWith('text/html')) {
+    return;
+  }
 
-	const prefers = req.headers.get('sec-ch-prefers-color-scheme');
-	const rawCookie = context.cookies.get('theme') ?? 'auto=true&theme=light';
-	const params = new URLSearchParams(rawCookie);
-	const isAuto = params.get('auto') === 'true';
-	const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
+  const prefers = req.headers.get('sec-ch-prefers-color-scheme');
+  const rawCookie = context.cookies.get('theme') ?? 'auto=true&theme=light';
+  const params = new URLSearchParams(rawCookie);
+  const isAuto = params.get('auto') === 'true';
+  const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
 
-	return new HTMLRewriter()
-		.on('html', {
-			element(element: Element) {
-				const original = element.getAttribute('class') || false;
-				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
-				element.setAttribute('data-auto-theme', isAuto ? 'true' : 'false');
-			},
-		})
-		.transform(res);
+  return new HTMLRewriter()
+    .on('html', {
+      element(element: Element) {
+        const original = element.getAttribute('class') || false;
+        element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
+        element.setAttribute('data-auto-theme', isAuto ? 'true' : 'false');
+      },
+    })
+    .transform(res);
 };
 ```
 

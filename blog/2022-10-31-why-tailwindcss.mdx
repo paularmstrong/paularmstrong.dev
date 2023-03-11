@@ -23,11 +23,11 @@ Well yes, and no. Perhaps your `Button` implementation looks something like the 
 
 ```jsx
 function Button({ children }) {
-	return (
-		<div role="button" className="rounded px-4 py-2 bg-teal-700 text-white">
-			{children}
-		</div>
-	);
+  return (
+    <div role="button" className="rounded px-4 py-2 bg-teal-700 text-white">
+      {children}
+    </div>
+  );
 }
 ```
 
@@ -35,14 +35,14 @@ Is this visually _much_ different than using styled components?
 
 ```jsx
 const StyledButton = styled.div`
-	border-radius: 0.25rem;
-	padding: 0.25rem 0.5rem;
-	background-color: --var(color-teal-700);
-	color: --var(color-white);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: --var(color-teal-700);
+  color: --var(color-white);
 `;
 
 export function Button({ children }) {
-	return <StyledButton role="button">{children}</StyledButton>;
+  return <StyledButton role="button">{children}</StyledButton>;
 }
 ```
 
@@ -54,11 +54,11 @@ Still don't like the classNames inline? We could move _where_ they're defined ju
 const buttonClassNames = 'rounded px-4 py-2 bg-teal-700 text-white';
 
 export function Button({ children }) {
-	return (
-		<div role="button" className={buttonClassNames}>
-			{children}
-		</div>
-	);
+  return (
+    <div role="button" className={buttonClassNames}>
+      {children}
+    </div>
+  );
 }
 ```
 
