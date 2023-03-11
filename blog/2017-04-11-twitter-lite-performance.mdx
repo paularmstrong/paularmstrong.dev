@@ -54,17 +54,17 @@ After much wrangling, we were finally able to break up common areas by routes in
 
 ```js
 const plugins = [
-	// extract vendor and webpack's module manifest
-	new webpack.optimize.CommonsChunkPlugin({
-		names: ['vendor', 'manifest'],
-		minChunks: Infinity,
-	}),
-	// extract common modules from all the chunks (requires no 'name' property)
-	new webpack.optimize.CommonsChunkPlugin({
-		async: true,
-		children: true,
-		minChunks: 4,
-	}),
+  // extract vendor and webpack's module manifest
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['vendor', 'manifest'],
+    minChunks: Infinity,
+  }),
+  // extract common modules from all the chunks (requires no 'name' property)
+  new webpack.optimize.CommonsChunkPlugin({
+    async: true,
+    children: true,
+    minChunks: 4,
+  }),
 ];
 ```
 
@@ -163,14 +163,14 @@ For example, our original HeartIcon looked something like this:
 
 ```js
 const HeartIcon = (props) =>
-	React.createElement('svg', {
-		...props,
-		dangerouslySetInnerHTML: {
-			__html:
-				'<g><path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path></g>',
-		},
-		viewBox: '0 0 54 72',
-	});
+  React.createElement('svg', {
+    ...props,
+    dangerouslySetInnerHTML: {
+      __html:
+        '<g><path d="M38.723 12c-7.187 0-11.16 7.306-11.723 8.131C26.437 19.306 22.504 12 15.277 12 8.791 12 3.533 18.163 3.533 24.647 3.533 39.964 21.891 55.907 27 56c5.109-.093 23.467-16.036 23.467-31.353C50.467 18.163 45.209 12 38.723 12z"></path></g>',
+    },
+    viewBox: '0 0 54 72',
+  });
 ```
 
 Not only is it [discouraged to use `dangerouslySetInnerHTML`](http://reactjs.cn/react/tips/dangerously-set-inner-html.html), but it turns out that it’s actually a source of slowness when mounting and rendering.
@@ -225,24 +225,24 @@ import React from 'react';
  * and re-render before mounting and rendering an expensive `WrappedComponent`.
  */
 export default function deferComponentRender(WrappedComponent) {
-	class DeferredRenderWrapper extends React.Component {
-		constructor(props, context) {
-			super(props, context);
-			this.state = { shouldRender: false };
-		}
+  class DeferredRenderWrapper extends React.Component {
+    constructor(props, context) {
+      super(props, context);
+      this.state = { shouldRender: false };
+    }
 
-		componentDidMount() {
-			window.requestAnimationFrame(() => {
-				window.requestAnimationFrame(() => this.setState({ shouldRender: true }));
-			});
-		}
+    componentDidMount() {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => this.setState({ shouldRender: true }));
+      });
+    }
 
-		render() {
-			return this.state.shouldRender ? <WrappedComponent {...this.props} /> : null;
-		}
-	}
+    render() {
+      return this.state.shouldRender ? <WrappedComponent {...this.props} /> : null;
+    }
+  }
 
-	return hoistStatics(DeferredRenderWrapper, WrappedComponent);
+  return hoistStatics(DeferredRenderWrapper, WrappedComponent);
 }
 ```
 

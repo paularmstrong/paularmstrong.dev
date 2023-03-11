@@ -74,21 +74,21 @@ wedding-app/
 ```html title="src/index.html"
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Kelly & Paul’s wedding</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kelly & Paul’s wedding</title>
 
-		// Parcel will pick up references to CSS files and compile them as necessary // This makes Tailwind setup in the
-		next step a breeze
-		<link rel="stylesheet" href="./index.css" />
-	</head>
-	<body>
-		// This will be the root element that we use for the Preact application
-		<div id="root"></div>
-		// Parcel will pick up references to JavaScript files (or Typescript) and compile them
-		<script type="module" src="./index.jsx"></script>
-	</body>
+    // Parcel will pick up references to CSS files and compile them as necessary // This makes Tailwind setup in the
+    next step a breeze
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    // This will be the root element that we use for the Preact application
+    <div id="root"></div>
+    // Parcel will pick up references to JavaScript files (or Typescript) and compile them
+    <script type="module" src="./index.jsx"></script>
+  </body>
 </html>
 ```
 
@@ -118,7 +118,7 @@ If you prefer a more in-depth setup, checkout [Tailwindcss‘s installation guid
 
 ```js title="tailwind.config.js"
 module.exports = {
-	content: ['./src/**/*.{html,ts,tsx}'],
+  content: ['./src/**/*.{html,ts,tsx}'],
 };
 ```
 
@@ -126,9 +126,9 @@ module.exports = {
 
 ```json
 {
-	"plugins": {
-		"tailwindcss": {}
-	}
+  "plugins": {
+    "tailwindcss": {}
+  }
 }
 ```
 
@@ -138,12 +138,12 @@ module.exports = {
 
 ```json title="package.json"
 {
-	"name": "wedding-app",
-	"private": true,
-	"scripts": {
-		"start": "parcel src/index.html",
-		"build": "rm -rf dist && NODE_ENV=production parcel build ./src/*.html --public-url /"
-	}
+  "name": "wedding-app",
+  "private": true,
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "rm -rf dist && NODE_ENV=production parcel build ./src/*.html --public-url /"
+  }
 }
 ```
 
