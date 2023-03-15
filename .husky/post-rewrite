@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-./bin/dev.mjs tasks -c pre-commit
+./bin/dev.mjs tasks -c post-checkout
