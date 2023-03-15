@@ -1,22 +1,7 @@
 {
 	"name": "paularmstrong-dev",
-	"version": "0.0.0",
 	"type": "module",
 	"private": true,
-	"scripts": {
-		"dev": "astro dev --host",
-		"start": "astro dev --host",
-		"build": "astro build",
-		"preview": "astro preview",
-		"astro": "astro",
-		"format:cmd": "prettier --ignore-unknown",
-		"format": "yarn format:cmd --write",
-		"format:ci": "yarn format:cmd --check .",
-		"lint:cmd": "eslint --cache --ext .astro,.ts,.tsx,.js,.jsx,.mjs,.cjs,.md,.mdx",
-		"lint": "yarn lint:cmd --fix .",
-		"lint:ci": "yarn lint:cmd",
-		"tsc": "tsc"
-	},
 	"dependencies": {
 		"@astrojs/image": "^0.15.1",
 		"@astrojs/mdx": "^0.17.2",
@@ -46,19 +31,28 @@
 		"tailwindcss": "^3.2.4"
 	},
 	"devDependencies": {
+		"@onerepo/plugin-eslint": "0.0.0-pre.123df73",
+		"@onerepo/plugin-prettier": "0.0.0-pre.123df73",
+		"@onerepo/plugin-typescript": "0.0.0-pre.123df73",
 		"@types/debounce": "^1.2.1",
 		"@types/mdast": "^3.0.10",
 		"@typescript-eslint/eslint-plugin": "^5.46.0",
 		"@typescript-eslint/parser": "^5.46.0",
+		"esbuild": "^0.17.11",
+		"esbuild-register": "^3.4.2",
 		"eslint": "^8.29.0",
 		"eslint-mdx": "^2.0.5",
 		"eslint-plugin-astro": "^0.21.0",
 		"eslint-plugin-mdx": "^2.0.5",
 		"eslint-plugin-tailwindcss": "^3.7.1",
 		"netlify-cli": "^12.1.1",
+		"onerepo": "0.0.0-pre.123df73",
 		"prettier": "^2.8.1",
 		"prettier-plugin-astro": "^0.7.0",
 		"typescript": "^4.9.4"
 	},
-	"packageManager": "yarn@3.3.1"
+	"packageManager": "yarn@3.3.1",
+	"workspaces": [
+		"."
+	]
 }
