@@ -1,0 +1,42 @@
+---
+title: A clean codebase is a happy codebase
+description: |
+  How do so many people just ignore cruft in their projects and keep moving forward? I was fighting with a bunch of `package.json` files recently that had 10s of dependencies that were completely unused. Why was it left this way?
+pubDate: 2023/03/24, 09:00:00 PM GMT-0800
+---
+
+How do so many people just ignore cruft in their projects and keep moving forward? I was fighting with a bunch of `package.json` files recently that had 10s of dependencies that were completely unused and it got me thinking about keeping codebases clean and tidy.
+
+- There are files right there that never get used. Why aren’t you deleting them?
+- Why did you just comment out that big block of code you’re never going to use again instead of deleting it?
+- Why do you keep including that unused dependency in your package.json?
+
+One of the responses I got was that changing something you don’t know carries too much risk that you don’t have time to deal with if it goes awry:
+
+> often the risk of changing unknowns is higher than the benefit. Maybe that dep does something and removing it will cause a build incident that’ll take a week to address.
+>
+> <cite>– [@kpk@macaw.social](https://macaw.social/@kpk/110067893337633391)</cite>
+
+---
+
+Think of the same situation a little differently:
+
+When you moved into your office, there were a pile of neatly folded towels in the corner of the room. You and all of your coworkers left them there, because you weren’t sure who was responsible and they didn’t seem to be causing a problem.
+
+After a few months, some black mold starts spreading out from under the towels. Now you need to leave immediately, maybe go get checked up with your doctor, and have your office torn apart and the mold dealt with.
+
+Was it really better just letting it go and not dealing with it?
+
+---
+
+Many years ago I was trying to track down a layout error on a major sign in page. There was a random CSS class name being applied to a form element and some stylesheet getting added to the document `<head />` – the class name did not exist in any form within our codebase. How was this possible?
+
+As it turns out, someone had added a Ruby gem a couple of years prior. The mere _existence_ of this gem caused various side effects to form fields that went completely unnoticed for over a year. I’m sure there was a good reason it was added initially, but it no longer served a purpose other than the fact that it broke our layouts.
+
+It took me about 3 days to track this down and less than a minute to remove the dependency. I wish I could get those 3 days back.
+
+---
+
+Let’s be honest, you’re not going to leave a pile of towels sitting around for no reason in an office. They don’t belong there. Just as well, you should not be leaving dependencies sitting around if they don’t serve a real, tested, obvious, or documented purpose.
+
+The lesson is, if you spot a mess in code and dependencies, you’re better off cleaning it up now, lest it fester and cause bigger issues later.
