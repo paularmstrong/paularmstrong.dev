@@ -214,6 +214,12 @@ module.exports = {
 				},
 			},
 			typography: (theme) => ({
+				DEFAULT: {
+					css: {
+						'code::before': { content: '""' },
+						'code::after': { content: '""' },
+					},
+				},
 				'a-img': {
 					css: {
 						'a:hover img': {
