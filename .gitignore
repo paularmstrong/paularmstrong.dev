@@ -29,3 +29,6 @@ pnpm-debug.log*
 .eslintcache
 # Local Netlify folder
 .netlify
+
+.astro/*
+!.astro/types.d.ts
