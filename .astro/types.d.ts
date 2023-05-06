@@ -112,9 +112,9 @@ declare module 'astro:content' {
 
 	const entryMap: {
 		"blog": {
-"2017-04-11-twitter-lite-performance.mdx": {
-  id: "2017-04-11-twitter-lite-performance.mdx",
-  slug: "twitter-lite-and-high-performance-react-progressive-web-apps-at-scale",
+"2017-04-11-twitter-lite-and-high-performance-react-progressive-web-apps-at-scale.mdx": {
+  id: "2017-04-11-twitter-lite-and-high-performance-react-progressive-web-apps-at-scale.mdx",
+  slug: "2017-04-11-twitter-lite-and-high-performance-react-progressive-web-apps-at-scale",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
@@ -135,7 +135,7 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] },
 "2020-12-22-javascript-html-templating.mdx": {
   id: "2020-12-22-javascript-html-templating.mdx",
-  slug: "javascript-html-templating",
+  slug: "2020-12-22-javascript-html-templating",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
@@ -156,7 +156,7 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] },
 "2022-05-17-nine-years-sober.mdx": {
   id: "2022-05-17-nine-years-sober.mdx",
-  slug: "nine-years-sober",
+  slug: "2022-05-17-nine-years-sober",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
