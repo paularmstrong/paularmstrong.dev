@@ -18,7 +18,7 @@ export default async (req: Request, context: Context) => {
 		});
 	}
 
-	const theme = params.get('theme') as typeof themes[number];
+	const theme = params.get('theme') as (typeof themes)[number];
 	const auto = params.get('auto') === 'true';
 
 	if (!themes.includes(theme)) {
