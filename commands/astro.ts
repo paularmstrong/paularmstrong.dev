@@ -21,5 +21,6 @@ export const handler: Handler = async (argv) => {
 		name: 'Run astro',
 		cmd: bin,
 		args: rest,
+		opts: { stdio: 'inherit' },
 	});
 };
