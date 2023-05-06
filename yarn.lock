@@ -7002,7 +7002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.17.0, esbuild@npm:^0.17.11":
+"esbuild@npm:^0.17.0":
   version: 0.17.11
   resolution: "esbuild@npm:0.17.11"
   dependencies:
@@ -7079,7 +7079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.17.5":
+"esbuild@npm:^0.17.18, esbuild@npm:^0.17.5":
   version: 0.17.18
   resolution: "esbuild@npm:0.17.18"
   dependencies:
@@ -13901,7 +13901,7 @@ fsevents@~2.3.2:
     astro-compress: ^1.1.42
     clsx: ^1.2.1
     debounce: ^1.2.1
-    esbuild: ^0.17.11
+    esbuild: ^0.17.18
     esbuild-register: ^3.4.2
     eslint: ^8.40.0
     eslint-mdx: ^2.1.0
