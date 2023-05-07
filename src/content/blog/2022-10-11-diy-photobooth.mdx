@@ -1,0 +1,131 @@
+---
+title: DIY photobooth
+description: I created my own photobooth application with Electron, Node.js, React, and Tailwindcss and used a GoPro as a webcam for my wedding instead of renting a commercial booth. It was fun to build and even more fun to use.
+pubDate: 2022-10-11
+heroImage:
+  src: /img/blog/photobooth/main-screen.jpg
+  width: 1277
+  height: 799
+toc: true
+---
+
+import Aside from '~/components/Aside.astro';
+import Picture from '~/components/Picture.astro';
+
+I recently [got married]() – and as we know, weddings are _expensive_. Previously, I documented saving money by [creating my own website](/blog/2022/06/04/custom-wedding-website) and foregoing spending money on paper RSVPs. We also decided to skip paying a photographer the exorbitant extra fees to also photograph our reception, but we still wanted to have lots of memories from the event.
+
+I’ve always loved getting in photo booths, having a bunch of laughs, and keeping the printed photos for later. But do you know how much a photobooth rental is? At _least_ $1,500! And even then, they usually print out photos instead of providing a digital version that you can actually save and use long-term.
+
+Well, in keeping with my theme of not spending money, but instead spending _way too much time_ over-engineering a similar solution: I set out to build my own. And I succeeded.
+
+---
+
+## Application demo
+
+The application, which is [open-sourced on Github](https://github.com/paularmstrong/photobooth), is built with [Electron](https://www.electronjs.org/), [React](https://reactjs.org/), [Tailwindcss](https://tailwindcss.com), and [x-state](https://xstate.js.org/). It uses browser APIs like [MediaDevices, MediaStream, and MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API) to record your webcam and pass the data to an HTML canvas to create collage images, as well as video recordings.
+
+<iframe
+  class="aspect-video w-full"
+  loading="lazy"
+  src="https://www.youtube-nocookie.com/embed/e6I4G3Bf0Qk?rel=0"
+  title="The Photo Booth application in action"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+/>
+
+I had a script running to watch the directory where the application saved the photos. That script looked at each new image, resized, and uploaded them directly to my Firebase storage account for immediate display in a gallery on the wedding website.
+
+## The “Memory Shack”
+
+From a physical standpoint, the photo "booth" was renamed to the "Memory Shack". It consisted of a borrowed portable USB-C LCD screen, a 6-button StreamDeck mini (because the screen was not a touch screen), a ring light, and a GoPro running as a webcam.
+
+All of the wood used was donated from a friend and it was all pretty warped. We did the best we could with making it look nice – and it did turn out nice, if you don’t mind that it looks like an old shack in the woods. So, we renamed it to the “Memory Shack”.
+
+<Picture
+  src="/img/blog/photobooth/shack.jpg"
+  widths={[640, 1200]}
+  width={1200}
+  height={900}
+  itemprop="image"
+  loading="lazy"
+  fit="cover"
+  alt="Photo “Booth” build – aka the “Memory Shack” because of how janky it looked"
+/>
+
+Unfortunately, through the chaos of it all, I forgot to get a photo of the actual photobooth at the reception.
+
+## The result
+
+It may have looked janky and silly, but this thing was a _hit_! We had props, hats, glasses, and whatever silly things we could find from costumes between ourselves and friends. And the photos turned out absolutely hilarious and fun.
+
+<div class="not-prose mb-12 grid w-full grid-cols-2 gap-4 md:grid-cols-3">
+  <Picture
+    class="!mt-0 w-full max-w-none -rotate-6 shadow-md dark:shadow-lg"
+    src="/img/blog/photobooth/samples/2022-10-07-224047.jpg"
+    widths={[240, 640]}
+    width={640}
+    height={394}
+    itemprop="image"
+    loading="lazy"
+    alt="Sample photo from the “Memory Shack” DIY photobooth"
+  />
+  <Picture
+    class="!mt-0 w-full max-w-none rotate-12 shadow-md dark:shadow-lg"
+    src="/img/blog/photobooth/samples/2022-10-08-234507.jpg"
+    widths={[240, 640]}
+    width={640}
+    height={394}
+    itemprop="image"
+    loading="lazy"
+    alt="Sample photo from the “Memory Shack” DIY photobooth"
+  />
+  <Picture
+    class="!mt-0 w-full max-w-none -rotate-6 shadow-md dark:shadow-lg"
+    src="/img/blog/photobooth/samples/2022-10-07-235215.jpg"
+    widths={[240, 640]}
+    width={640}
+    height={394}
+    itemprop="image"
+    loading="lazy"
+    alt="Sample photo from the “Memory Shack” DIY photobooth"
+  />
+  <Picture
+    class="!mt-0 w-full max-w-none rotate-6 shadow-md dark:shadow-lg"
+    src="/img/blog/photobooth/samples/2022-10-08-233133.jpg"
+    widths={[240, 640]}
+    width={640}
+    height={394}
+    itemprop="image"
+    loading="lazy"
+    alt="Sample photo from the “Memory Shack” DIY photobooth"
+  />
+  <Picture
+    class="!mt-0 w-full max-w-none -rotate-6 shadow-md dark:shadow-lg"
+    src="/img/blog/photobooth/samples/2022-10-07-234849.jpg"
+    widths={[240, 640]}
+    width={640}
+    height={394}
+    itemprop="image"
+    loading="lazy"
+    alt="Sample photo from the “Memory Shack” DIY photobooth"
+  />
+  <Picture
+    class="!mt-0 w-full max-w-none rotate-6 shadow-md dark:shadow-lg"
+    src="/img/blog/photobooth/samples/2022-10-09-023009.jpg"
+    widths={[240, 640]}
+    width={640}
+    height={394}
+    itemprop="image"
+    loading="lazy"
+    alt="Sample photo from the “Memory Shack” DIY photobooth"
+  />
+</div>
+
+All-in-all, I spent _at least_ 200 hours between research, prototyping, building, tweaking, and playing around with this. If I tried to cost:benefit ratio it all out with an hourly rate of my time, it probably would have been cheaper to rent a photobooth. However, after seeing the result of what I made, I think that I made the right choice by building this photobooth myself.
+
+<Aside title="Stay tuned for more!" type="info">
+
+If you’re interested in the nitty gritty details, stay tuned for a new post soon (currently in progress, I swear!) that dives into some scrapped versions of the application, the choices that I made along the way, and the details of how it all works together.
+
+</Aside>

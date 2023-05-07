@@ -1,0 +1,77 @@
+---
+title: Things I want to see in JavaScript and Frontend development in 2023
+pubDate: 2023-01-20
+description: We’re now nearly a month into the year 2023. I’ve started a new job and have been doing a lot of research for new projects and auditing old code. This process has given me time to reflect on what is and is not working – and what I’d like to see going forward this year.
+---
+
+We’re now nearly a month into the year 2023. I’ve started a new job and have been doing a lot of research for new projects and auditing old code. This process has given me time to reflect on what is and is not working – and what I’d like to see going forward this year.
+
+1. **Usage of Axios declines or goes EOL**
+
+   Axios was the original on promise-based XHRs for the web. However, `fetch` is now standard and well supported. It’s different enough from Axios
+   Savings: [7-11kB](https://bundlephobia.com/package/axios@1.2.3), depending on if you need the [fetch polyfill](https://bundlephobia.com/package/whatwg-fetch@3.6.2).
+
+   I originally posted this quick hot take [about Axios on Mastodon](https://mstdn.io/@paularmstrong/109716625048218845) and was surprised that I wasn’t bombarded with hate. Maybe this is the year!
+
+1. **Successful use of the [Node.js Test Runner](https://nodejs.org/docs/latest-v18.x/api/test.html)**
+
+   This is definitely a new one, but it ticks _almost_ all of the boxes for testing, and as a standard library! The only downside is for those using TypeScript and/or needing any sort of runtime. Although using a node loader/register may be enough, as I tested this out and it seemed to work nicely:
+
+   ```sh
+   > node --loader esbuild-register/loader -r esbuild-register --test src/foo.test.ts
+
+   TAP version 13
+   # Subtest: project/src/foo.test.ts
+   ok 1 - project/src/foo.test.ts
+     ---
+     duration_ms: 274.373517
+     ...
+   1..1
+   # tests 1
+   # pass 1
+   # fail 0
+   # cancelled 0
+   # skipped 0
+   # todo 0
+   # duration_ms 276.471144
+   ```
+
+   Now I guess we will just need some pretty-printing tools and reporters.
+
+1. **Less divisive stances on CSS solutions**
+
+   I like Tailwindcss. It’s not perfect, but it works very well. I also like some other CSS frameworks and CSS-in-JS solutions. I also don’t like quite a good many of them as well, but you won’t see me throwing hate about them.
+
+1. **Less venture capital backed open source**
+
+   We all love free open source software. But when VCs get involved, it means they expect a huge monetary return. These things just don’t go together.
+
+1. **Decline of weak Eslint rules and configs**
+
+   I’m actually a huge fan of linters – but only those that either 1) rewrite for you or 2) give errors for actual problematic code and patterns.
+
+   Stop defaulting to report warnings and remove any rules that are stylistic choices in favor of Prettier[^eslint].
+
+   [^eslint]: (I'm looking at _you_, [“Airbnb JavaScript Style Guide”](https://github.com/airbnb/javascript))
+
+1. **React either gets it’s crap together or gets out of the way**
+
+   Okay, this is my hot take. Please bear with me as I write this with the best intentions of hoping that React can succeed.
+
+   I’ve been on-board with React for the greater part of a decade. I’ve been a part of teams that have helped shaped the ecosystem, the patterns, and the anti-patterns. Now in 2023, React is the defacto tool for building most new websites. I will also still be using React and leading teams using it for the foreseeable future.
+
+   And the React Core Team are making a mess of it all.
+
+   The React Core Team initially moved _fast_ and gave us amazing results one after another, but now they’re struggling to ship anything at all.
+
+   - Current documentation is out of date and missing many best practices. The [beta docs were announced](https://github.com/reactjs/reactjs.org/issues/3308) more than two years ago, with a promise of fixing this issue, but have not been fully deployed as the main source of truth. As of writing this post, they are listed as ~99% complete.
+   - Remember how long it took to get Suspense? Or Fibers?
+   - They shipped `useCallback`, then kept telling us we shouldn’t be using it. Then took over three years to realize their mistake and year to correct their mistake and get the [`useEvent`](https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md) hook considered, but [four more months](https://github.com/reactjs/rfcs/pull/220#issuecomment-1259938816) to give up and decide on another direction. That was four months ago from writing this post. The future is uncertain.
+   - The virtual DOM is slow, and other projects[^vdom] know this. React has made no intention to change course.
+   - SSR with hooks? They just gave up and took years to try to figure out server components. Is that even ready, or is it only a Next.js thing? This author can’t even keep track anymore.
+
+   [^vdom]: [Solid-JS](https://www.solidjs.com/) and [Preact](https://preactjs.com/blog/introducing-signals/) both work with Signals, a pattern to avoid running through entire virtual DOMs for HTML manipulation.
+
+   🔥 So here's my hot take: React is suffering from slow technical leadership, no clear vision, and inability to ship. But more importantly that it, like every JS framework has shown, will not stay on top forever. The ecosystem is too fragmented. Everyone claims they can do it better and writes their own framework instead of contributing to a single one, and now we’re all eyeing the hot new thing and ignoring the elephant in the room that we are still actually working with.
+
+   The latter part of my previous take is not React's fault, but React could be the solution to it, if they got their act together on the issues they’re creating.
