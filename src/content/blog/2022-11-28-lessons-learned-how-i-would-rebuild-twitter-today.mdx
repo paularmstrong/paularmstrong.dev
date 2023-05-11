@@ -6,6 +6,7 @@ toc: true
 ---
 
 import Aside from '~/components/Aside.astro';
+import YouTube from '~/components/YouTube.astro';
 
 I’ve been thinking back to my time as a core member of the original team that built the Twitter web app. I learned a great many lessons there and thinking through them: How would I rebuild something similar to the Twitter web app today, like a Mastodon or Activity Pub web client?
 
@@ -19,14 +20,7 @@ For the most part now, all <acronym title="React Native for Web">RNW</acronym> i
 
 And while <acronym title="React Native for Web">RNW</acronym> is not a hit on performance directly, pseudo-selectors and interactivity must be handled through React hooks, even just for simple style changes on hover or focus. This _does_ actually translate to an interactivity performance issue.
 
-<iframe
-  class="aspect-video w-full"
-  loading="lazy"
-  src="https://www.youtube-nocookie.com/embed/PYXMMYvNn8k?rel=0"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-/>
+<YouTube code="PYXMMYvNn8k" />
 
 ## Solid-js or another non-virtual DOM framework
 

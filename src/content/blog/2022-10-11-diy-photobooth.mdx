@@ -11,6 +11,7 @@ toc: true
 
 import Aside from '~/components/Aside.astro';
 import Picture from '~/components/Picture.astro';
+import YouTube from '~/components/YouTube.astro';
 
 I recently [got married]() – and as we know, weddings are _expensive_. Previously, I documented saving money by [creating my own website](/blog/2022/06/04/custom-wedding-website) and foregoing spending money on paper RSVPs. We also decided to skip paying a photographer the exorbitant extra fees to also photograph our reception, but we still wanted to have lots of memories from the event.
 
@@ -24,15 +25,7 @@ Well, in keeping with my theme of not spending money, but instead spending _way 
 
 The application, which is [open-sourced on Github](https://github.com/paularmstrong/photobooth), is built with [Electron](https://www.electronjs.org/), [React](https://reactjs.org/), [Tailwindcss](https://tailwindcss.com), and [x-state](https://xstate.js.org/). It uses browser APIs like [MediaDevices, MediaStream, and MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API) to record your webcam and pass the data to an HTML canvas to create collage images, as well as video recordings.
 
-<iframe
-  class="aspect-video w-full"
-  loading="lazy"
-  src="https://www.youtube-nocookie.com/embed/e6I4G3Bf0Qk?rel=0"
-  title="The Photo Booth application in action"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-/>
+<YouTube code="e6I4G3Bf0Qk" title="The Photo Booth application in action" />
 
 I had a script running to watch the directory where the application saved the photos. That script looked at each new image, resized, and uploaded them directly to my Firebase storage account for immediate display in a gallery on the wedding website.
 
