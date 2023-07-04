@@ -322,6 +322,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] },
+"2023-07-05-the-micro-frontend-pipedream.mdx": {
+  id: "2023-07-05-the-micro-frontend-pipedream.mdx",
+  slug: "2023-07-05-the-micro-frontend-pipedream",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] },
 },
 
 	};
