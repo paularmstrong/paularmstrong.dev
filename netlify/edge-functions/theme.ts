@@ -7,6 +7,7 @@ const COOKIE_NAME = 'dt';
 
 export default async (req: Request, context: Context) => {
 	if (req.headers.get('user-agent') === 'undici') {
+		console.log(req);
 		return new Response('', {
 			status: 403,
 		});
