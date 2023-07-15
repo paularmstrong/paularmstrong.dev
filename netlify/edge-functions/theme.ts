@@ -6,6 +6,13 @@ import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewrite
 const COOKIE_NAME = 'dt';
 
 export default async (req: Request, context: Context) => {
+	if (req.headers.get('user-agent') === 'undici') {
+		console.log(req);
+		return new Response('', {
+			status: 403,
+		});
+	}
+
 	const res = await context.next();
 	const type = res.headers.get('content-type');
 	if (!type?.startsWith('text/html')) {
@@ -26,14 +33,14 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	return res;
-
 	return new HTMLRewriter()
 		.on('html', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
 				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
 				element.setAttribute('data-auto-theme', isAuto ? 'true' : 'false');
+
+				console.log(res, element);
 			},
 		})
 		.transform(res);
