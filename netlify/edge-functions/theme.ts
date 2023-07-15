@@ -1,7 +1,7 @@
 // @ts-ignore
 import type { Context } from 'https://edge.netlify.com/';
 // @ts-ignore
-import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
+import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter@v0.1.0-pre.17/index.ts';
 
 const COOKIE_NAME = 'dt';
 
