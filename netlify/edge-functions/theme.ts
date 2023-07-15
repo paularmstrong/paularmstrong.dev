@@ -1,7 +1,7 @@
 // @ts-ignore
 import type { Context } from 'https://edge.netlify.com/';
 // @ts-ignore
-import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter@v0.1.0-pre.17/index.ts';
+import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
 const COOKIE_NAME = 'dt';
 
@@ -33,9 +33,20 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	console.log(HTMLRewriter);
+	return new HTMLRewriter()
+		.on('*', {
+			element(e) {
+				console.log('* element', e);
+			},
 
-	const newRes = new HTMLRewriter()
+			comments(c) {
+				console.log('* comment', c);
+			},
+
+			text(t) {
+				console.log('* text', t);
+			},
+		})
 		.on('html', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
@@ -46,7 +57,4 @@ export default async (req: Request, context: Context) => {
 			},
 		})
 		.transform(res);
-
-	console.log(newRes);
-	return newRes;
 };
