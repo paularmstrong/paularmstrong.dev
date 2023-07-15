@@ -6,13 +6,6 @@ import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewrite
 const COOKIE_NAME = 'dt';
 
 export default async (req: Request, context: Context) => {
-	if (req.headers.get('user-agent') === 'undici') {
-		console.log(req);
-		return new Response('', {
-			status: 403,
-		});
-	}
-
 	const res = await context.next();
 	const type = res.headers.get('content-type');
 	if (!type?.startsWith('text/html')) {
