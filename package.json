@@ -44,7 +44,7 @@
 		"eslint-plugin-astro": "^0.26.1",
 		"eslint-plugin-mdx": "^2.1.0",
 		"eslint-plugin-tailwindcss": "^3.11.0",
-		"netlify-cli": "^15.0.0",
+		"netlify-cli": "^15.9.0",
 		"onerepo": "0.8.1",
 		"prettier": "^2.8.8",
 		"prettier-plugin-astro": "^0.8.0",

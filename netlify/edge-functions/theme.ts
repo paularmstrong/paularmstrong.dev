@@ -33,7 +33,9 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	return new HTMLRewriter()
+	console.log(HTMLRewriter);
+
+	const newRes = new HTMLRewriter()
 		.on('html', {
 			element(element: Element) {
 				const original = element.getAttribute('class') || false;
@@ -44,4 +46,7 @@ export default async (req: Request, context: Context) => {
 			},
 		})
 		.transform(res);
+
+	console.log(newRes);
+	return newRes;
 };
