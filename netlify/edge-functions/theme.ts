@@ -59,11 +59,11 @@ class HtmlHandler {
 		this.#isAuto = isAuto;
 	}
 
-	element(element: Element) {
-		const original = element.getAttribute('class') || false;
-		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
-		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
-	}
+	// element(element: Element) {
+	// 	const original = element.getAttribute('class') || false;
+	// 	element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
+	// 	element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
+	// }
 }
 
 export const config: Config = {
