@@ -33,10 +33,14 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
+	console.log(await res.clone().text());
+
 	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
 
 	try {
-		return rewriter.transform(res);
+		const newRes = rewriter.transform(res);
+		console.log(await newRes.clone().text());
+		return newRes;
 	} catch (e) {
 		console.log(e);
 		return new Response('This site is broken. Please contact @paularmstrong@mstdn.io');
