@@ -36,7 +36,14 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	return new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto)).transform(new Response(await res.text()));
+	try {
+		return new HTMLRewriter()
+			.on('html', new HtmlHandler(theme, isAuto))
+			.transform(new Response(await res.text(), res.headers));
+	} catch (e) {
+		console.error(e);
+		return new Response('it is broken :(');
+	}
 };
 
 class HtmlHandler {
