@@ -1,4 +1,3 @@
-import { getCollection } from 'astro:content';
 import { Feed } from 'feed';
 import type { Item } from 'feed';
 import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../config';
@@ -25,38 +24,43 @@ export const feed = new Feed({
 	author,
 });
 
-const rawPosts = (
-	await getCollection('blog', ({ data }) => {
-		return import.meta.env.DEV || !data.draft;
-	})
-)
-	.sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
-	.map((post) => {
-		const match = post.slug.match(/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
-		if (!match) {
-			return null;
-		}
-		return { ...post, slug: Object.values(match.groups!).join('/') };
-	})
-	.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.data?.draft));
+interface Post {
+	url?: string;
+	frontmatter: {
+		title: string;
+		description?: string;
+		draft?: boolean;
+		pubDate: string;
+		heroImage?: { src: string; width: number; height: number };
+	};
+}
 
-for (const post of rawPosts) {
-	if (!post || !post.slug || post.data.draft) {
+const rawPosts = import.meta.glob<Post>('../../blog/**/*.{md,mdx}', { eager: true });
+
+for (const post of Object.values(rawPosts)) {
+	if (!post || !post.url || post.frontmatter.draft) {
 		continue;
 	}
 
-	const url = `${SITE_URL}/blog/${post.slug}/`;
+	const urlMatch = post.url
+		.replace(/\.mdx?\/?$/, '')
+		.match(/^blog\/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)$/);
+	if (!urlMatch?.groups) {
+		continue;
+	}
+
+	const url = `${SITE_URL}/blog/${Object.values(urlMatch.groups).join('/')}/`;
 
 	const item: Item = {
-		title: post.data.title,
-		description: `<p>${post.data.description || ''}</p><p><a href="${url}">Continue reading…</a></p>`,
+		title: post.frontmatter.title,
+		description: `<p>${post.frontmatter.description || ''}</p><p><a href="${url}">Continue reading…</a></p>`,
 		id: url,
 		link: url,
-		date: post.data.pubDate,
+		date: new Date(post.frontmatter.pubDate),
 		author: [author],
 	};
-	if (post.data.heroImage?.src) {
-		item.image = `${SITE_URL}${post.data.heroImage.src}`;
+	if (post.frontmatter.heroImage?.src) {
+		item.image = `${SITE_URL}${post.frontmatter.heroImage.src}`;
 	}
 
 	feed.addItem(item);

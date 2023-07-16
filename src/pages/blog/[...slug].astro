@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import Picture from '~/components/Picture.astro';
 import Aside from '~/components/Aside.astro';
 import AuthorMeta from '~/components/AuthorMeta.astro';
@@ -12,21 +11,22 @@ import TocList from '~/components/TocList.astro';
 import { Share, ShareLink } from '~/components/Share';
 
 export async function getStaticPaths() {
-	const posts = (
-		await getCollection('blog', ({ data }) => {
-			return import.meta.env.DEV || !data.draft;
-		})
-	)
-		.sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+	const posts = (await Astro.glob('../../../blog/*.mdx'))
 		.map((post) => {
-			const match = post.slug.match(/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
+			const filename = `blog/${post.file.split('/blog/')[1]}`;
+			const match = filename
+				.replace(/\.mdx?$/, '')
+				.match(/^blog\/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
 			if (!match) {
 				return null;
 			}
-			return { params: { slug: Object.values(match.groups!).join('/') }, props: post };
+			return { params: { slug: Object.values(match.groups!).join('/') }, props: { post: { ...post, filename } } };
 		})
-		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.data?.draft));
-
+		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.post?.frontmatter?.draft))
+		.sort(
+			(a, b) =>
+				new Date(a!.props.post.frontmatter.pubDate).valueOf() - new Date(b!.props.post.frontmatter.pubDate).valueOf()
+		);
 	for (let i = 0; i < posts.length; i++) {
 		const prev = posts[i - 1];
 		const next = posts[i + 1];
@@ -35,8 +35,8 @@ export async function getStaticPaths() {
 			enumerable: true,
 			writable: true,
 			value: {
-				prev: prev ? { ...prev.props.data, slug: `${prev.params.slug}/` } : undefined,
-				next: next ? { ...next.props.data, slug: `${next.params.slug}/` } : undefined,
+				prev: prev ? { ...prev.props.post.frontmatter, slug: `${prev.params.slug}/` } : undefined,
+				next: next ? { ...next.props.post.frontmatter, slug: `${next.params.slug}/` } : undefined,
 			},
 		});
 	}
@@ -45,18 +45,13 @@ export async function getStaticPaths() {
 }
 
 const {
-	id,
-	data: { draft, title, pubDate, updatedDate, description, toc, heroImage },
-	render,
-	siblings,
-} = Astro.props;
-const { slug } = Astro.params;
-
-const {
+	filename,
+	frontmatter: { draft, title, pubDate, updatedDate, readingTime, description, toc, heroImage, ogImage },
+	getHeadings,
 	Content,
-	headings: postHeadings,
-	remarkPluginFrontmatter: { readingTime },
-} = await render();
+} = Astro.props.post;
+const { slug } = Astro.params;
+const { siblings } = Astro.props;
 
 interface Heading {
 	text: string;
@@ -67,7 +62,7 @@ interface Heading {
 const headings: Array<Heading> = [];
 const levels = [{ headings }];
 
-for (const h of postHeadings) {
+for (const h of getHeadings()) {
 	const depth = h.depth - 2;
 	if (depth < 0 || depth > 1) {
 		continue;
@@ -77,7 +72,7 @@ for (const h of postHeadings) {
 }
 ---
 
-<Base title={title} description={description} image={heroImage?.src}>
+<Base title={title} description={description} image={ogImage?.src || heroImage?.src}>
 	<article itemprop="blogPost" itemscope itemtype="http://schema.org/Article">
 		<meta itemprop="mainEntityOfPage" content={`${slug}`} />
 		<Prose>
@@ -86,7 +81,7 @@ for (const h of postHeadings) {
 				{draft ? <sup class="text-red-400">(draft)</sup> : null}
 			</h1>
 
-			<PageInfo file={`src/content/blog/${id}`} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
+			<PageInfo file={filename} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
 
 			{
 				heroImage?.src ? (

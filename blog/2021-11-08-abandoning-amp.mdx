@@ -1,0 +1,112 @@
+---
+pubDate: 11/8/2021, 7:40:02 AM GMT-0700
+title: Abandoning AMP
+description: Resigning from the AMP Technical Steering Committee
+---
+
+import Aside from '~/components/Aside.astro';
+
+As of October 26<sup>th</sup>, 2021, I have resigned from the AMP Technical Steering Committee. Though no small part of it was brought on by mounting responsibilities at work and at home, I cannot in good conscience recommend AMP to my peers due to recent disclosures about Google’s advertising conduct and its positioning of AMP.
+
+> Why not just stick to web standards and build meat and potatoes web pages that can work with whatever ad exchange you need?
+>
+> Because Google can also simultaneously exert pressure onto publishers to use AMP to increase likelihood of search ranking performance.
+>
+> &mdash; Lívia Labate (@livlab) [October 25, 2021](https://twitter.com/livlab/status/1452445878636224514)
+
+## History
+
+Communication from Google to the public has always been that AMP was not given direct favoritism on their platform in any way. In order to help that perception and ensure that the project continued to mature and be a great option to build on, Google set out to relinquish direct control over the entire project.
+
+First, a Technical Steering Committee (TSC), an Advisory Committee (AC), and a set of working groups were formed.
+
+<Aside type="note" title="Groups formed">
+
+#### [TSC](https://github.com/ampproject/meta-tsc)
+
+> We are the group of people who set AMP’s technical & product direction.
+
+_My take: I liked to think of the TSC as a type of "board of directors"._
+
+#### [Advisory Committee](https://github.com/ampproject/meta-ac)
+
+> The AMP Advisory Committee (AC) provides perspective and advice to the Technical Steering Committee (TSC).
+
+_My take: this is middle management._
+
+#### [Working Groups](https://github.com/ampproject/meta/tree/a2870e0437370fcf0f807a9dd8b0da102edf8d55/working-groups)
+
+> An AMP Working Group is a segment of the community with knowledge/interest in specific area of AMP. Working Groups are created by AMP’s Technical Steering Committee.
+
+_My take: Project/product managers and people that actually did work._
+
+</Aside>
+
+The initial goal of the TSC was to have a group of diverse people with less than half of the members representing Google. But instead, we ended up with 50% of members being Google employees who were directly affiliated with AMP internally. The rest was made up as individual people from Twitter (me), Pantheon, Microsoft, and Pinterest.
+
+In a positive light, I think the best thing that we helped facilitate as the TSC was the moving copyright and IP to the [OpenJS Foundation](https://openjsf.org/blog/2019/10/10/openjs-foundation-welcomes-amp-project-to-help-improve-user-experience-on-the-web/).
+
+## Failing core priorities
+
+Outside of that, I’m honestly not sure what we accomplished, if anything, other than signing off on the hard work that the rest of the Advisory Committe and Working Groups were doing.
+
+At AMP Conf in Tokyo, 2019, we promised we would make the TSC a diverse group. We failed at that. For about 1 year we had a member that was not male. Outside of that, we all looked alike and exactly who you would expect to be on a sort of "board of directors" (white men).
+
+I’m sorry that I didn’t do more to continue to push on the issue. I knew it was a problem from the first time we were all on a video call together, saw it worse when we were all physically on stage at AMP Conf, and was fired up to do something about it. And then it fell off of my, and everyone else’s, priorities. Next time I’m in a similar situation, I promise to do better.
+
+## What else did we fail on?
+
+- Signed Exchanges (SXG)
+  - [David Strauss](https://twitter.com/DavidStrauss), also since resigned from the TSC, worked very hard to help get this moving forward. He has a lot of great insight into this and I’ll avoid speaking for him. Hopefully he will share his opinions publicly soon.
+- Keeping AMP relevant
+
+  - Google/Chrome’s pushing of [Core Web Vitals](https://web.dev/vitals/) has given everyone clearer targets to hit. They’ve also proved that [they’re achievable](https://twitter.com/addyosmani/status/1456316562609254406). Already we are seeing many companies and groups ditching AMP because other tools give them more freedom while still being able to deliver fast experiences.
+
+    > Is performance on the web getting better? The answer is yes :) 33% of origins now meet the Core Web Vitals thresholds! Lots of improvements from sites using a framework too. ![](https://pbs.twimg.com/media/FDVHloyUcAAq3SX?format=jpg&name=4096x4096)
+    > – Addy Osmani (@addyosmani) [November 4, 2021](https://twitter.com/addyosmani/status/1456316562609254406)
+
+- Changing the perception that Google isn’t the controller of AMP
+  - I don’t think this could have changed without getting a vast majority of contributions to the AMP codebase coming from the community instead of Google employees.
+  - Google employs great developers whose sole priorities seem to be to work on AMP
+  - Only one of the design reviews that I attended for AMP projects did I see a proposal come from a non-Google employee
+
+These last two points, along with [other mounting responsibilities](/blog/open-source-break), had been making me wonder if I really cared about AMP anymore. Honestly, I’d never actually used it–despite believing in it and believing that it really was/is a technologically amazing framework.
+
+> The dirtiest trick AMP pulled was to get really smart, earnest, well spoken developers to work on it and advocate for it.
+>
+> &mdash; Chris Coyier (@chriscoyier) [October 25, 2021](https://twitter.com/chriscoyier/status/1452448918935990272)
+
+The original goals of the project are sound and something to admire. From a tech standpoint, I believe that AMP accomplished some amazing feats. A lot of incredible, smart, and thoughtful people put some seriously hard work into it and it shows. It’s performant, it’s fast, and it’s robust. That’s what we needed.
+
+But that’s not all we got.
+
+## The worst parts
+
+A recent civil complaint ([1:21-md-03010-PKC](https://storage.courtlistener.com/recap/gov.uscourts.nysd.564903/gov.uscourts.nysd.564903.152.0.pdf)) gives us some troubling detail into how Google positioned AMP for publishers as a necessity and pulled a fast one on winning heaps of advertising business by hindering header bidding.
+
+Honestly, I can’t do justice summarizing all of it. Please read the relevant sections of the complaint, [Page 89–92, sections 245–252](https://storage.courtlistener.com/recap/gov.uscourts.nysd.564903/gov.uscourts.nysd.564903.152.0.pdf) (it’s relaly not that much to read). At the very least, check out this part:
+
+> 247. Google ad server employees met with AMP employees to strategize about using AMP
+>      to impede header bidding, addressing in particular how much pressure publishers and advertisers
+>      would tolerate. First, Google restricted the AMP code to prohibit publishers from routing their bids
+>      to, or sharing their user data with, more than a few exchanges a time, thereby severely limiting
+>      AMP’s compatibility with header bidding. However, Google made AMP fully compatible with
+>      routing to exchanges through Google’s ad server. Google also designed AMP to force publishers
+>      to route rival exchange bids through Google’s ad server so that Google could continue to peek at
+>      their bids and trade on inside information. Third, Google designed AMP so that users loading AMP
+>      pages would directly communicate with Google cache servers rather than publishers’ servers. This
+>      enabled Google’s access to publishers’ inside and non-public user data. AMP pages also limit the
+>      number of ads on a page, the types of ads publishers can sell, and the variety of enriched content
+>      that publishers can have on their pages.
+
+## Resigning
+
+I sent my resignation to the rest of the TSC on 2021-10-26. Within hours, another member replied in announcement of their own resignation.
+
+I do very much appreciate having had the privilege to try to help AMP and its community of developers & users. But at the same time, I noted in my resignation that “I no longer feel comfortable recommending AMP to colleagues both out of necessity and fears of recently filed complaints against Google.”
+
+While I understand that Google employees likely aren’t allowed to respond to anything regarding the legal complaint, it’s been more than two weeks and I haven’t gotten any sort of formal acknowledgement of my resignation or personal note of any kind.
+
+Though it does appear that [I was removed from the list of members](https://github.com/ampproject/meta-tsc/commit/4ec9ca95f01be481ff976e8e78461857c2be3224) the following week.
+
+So, short to say, I'm _disappointed_ all around.

@@ -1,6 +1,5 @@
 ---
 import type { GetStaticPathsOptions } from 'astro';
-import { getCollection } from 'astro:content';
 import Link from '~/components/Link.astro';
 import Picture from '~/components/Picture.astro';
 import AuthorMeta from '~/components/AuthorMeta.astro';
@@ -9,12 +8,9 @@ import Prose from '~/components/Prose.astro';
 import Pagination from '~/components/Pagination.astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-	const posts = (
-		await getCollection('blog', ({ data }) => {
-			return import.meta.env.DEV || !data.draft;
-		})
-	).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
+	const posts = (await Astro.glob('../../../blog/*.mdx')).sort(
+		(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+	);
 	return paginate(posts, {
 		pageSize: 10,
 	});
@@ -38,14 +34,13 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 			{
 				// @ts-ignore very not good. any bad.
 				page.data.map((post: any) => {
-					const { draft, pubDate, title, description, heroImage } = post.data;
+					const { draft, pubDate, title, description, heroImage } = post.frontmatter;
 					if (import.meta.env.PROD && draft) {
 						return null;
 					}
 
-					// const filename = post.file?.split('/blog/')[1]?.replace(/\.mdx?$/, '') || '';
-					const match = post.slug?.match(/^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)-(?<slug>.+)$/);
-
+					const filename = post.file?.split('/blog/')[1]?.replace(/\.mdx?$/, '') || '';
+					const match = filename?.match(/^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)-(?<slug>.+)$/);
 					if (!match) {
 						return null;
 					}

@@ -1,0 +1,59 @@
+---
+title: The why and how of a git monorepo for frontend development
+pubDate: 2023/01/30, 09:00:00 AM GMT-0800
+toc: true
+draft: true
+---
+
+## Problem
+
+## Solution
+
+## Alternatives
+
+All of the alternatives that this author has seen deal first and foremost with being fancy DSLs around running tasks. While that's a primary use-case and need, they go about it in the opposite way that is desired for a healthy team workplace.
+
+Both Nx and TurboRepo are what I call “custom-first” implementations. They assume that each and every one of your modules and applications needs its own way of linting, testing, building, etc. Heading this route makes maintenance.
+
+When you have many modules within an organization that are variably shared, you should still keep everything about them the same. They should all looks like a single person wrote them, using the same patterns, libraries, versions, test runners, build scripts, etc etc etc. The key is that each module, as much as possible, should be the same.
+
+## Process
+
+```sh
+corepack enable
+corepack prepare yarn@stable --activate
+yarn init -2
+```
+
+### Modules vs Apps
+
+One helpful delineation in an internal monorepo that has multiple deployable apps is to clearly separate what can be _deployed_ from what can be _published_. Do this by creating two separate directories for workspaces: `./modules/` and `./apps/`, then enable them into the root `package.json` workspaces configuration:
+
+```sh
+mkdir -p ./{apps,modules}
+```
+
+```json title="package.json" {3-6}
+{
+  "name": "@scope/repo",
+  "workspaces": ["apps/*", "modules/*"]
+}
+```
+
+We may find that some more separation could be helpful, like separating internal, non-publishable `modules` whose sole purpose is supporting tooling within the repository. However, for the time being, there is not a clear indication that doing so will be necessary and we can cross that bridge when we get to it.
+
+```sh
+cd old-repo
+git format-patch --root -o ../old-repo-patches
+
+cd ../monorepo
+git am --reject -3 --whitespace=fix --directory modules/old-repo ../old-repo-patches/*.patch
+```
+
+- `git format-patch`: Creates patches of all commits from the root of the repository to a new directory
+- `git am --reject`: Applies the patches in order from the directory of patches
+  - `--reject`: If an error occurs during the apply process, this creates a `*.rej` (short for _rejected_) file next to each file that it wasn't able to apply to with the diff that needs applying.
+  - `--directory modules/old-repo`: Applies changes and new files into the `modules/old-repo` folder _within_ the new monorepo, as if the files were already there
+  - `../old-repo-patches/*.patch`: the glob pattern of where to find patches
+
+When running the `git am` command, you may run into an error that starts with `Patch failed at XXXX…`. TODO: finish this up.
