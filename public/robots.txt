@@ -1,7 +1,7 @@
-User-agent: undici
-Disallow: /
+User-agent: *
+Allow: /
 
 User-agent: *
-Disallow:
+Disallow: /styleguide/
 
 Sitemap: https://paularmstrong.dev/sitemap-index.xml
