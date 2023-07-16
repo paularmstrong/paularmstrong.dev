@@ -25,6 +25,9 @@ export default async (req: Request, context: Context) => {
 	const isAuto = params.get('auto') === 'true';
 	const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
 
+	const orRes = res.clone();
+	console.log(await orRes.text());
+
 	console.log({
 		cookie: context.cookies.get(COOKIE_NAME) || undefined,
 		isAuto,
