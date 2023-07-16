@@ -1,7 +1,7 @@
 // @ts-ignore
 import type { Context } from 'https://edge.netlify.com/';
 // @ts-ignore
-// import { HTMLRewriter, Element, Config } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
+import { HTMLRewriter, Element, Config } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
 const COOKIE_NAME = 'dt';
 
@@ -33,40 +33,35 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	const body = await res.text();
-	const newBody = body.replace('html class="', `html data-auto-theme="${JSON.stringify(isAuto)}" class="${theme}`);
-	console.log(body);
-	console.log(newBody);
+	console.log(await res.clone().text());
 
-	return new Response(newBody, { headers: res.headers, status: res.status });
+	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
 
-	// const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
-	// console.log(JSON.stringify(Object.fromEntries(res.headers)));
-
-	// try {
-	// 	const newRes = rewriter.transform(res);
-	// 	return newRes;
-	// } catch (e) {
-	// 	console.log(e);
-	// 	return new Response('it is broken :(');
-	// }
+	try {
+		const newRes = rewriter.transform(res);
+		console.log(await newRes.clone().text());
+		return newRes;
+	} catch (e) {
+		console.log(e);
+		return new Response('This site is broken. Please contact @paularmstrong@mstdn.io');
+	}
 };
 
-// class HtmlHandler {
-// 	#theme = 'light';
-// 	#isAuto = true;
+class HtmlHandler {
+	#theme = 'light';
+	#isAuto = true;
 
-// 	constructor(theme: string, isAuto: boolean) {
-// 		this.#theme = theme;
-// 		this.#isAuto = isAuto;
-// 	}
+	constructor(theme: string, isAuto: boolean) {
+		this.#theme = theme;
+		this.#isAuto = isAuto;
+	}
 
-// 	element(element: Element) {
-// 		const original = element.getAttribute('class') || false;
-// 		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
-// 		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
-// 	}
-// }
+	element(element: Element) {
+		const original = element.getAttribute('class') || false;
+		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
+		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
+	}
+}
 
 export const config: Config = {
 	onError: 'bypass',
