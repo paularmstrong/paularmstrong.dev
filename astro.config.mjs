@@ -69,6 +69,9 @@ export default defineConfig({
 			serviceEntryPoint: '@astrojs/image/sharp',
 		}),
 		compress({
+			html: {
+				removeAttributeQuotes: false,
+			},
 			img: false,
 			svg: false,
 		}),
