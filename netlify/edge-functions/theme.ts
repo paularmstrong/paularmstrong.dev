@@ -36,7 +36,7 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	return new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto)).transform(res);
+	return new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto)).transform(new Response(await res.text()));
 };
 
 class HtmlHandler {
