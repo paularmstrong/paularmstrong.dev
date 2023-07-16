@@ -38,7 +38,7 @@ export default async (req: Request, context: Context) => {
 
 	try {
 		const newRes = rewriter.transform(new Response(await res.text(), { headers: res.headers, status: res.status }));
-		console.log(newRes);
+		console.log(await newRes.clone().text());
 		return newRes;
 	} catch (e) {
 		console.log(e);
