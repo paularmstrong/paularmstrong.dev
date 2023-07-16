@@ -33,8 +33,6 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	console.log((await res.clone().text()).match(/^<html.*/gm));
-
 	// Netlify is absolutely broken, but ONLY for this site. I have other sites that do this exact same thing with the same configurations, dependencies@versions, etc. Only this site is broken. ¯\_(ツ)_/¯
 	// const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
 
