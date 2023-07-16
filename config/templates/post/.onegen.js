@@ -10,7 +10,7 @@ function slugify(str) {
 
 export default {
 	name: 'Blog post',
-	outDir: ({ name }) => path.join(fileURLToPath(import.meta.url), '../../../../src/content/blog'),
+	outDir: ({ name }) => path.join(fileURLToPath(import.meta.url), '..', '..', '..', '..', 'blog'),
 	prompts: [
 		{
 			name: 'title',
