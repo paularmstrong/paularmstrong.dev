@@ -38,7 +38,7 @@ export default async (req: Request, context: Context) => {
 	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
 
 	try {
-		const newRes = rewriter.transform(res);
+		const newRes = await rewriter.transform(res);
 		console.log((await newRes.clone().text()).match(/^<html.*/gm));
 		return newRes;
 	} catch (e) {
