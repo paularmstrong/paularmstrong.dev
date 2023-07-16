@@ -11,7 +11,6 @@ import Aside from '~/components/Aside.astro';
 import Container from '~/components/Content.astro';
 import Prose from '~/components/Prose.astro';
 import SiteWrapper from '~/components/SiteWrapper.astro';
-import YouTube from '~/components/YouTube.astro';
 
 <SiteWrapper><Container><Prose>
 
@@ -19,7 +18,15 @@ import YouTube from '~/components/YouTube.astro';
 
 My talk from React Europe 2019.
 
-<YouTube code="ikn_dBSski8" wide title="Move fast with confidence - React Europe 2019" />
+<iframe
+  class="aspect-video w-full lg:bustout-sm"
+  loading="lazy"
+  src="https://www.youtube-nocookie.com/embed/ikn_dBSski8"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+/>
 
 You can grab all of the slides and speaker notes from Google Slides:
 
