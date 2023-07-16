@@ -37,7 +37,11 @@ export default async (req: Request, context: Context) => {
 	console.log(JSON.stringify(Object.fromEntries(res.headers)));
 
 	try {
-		const newRes = rewriter.transform(res);
+		const newRes = rewriter.transform(
+			new Response('Hello, World!', {
+				headers: { 'content-type': 'text/html' },
+			})
+		);
 		// console.log(await newRes.clone().text());
 		return newRes;
 	} catch (e) {
