@@ -33,8 +33,10 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	const rewriter = new HTMLRewriter();
+	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
 	console.log(JSON.stringify(Object.fromEntries(res.headers)));
+
+	return res;
 
 	try {
 		const newRes = rewriter.transform(
