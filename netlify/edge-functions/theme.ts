@@ -25,9 +25,6 @@ export default async (req: Request, context: Context) => {
 	const isAuto = params.get('auto') === 'true';
 	const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
 
-	const orRes = res.clone();
-	console.log(await orRes.text());
-
 	console.log({
 		cookie: context.cookies.get(COOKIE_NAME) || undefined,
 		isAuto,
@@ -36,12 +33,15 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
+	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
+	console.log('made rewriter');
+
 	try {
-		return new HTMLRewriter()
-			.on('html', new HtmlHandler(theme, isAuto))
-			.transform(new Response(await res.text(), res.headers));
+		const newRes = rewriter.transform(new Response(await res.text(), { headers: res.headers, status: res.status }));
+		console.log(newRes);
+		return newRes;
 	} catch (e) {
-		console.error(e);
+		console.log(e);
 		return new Response('it is broken :(');
 	}
 };
