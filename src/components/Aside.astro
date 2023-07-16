@@ -33,7 +33,7 @@ const { type = 'note', title = typeToTitle[type] } = Astro.props as Props;
 >
 	<p
 		aria-hidden="true"
-		class={clsx('!mt-2 !-mb-2 flex flex-row items-center gap-1 text-lg font-bold transition-colors duration-500', {
+		class={clsx('!-mb-2 !mt-2 flex flex-row items-center gap-1 text-lg font-bold transition-colors duration-500', {
 			'text-slate-800 dark:text-slate-200': type === 'note',
 			'text-blue-800 dark:text-blue-200': type === 'info',
 			'text-green-800 dark:text-green-200': type === 'tip',

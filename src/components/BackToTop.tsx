@@ -38,7 +38,7 @@ export const BackToTop: Component = () => {
 			ref={link!}
 			id="to-top"
 			href="#top"
-			class="fixed bottom-6 right-6 flex translate-y-full flex-col items-center rounded bg-slate-200/60 py-2 px-4 font-bold text-blue-600 opacity-0 shadow-lg outline-none ring-blue-600/70 backdrop-blur-md transition-all duration-700 ease-in-out hover:bg-slate-300/80 focus-visible:ring-4 dark:bg-slate-800/60 dark:text-blue-300 dark:hover:bg-slate-700/80"
+			class="fixed bottom-6 right-6 flex translate-y-full flex-col items-center rounded bg-slate-200/60 px-4 py-2 font-bold text-blue-600 opacity-0 shadow-lg outline-none ring-blue-600/70 backdrop-blur-md transition-all duration-700 ease-in-out hover:bg-slate-300/80 focus-visible:ring-4 dark:bg-slate-800/60 dark:text-blue-300 dark:hover:bg-slate-700/80"
 			aria-label="Back to top"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="inline h-6 w-6 fill-current">

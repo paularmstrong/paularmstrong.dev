@@ -25,7 +25,7 @@ export const Share: Component<Props> = (props) => {
 		<button
 			tabIndex={0}
 			aria-live="polite"
-			class="flex flex-row items-center gap-1 rounded py-2 px-4 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 motion-safe:animate-ring-ping dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20 motion-safe:dark:animate-ring-ping-dark"
+			class="flex flex-row items-center gap-1 rounded px-4 py-2 font-bold text-blue-600 outline-none hover:bg-blue-400/20 hover:text-blue-800 focus-visible:ring-4 focus-visible:ring-blue-200 motion-safe:animate-ring-ping dark:text-blue-200 dark:hover:bg-blue-500/20 dark:hover:text-blue-100 dark:focus-visible:ring-blue-500/20 motion-safe:dark:animate-ring-ping-dark"
 			onClick={toggle}
 		>
 			{shared() ? (
