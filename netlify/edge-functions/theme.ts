@@ -33,28 +33,21 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	return new HTMLRewriter()
-		.on('*', {
-			element(e) {
-				console.log('* element', e);
-			},
-
-			comments(c) {
-				console.log('* comment', c);
-			},
-
-			text(t) {
-				console.log('* text', t);
-			},
-		})
-		.on('html', {
-			element(element: Element) {
-				const original = element.getAttribute('class') || false;
-				element.setAttribute('class', [original, theme].filter(Boolean).join(' '));
-				element.setAttribute('data-auto-theme', isAuto ? 'true' : 'false');
-
-				console.log(res, element);
-			},
-		})
-		.transform(res);
+	return new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto)).transform(res);
 };
+
+class HtmlHandler {
+	#theme = 'light';
+	#isAuto = true;
+
+	constructor(theme: string, isAuto: boolean) {
+		this.#theme = theme;
+		this.#isAuto = isAuto;
+	}
+
+	element(element: Element) {
+		const original = element.getAttribute('class') || false;
+		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
+		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
+	}
+}
