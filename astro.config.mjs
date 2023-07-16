@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import image from '@astrojs/image';
-import compress from 'astro-compress';
+// import compress from 'astro-compress';
 import react from '@astrojs/react';
 import rehypePrettyCode from 'rehype-pretty-code';
 
@@ -68,13 +68,13 @@ export default defineConfig({
 		image({
 			serviceEntryPoint: '@astrojs/image/sharp',
 		}),
-		compress({
-			html: {
-				removeAttributeQuotes: false,
-			},
-			img: false,
-			svg: false,
-		}),
+		// compress({
+		// 	html: {
+		// 		removeAttributeQuotes: false,
+		// 	},
+		// 	img: false,
+		// 	svg: false,
+		// }),
 	],
 	markdown: {
 		remarkPlugins,
