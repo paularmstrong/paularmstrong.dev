@@ -33,13 +33,13 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	console.log(await res.clone().text());
+	console.log((await res.clone().text()).match(/^<html.*/gm));
 
 	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
 
 	try {
 		const newRes = rewriter.transform(res);
-		console.log(await newRes.clone().text());
+		console.log((await newRes.clone().text()).match(/^<html.*/gm));
 		return newRes;
 	} catch (e) {
 		console.log(e);
