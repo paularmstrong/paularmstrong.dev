@@ -1,7 +1,7 @@
 // @ts-ignore
 import type { Context } from 'https://edge.netlify.com/';
 // @ts-ignore
-import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
+import { HTMLRewriter, Element, Config } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
 const COOKIE_NAME = 'dt';
 
@@ -34,11 +34,11 @@ export default async (req: Request, context: Context) => {
 	});
 
 	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
-	console.log('made rewriter');
+	console.log(JSON.stringify(Object.fromEntries(res.headers)));
 
 	try {
-		const newRes = rewriter.transform(new Response(await res.text(), { headers: res.headers, status: res.status }));
-		console.log(await newRes.clone().text());
+		const newRes = rewriter.transform(res);
+		// console.log(await newRes.clone().text());
 		return newRes;
 	} catch (e) {
 		console.log(e);
@@ -61,3 +61,7 @@ class HtmlHandler {
 		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
 	}
 }
+
+export const config: Config = {
+	onError: 'bypass',
+};
