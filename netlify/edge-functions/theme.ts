@@ -35,6 +35,7 @@ export default async (req: Request, context: Context) => {
 
 	const body = await res.text();
 	const newBody = body.replace('html class="', `html data-auto-theme="${JSON.stringify(isAuto)}" class="${theme}`);
+	console.log(body);
 	console.log(newBody);
 
 	return new Response(newBody, { headers: res.headers, status: res.status });
