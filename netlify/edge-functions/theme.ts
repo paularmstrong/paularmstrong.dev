@@ -1,7 +1,7 @@
 // @ts-ignore
 import type { Context, Config } from 'https://edge.netlify.com/';
 // @ts-ignore
-// import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
+import { HTMLRewriter, Element } from 'https://ghuc.cc/worker-tools/html-rewriter/index.ts';
 
 const COOKIE_NAME = 'dt';
 
@@ -33,41 +33,26 @@ export default async (req: Request, context: Context) => {
 		ua: req.headers.get('user-agent'),
 	});
 
-	// Netlify is absolutely broken, but ONLY for this site. I have other sites that do this exact same thing with the same configurations, dependencies@versions, etc. Only this site is broken. ¯\_(ツ)_/¯
-	// const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
+	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto));
 
-	// try {
-	// 	const newRes = await rewriter.transform(res);
-	// 	console.log((await newRes.clone().text()).match(/^<html.*/gm));
-	// 	return newRes;
-	// } catch (e) {
-	// 	console.log(e);
-	// 	return new Response('This site is broken. Please contact @paularmstrong@mstdn.io');
-	// }
-
-	// So instead, fucking hack the shit out of it in a terrible way.
-	const content = (await res.text()).replace(
-		/<html class="([^"]+)"/,
-		`<html data-auto-theme="${JSON.stringify(isAuto)}" class="$1 ${theme}"`
-	);
-	return new Response(content, { status: res.status, headers: res.headers, statusText: res.statusText });
+	return rewriter.transform(res);
 };
 
-// class HtmlHandler {
-// 	#theme = 'light';
-// 	#isAuto = true;
+class HtmlHandler {
+	#theme = 'light';
+	#isAuto = true;
 
-// 	constructor(theme: string, isAuto: boolean) {
-// 		this.#theme = theme;
-// 		this.#isAuto = isAuto;
-// 	}
+	constructor(theme: string, isAuto: boolean) {
+		this.#theme = theme;
+		this.#isAuto = isAuto;
+	}
 
-// 	element(element: Element) {
-// 		const original = element.getAttribute('class') || false;
-// 		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
-// 		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
-// 	}
-// }
+	element(element: Element) {
+		const original = element.getAttribute('class') || false;
+		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
+		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
+	}
+}
 
 export const config: Config = {
 	onError: 'bypass',
