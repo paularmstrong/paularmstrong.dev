@@ -2266,9 +2266,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onerepo/core@npm:0.9.0":
-  version: 0.9.0
-  resolution: "@onerepo/core@npm:0.9.0"
+"@onerepo/core@npm:0.10.0":
+  version: 0.10.0
+  resolution: "@onerepo/core@npm:0.10.0"
   dependencies:
     "@onerepo/builders": 0.3.0
     "@onerepo/file": 0.4.0
@@ -2276,7 +2276,7 @@ __metadata:
     "@onerepo/graph": 0.7.1
     "@onerepo/logger": 0.3.0
     "@onerepo/subprocess": 0.4.0
-    "@onerepo/yargs": 0.3.0
+    "@onerepo/yargs": 0.4.0
     "@types/semver": ^7.3.13
     ajv: ^8.12.0
     ajv-errors: ^3.0.0
@@ -2297,7 +2297,7 @@ __metadata:
     remark-stringify: ^10.0.2
     unified: ^10.1.2
     yargs: ^17.6.2
-  checksum: bad4b473e50557f6cd0f4d2f6e1ec54b64fa3217a68fdc0e9b266d1a45bb935227106d6693adb4795780af72ce1b24cdf5db5e2d41d37ce0407aa02ebc5bdd15
+  checksum: 1c947bcf08739df53b0d6c9c95eb57c99b8976468fc293c97ffc7b4916c6c731757b2ce4e7904680b27d4f4abcf563381cc559e7d4b1877c0c09a43317e97b3c
   languageName: node
   linkType: hard
 
@@ -2353,20 +2353,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onerepo/plugin-eslint@npm:0.5.0":
-  version: 0.5.0
-  resolution: "@onerepo/plugin-eslint@npm:0.5.0"
+"@onerepo/plugin-eslint@npm:0.5.1":
+  version: 0.5.1
+  resolution: "@onerepo/plugin-eslint@npm:0.5.1"
   dependencies:
     "@onerepo/builders": 0.3.0
     "@onerepo/file": 0.4.0
     "@onerepo/git": 0.2.3
     "@onerepo/logger": 0.3.0
     "@onerepo/subprocess": 0.4.0
-    eslint-formatter-onerepo: 0.0.1
+    eslint-formatter-onerepo: 0.0.2
     minimatch: ^9.0.0
   peerDependencies:
     eslint: ^8
-  checksum: b46eec010928b2c45ddfa3de3b9cfc37e7239d13490fba7a823ab0686479cb665994a352cc0f94871a50f397c520476ffb380b526bf85fe410f7018cbc20846e
+  checksum: dbbaeaa73ccaa3b24d6015fed53221c3f51404dc5923ec9bdaa57c7497587c4e8170259a4d9e985d3ef1252592499743afb6ad20a92c61df0fc0a7d76cce5742
   languageName: node
   linkType: hard
 
@@ -2406,14 +2406,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onerepo/yargs@npm:0.3.0":
-  version: 0.3.0
-  resolution: "@onerepo/yargs@npm:0.3.0"
+"@onerepo/yargs@npm:0.4.0":
+  version: 0.4.0
+  resolution: "@onerepo/yargs@npm:0.4.0"
   dependencies:
     "@onerepo/builders": 0.3.0
     "@onerepo/logger": 0.3.0
     "@onerepo/subprocess": 0.4.0
-  checksum: 1b7b81431b3b8e5619c5b1b806a45da0e794de3e3032c6777be83bd227b464d689bd48356fcdffb266d6d4275caf98f85a45441addecf30b96b0f90d23ca89ec
+  checksum: aa5c0550a39e861a8b5732325e0ed90e00e158cdb12e7cfd9151123e669819705c642ad36d1a95adbee425d67dc3431a6a481f00bc76be8a9c50c132f938fb9c
   languageName: node
   linkType: hard
 
@@ -6630,14 +6630,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-formatter-onerepo@npm:0.0.1":
-  version: 0.0.1
-  resolution: "eslint-formatter-onerepo@npm:0.0.1"
+"eslint-formatter-onerepo@npm:0.0.2":
+  version: 0.0.2
+  resolution: "eslint-formatter-onerepo@npm:0.0.2"
   dependencies:
     "@actions/core": ^1.10.0
   peerDependencies:
     eslint: ^8
-  checksum: 8618d4abaf1326dab0339164f3b7896b56f2ce276d0bba78a29597bd7046d31b9f5c1fd10e91a4def5192c3e57546a41538634d938d856495f3ca4a49a359545
+  checksum: afe7f9afbec0527d059d486d4f7ef8ff08aba71726f0d695d4e9f1149e048d63cd790810135a322e677bdc695a130940a47c8686810a087a0c18164cec325931
   languageName: node
   linkType: hard
 
@@ -12076,20 +12076,20 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"onerepo@npm:0.10.0":
-  version: 0.10.0
-  resolution: "onerepo@npm:0.10.0"
+"onerepo@npm:0.11.0":
+  version: 0.11.0
+  resolution: "onerepo@npm:0.11.0"
   dependencies:
     "@onerepo/builders": 0.3.0
-    "@onerepo/core": 0.9.0
+    "@onerepo/core": 0.10.0
     "@onerepo/file": 0.4.0
     "@onerepo/git": 0.2.3
     "@onerepo/graph": 0.7.1
     "@onerepo/logger": 0.3.0
     "@onerepo/package-manager": 0.2.3
     "@onerepo/subprocess": 0.4.0
-    "@onerepo/yargs": 0.3.0
-  checksum: db53ef0098bfa5526e4faf2fca548034f30ba4cc043e2ca07be97bcf89319237685f5804b70d999de09abf6bee3f500ddef3771c73670681e8780b48221069d1
+    "@onerepo/yargs": 0.4.0
+  checksum: 5198020fa9479b34c642e4706dacf2117d8e75d6acfaaeffc91f20104863a39e9c16cd4dabc8d8fdadc82e14eb95c09c3282c36116a7b0a9cece9113ff435fbe
   languageName: node
   linkType: hard
 
@@ -12652,7 +12652,7 @@ fsevents@~2.3.2:
     "@astrojs/sitemap": 1.2.2
     "@astrojs/solid-js": ^2.1.1
     "@astrojs/tailwind": ^3.1.2
-    "@onerepo/plugin-eslint": 0.5.0
+    "@onerepo/plugin-eslint": 0.5.1
     "@onerepo/plugin-prettier": 0.4.0
     "@onerepo/plugin-typescript": 0.2.3
     "@tailwindcss/typography": ^0.5.9
@@ -12677,7 +12677,7 @@ fsevents@~2.3.2:
     husky: ^8.0.3
     mdast-util-to-string: ^3.2.0
     netlify-cli: ^15.9.0
-    onerepo: 0.10.0
+    onerepo: 0.11.0
     prettier: ^2.8.8
     prettier-plugin-astro: ^0.8.0
     react: ^18.2.0
