@@ -22,6 +22,7 @@
 		"react-component-benchmark": "^2.0.0",
 		"react-dom": "^18.2.0",
 		"reading-time": "^1.5.0",
+		"rehype-mermaidjs": "^1.0.1",
 		"rehype-pretty-code": "^0.10.1",
 		"sharp": "^0.32.5",
 		"solid-js": "^1.7.11",
@@ -45,6 +46,7 @@
 		"husky": "^8.0.3",
 		"netlify-cli": "^16.2.0",
 		"onerepo": "0.13.0",
+		"playwright": "^1.36.1",
 		"prettier": "^3.0.3",
 		"prettier-plugin-astro": "^0.12.0",
 		"typescript": "^5.2.2"

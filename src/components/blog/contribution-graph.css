@@ -1,0 +1,43 @@
+.contribution-graph table {
+  @apply mb-4 min-w-min max-w-full border-separate border-spacing-[2px];
+}
+
+.contribution-graph caption {
+  @apply text-black dark:text-white;
+}
+
+.contribution-graph th[role='columnheader'] {
+  @apply text-left text-gray-600 dark:text-gray-400;
+}
+
+.contribution-graph th[role='rowheader'] {
+  @apply h-2 w-6 min-w-full overflow-hidden p-0 pe-1 text-end text-gray-600 dark:text-gray-400;
+}
+
+.contribution-graph td {
+  @apply p-0;
+}
+
+.contribution-graph .day {
+  @apply h-2 w-2 min-w-full min-h-full rounded-[0.5px] sm:h-3 sm:w-3 p-0 bg-slate-300 dark:bg-slate-700;
+}
+
+.contribution-graph .in-range {
+  @apply bg-teal-500 dark:bg-teal-300;
+}
+
+.contribution-graph .total {
+  @apply h-4 w-2 max-w-full shrink-0 text-[9px] leading-none text-black writing-vertical-lr dark:text-white;
+}
+
+.contribution-graph .total-bar-cell {
+  @apply w-2 max-w-full p-0 sm:w-3;
+}
+
+.contribution-graph .total-bar-container {
+  @apply flex h-20 flex-col justify-end;
+}
+
+.contribution-graph .total-bar {
+  @apply w-2 shrink rounded-t-sm sm:w-3;
+}
