@@ -14,6 +14,7 @@
 		"@types/react": "^18.2.6",
 		"@types/react-dom": "^18.2.4",
 		"astro": "^2.4.2",
+		"astro-icon": "^0.8.1",
 		"clsx": "^1.2.1",
 		"debounce": "^1.2.1",
 		"feed": "^4.2.2",
@@ -53,5 +54,8 @@
 	"packageManager": "yarn@3.3.1",
 	"workspaces": [
 		"."
-	]
+	],
+	"resolutions": {
+		"svgo": "2.8.0"
+	}
 }
