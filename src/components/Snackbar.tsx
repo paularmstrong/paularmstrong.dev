@@ -1,11 +1,10 @@
 import { createEffect, createSignal } from 'solid-js';
-import type { Component } from 'solid-js';
 
 interface Props {
 	children: string;
 }
 
-export const Toast: Component<Props> = (props) => {
+export function Toast(props: Props) {
 	return (
 		<aside
 			role="status"
@@ -15,7 +14,7 @@ export const Toast: Component<Props> = (props) => {
 			<div aria-atomic="false">{props.children}</div>
 		</aside>
 	);
-};
+}
 
 const [toasts, setToasts] = createSignal<Array<string>>([]);
 
@@ -33,7 +32,7 @@ export function removeToast(text: string) {
 	});
 }
 
-export const Snackbar: Component<void> = () => {
+export function Snackbar() {
 	const [current, setCurrent] = createSignal<string | null>(null);
 	createEffect(() => {
 		const visible = toasts()[0];
@@ -55,4 +54,4 @@ export const Snackbar: Component<void> = () => {
 			{current() ? <Toast>{current()!}</Toast> : null}
 		</div>
 	);
-};
+}
