@@ -5,6 +5,7 @@ export const collections = {
 		schema: z.object({
 			description: z.string().optional(),
 			draft: z.boolean().optional(),
+			noHero: z.boolean().optional(),
 			heroImage: z
 				.object({
 					src: z.string().startsWith('/img/'),
@@ -12,8 +13,8 @@ export const collections = {
 					height: z.number(),
 				})
 				.optional(),
-			pubDate: z.date(),
-			updatedDate: z.date().optional(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
 			title: z.string(),
 			toc: z.boolean().optional(),
 		}),

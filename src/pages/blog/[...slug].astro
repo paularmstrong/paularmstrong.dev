@@ -46,7 +46,7 @@ export async function getStaticPaths() {
 
 const {
 	id,
-	data: { draft, title, pubDate, updatedDate, description, toc, heroImage },
+	data: { draft, title, pubDate, updatedDate, description, toc, heroImage, noHero },
 	render,
 	siblings,
 } = Astro.props;
@@ -89,7 +89,7 @@ for (const h of postHeadings) {
 			<PageInfo file={`src/content/blog/${id}`} pubDate={pubDate} updatedDate={updatedDate} readingTime={readingTime} />
 
 			{
-				heroImage?.src ? (
+				!noHero && heroImage?.src ? (
 					<div class="lg:bustout">
 						<Picture
 							src={heroImage.src}

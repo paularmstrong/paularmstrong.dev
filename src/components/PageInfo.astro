@@ -3,13 +3,13 @@ import Link from '~/components/Link.astro';
 
 export interface Props {
 	file?: string | undefined;
-	pubDate?: string | undefined;
-	updatedDate?: string | undefined;
+	pubDate?: Date;
+	updatedDate?: Date | undefined;
 	readingTime?: { minutes: number; words: number } | undefined;
 }
 
 const { file, pubDate, updatedDate, readingTime } = Astro.props as Props;
-const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
+const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeZone: 'UTC' }).format;
 ---
 
 {
@@ -21,12 +21,12 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 			<ul class="flex flex-row flex-wrap justify-between gap-4 text-blue-900 dark:text-blue-100">
 				{pubDate && (
 					<li>
-						<b>Published:</b> <time itemprop="datePublished">{dateFormatter(new Date(pubDate))}</time>
+						<b>Published:</b> <time itemprop="datePublished">{dateFormatter(pubDate)}</time>
 					</li>
 				)}
 				{updatedDate && (
 					<li>
-						<b>Last updated:</b> <time itemprop="dateUpdated">{dateFormatter(new Date(updatedDate))}</time>
+						<b>Last updated:</b> <time itemprop="dateUpdated">{dateFormatter(updatedDate)}</time>
 					</li>
 				)}
 				{readingTime && (

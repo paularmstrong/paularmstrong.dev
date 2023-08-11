@@ -1,6 +1,7 @@
 ---
-import type { GetStaticPathsOptions } from 'astro';
-import { getCollection } from 'astro:content';
+import type { Page, GetStaticPathsOptions, MarkdownRenderingResult } from 'astro';
+import { CollectionEntry, getCollection } from 'astro:content';
+import { renderMarkdown } from '@astrojs/markdown-remark';
 import Link from '~/components/Link.astro';
 import Picture from '~/components/Picture.astro';
 import AuthorMeta from '~/components/AuthorMeta.astro';
@@ -20,8 +21,19 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 	});
 }
 
+type Props = {
+	page: Page<CollectionEntry<'blog'>>;
+};
+
 const { page } = Astro.props;
-const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format;
+const descriptions: Record<string, MarkdownRenderingResult> = {};
+for (const post of page.data) {
+	if (typeof post === 'string') {
+		continue;
+	}
+	descriptions[post.data.title] = await renderMarkdown(post.data.description || '', {});
+}
+const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeZone: 'UTC' }).format;
 ---
 
 <Base title="Blog">
@@ -36,14 +48,13 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 		<AuthorMeta id="author" />
 		<ul class="flex flex-col gap-12">
 			{
-				// @ts-ignore very not good. any bad.
-				page.data.map((post: any) => {
-					const { draft, pubDate, title, description, heroImage } = post.data;
+				page.data.map((post) => {
+					const { draft, pubDate, title, heroImage } = post.data;
+
 					if (import.meta.env.PROD && draft) {
 						return null;
 					}
 
-					// const filename = post.file?.split('/blog/')[1]?.replace(/\.mdx?$/, '') || '';
 					const match = post.slug?.match(/^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)-(?<slug>.+)$/);
 
 					if (!match) {
@@ -95,7 +106,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).
 									</Link>
 								</h2>
 								<Prose>
-									<p>{description}</p>
+									<Fragment set:html={descriptions[title]?.code ?? ''} />
 								</Prose>
 							</div>
 						</li>

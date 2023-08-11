@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { renderMarkdown } from '@astrojs/markdown-remark';
 import { Feed } from 'feed';
 import type { Item } from 'feed';
 import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../config';
@@ -46,10 +47,14 @@ for (const post of rawPosts) {
 	}
 
 	const url = `${SITE_URL}/blog/${post.slug}/`;
+	const { code: description } = await renderMarkdown(
+		`${post.data.description || ''}\n\n[Continue reading…](${url})`,
+		{}
+	);
 
 	const item: Item = {
 		title: post.data.title,
-		description: `<p>${post.data.description || ''}</p><p><a href="${url}">Continue reading…</a></p>`,
+		description,
 		id: url,
 		link: url,
 		date: post.data.pubDate,
