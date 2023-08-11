@@ -322,6 +322,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] },
+"2023-08-14-the-line-between-writing-functions-yourself-and-using-open-source-modules.mdx": {
+  id: "2023-08-14-the-line-between-writing-functions-yourself-and-using-open-source-modules.mdx",
+  slug: "2023-08-14-the-line-between-writing-functions-yourself-and-using-open-source-modules",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] },
 },
 
 	};

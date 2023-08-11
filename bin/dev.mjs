@@ -17,7 +17,7 @@ setup({
 		graph: false,
 	},
 	plugins: [
-		eslint({ name: 'lint', extensions: ['ts', 'tsx', 'js', 'jsx', 'cjs', 'mjs', 'astro'] }),
+		eslint({ name: 'lint', extensions: ['ts', 'tsx', 'js', 'jsx', 'cjs', 'mjs', 'astro', 'md', 'mdx'] }),
 		prettier({ name: 'format' }),
 		typescript({}),
 	],
