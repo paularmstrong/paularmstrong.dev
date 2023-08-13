@@ -43,8 +43,7 @@ const { title, description, image } = Astro.props;
 
 			<Footer />
 
-			{/* @ts-ignore */}
-			<Snackbar client:load />
+			<Snackbar client:idle />
 		</SiteWrapper>
 	</body>
 </html>
