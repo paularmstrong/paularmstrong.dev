@@ -1,0 +1,113 @@
+---
+title: The line between writing functions yourself and using open source modules
+description: |
+  When was the last time you stopped to think about the cost of a new third-party package that you’re adding into your process?
+
+  Where do you recommend balancing between "not invented here" syndrome and using packages just because they exist? I always come back to the "left-pad incident" as an extreme example to avoid the latter, but where should we be drawing the line between the two?
+
+  Let’s take a moment to break down considerations that I try to make when balancing writing code against pulling in third-party modules…
+pubDate: 2023-08-14
+noHero: true
+heroImage:
+  src: /img/blog/2023-08-packages/packages.jpg
+  width: 1152
+  height: 574
+---
+
+import Picture from '~/components/Picture.astro';
+
+When was the last time you stopped to think about the cost of a new third-party package that you’re adding into your process?
+
+Where do you recommend balancing between “not invented here” syndrome ([NIH](<(https://en.wikipedia.org/wiki/Not_invented_here)>)) and using packages just because they exist? I always come back to the “left-pad incident” as an extreme example to avoid the latter, but where should we be drawing the line between the two?
+
+---
+
+<Picture
+  src="/img/blog/2023-08-packages/packages.jpg"
+  width={1152}
+  height={599}
+  widths={[1152, 768]}
+  alt="AI generated image of colorful boxes of varying sizes stacked on top of each other"
+  formats={['avif', 'jpeg']}
+/>
+
+While npm doesn't publish statistics of the number of packages in its registry, in 2019 they passed the [1 million package mark](https://blog.npmjs.org/post/615388323067854848/so-long-and-thanks-for-all-the-packages.html). That means we have _at least_ 1 million packages we could possibly consider using.
+
+That is utterly too many packages. I’m sure we’ve all contributed in some way to the proliferation of _a module for everything_, but where can we start drawing the line and how do we actually determine whether we should be using one package over another over writing it ourselves?
+
+---
+
+Some considerations that I’ve been thinking about when looking at third-party JavaScript modules:
+
+- [Can we actually do it all on our own?](#internal-ability-and-understanding)
+- [What’s the cost of maintenance and bug fixes?](#maintenance-and-bug-fixing)
+- [How will a third-party module affect bundle size?](#bundle-size)
+- [Will the effort to build an equivalent be too high?](#is-the-juice-worth-the-squeeze)
+- [Do we already have a package that satisfies this use case?](#duplicate-concerns)
+- [Is there an equivalent standard API?](#standard-apis)
+- [Does the module actually work as advertised?](#code-review)
+
+## Internal ability and understanding
+
+I'm currently torn between writing some (what I would consider) simple DOM layout measurements for tooltip positioning versus reaching for [floating-ui](https://floating-ui.com/) to do it for me. The library actually has much more than I need, but it's tree-shakeable, so maybe that's okay.
+
+I'm confident that _I_ can write and maintain my own measurements and `ResizeObserver`, but does my team all feel the same? But then again, if they can't, maybe I should be helping and encouraging them to learn.
+
+There’s no single answer to all of this and it should be carefully taken into consideration. _Just because we can, doesn’t mean we should._
+
+## Maintenance and bug fixing
+
+Extending from the internal ability and understanding, reaching for a library without the knowledge of what it’s actually doing can be worse than copy/pasting from StackOverflow. At least with copying code from somewhere, while you didn't write it, it's now yours and your team’s to understand and maintain. If it ends up having a bug in it, you are responsibe and should be able to fix and deploy it at any time.
+
+When pulling in a third-party module, you're at the mercy of the open source authors & maintainers – even if you create a pull request, will it get fixed, merged, and deployed for you? Would you even have been able to get ramped up on contributing to the open source repository in a realistic timeframe?
+
+Let’s say you decide to fork a library and maintain it internally. Well now you’ve got an issue of how its repository is set up, standards, lint rules, etc. There are many concerns to consider when forking.
+
+## Bundle size
+
+One of my first stops when evaluating a third-party package is [BundlePhobia](https://bundlephobia.com/). This gives me a general idea of how much a the package will increase my overall bundle size after building and deploying for production, as well as show what _other_ dependencies it has and how their makeup affects the build.
+
+- Is the relative size of the package realistic for what I'm expecting it to do?
+- Do any of its dependencies overlap with what I'm already using, and thus may not actually increase my final bundle size as much as this says?
+
+## Is the juice worth the squeeze?
+
+<Picture
+  src="/img/blog/2023-08-packages/juice-squeeze.jpg"
+  width={1152}
+  height={574}
+  widths={[1152, 768]}
+  alt="AI generated image of oranges being squeezed into orange juice"
+  formats={['avif', 'jpeg']}
+/>
+
+I have a team rebuilding our core shared component library at work and we have a strict mandate to ensure WCAG 2.0 accessibility standards. The team knows what they're doing and can absolutely succeed at meeting those on their own. However, while building the previous iteration of the library, the `<DatePicker />` component took nearly three months to build.
+
+I challenged the team, despite their hesitation about ARIA, to try using [react-aria](https://react-spectrum.adobe.com/react-aria/index.html), a major library of React hooks that aid in providing accessible UI primitives for design systems. One person came back on the same day with a prototype of a fully accessible `<DatePicker />` and stated that it took them about two hours to build what previously took over two months.
+
+Essentially, “is the juice worth the squeeze” means we can determine whether the output is worth the effort. In cases like the above, I can safely answer “no” and move forward with pulling in the dependency. Other times, maybe not.
+
+## Duplicate concerns
+
+Do we already have a package that fulfills this use case? I can’t even count how many applications I’ve seen running a combination of state management libraries like [Redux](https://redux.js.org/), [Redux Toolkit](https://redux-toolkit.js.org/), [React Query](https://tanstack.com/query/latest/), and [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) (among a scattering of others). Pick one and stick with it; don’t reach for a new library just because you heard it’s new.
+
+## Standard APIs
+
+Is there a standard API that can already do much of the same thing? Check your browser support matrix via MDN or caniuse.com and consider standars in favor of older packages that fulfill the same purposes. Here are just a few of the packages and their standard equivalents that came up for me recently when auditing bundle bloat in applications:
+
+| Third-party library                                      | Equivalent standard                                                                                                           |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| [`dateformat`](https://www.npmjs.com/package/dateformat) | [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) |
+| [`axios`](https://www.npmjs.com/package/axios)           | [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch)                                                             |
+| [`uuid`](https://www.npmjs.com/package/uuid)             | [`crypto.randomUUID()`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID)                                   |
+| [`lodash`](https://www.npmjs.com/package/lodash)         | [_you might not need lodash_](https://youmightnotneed.com/lodash/)                                                            |
+
+## Code review
+
+Have we actually looked at the source of the module and verified that it does what it says? Does have tests asserting its behavior works as advertised, or has it been thrown together without concern?
+
+We should actually read the code. Maybe it’s great, but maybe it’s also fundamentally flawed and we might pick that up by reading the code. Or just maybe we realize that it’s simple and we could have written this ourselves…
+
+---
+
+What am I forgetting and what considerations do you make when pulling in new third party packages? Or did you forget to think through any of that today?
