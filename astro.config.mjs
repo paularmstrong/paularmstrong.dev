@@ -14,7 +14,7 @@ const rehypePlugins = [
 	[
 		rehypePrettyCode,
 		{
-			theme: 'rose-pine-moon',
+			theme: 'github-dark',
 			onVisitLine(node) {
 				// Prevent lines from collapsing in `display: grid` mode, and
 				// allow empty lines to be copy/pasted
@@ -24,14 +24,7 @@ const rehypePlugins = [
 				node.properties.className.push('inline-block', 'w-full', 'px-4', 'lg:px-8', 'border-l-4', 'border-transparent');
 			},
 			onVisitHighlightedLine(node) {
-				node.properties.className.push(
-					'bg-pink-500/20',
-					'py-px',
-					'-my-px',
-					'lg:py-0.5',
-					'lg:-my-0.5',
-					'border-l-pink-500/80'
-				);
+				node.properties.className.push('bg-pink-500/20', 'py-px', 'border-l-pink-500/80');
 			},
 			onVisitHighlightedWord(node) {
 				node.properties.className = ['bg-pink-700/40', 'rounded', 'p-1', '-m-1'];

@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 			}
 			return { params: { slug: Object.values(match.groups!).join('/') }, props: post };
 		})
-		.filter((post) => Boolean(post));
+		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.data?.draft));
 
 	for (let i = 0; i < posts.length; i++) {
 		const prev = posts[i - 1];
@@ -111,7 +111,7 @@ for (const h of postHeadings) {
 			<div itemprop="articleBody">
 				{
 					toc ? (
-						<aside class="prose-base mx-4 mb-4 rounded-xl bg-slate-200 px-4 py-1 text-slate-900 transition-colors duration-500 dark:bg-slate-800 sm:float-right sm:ml-8 sm:mr-0 sm:max-w-[50%] md:-mr-8 lg:-mr-32">
+						<aside class="prose-base mx-4 mb-4 rounded-xl border border-slate-200 bg-slate-100 px-4 py-1 text-slate-900 transition-colors duration-500 dark:border-slate-800 dark:bg-slate-900 sm:float-right sm:ml-8 sm:mr-0 sm:max-w-[50%] md:-mr-8 lg:-mr-32">
 							<h2 class="!mt-4">Table of contents</h2>
 							<TocList headings={headings} />
 						</aside>

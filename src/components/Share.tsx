@@ -83,7 +83,7 @@ export const ShareLink: Component<Props & { children: string }> = (props) => {
 		<button
 			onClick={toggle}
 			tabIndex={0}
-			class="text-blue-600 no-underline outline-none hover:underline hover:decoration-4 hover:underline-offset-2 focus:underline focus:decoration-4 focus:underline-offset-4 dark:text-blue-300"
+			class="text-blue-600 no-underline outline-none hover:underline hover:decoration-4 hover:underline-offset-2 focus:underline focus:decoration-4 focus:underline-offset-4 dark:text-blue-400"
 		>
 			{props.children || 'share'}
 		</button>
