@@ -6,9 +6,6 @@
 		"jsxImportSource": "solid-js",
 		"baseUrl": ".",
 		"noEmit": true,
-		"paths": {
-			"~/*": ["src/*", "labs/*"]
-		},
 		"skipLibCheck": true
 	}
 }

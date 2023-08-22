@@ -2,12 +2,12 @@
 import type { Page, GetStaticPathsOptions, MarkdownRenderingResult } from 'astro';
 import { CollectionEntry, getCollection } from 'astro:content';
 import { renderMarkdown } from '@astrojs/markdown-remark';
-import Link from '~/components/Link.astro';
-import Picture from '~/components/Picture.astro';
-import AuthorMeta from '~/components/AuthorMeta.astro';
-import Base from '~/layouts/Base.astro';
-import Prose from '~/components/Prose.astro';
-import Pagination from '~/components/Pagination.astro';
+import Link from '../../components/Link.astro';
+import Picture from '../../components/Picture.astro';
+import AuthorMeta from '../../components/AuthorMeta.astro';
+import Base from '../../layouts/Base.astro';
+import Prose from '../../components/Prose.astro';
+import Pagination from '../../components/Pagination.astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 	const posts = (

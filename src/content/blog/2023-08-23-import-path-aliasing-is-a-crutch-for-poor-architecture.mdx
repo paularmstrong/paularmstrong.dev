@@ -1,0 +1,253 @@
+---
+title: Import path aliasing is a crutch for poor architecture
+description: |
+  Path aliasing, sometimes referred to as import or module resolution, in the earliest and most naïve sense, is a method of overloading the [Node Require Resolution Algorithm](https://nodejs.org/docs/latest-v18.x/api/modules.html#all-together) so that it first looks in some particular defined folders for modules of a given name before looking for installed modules of the same name in `node_modules` folders. While this seems handy at first glance, in practice, it’s is an unnecessary maintenance overhead in large distributed teams and a sign of poor code organization and architecture.
+pubDate: 2023-08-23
+heroImage:
+  src: /img/blog/2023-08-import-paths/robot-line.png
+  alt: robot sifting through messy stacks of papers, black and white, Children’s Drawing
+  width: 2560
+  height: 1463
+---
+
+import { Icon } from 'astro-icon';
+import Picture from '../../components/Picture.astro';
+import Button from '../../components/Button.astro';
+
+Path aliasing, sometimes referred to as import or module resolution, in the earliest and most naïve sense, is a method of overloading the [Node Require Resolution Algorithm](https://nodejs.org/docs/latest-v18.x/api/modules.html#all-together) so that it first looks in some particular defined folders for modules of a given name before looking for installed modules of the same name in `node_modules` folders. In the early days of Node.js first availability, this was somewhat common practice to overload the `require.paths` array with some extra stuff:
+
+```js title="index.cjs" caption="Example module aliasing for Node with CommonJS circa 2012."
+require.paths.unshift(path.join(__dirname, 'src'));
+```
+
+With modern tooling, like TypeScript compiler paths, [Vite `resolve.alias`](https://vitejs.dev/config/shared-options.html#resolve-alias), [WebPack `resolve.alias`](https://webpack.js.org/configuration/resolve/#resolvealias), [`@rollup/plugin-alias`](https://github.com/rollup/plugins/tree/master/packages/alias#entries), [esbuild-plugin-alias](https://www.npmjs.com/package/esbuild-plugin-alias), and many others, more specific aliasing or even prefixes for entire paths can be used:
+
+<div class="no-bustout">
+```json title="tsconfig.json" {3-5} caption="Typescript compiler options configuration for import path aliases."
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": "./src/*",
+    }
+  }
+}
+```
+</div>
+
+When configured using the above, any TypeScript project can have files that import from the prefixed alias, short-circuiting the relative lookups that are normally done.
+
+```ts caption="Example import statement using the previously mentioned TypeScript configuration"
+import { Button } from '@/components/Button';
+```
+
+## The problems with import path aliasing
+
+Import path aliasing is a crutch for poorly organized and architected codebases.
+
+The following example probably looks fine to most people:
+
+```ts caption="Example import statements from a single file using prefix aliasing."
+import Button from '@/components/Button';
+import TextInput from '@/components/TextInput';
+import useGetUserQuery from '@/shared/api/get-user';
+import useLoginMutation from '@/shared/api/login';
+```
+
+Expanded out to use the relative paths, it may be more clear why people tend to read for prefix aliasing. It’s messy to read repetitive `../` and determine if they are correct or not.
+
+```ts caption="The same example as used previously, but using relative paths instead of the aliases."
+import Button from '../../../../../../../components/Button';
+import TextInput from '../../../../../../../components/TextInput';
+import useGetUserQuery from '../../../../../../../shared/api/get-user';
+import useLoginMutation from '../../../../../../../shared/api/login';
+```
+
+But this code _smells_ 💩. Hiding the smell behind a resolver alias does nothing for the greater organization, but puts it off for another day.
+
+<div class="bustout-sm">
+  <Picture
+    src="/img/blog/2023-08-import-paths/smelly.png"
+    width="2560"
+    height="1097"
+    widths={[1024, 768, 480]}
+    alt=""
+  />
+</div>
+
+This seven-level deep import in the previous example means that the source file is nested at least _seven_ directories within the root of the project. When code is actively and commonly importing from many levels higher in its file tree and reaching deep into separate folders, the organization of the application as a whole is going to be really difficult to follow and maintain – especially for new team members or infrequent contributors.
+
+### Lack of standards
+
+The most major issue is that there are no standards across frameworks and tooling. Every setup is ad-hoc. While some projects tend to use something like `~/` or `@/` to point to the `src/` directory, many do not. Some even alias unprefixed straight to one or more directories.
+
+From project to project, there’s no way to know what the correct aliasing is without referencing the configuration(s). And furthermore, just because a project _has_ aliasing, doesn’t mean that it is enforced. Imports can always written as relative imports.
+
+### Enforcement
+
+There’s no way to enforce and ensure that aliases are always used. Files end up with a mix of aliases and relative imports and it is unclear whether the filepath imports are located next to each other or not.
+
+```ts
+import { Button } from '@/components/form/Button';
+import { TextField } from '../../../components/form/TextField';
+```
+
+### Confusion
+
+The following two examples are canonical, but one is longer and more complicated than the other – and it’s not the alias version.
+
+<div class="bustout-sm">
+<div class="gap-8 no-bustout lg:grid lg:grid-cols-2">
+```ts title="src/components/TextField.tsx" caption="Example relative import from the same directory using aliases."
+import { Label } from '@/components/Label';
+```
+
+```ts title="src/components/TextField.tsx" caption="Example relative import from the same directory without aliases."
+import { Label } from './Label';
+```
+
+</div>
+</div>
+
+### Maintenance issues
+
+Then there are other static analyzers that don’t understand how to read a `tsconfig`, `vite.config`, or whatever is in use to set up aliases. There are many potential places and ways to configure aliasing – and not all of them are compatible with reusing a single configuration, but will have to be done as duplicated configurations slightly differently.
+
+Consider ESLint and using `eslint-plugin-import` rule [`import/no-cycle`](https://github.com/import-js/eslint-plugin-import/blob/HEAD/docs/rules/no-cycle.md) or [`import/no-self-import`](https://github.com/import-js/eslint-plugin-import/blob/6b95a021938139726b3f862beb37012d6e2afab2/docs/rules/no-self-import.md): neither are directly configurable to understand aliasing. Instead, another plugin for ESLint is now required with an array-map configuration, completely different from `tsconfig` and other setups: [eslint-import-resolver-alias](https://www.npmjs.com/package/eslint-import-resolver-alias).
+
+<div class="no-bustout">
+```js title=".eslintrc.cjs" showLineNumbers {5-7}
+module.exports = {
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './src'],
+        ],
+      },
+    },
+  },
+};
+```
+</div>
+
+#### Down the rabbit hole
+
+There are countless other tools and static analyzers that might need to be configure to use the aliasing as well.
+
+More times than I can remember I have also needed to write large code transforms that read through `ImportDeclaration`s, looking for particular files and updating references, imported methods, and then rewriting code based on them. When shared across different applications with different setups, I’ve needed to figure out how to take in custom configurations in order to do the mapping from alias to resolved path.
+
+### Published modules
+
+If a reusable module is using import aliasing and is going to be published to a registry, it needs ensure that its build tools also rewrite the aliasing before publish. Not all of the plugins and tools enabling aliasing do this automatically, so it’s yet another step to create with caution and care.
+
+### Pandora’s box
+
+A team might say that they’re going to standardize on just using the `@/* → ./src/*` aliasing across all of codebases and teams in order to reduce maintenance issues.
+
+But by adding aliasing in the first place, the door is already open for endless possible aliases. _Why_ can’t someone add another alias for a set of common utils that they keep needing? What’s actually stopping them from doing it? If it’s okay, how is it communicated to the team? How is it [enforced](#enforcement)?
+
+## Better organization
+
+Often times, the reason codebases develop problems that make import aliasing attractive comes from the many frameworks with short-sighted recommendations (and sometimes requirements) for how to organize code in an application. Typically for web application, `api`, `pages`, `components`, `hooks`, and `modules` are seen as _top-level_ and everything is thrown into them.
+
+<div class="no-bustout">
+
+```txt caption="Typical application file structure with Next.js"
+└── src
+    ├── api
+    ├── components
+    ├── hooks
+    ├── modules
+    └── pages
+        ├── auth
+        │   ├── login.tsx
+        │   └── logout.tsx
+        ├── dashboard
+        └── home
+```
+
+</div>
+
+- `api`: Or sometimes `state` or `redux`, this folder becomes everything dealing with state.
+- `components`: This ends up being a dumping ground for any JSX-renderable that is reusable and not renderable at a route.
+- `modules`: Another dumping ground for anything that’s not JSX-renderable.
+- `pages`: Filepath based routing makes it so only JSX that’s rendered for a particular route/URL path.
+
+As an application grows and more teams are created to handle different areas, the needs become more complex. While in theory it’s nice to have everything be visible to everyone, optimizing the signal to noise ratio on pull requests becomes important for productivity and technical decision making. Typically, teams become focused as part of a “product pillar”. These pillars allow optimization and specialization in varying areas, which makes colocation all of the application’s code more fragmented, despite best intentions to reuse as much as possible.
+
+### Use a monorepo
+
+<div class="no-bustout">
+```txt caption="Example ASCII-tree diagram of an application, its modules, and CODEOWNERS per area"
+├── app                               # infra-team
+│   └── src
+│       └── pages
+│           ├── auth                  # auth-team
+│           │   ├── login.tsx
+│           │   ├── logout.tsx
+│           │   └── components
+│           ├── dashboard             # home-team
+│           │   ├── dashboard.tsx
+│           │   └── components
+│           └── home                  # home-team
+│               ├── home.tsx
+│               └── components
+└── modules
+    ├── components                    # ui-team
+    │   ├── package.json
+    │   └── src
+    ├── api                           # api-team, infra-team
+    │   ├── package.json
+    │   └── src
+    └── hooks                         # infra-team
+        ├── package.json
+        └── src
+```
+
+```codeowners title=".github/CODEOWNERS"
+*                         infra-team
+app/src/pages/home        home-team
+app/src/pages/dashboard   dashboard-team-team
+app/src/pages/auth        auth-team
+modules/components        ui-team
+modules/api               api-team, infra-team
+modules/hooks             infra-team
+```
+
+</div>
+
+---
+
+## Easily revert import aliasing
+
+Hopefully I’ve done a good job and convinced some readers to stop using import aliasing. Unfortunately, the reversion process to move back from aliases to relative imports is manual, difficult, and error-prone.
+
+However, I’ve had to help teams out enough times over the years to finally realize I should make my codemod public and easy to use.
+
+### Introducing `remove-aliasing`
+
+<div class="not-prose flex gap-4">
+  <Button href="https://github.com/paularmstrong/remove-aliasing" target="_blank">
+    <Icon name="github" class="inline h-6 w-6 fill-current" /> Star on GitHub
+  </Button>
+  <Button href="https://www.npmjs.com/package/remove-aliasing" target="_blank">
+    <Icon name="npm" class="inline h-6 w-6 fill-current" /> View on NPM
+  </Button>
+  <Button href="https://github.com/paularmstrong/remove-aliasing/tree/main/README.md" target="_blank">
+    <Icon name="note" class="inline h-6 w-6 fill-current" /> Documentation
+  </Button>
+</div>
+
+```sh
+npx remove-aliasing@latest --root="src/" --prefix="@/" src/
+```
+
+<div class="bustout-sm">
+  <Picture
+    src="/img/blog/2023-08-import-paths/cleaning.png"
+    width="2560"
+    height="1212"
+    widths={[1024, 768, 480]}
+    alt="children’s drawing of a robot stacking papers in black and white"
+  />
+</div>
