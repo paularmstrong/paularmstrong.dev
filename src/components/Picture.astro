@@ -11,6 +11,7 @@ export interface Props {
 	width: number;
 	height: number;
 	itemprop?: string;
+	style?: string;
 }
 
 const { width, height, ...props } = Astro.props as Props;

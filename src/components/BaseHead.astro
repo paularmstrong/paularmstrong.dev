@@ -11,6 +11,7 @@ const { title, description, image = '/img/og_image_small.jpg' } = Astro.props;
 {/* Global Metadata */}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="view-transition" content="same-origin" />
 
 <meta name="theme-color" content="#c1ddf9" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
@@ -47,3 +48,34 @@ const { title, description, image = '/img/og_image_small.jpg' } = Astro.props;
 {/* Analytics */}
 <link rel="preconnect" href="https://gc.zgo.at" />
 <script async data-goatcounter="https://paularmstrong.goatcounter.com/count" src="https://gc.zgo.at/count.js"></script>
+
+<style is:global>
+	::view-transition-image-pair(*) {
+		isolation: auto;
+		width: auto;
+	}
+
+	::view-transition-group(*) {
+		animation-duration: 0.2s;
+	}
+
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		mix-blend-mode: normal;
+	}
+
+	@keyframes pageinfo {
+		from {
+			opacity: 0;
+			transform: translateY(-0.2rem);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	::view-transition-new(page-info) {
+		animation: pageinfo 0.5s !important;
+	}
+</style>

@@ -55,7 +55,7 @@ class HtmlHandler {
 
 	element(element: Element) {
 		const original = element.getAttribute('class') || false;
-		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(', '));
+		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
 		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
 	}
 }

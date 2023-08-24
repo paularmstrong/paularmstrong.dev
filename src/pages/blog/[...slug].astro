@@ -81,7 +81,7 @@ for (const h of postHeadings) {
 	<article itemprop="blogPost" itemscope itemtype="http://schema.org/Article">
 		<meta itemprop="mainEntityOfPage" content={`${slug}`} />
 		<Prose>
-			<h1 itemprop="name headline">
+			<h1 itemprop="name headline" style={`view-transition-name: title-${slug!.replace(/.*\//, '')}`}>
 				{title}
 				{draft ? <sup class="text-red-400">(draft)</sup> : null}
 			</h1>
@@ -101,6 +101,7 @@ for (const h of postHeadings) {
 							height={heroImage.height}
 							itemprop="image"
 							class="!mt-0 w-full max-w-none"
+							style={`view-transition-name: hero-${slug!.replace(/.*\//, '')}`}
 						/>
 					</div>
 				) : null
@@ -108,7 +109,7 @@ for (const h of postHeadings) {
 
 			<AuthorMeta />
 
-			<div itemprop="articleBody">
+			<div itemprop="articleBody" style={`view-transition-name: content-${slug!.replace(/.*\//, '')}`}>
 				{
 					toc ? (
 						<aside class="prose-base mx-4 mb-4 rounded-xl border border-slate-200 bg-slate-100 px-4 py-1 text-slate-900 transition-colors duration-500 dark:border-slate-800 dark:bg-slate-900 sm:float-right sm:ml-8 sm:mr-0 sm:max-w-[50%] md:-mr-8 lg:-mr-32">
