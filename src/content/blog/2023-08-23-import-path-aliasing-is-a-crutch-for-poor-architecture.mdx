@@ -11,8 +11,9 @@ heroImage:
 ---
 
 import { Icon } from 'astro-icon';
-import Picture from '../../components/Picture.astro';
+import Aside from '../../components/Aside.astro';
 import Button from '../../components/Button.astro';
+import Picture from '../../components/Picture.astro';
 
 Path aliasing, sometimes referred to as import or module resolution, in the earliest and most naïve sense, is a method of overloading the [Node Require Resolution Algorithm](https://nodejs.org/docs/latest-v18.x/api/modules.html#all-together) so that it first looks in some particular defined folders for modules of a given name before looking for installed modules of the same name in `node_modules` folders. In the early days of Node.js first availability, this was somewhat common practice to overload the `require.paths` array with some extra stuff:
 
@@ -39,6 +40,14 @@ When configured using the above, any TypeScript project can have files that impo
 ```ts caption="Example import statement using the previously mentioned TypeScript configuration"
 import { Button } from '@/components/Button';
 ```
+
+<br />
+
+<Aside type="tip" title="Skip all of this and remove aliasing now">
+  Have some repos that overuse import path aliasing and want to easily get rid of it and not read over a thousand more
+  words first? I've packaged up an automated codemod just for you! [Skip to the end](#easily-revert-path-aliasing) to
+  get started.
+</Aside>
 
 ## The problems with import path aliasing
 
