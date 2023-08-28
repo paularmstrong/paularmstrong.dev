@@ -329,9 +329,9 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] },
-"2023-08-23-import-path-aliasing-is-a-crutch-for-poor-architecture.mdx": {
-  id: "2023-08-23-import-path-aliasing-is-a-crutch-for-poor-architecture.mdx",
-  slug: "2023-08-23-import-path-aliasing-is-a-crutch-for-poor-architecture",
+"2023-08-29-import-path-aliasing-is-a-crutch-for-poor-architecture.mdx": {
+  id: "2023-08-29-import-path-aliasing-is-a-crutch-for-poor-architecture.mdx",
+  slug: "2023-08-29-import-path-aliasing-is-a-crutch-for-poor-architecture",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
