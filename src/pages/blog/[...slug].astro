@@ -1,15 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
-import Picture from '~/components/Picture.astro';
-import Aside from '~/components/Aside.astro';
-import AuthorMeta from '~/components/AuthorMeta.astro';
-import Base from '~/layouts/Base.astro';
-import Link from '~/components/Link.astro';
-import PageInfo from '~/components/PageInfo.astro';
-import PageNav from '~/components/PageNav.astro';
-import Prose from '~/components/Prose.astro';
-import TocList from '~/components/TocList.astro';
-import { Share, ShareLink } from '~/components/Share';
+import Picture from '../../components/Picture.astro';
+import Aside from '../../components/Aside.astro';
+import AuthorMeta from '../../components/AuthorMeta.astro';
+import Base from '../../layouts/Base.astro';
+import Link from '../../components/Link.astro';
+import PageInfo from '../../components/PageInfo.astro';
+import PageNav from '../../components/PageNav.astro';
+import Prose from '../../components/Prose.astro';
+import TocList from '../../components/TocList.astro';
+import { Share, ShareLink } from '../../components/Share';
 
 export async function getStaticPaths() {
 	const posts = (
@@ -93,10 +93,10 @@ for (const h of postHeadings) {
 					<div class="lg:bustout">
 						<Picture
 							src={heroImage.src}
-							alt=""
+							alt={heroImage.alt ?? ''}
 							fetchPriority="high"
 							loading="eager"
-							widths={[480, 640, 1200, Math.max(heroImage.width, 1600)]}
+							widths={[480, 800, 1024, 1280]}
 							width={heroImage.width}
 							height={heroImage.height}
 							itemprop="image"

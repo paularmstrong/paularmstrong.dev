@@ -11,6 +11,7 @@ export const collections = {
 					src: z.string().startsWith('/img/'),
 					width: z.number(),
 					height: z.number(),
+					alt: z.string().optional(),
 				})
 				.optional(),
 			pubDate: z.coerce.date(),

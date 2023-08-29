@@ -23,7 +23,7 @@ module.exports = {
 				},
 				'[data-line-numbers]': {
 					counterReset: 'line',
-					'& .line::before': {
+					'& [data-line]::before': {
 						counterIncrement: 'line',
 						content: 'counter(line)',
 						display: 'inline-block',
@@ -33,11 +33,12 @@ module.exports = {
 						color: theme('colors.slate.400'),
 					},
 				},
-				'[data-rehype-pretty-code-fragment]': {
+				'.prose :where([data-rehype-pretty-code-fragment]):not(:where([class~="no-bustout"] *))': {
 					[`@media screen and (min-width: ${theme('screens.xl')})`]: {
 						marginLeft: 'calc(50% - 50vw)',
 						marginRight: 'calc(50% - 50vw)',
 						width: '60vw',
+						maxWidth: '1280px',
 						transform: 'translateX(calc(50vw - 50%))',
 					},
 				},
@@ -59,6 +60,17 @@ module.exports = {
 						marginTop: theme('spacing.0'),
 					},
 				},
+				'[data-rehype-pretty-code-caption]': {
+					marginTop: `-${theme('spacing.6')}`,
+					marginBottom: theme('spacing.8'),
+					fontSize: theme('fontSize.xs'),
+					textAlign: 'center',
+				},
+				'@media (min-width:1280px)': {
+					'[data-rehype-pretty-code-caption]': {
+						marginTop: `-${theme('spacing.9')}`,
+					},
+				},
 			});
 		},
 		function ({ matchUtilities, theme }) {
@@ -73,16 +85,19 @@ module.exports = {
 		},
 		function ({ addUtilities }) {
 			addUtilities({
+				'.no-bustout': {},
 				'.bustout': {
 					marginLeft: 'calc(50% - 50vw)',
 					marginRight: 'calc(50% - 50vw)',
 					width: '80vw',
+					maxWidth: '1280px',
 					transform: 'translateX(calc(50vw - 50%))',
 				},
 				'.bustout-sm': {
 					marginLeft: 'calc(50% - 50vw)',
 					marginRight: 'calc(50% - 50vw)',
 					width: '60vw',
+					maxWidth: '1024px',
 					transform: 'translateX(calc(50vw - 50%))',
 				},
 				'.shape-circle': {
