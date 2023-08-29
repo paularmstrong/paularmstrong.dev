@@ -41,8 +41,6 @@ When configured using the above, any TypeScript project can have files that impo
 import { Button } from '@/components/Button';
 ```
 
-<br />
-
 <Aside type="tip" title="Skip all of this and remove aliasing now">
   Have some repos that overuse import path aliasing and want to easily get rid of it and not read over a thousand more
   words first? I've packaged up an automated codemod just for you! [Skip to the end](#easily-revert-path-aliasing) to
@@ -238,8 +236,6 @@ Typically, teams become focused as part of a “product pillar”. These pillars
         └── src
 ```
 
-<br />
-
 ```codeowners title=".github/CODEOWNERS"
 *                         infra-team
 app/src/pages/home        home-team
@@ -251,6 +247,18 @@ modules/hooks             infra-team
 ```
 
 </div>
+
+### Bonus mentions
+
+In no particular order and less important, but worth calling out, here are some other pitfalls to avoid:
+
+- **Names of modules and directories that are too generic.**
+
+  `utils` tends to become a dumping ground for everything. Take an extra minute to plan _where_ something should be based on it usage, reusability, and purpose.
+
+- **Reduce the number of imports in components.**
+
+  Importing from 20 or 30 files for a single component means the component is doing too much. Splitting it into logical bits will make it both easier to maintaing and test. Not only that, but patterns may arise that suggest that portions would be better [organized](#better-organization) somewhere else within the codebase.
 
 ---
 

@@ -62,6 +62,7 @@ module.exports = {
 				},
 				'[data-rehype-pretty-code-caption]': {
 					marginTop: `-${theme('spacing.6')}`,
+					marginBottom: theme('spacing.8'),
 					fontSize: theme('fontSize.xs'),
 					textAlign: 'center',
 				},
