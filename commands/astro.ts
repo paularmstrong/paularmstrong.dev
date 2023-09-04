@@ -20,7 +20,7 @@ export const handler: Handler = async (argv) => {
 	await run({
 		name: 'Run astro',
 		cmd: bin,
-		args: ['--filter', 'paularmstrong-dev', ...rest],
+		args: [...rest],
 		opts: { stdio: 'inherit' },
 	});
 };

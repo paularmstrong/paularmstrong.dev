@@ -8,7 +8,6 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import image from '@astrojs/image';
-import compress from '@otterlord/astro-compress';
 import react from '@astrojs/react';
 import rehypePrettyCode from 'rehype-pretty-code';
 
@@ -54,6 +53,7 @@ const rehypePlugins = [
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	trailingSlash: 'always',
+	compressHTML: true,
 	experimental: {
 		viewTransitions: true,
 	},
@@ -80,13 +80,6 @@ export default defineConfig({
 		}),
 		image({
 			serviceEntryPoint: '@astrojs/image/sharp',
-		}),
-		compress({
-			html: {
-				removeAttributeQuotes: false,
-			},
-			img: false,
-			svg: false,
 		}),
 	],
 	markdown: {
