@@ -20,7 +20,7 @@ export const handler: Handler = async (argv) => {
 	await run({
 		name: 'Run the server',
 		cmd: bin,
-		args: ['dev', ...rest],
+		args: ['dev', '--filter', 'paularmstrong-dev', ...rest],
 		opts: {
 			stdio: 'inherit',
 		},
