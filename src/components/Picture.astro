@@ -1,5 +1,5 @@
 ---
-import { Picture } from '@astrojs/image/components';
+import { Picture as AstroPicture } from '@astrojs/image/components';
 
 export interface Props {
 	class?: string;
@@ -14,8 +14,8 @@ export interface Props {
 	style?: string;
 }
 
-const { width, height, ...props } = Astro.props as Props;
+const { width, height, src, ...props } = Astro.props as Props;
+const name = src.replace(/[^\w-]+/g, '-');
 ---
 
-{/* @ts-ignore */}
-<Picture {...props} width={width} height={height} aspectRatio={width / height} />
+<AstroPicture {...props} width={width} height={height} aspectRatio={width / height} src={src} transition:name={name} />
