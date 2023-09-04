@@ -217,7 +217,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
           // eg. ['photo', 'capturing', 'photo.capturing'] -> /photo/capturing
           pathname: `/${value[value.length - 1].replace(/\./g, '/')}`,
         },
-        { state: meta }
+        { state: meta },
       );
     });
 

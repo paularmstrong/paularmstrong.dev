@@ -20,8 +20,8 @@ const rehypePlugins = [
 			theme: JSON.parse(
 				readFileSync(
 					path.join(fileURLToPath(import.meta.url), '..', './config/theme/moonlight-ii-custom.json'),
-					'utf-8'
-				)
+					'utf-8',
+				),
 			),
 			onVisitLine(node) {
 				// Prevent lines from collapsing in `display: grid` mode, and

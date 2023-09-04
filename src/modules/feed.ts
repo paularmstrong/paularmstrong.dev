@@ -44,7 +44,7 @@ for (const post of rawPosts) {
 	const url = `${SITE_URL}/blog/${slug}/`;
 	const { code: description } = await renderMarkdown(
 		`${post.data.description || ''}\n\n[Continue reading…](${url})`,
-		{}
+		{},
 	);
 
 	const item: Item = {

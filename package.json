@@ -47,8 +47,8 @@
 		"eslint-plugin-tailwindcss": "^3.13.0",
 		"netlify-cli": "^15.9.0",
 		"onerepo": "0.12.0",
-		"prettier": "^2.8.8",
-		"prettier-plugin-astro": "^0.8.0",
+		"prettier": "^3.0.3",
+		"prettier-plugin-astro": "^0.12.0",
 		"typescript": "^5.0.4"
 	},
 	"packageManager": "yarn@3.3.1",

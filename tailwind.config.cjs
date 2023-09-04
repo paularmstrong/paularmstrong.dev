@@ -80,7 +80,7 @@ module.exports = {
 						tabSize: value,
 					}),
 				},
-				{ values: theme('tabSize') }
+				{ values: theme('tabSize') },
 			);
 		},
 		function ({ addUtilities }) {
