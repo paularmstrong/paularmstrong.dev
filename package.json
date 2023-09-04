@@ -26,7 +26,7 @@
 		"sharp": "^0.32.5",
 		"solid-js": "^1.7.11",
 		"tailwind-clip-path": "^1.0.0",
-		"tailwindcss": "^3.3.2"
+		"tailwindcss": "^3.3.3"
 	},
 	"devDependencies": {
 		"@onerepo/plugin-eslint": "0.5.2",
