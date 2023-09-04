@@ -1,4 +1,3 @@
-/** @jsx react-jsx */
 /** @jsxImportSource react */
 import clsx from 'clsx';
 

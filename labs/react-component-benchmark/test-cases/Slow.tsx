@@ -1,4 +1,3 @@
-/** @jsx react-jsx */
 /** @jsxImportSource react */
 import { useEffect, useState } from 'react';
 

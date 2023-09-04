@@ -8,13 +8,12 @@ description: |
   Let’s take a moment to break down considerations that I try to make when balancing writing code against pulling in third-party modules…
 pubDate: 2023-08-14
 noHero: true
-heroImage:
-  src: /img/blog/2023-08-packages/packages.jpg
-  width: 1152
-  height: 574
+heroImage: '../../images/blog/2023-08-packages/packages.jpg'
 ---
 
-import Picture from '../../components/Picture.astro';
+import { Image } from 'astro:assets';
+import HeroImage from '../../images/blog/2023-08-packages/packages.jpg';
+import JuiceSqueezeImage from '../../images/blog/2023-08-packages/juice-squeeze.jpg';
 
 When was the last time you stopped to think about the cost of a new third-party package that you’re adding into your process?
 
@@ -22,13 +21,10 @@ Where do you recommend balancing between “not invented here” syndrome ([NIH]
 
 ---
 
-<Picture
-  src="/img/blog/2023-08-packages/packages.jpg"
+<Image
+  src={HeroImage}
   width={1152}
-  height={599}
-  widths={[1152, 768]}
   alt="AI generated image of colorful boxes of varying sizes stacked on top of each other"
-  formats={['avif', 'jpeg']}
 />
 
 While npm doesn't publish statistics of the number of packages in its registry, in 2019 they passed the [1 million package mark](https://blog.npmjs.org/post/615388323067854848/so-long-and-thanks-for-all-the-packages.html). That means we have _at least_ 1 million packages we could possibly consider using.
@@ -72,14 +68,7 @@ One of my first stops when evaluating a third-party package is [BundlePhobia](ht
 
 ## Is the juice worth the squeeze?
 
-<Picture
-  src="/img/blog/2023-08-packages/juice-squeeze.jpg"
-  width={1152}
-  height={574}
-  widths={[1152, 768]}
-  alt="AI generated image of oranges being squeezed into orange juice"
-  formats={['avif', 'jpeg']}
-/>
+<Image src={JuiceSqueezeImage} width={1152} alt="AI generated image of oranges being squeezed into orange juice" />
 
 I have a team rebuilding our core shared component library at work and we have a strict mandate to ensure WCAG 2.0 accessibility standards. The team knows what they're doing and can absolutely succeed at meeting those on their own. However, while building the previous iteration of the library, the `<DatePicker />` component took nearly three months to build.
 

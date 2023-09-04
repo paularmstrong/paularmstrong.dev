@@ -3,6 +3,8 @@ title: 'Creating a modern wedding website in 2022: Introduction'
 description: Multi-part series documenting how to create a modern realtime RSVP-enabled wedding website using Google Firebase, React, Tailwindcss, and Parcel.
 authors: paularmstrong
 pubDate: 2022-06-04
+heroImage: '../../images/blog/wedding/proposal.jpg'
+heroAlt: 'My proposal, skiing at sunrise'
 tags:
   - amazon
   - amplify
@@ -11,31 +13,16 @@ tags:
   - wedding
 ---
 
-import Picture from '../../components/Picture.astro';
+import { Image } from 'astro:assets';
 import Aside from '../../components/Aside.astro';
+import ProposalImage from '../../images/blog/wedding/proposal.jpg';
+import TheKnotImage from '../../images/blog/wedding/the-knot-rsvp.jpg';
 
 Weddings are _expensive_. Trying to do one on a budget while following the social norms and expectations of planning and putting on a wedding just don't really mix. After getting engaged, Kelly and I discussed what we did and _definitely did not_ want when it came to our wedding.
 
-<Picture
-  src="/img/blog/wedding/proposal.jpg"
-  alt="My proposal, skiing at sunrise"
-  widths={[640, 1280]}
-  height={1916}
-  width={3406}
-  loading="lazy"
-  itemprop="image"
-/>
-
 One of the first things to do that we threw out was the idea of sending paper invites. Not only is it incredibly wasteful, but we had just received a wedding invitation in the mail and it just seemed expensive, tacky, and impersonal. Take this RSVP card option that comes from _popular wedding registry website redacted_:
 
-<Picture
-  src="/img/blog/wedding/the-knot-rsvp.jpg"
-  alt="RSVP cards from The Knot"
-  widths={[640, 1280]}
-  height={875}
-  width={1200}
-  loading="lazy"
-/>
+<Image src={TheKnotImage} alt="RSVP cards from The Knot" width={1024} loading="lazy" />
 
 Call me _not_ old-fashioned, but the “M\_\_\_\_” line makes no sense to me. After researching, I guess you're supposed to fill in “Mr…”, “Mrs…”, or “Ms…”, but who uses that anymore? And what if you’re extra fancy and it should be “Dr…”? But really, _why isn't this filled in **for me**_? You should know who I am!
 

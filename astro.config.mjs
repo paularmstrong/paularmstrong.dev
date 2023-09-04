@@ -7,7 +7,6 @@ import solid from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
-import image from '@astrojs/image';
 import react from '@astrojs/react';
 import rehypePrettyCode from 'rehype-pretty-code';
 
@@ -54,12 +53,13 @@ export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	trailingSlash: 'always',
 	compressHTML: true,
-	experimental: {
-		viewTransitions: true,
-	},
 	integrations: [
-		solid(),
-		react(),
+		solid({
+			include: ['src/**'],
+		}),
+		react({
+			include: ['**/react-component-benchmark/**'],
+		}),
 		tailwind(),
 		mdx({
 			remarkPlugins,
@@ -77,9 +77,6 @@ export default defineConfig({
 
 				return item;
 			},
-		}),
-		image({
-			serviceEntryPoint: '@astrojs/image/sharp',
 		}),
 	],
 	markdown: {

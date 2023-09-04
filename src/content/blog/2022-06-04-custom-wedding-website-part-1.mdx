@@ -11,9 +11,17 @@ tags:
   - wedding
 ---
 
-import Picture from '../../components/Picture.astro';
+import { Image } from 'astro:assets';
 import Aside from '../../components/Aside.astro';
 import Details from '../../components/Details.astro';
+
+import FirebaseImage from '../../images/blog/wedding/firebase.png';
+import AWSImage from '../../images/blog/wedding/aws-amplify.png';
+import SupabaseImage from '../../images/blog/wedding/supabase.png';
+import ParseImage from '../../images/blog/wedding/parse.png';
+import PreactImage from '../../images/blog/wedding/preact.webp';
+import TailwindImage from '../../images/blog/wedding/tailwind.png';
+import ParcelImage from '../../images/blog/wedding/parcel.png';
 
 <Aside type="info" title="Multi-part series">
 
@@ -34,15 +42,7 @@ Now that we know _what_ we need, it’s time to choose the right tools for the j
 ### Google Firebase
 
 <div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
-  <Picture
-    src="/img/blog/wedding/firebase.png"
-    alt="Firebase logo"
-    widths={[300, 600]}
-    width={1024}
-    height={288}
-    loading="lazy"
-    itemprop="image"
-  />
+  <Image src={FirebaseImage} alt="Firebase logo" width={1024} loading="lazy" itemprop="image" />
 </div>
 
 I’ve used [Google Firebase](https://firebase.google.com/) before, but never deployed a full web application for it. It has always been a bit more tailored for native mobile apps, but I have seen that they’ve worked really hard in making the web tools top-notch.
@@ -66,15 +66,7 @@ Hosting and backend framework evalutation can get long and tiring. I considered 
 <h4>AWS Amplify</h4>
 
 <div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
-  <Picture
-    src="/img/blog/wedding/aws-amplify.png"
-    alt="AWS Amplify logo"
-    widths={[300, 600]}
-    width={1838}
-    height={550}
-    loading="lazy"
-    itemprop="image"
-  />
+  <Image src={AWSImage} alt="AWS Amplify logo" width={1838} loading="lazy" itemprop="image" />
 </div>
 
 Initially, I had hoped to be able to try out [AWS Amplify](https://docs.amplify.aws/). It would be an opportunity to learn something new that I hadn’t worked with before. It has a free tier and I thought it should cover everything that I wanted. Unfortunately there were roadblocks from the start.
@@ -98,15 +90,7 @@ Unfortunately, there were a number of blockers that came up for me during invest
 <h4>Supabase</h4>
 
 <div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
-  <Picture
-    src="/img/blog/wedding/supabase.png"
-    alt="Supabase logo"
-    widths={[300, 600]}
-    width={2159}
-    height={420}
-    loading="lazy"
-    itemprop="image"
-  />
+  <Image src={SupabaseImage} alt="Supabase logo" width={2159} loading="lazy" itemprop="image" />
 </div>
 
 I would have liked to have tried [Supabase](https://supabase.com) since it's open-source and free. However, I didn't dive too far into it after the two blockers that I found:
@@ -117,15 +101,7 @@ I would have liked to have tried [Supabase](https://supabase.com) since it's ope
 <h4>Parse Platform</h4>
 
 <div class="not-prose max-w-[480px] rounded bg-white p-4">
-  <Picture
-    src="/img/blog/wedding/parse.png"
-    alt="Parse Platform logo"
-    widths={[300, 378]}
-    width={378}
-    height={133}
-    loading="lazy"
-    itemprop="image"
-  />
+  <Image src={ParseImage} alt="Parse Platform logo" width={378} loading="lazy" itemprop="image" />
 </div>
 
 Parse is another open source platform that I looked at briefly. Unfortunately, it had too many blockers to consider even prototyping.
@@ -142,15 +118,7 @@ Parse is another open source platform that I looked at briefly. Unfortunately, i
 ### [Preact](https://preactjs.com/)
 
 <div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
-  <Picture
-    src="/img/blog/wedding/preact.webp"
-    alt="Preact logo"
-    widths={[300, 600]}
-    width={1900}
-    height={572}
-    loading="lazy"
-    itemprop="image"
-  />
+  <Image src={PreactImage} alt="Preact logo" width={1900} loading="lazy" itemprop="image" />
 </div>
 
 I could have used React, but I initially wanted to see how small I could keep the build size and didn’t think I'd need any of the extra weight from React for such a small site.
@@ -158,15 +126,7 @@ I could have used React, but I initially wanted to see how small I could keep th
 ### [Tailwindcss](https://tailwindcss.com/)
 
 <div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
-  <Picture
-    src="/img/blog/wedding/tailwind.png"
-    alt="Tailwindcss logo"
-    widths={[300, 600]}
-    width={2560}
-    height={315}
-    loading="lazy"
-    itemprop="image"
-  />
+  <Image src={TailwindImage} alt="Tailwindcss logo" width={2560} loading="lazy" itemprop="image" />
 </div>
 
 I have built a few things with Tailwind before and it really makes things simple while keeping the final build sizes small.
@@ -174,15 +134,7 @@ I have built a few things with Tailwind before and it really makes things simple
 ### [Parcel](https://parceljs.org/)
 
 <div class="not-prose max-w-[480px] rounded bg-slate-50 p-4 dark:bg-slate-200">
-  <Picture
-    src="/img/blog/wedding/parcel.png"
-    alt="Parcel logo"
-    widths={[300, 600]}
-    width={1492}
-    height={516}
-    loading="lazy"
-    itemprop="image"
-  />
+  <Image src={ParcelImage} alt="Parcel logo" width={1492} loading="lazy" itemprop="image" />
 </div>
 
 I have used Parcel before for some really small projects like this and it's pretty dead simple as a bundler to get set up. I also didn't want to spend a week tweaking my compilation process to get things _just right_ like I tend to do with Webpack.

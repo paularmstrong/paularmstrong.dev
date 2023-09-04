@@ -1,8 +1,9 @@
 ---
 import Page from '../../layouts/Page.astro';
-import Picture from '../../components/Picture.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 
-const pages = await Astro.glob('../../../labs/**/*.mdx');
+const pages = await getCollection('labs');
 ---
 
 <Page content={{ title: 'Labs', description: 'Showcasing web experiments and projects from Paul Armstrong.' }}>
@@ -13,23 +14,17 @@ const pages = await Astro.glob('../../../labs/**/*.mdx');
 			{
 				pages.map((page) => (
 					<li>
-						<a href={`/${page.url?.replace(/(?:index)\.mdx\/?$/, '')}`} class="group h-full">
+						<a href={`/labs/${page.slug}/`} class="group h-full">
 							<div class="flex flex-col gap-2">
 								<div class="pointer-events-none flex h-full items-center justify-center justify-self-stretch overflow-hidden rounded border border-slate-200 bg-slate-100 group-hover:shadow group-hover:shadow-blue-500/30 group-active:shadow-inner dark:border-slate-600 dark:bg-slate-700">
 									<div class="w-full blur-[1px] grayscale transition duration-150 group-hover:blur-none group-hover:grayscale-0">
-										<Picture
-											src={page.frontmatter.heroImage.src}
-											width={page.frontmatter.heroImage.width}
-											height={page.frontmatter.heroImage.height}
-											widths={[600, 300]}
-											alt=""
-										/>
+										<Image src={page.data.heroImage} width={600} height={300} alt="" />
 									</div>
 								</div>
 								<div>
-									<div class="text-sm font-medium">{page.frontmatter.title}</div>
-									{page.frontmatter.description ? (
-										<div class="text-xs text-slate-500 dark:text-slate-400">{page.frontmatter.description}</div>
+									<div class="text-sm font-medium">{page.data.title}</div>
+									{page.data.description ? (
+										<div class="text-xs text-slate-500 dark:text-slate-400">{page.data.description}</div>
 									) : null}
 								</div>
 							</div>

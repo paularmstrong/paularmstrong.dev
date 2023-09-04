@@ -3,17 +3,16 @@ title: Import path aliasing is a crutch for poor architecture
 description: |
   Path aliasing, sometimes referred to as import or module resolution, in the earliest and most naïve sense, is a method of overloading the [Node Require Resolution Algorithm](https://nodejs.org/docs/latest-v18.x/api/modules.html#all-together) so that it first looks in some particular defined folders for modules of a given name before looking for installed modules of the same name in `node_modules` folders. While this seems handy at first glance, in practice, it’s is an unnecessary maintenance overhead in large distributed teams and a sign of poor code organization and architecture.
 pubDate: 2023-08-29
-heroImage:
-  src: /img/blog/2023-08-import-paths/robot-line.png
-  alt: robot sifting through messy stacks of papers, black and white, Children’s Drawing
-  width: 2560
-  height: 1463
+heroImage: '../../images/blog/2023-08-import-paths/robot-line.png'
+heroAlt: robot sifting through messy stacks of papers, black and white, Children’s Drawing
 ---
 
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon';
 import Aside from '../../components/Aside.astro';
 import Button from '../../components/Button.astro';
-import Picture from '../../components/Picture.astro';
+import SmellyImage from '../../images/blog/2023-08-import-paths/smelly.png';
+import CleaningImage from '../../images/blog/2023-08-import-paths/cleaning.png';
 
 Path aliasing, sometimes referred to as import or module resolution, in the earliest and most naïve sense, is a method of overloading the [Node Require Resolution Algorithm](https://nodejs.org/docs/latest-v18.x/api/modules.html#all-together) so that it first looks in some particular defined folders for modules of a given name before looking for installed modules of the same name in `node_modules` folders. In the early days of Node.js first availability, this was somewhat common practice to overload the `require.paths` array with some extra stuff:
 
@@ -74,13 +73,7 @@ But this [code _smells_](https://en.wikipedia.org/wiki/Code_smell). This seven-l
 Hiding the organizational issues behind path aliasing does nothing for the greater organization, but puts it off for another day.
 
 <div class="bustout-sm">
-  <Picture
-    src="/img/blog/2023-08-import-paths/smelly.png"
-    width="2560"
-    height="1097"
-    widths={[1024, 768, 480]}
-    alt=""
-  />
+  <Image src={SmellyImage} width={1024} alt="" />
 </div>
 
 ### Lack of standards
@@ -287,11 +280,5 @@ npx remove-aliasing@latest --root="src/" --prefix="@/" src/
 ```
 
 <div class="bustout-sm">
-  <Picture
-    src="/img/blog/2023-08-import-paths/cleaning.png"
-    width="2560"
-    height="1212"
-    widths={[1024, 768, 480]}
-    alt="children’s drawing of a robot stacking papers in black and white"
-  />
+  <Image src={CleaningImage} width={1024} alt="children’s drawing of a robot stacking papers in black and white" />
 </div>
