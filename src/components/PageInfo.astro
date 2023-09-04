@@ -17,7 +17,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 		<aside
 			aria-label="Page information"
 			class="not-prose prose-sm mb-8 rounded-lg border border-slate-200 bg-slate-100 p-4 transition-colors duration-500 dark:border-slate-800 dark:bg-slate-900"
-			style="view-transition-name: page-info"
+			transition:animate="fade"
 		>
 			<ul class="flex flex-row flex-wrap justify-between gap-4 text-blue-900 dark:text-blue-100">
 				{pubDate && (

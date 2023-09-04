@@ -54,6 +54,9 @@ const rehypePlugins = [
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	trailingSlash: 'always',
+	experimental: {
+		viewTransitions: true,
+	},
 	integrations: [
 		solid(),
 		react(),

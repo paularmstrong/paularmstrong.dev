@@ -84,7 +84,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 										<span
 											class="bg-gradient-to-br from-blue-700 to-purple-600 bg-clip-text font-bold text-transparent dark:from-blue-400 dark:to-purple-400"
 											itemprop="name headline"
-											style={`view-transition-name: title-${match.groups?.slug}`}
+											transition:name={`title-${match.groups?.slug}`}
 										>
 											{title}
 										</span>
@@ -100,7 +100,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 														height={heroImage.height}
 														itemprop="image"
 														class="!mt-0 w-full max-w-none"
-														style={`view-transition-name: hero-${match.groups?.slug}`}
+														transition:name={`hero-${match.groups?.slug}`}
 													/>
 												</Prose>
 											</div>
@@ -108,7 +108,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 									</Link>
 								</h2>
 								<Prose>
-									<div style={`view-transition-name: content-${match.groups?.slug}`}>
+									<div transition:name={`content-${match.groups?.slug}`}>
 										<Fragment set:html={descriptions[title]?.code ?? ''} />
 									</div>
 								</Prose>
