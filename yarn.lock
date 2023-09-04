@@ -6412,7 +6412,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-register@npm:^3.4.0, esbuild-register@npm:^3.4.2":
+"esbuild-register@npm:^3.4.0":
   version: 3.4.2
   resolution: "esbuild-register@npm:3.4.2"
   dependencies:
@@ -6423,7 +6423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.17.0, esbuild@npm:^0.17.18, esbuild@npm:^0.17.19":
+"esbuild@npm:^0.17.0, esbuild@npm:^0.17.19":
   version: 0.17.19
   resolution: "esbuild@npm:0.17.19"
   dependencies:
@@ -12654,8 +12654,6 @@ fsevents@~2.3.2:
     astro-icon: ^0.8.1
     clsx: ^2.0.0
     debounce: ^1.2.1
-    esbuild: ^0.17.18
-    esbuild-register: ^3.4.2
     eslint: ^8.48.0
     eslint-mdx: ^2.2.0
     eslint-plugin-astro: ^0.29.0

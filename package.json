@@ -38,8 +38,6 @@
 		"@types/mdast": "^4.0.0",
 		"@typescript-eslint/eslint-plugin": "^6.6.0",
 		"@typescript-eslint/parser": "^6.6.0",
-		"esbuild": "^0.17.18",
-		"esbuild-register": "^3.4.2",
 		"eslint": "^8.48.0",
 		"eslint-mdx": "^2.2.0",
 		"eslint-plugin-astro": "^0.29.0",
