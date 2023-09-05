@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    rebase-strategy: auto
+    schedule:
+      interval: monthly
+    versioning-strategy: lockfile-only
+    labels:
+      - dependencies
+    open-pull-requests-limit: 15
