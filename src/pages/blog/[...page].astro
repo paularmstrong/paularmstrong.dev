@@ -1,9 +1,9 @@
 ---
 import type { Page, GetStaticPathsOptions, MarkdownRenderingResult } from 'astro';
 import { CollectionEntry, getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import { renderMarkdown } from '@astrojs/markdown-remark';
 import Link from '../../components/Link.astro';
-import Picture from '../../components/Picture.astro';
 import AuthorMeta from '../../components/AuthorMeta.astro';
 import Base from '../../layouts/Base.astro';
 import Prose from '../../components/Prose.astro';
@@ -49,7 +49,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 		<ul class="flex flex-col gap-12">
 			{
 				page.data.map((post) => {
-					const { draft, pubDate, title, heroImage } = post.data;
+					const { draft, pubDate, title, heroImage, heroAlt } = post.data;
 
 					if (import.meta.env.PROD && draft) {
 						return null;
@@ -92,15 +92,13 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 										{heroImage ? (
 											<div class="my-2">
 												<Prose>
-													<Picture
-														src={heroImage.src}
-														alt=""
-														widths={[480, 640]}
-														width={heroImage.width}
-														height={heroImage.height}
+													<Image
+														src={heroImage}
+														alt={heroAlt ?? ''}
+														width={640}
 														itemprop="image"
 														class="!mt-0 w-full max-w-none"
-														transition:name={`hero-${match.groups?.slug}`}
+														transition:name={`hero-${heroImage.src}`}
 													/>
 												</Prose>
 											</div>

@@ -7,13 +7,35 @@ tags:
   - react
   - performance
 toc: true
-heroImage:
-  src: /img/blog/twitter-lite/banner.png
-  width: 2000
-  height: 513
+heroImage: '../../images/blog/twitter-lite/banner.png'
 ---
 
 import Aside from '../../components/Aside.astro';
+import { Image } from 'astro:assets';
+import OptimizeBeforeImage from '../../images/blog/twitter-lite/optimizing-before.png';
+import OptimizeAfterImage from '../../images/blog/twitter-lite/optimizing-after.png';
+import LighthouseImage from '../../images/blog/twitter-lite/lighthouse.png';
+import JankBeforeImage from '../../images/blog/twitter-lite/jank-before.png';
+import JankAfterImage from '../../images/blog/twitter-lite/jank-after.png';
+import RasterBeforeImage from '../../images/blog/twitter-lite/raster-before.png';
+import RasterAfterImage from '../../images/blog/twitter-lite/raster-after.png';
+import LikingImage from '../../images/blog/twitter-lite/liking.gif';
+import UpdateBeforeImage from '../../images/blog/twitter-lite/update-before.png';
+import UpdateAfterImage from '../../images/blog/twitter-lite/update-after.png';
+import DeferBeforeImage from '../../images/blog/twitter-lite/defer-before.png';
+import DeferAfterImage from '../../images/blog/twitter-lite/defer-after.png';
+import DangerousBeforeImage from '../../images/blog/twitter-lite/dangerous-before.png';
+import DangerousAfterImage from '../../images/blog/twitter-lite/dangerous-after.png';
+import DeferRenderBeforeImage from '../../images/blog/twitter-lite/defer-render-before.gif';
+import DeferRenderAfterImage from '../../images/blog/twitter-lite/defer-render-after.gif';
+import StoreBeforeImage from '../../images/blog/twitter-lite/store-state-before.png';
+import StoreAfterImage from '../../images/blog/twitter-lite/store-state-after.png';
+import BatchBeforeImage from '../../images/blog/twitter-lite/batching-before.png';
+import BatchAfterImage from '../../images/blog/twitter-lite/batching-after.png';
+import PrecacheBeforeImage from '../../images/blog/twitter-lite/precache-before.png';
+import PrecacheAfterImage from '../../images/blog/twitter-lite/precache-after.png';
+import SWBeforeImage from '../../images/blog/twitter-lite/sw-register-before.png';
+import SWAfterImage from '../../images/blog/twitter-lite/sw-register-after.png';
 
 A look into removing common and uncommon performance bottlenecks in one of the worlds largest React.js PWAs, Twitter Lite.
 
@@ -69,15 +91,17 @@ const plugins = [
 
 > Adds granular, route-based code-splitting. Faster initial and HomeTimeline render is traded for greater overall app size, which is spread over 40 on-demand chunks and amortized over the length of the session. — [Nicolas Gallagher](https://twitter.com/necolas)
 
-![Network timeline before code splitting](/img/blog/twitter-lite/optimizing-before.png)
+<Image src={OptimizeBeforeImage} alt="Network timeline before code splitting" width={1280} />
 
 Our original setup (above) took over 5 seconds to load our main bundle, while after splitting out code by routes and common chunks (below), it takes barely 3 seconds (on a simulated 3G network).
 
-![Network timeline before after splitting](/img/blog/twitter-lite/optimizing-after.png)
+<Image src={OptimizeAfterImage} alt="Network timeline after code splitting" width={1280} />
 
 This was done early on in our performance focus sprints, but this single change made a huge difference when running Google’s [Lighthouse](https://developers.google.com/web/tools/lighthouse/) web application auditing tool:
 
-![Lighthouse report before and after](/img/blog/twitter-lite/lighthouse.png)
+<div class="bustout">
+  <Image src={LighthouseImage} alt="Lighthouse report before and after" width={1280} />
+</div>
 
 ### Avoid Functions that Cause Jank
 
@@ -97,11 +121,15 @@ But first, we have to understand what the developer tools mean when they tell us
 
 Over time, we developed a new infinite scrolling component called _VirtualScroller_. With this new component, we know exactly what slice of Tweets are being rendered into a timeline at any given time, avoiding the need to make expensive calculations as to where we are visually.
 
-![Jank before virtual scrolling](/img/blog/twitter-lite/jank-before.png)
+<div class="bustout-sm">
+  <Image src={JankBeforeImage} alt="Jank before virtual scrolling" width={1280} />
+</div>
 
 It may not look like much, but before (above) while scrolling, we would cause render jank by trying to calculate the height of various elements. After (below) we cause no jank and reduce the stuttering while scrolling timelines at fast speeds.
 
-![Jank after virtual scrolling](/img/blog/twitter-lite/jank-after.png)
+<div class="bustout-sm">
+  <Image src={JankAfterImage} alt="Jank after virtual scrolling" width={1280} />
+</div>
 
 By avoiding function calls that cause extra jank, scrolling a timeline of Tweets looks and feels more seamless, giving us a much more rich, almost native experience. While it can always be better, this change makes a noticeable improvement to the smoothness of scrolling timelines. It was a good reminder that every little bit counts when looking at performance.
 
@@ -113,11 +141,15 @@ In order to determine how much better smaller images are for performance, we can
 
 When you’re scrolling a page and aiming for the 60 frame-per-second rendering standard, we want to keep as much processing as possible under 16.667ms (1 frame). It’s taking us nearly 18 frames just to get a single image rendered into the viewport, which is too many. One other thing to note in the timeline: you can see that the _Main_ timeline is mostly blocked from continuing until this image has finished decoding (as shown by the whitespace). This means we’ve got quite a performance bottleneck here!
 
-![Large image rasterizing](/img/blog/twitter-lite/raster-before.png)
+<div class="bustout-sm">
+  <Image src={RasterBeforeImage} alt="Large image rasterizing" width={1280} />
+</div>
 
 Large images (above) can block the main thread from continuing for 18 frames. Small images (below) take only about 1 frame.
 
-![Small image rasterizing](/img/blog/twitter-lite/raster-after.png)
+<div class="bustout-sm">
+  <Image src={RasterAfterImage} alt="Small image rasterizing" width={1280} />
+</div>
 
 Now, after we’ve reduced the size of our images (above), we’re looking at just over a single frame to decode our largest images.
 
@@ -127,9 +159,9 @@ Now, after we’ve reduced the size of our images (above), we’re looking at ju
 
 A common tip for optimizing the performance of React applications is to [use the `shouldComponentUpdate` method](https://facebook.github.io/react/docs/optimizing-performance.html#shouldcomponentupdate-in-action). We try to do this wherever possible, but sometimes things slip through the cracks.
 
-<figure>
+<figure class="flex flex-col items-center">
 
-![Updates when liking a tweet](/img/blog/twitter-lite/liking.gif)
+<Image src={LikingImage} alt="Updates when liking a tweet" width={251} />
 
 <figcaption>Liking the first Tweet caused both it and the entire Conversation below it to re-render!</figcaption>
 
@@ -139,8 +171,10 @@ Here’s an example of a component that was always updating: When clicking the h
 
 Below, you’ll see two flame graphs of this action. Without `shouldComponentUpdate`, we can see its entire tree updated and re-rendered, just to change the color of a heart somewhere else on the screen. After adding `shouldComponentUpdate` (second image below), we prevent the entire tree from updating and prevent wasting more than one-tenth of a second running unnecessary processing.
 
-![Unnecessary updates in performance timelines](/img/blog/twitter-lite/update-before.png)
-![No more ynnecessary updates in performance timelines](/img/blog/twitter-lite/update-after.png)
+<div class="bustout-sm">
+  <Image src={UpdateBeforeImage} alt="Unnecessary updates in performance timelines" width={1280} />
+  <Image src={UpdateAfterImage} alt="No more unnecessary updates in performance timelines" width={1280} />
+</div>
 
 ### Defer Unnecessary Work until `componentDidMount`
 
@@ -148,11 +182,11 @@ This change may seem like a bit of a no-brainer, but it’s easy to forget about
 
 We found that we had a lot of places in our code where we were doing expensive calculations for the sake of analytics during the [`componentWillMount` React lifecycle method](https://facebook.github.io/react/docs/react-component.html#componentwillmount). Every time we did this, we blocked rendering of components a little more. 20ms here, 90ms there, it all adds up quickly. Originally, we were trying to record which tweets were being rendered to our data analytics service in `componentWillMount`, before they were actually rendered (below).
 
-![componentWillMount timeline](/img/blog/twitter-lite/defer-before.png)
+<Image src={DeferBeforeImage} alt="componentWillMount timeline" width={1280} />
 
 By moving that calculation and network call to the React component’s componentDidMount method, we unblocked the main thread and reduced unwanted jank when rendering our components (below).
 
-![componentDidMount timeline](/img/blog/twitter-lite/defer-after.png)
+<Image src={DeferAfterImage} alt="componentDigMount timeline" width={1280} />
 
 ### Avoid `dangerouslySetInnerHTML`
 
@@ -174,11 +208,11 @@ const HeartIcon = (props) =>
 
 Not only is it [discouraged to use `dangerouslySetInnerHTML`](http://reactjs.cn/react/tips/dangerously-set-inner-html.html), but it turns out that it’s actually a source of slowness when mounting and rendering.
 
-![dangerouslySetInnerHTML timeline](/img/blog/twitter-lite/dangerous-before.png)
+<Image src={DangerousBeforeImage} alt="dangerouslySetInnerHTML timeline" width={1280} />
 
 Before (above), you’ll see it takes roughly 20ms to mount 4 SVG icons, while after (below) it takes around 8.
 
-![dangerouslySetInnerHTML timeline](/img/blog/twitter-lite/dangerous-after.png)
+<Image src={DangerousAfterImage} alt="dangerouslySetInnerHTML timeline" width={1280} />
 
 Analyzing the flame graphs above, our original code (above) shows that it takes about 20ms on a slow device to mount the actions at the bottom of a Tweet containing four SVG icons. While this may not seem like much on its own, knowing that we need to render many of these at once, all while scrolling a timeline of infinite Tweets, we realized that this is a huge waste of time.
 
@@ -202,12 +236,9 @@ On slower devices, we noticed that it could take a long time for our main naviga
 
 Notice in the image below how the Home icon takes nearly 2 seconds to update and show that it was tapped:
 
-<figure>
-
-![without deferred rendering](/img/blog/twitter-lite/defer-render-before.gif)
-
-<figcaption>Without deferring rendering, the navigation bar takes time to respond.</figcaption>
-
+<figure class="flex flex-col items-center">
+  <Image src={DeferRenderBeforeImage} alt="without deferred rendering" width={252} />
+  <figcaption>Without deferring rendering, the navigation bar takes time to respond.</figcaption>
 </figure>
 
 No, that wasn’t just the GIF running a slow frame rate. It actually was that slow. But, all of the data for the Home screen was already loaded, so why is it taking so long to show anything?
@@ -252,12 +283,9 @@ const DeferredTimeline = deferComponentRender(HomeTimeline);
 render(<DeferredTimeline />);
 ```
 
-<figure>
-
-![with deferred rendering](/img/blog/twitter-lite/defer-render-after.gif)
-
-<figcaption>After deferring rendering, the navigation bar responds instantly.</figcaption>
-
+<figure class="flex flex-col items-center">
+  <Image src={DeferRenderAfterImage} alt="with deferred rendering" width={252} />
+  <figcaption>After deferring rendering, the navigation bar responds instantly.</figcaption>
 </figure>
 
 ## Optimizing Redux
@@ -270,11 +298,15 @@ While this is not very taxing on a 3GHz desktop computer, a small mobile device 
 
 In order to persist the value of composing Tweets, as well as calculating the number of characters remaining, we were using a controlled component and _also_ passing the current value of the input to our Redux state at each keypress.
 
-![store state timeline](/img/blog/twitter-lite/store-state-before.png)
+<div class="bustout-sm">
+  <Image src={StoreBeforeImage} alt="store state timeline" width={1280} />
+</div>
 
 Above, on a typical Android 5 device, every keypress leading to a change could cause nearly 200ms of overhead. Compound this by a fast typist, and we ended up in a really bad state, with users often reporting that their character insertion point was moving all over the place, resulting in jumbled sentences.
 
-![store state timeline](/img/blog/twitter-lite/store-state-after.png)
+<div class="bustout-sm">
+  <Image src={StoreAfterImage} alt="store state timeline" width={1280} />
+</div>
 
 By removing the draft Tweet state from updating the main Redux state on every keypress and keeping things local in the React component’s state, we were able to reduce the overhead by over 50% (above).
 
@@ -288,8 +320,8 @@ While we use a custom middleware, there are [other](https://www.npmjs.com/packag
 
 The best way to illustrate the benefits of batching actions is by using the [Chrome React Perf Extension](https://github.com/crysislinux/chrome-react-perf). After the initial load, we pre-cache and calculate unread DMs in the background. When that happens we add a lot of various entities (conversations, users, message entries, etc). Without _batching_ (first image below), you can see that we end up with double the number of times we render each component (~16) versus with batching (~8) (second image below).
 
-![without batching performance trace](/img/blog/twitter-lite/batching-before.png)
-![with batching performance trace](/img/blog/twitter-lite/batching-after.png)
+<Image src={BatchBeforeImage} alt="without batching performance trace" width={1280} />
+<Image src={BatchBeforeImage} alt="with batching performance trace" width={1280} />
 
 ## Service Workers
 
@@ -305,11 +337,11 @@ In ServiceWorker-enabled browsers, we get the benefit of being able to have the 
 
 So what does this mean for the user? Near instant subsequent application loads, even after we’ve deployed a new version!
 
-![without pre-caching assets](/img/blog/twitter-lite/precache-before.png)
+<Image src={PrecacheBeforeImage} alt="without pre-caching assets" width={1280} />
 
 As illustrated (above) without ServiceWorker pre-caching, every asset for the current view is forced to load from the network when returning to the application. It takes about 6 seconds on a good 3G network to finish loading. However, when the assets are pre-cached by the ServiceWorker (below), the same 3G network takes less than 1.5 seconds before the page is finished loading. A 75% improvement!
 
-![with pre-caching assets](/img/blog/twitter-lite/precache-after.png)
+<Image src={PrecacheAfterImage} alt="with pre-caching assets" width={1280} />
 
 ### Delay ServiceWorker Registration
 
@@ -325,11 +357,11 @@ Normally, this isn’t a problem. However, if the browser hasn’t installed the
 
 When we were using the simple approach of registering our ServiceWorker immediately, we could see the network contention happening within the browser, maxing out our parallel request limit (below).
 
-![immediately registering the service worker](/img/blog/twitter-lite/sw-register-before.png)
+<Image src={SWBeforeImage} alt="immediately registering the service worker" width={1280} />
 
 Notice how when registering your service worker immediately, it can block all other network requests (above). Deferring the service worker (below) allows your initial page load to make required network requests without getting blocked by the concurrent connection limit of the browser.
 
-![delaying registering the service worker](/img/blog/twitter-lite/sw-register-after.png)
+<Image src={SWAfterImage} alt="delaying registering the service worker" width={1280} />
 
 By delaying the ServiceWorker registration until we’ve finished loading extra API requests, CSS and image assets, we allow the page to finish rendering and be responsive, as illustrated in the after screenshot (above).
 

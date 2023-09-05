@@ -11,6 +11,12 @@
 			"sizes": "512x512",
 			"src": "/img/android-chrome-512x512.png",
 			"type": "image/png"
+		},
+		{
+			"sizes": "720x720",
+			"src": "/img/square.jpg",
+			"type": "image/jpeg",
+			"purpose": "any maskable"
 		}
 	],
 	"start_url": "/blog",

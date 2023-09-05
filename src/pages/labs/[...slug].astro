@@ -1,18 +1,20 @@
 ---
+import { getCollection } from 'astro:content';
 import Labs from '../../layouts/Labs.astro';
 
 export async function getStaticPaths() {
-	const pages = (await Astro.glob('../../../labs/**/*.mdx')).map((page) => {
-		const slug = `${page.file.split('/labs/')[1]}`.replace(/(?:\/index)\.mdx$/, '');
-		return { params: { slug }, props: { page } };
-	});
-	return pages;
+	const pages = await getCollection('labs');
+	return pages.map((page) => ({
+		params: { slug: page.slug },
+		props: { page },
+	}));
 }
 
 const {
-	frontmatter: { title, description, heroImage, noWrapper },
-	Content,
+	data: { title, description, heroImage, noWrapper },
+	render,
 } = Astro.props.page;
+const { Content } = await render();
 ---
 
 {

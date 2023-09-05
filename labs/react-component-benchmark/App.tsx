@@ -1,11 +1,11 @@
-/** @jsx react-jsx */
 /** @jsxImportSource react */
 import * as React from 'react';
 import clsx from 'clsx';
 import { Benchmark } from 'react-component-benchmark';
 import type { BenchmarkRef, BenchResultsType, BenchmarkType } from 'react-component-benchmark';
 import Results from './Result';
-import { TestCases, TestCase } from './test-cases';
+import { TestCases } from './test-cases';
+import type { TestCase } from './test-cases';
 import type { ResultEntry } from './Result';
 
 export default function BenchmarkHome() {

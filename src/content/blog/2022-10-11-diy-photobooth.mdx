@@ -2,16 +2,20 @@
 title: DIY photobooth
 description: I created my own photobooth application with Electron, Node.js, React, and Tailwindcss and used a GoPro as a webcam for my wedding instead of renting a commercial booth. It was fun to build and even more fun to use.
 pubDate: 2022-10-11
-heroImage:
-  src: /img/blog/photobooth/main-screen.jpg
-  width: 1277
-  height: 799
+heroImage: '../../images/blog/photobooth/main-screen.jpg'
 toc: true
 ---
 
+import { Image } from 'astro:assets';
 import Aside from '../../components/Aside.astro';
-import Picture from '../../components/Picture.astro';
 import YouTube from '../../components/YouTube.astro';
+import ShackImage from '../../images/blog/photobooth/shack.jpg';
+import Sample00Image from '../../images/blog/photobooth/samples/2022-10-07-224047.jpg';
+import Sample01Image from '../../images/blog/photobooth/samples/2022-10-08-234507.jpg';
+import Sample02Image from '../../images/blog/photobooth/samples/2022-10-07-235215.jpg';
+import Sample03Image from '../../images/blog/photobooth/samples/2022-10-08-233133.jpg';
+import Sample04Image from '../../images/blog/photobooth/samples/2022-10-07-234849.jpg';
+import Sample05Image from '../../images/blog/photobooth/samples/2022-10-09-023009.jpg';
 
 I recently [got married]() – and as we know, weddings are _expensive_. Previously, I documented saving money by [creating my own website](/blog/2022/06/04/custom-wedding-website) and foregoing spending money on paper RSVPs. We also decided to skip paying a photographer the exorbitant extra fees to also photograph our reception, but we still wanted to have lots of memories from the event.
 
@@ -35,14 +39,11 @@ From a physical standpoint, the photo "booth" was renamed to the "Memory Shack".
 
 All of the wood used was donated from a friend and it was all pretty warped. We did the best we could with making it look nice – and it did turn out nice, if you don’t mind that it looks like an old shack in the woods. So, we renamed it to the “Memory Shack”.
 
-<Picture
-  src="/img/blog/photobooth/shack.jpg"
-  widths={[640, 1200]}
+<Image
+  src={ShackImage}
   width={1200}
-  height={900}
   itemprop="image"
   loading="lazy"
-  fit="cover"
   alt="Photo “Booth” build – aka the “Memory Shack” because of how janky it looked"
 />
 
@@ -53,62 +54,50 @@ Unfortunately, through the chaos of it all, I forgot to get a photo of the actua
 It may have looked janky and silly, but this thing was a _hit_! We had props, hats, glasses, and whatever silly things we could find from costumes between ourselves and friends. And the photos turned out absolutely hilarious and fun.
 
 <div class="not-prose mb-12 grid w-full grid-cols-2 gap-4 md:grid-cols-3">
-  <Picture
+  <Image
     class="!mt-0 w-full max-w-none -rotate-6 shadow-md dark:shadow-lg"
-    src="/img/blog/photobooth/samples/2022-10-07-224047.jpg"
-    widths={[240, 640]}
-    width={640}
-    height={394}
+    src={Sample00Image}
+    width={320}
     itemprop="image"
     loading="lazy"
     alt="Sample photo from the “Memory Shack” DIY photobooth"
   />
-  <Picture
+  <Image
     class="!mt-0 w-full max-w-none rotate-12 shadow-md dark:shadow-lg"
-    src="/img/blog/photobooth/samples/2022-10-08-234507.jpg"
-    widths={[240, 640]}
-    width={640}
-    height={394}
+    src={Sample01Image}
+    width={320}
     itemprop="image"
     loading="lazy"
     alt="Sample photo from the “Memory Shack” DIY photobooth"
   />
-  <Picture
+  <Image
     class="!mt-0 w-full max-w-none -rotate-6 shadow-md dark:shadow-lg"
-    src="/img/blog/photobooth/samples/2022-10-07-235215.jpg"
-    widths={[240, 640]}
-    width={640}
-    height={394}
+    src={Sample02Image}
+    width={320}
     itemprop="image"
     loading="lazy"
     alt="Sample photo from the “Memory Shack” DIY photobooth"
   />
-  <Picture
+  <Image
     class="!mt-0 w-full max-w-none rotate-6 shadow-md dark:shadow-lg"
-    src="/img/blog/photobooth/samples/2022-10-08-233133.jpg"
-    widths={[240, 640]}
-    width={640}
-    height={394}
+    src={Sample03Image}
+    width={320}
     itemprop="image"
     loading="lazy"
     alt="Sample photo from the “Memory Shack” DIY photobooth"
   />
-  <Picture
+  <Image
     class="!mt-0 w-full max-w-none -rotate-6 shadow-md dark:shadow-lg"
-    src="/img/blog/photobooth/samples/2022-10-07-234849.jpg"
-    widths={[240, 640]}
-    width={640}
-    height={394}
+    src={Sample04Image}
+    width={320}
     itemprop="image"
     loading="lazy"
     alt="Sample photo from the “Memory Shack” DIY photobooth"
   />
-  <Picture
+  <Image
     class="!mt-0 w-full max-w-none rotate-6 shadow-md dark:shadow-lg"
-    src="/img/blog/photobooth/samples/2022-10-09-023009.jpg"
-    widths={[240, 640]}
-    width={640}
-    height={394}
+    src={Sample05Image}
+    width={320}
     itemprop="image"
     loading="lazy"
     alt="Sample photo from the “Memory Shack” DIY photobooth"

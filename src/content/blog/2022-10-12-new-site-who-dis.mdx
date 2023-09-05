@@ -3,14 +3,12 @@ pubDate: 2022-10-12
 title: New site, who dis?
 description: I needed an escape while stressing about my (previously) upcoming wedding. Having some personal annoyances with how difficult it would be to personalize Docusaurus, I sat down and hacked at Astro for a day and a half. I came up with a fully working static website & blog in no time.
 toc: true
-heroImage:
-  src: /img/blog/2022-new-site/browser.png
-  width: 1200
-  height: 600
+heroImage: '../../images/blog/2022-new-site/browser.png'
 ---
 
-import Picture from '../../components/Picture.astro';
+import { Image } from 'astro:assets';
 import Aside from '../../components/Aside.astro';
+import LighthouseImage from '../../images/blog/lighthouse.png';
 
 I needed an escape while stressing about my (previously) upcoming wedding. Having some personal annoyances with how difficult it would be to personalize <a href="https://docusaurus.io" rel="noopener" target="_blank">Docusaurus</a>, I sat down and hacked at <a href="https://astro.build" rel="noopener" target="_blank">Astro</a> for a day and a half. I came up with a fully working static website & blog in no time.
 
@@ -80,15 +78,12 @@ I was originally hosting my site on Github pages, until I realized that the long
 
 I really can't complain after measuring using various tools and having the home page come out super fast, performant, accessible, and search optimized.
 
-<Picture
-  src="/img/blog/lighthouse.png"
-  width={1272}
-  height={832}
-  widths={[1200, 640, 480]}
+<Image
+  src={LighthouseImage}
+  width={1200}
   itemprop="image"
   loading="lazy"
-
-alt="Lighthouse score for paularmstrong.dev showing a perfect score of 100 for all metrics"
+  alt="Lighthouse score for paularmstrong.dev showing a perfect score of 100 for all metrics"
 />
 
 ## View source

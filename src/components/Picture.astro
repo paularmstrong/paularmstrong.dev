@@ -1,5 +1,5 @@
 ---
-import { Picture as AstroPicture } from '@astrojs/image/components';
+import { Image } from 'astro:assets';
 
 export interface Props {
 	class?: string;
@@ -18,4 +18,4 @@ const { width, height, src, ...props } = Astro.props as Props;
 const name = src.replace(/[^\w-]+/g, '-');
 ---
 
-<AstroPicture {...props} width={width} height={height} aspectRatio={width / height} src={src} transition:name={name} />
+<Image {...props} width={width} height={height} src={src} transition:name={name} />
