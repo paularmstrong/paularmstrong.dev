@@ -1,0 +1,66 @@
+---
+title: We use type safety not on preference, but because we want to make money
+description: |
+  A short recounting of the thing that changed my mind forever on strict type checking for JavaScript.
+pubDate: 2023-09-14
+---
+
+Before TypeScript was a viable option for most existing projects, there was [flow](https://flow.org/) (there still is _flow_, it’s just not widely used outside of Meta these days). And before flow, there was just plain JavaScript. We wrote our React applications in JavaScript because that was all we had.
+
+The company I worked for displayed timelines of user-generated content using our React application. Each entry on that timeline we referred to as a “Tweet”. And in this timeline of Tweets, we had _promoted content_, or as many people would call them, "advertisements". Selling advertisements was how the company made money.
+
+In order to appropriately bill the advertiser, we needed to have a reliable count of how many times their advertisement was displayed for each and every user. It also helped us know that the advertisement was displayed the correct number of times per the sale contract with the advertiser.
+
+Each one of these promoted Tweets needed to have an attribution property, something like `promotedContentId`. This property was then used when logging visible Tweets that it was in fact displayed. It was a relational ID that told the backend systems exactly which Tweet from which advertiser was being displayed.
+
+```js title="src/app/views/Timeline.jsx" caption="Example loop rendering Tweets as “entries” into a timeline." showLineNumbers
+{
+  entries.map((entry) => {
+    return (
+      <TimelineEntry
+        entry={entry}
+        id={entry.id}
+        promotedContemtId={entry.promoted ? entry.promoted.id : undefined}
+        userId={entry.user.id}
+      />
+    );
+  });
+}
+```
+
+We made a typo. Instead of `promotedContentId="value"` being passed to the React component, we use `promotedContemtId="value"`. Did you catch it? Maybe because you were looking for it. But for the code author and reviewers looking at a change with a couple hundred lines of code differing, it would be really easy to miss in a sea of red and green.
+
+This typo caused a few things:
+
+1. The same advertisements were being displayed over and over again to the same viewers. Since they were never attributed as being seen, it was assumed that the advertisement still hadn’t reached the viewer that it was intended to.
+2. We were unable to bill the advertiser for the views on their advertisement. According to our database, the advertisement was never displayed, so there was no count of views, so we had not yet fulfilled our end of the contract.
+
+We were using the [`prop-types`](https://www.npmjs.com/package/prop-types) package, like everyone else at the time. From the prop-types readme (<em className="text-red-700 dark:text-red-500">emphasis mine</em>):
+
+> You can use prop-types to document the intended types of properties passed to components. React will check props passed to your components against those definitions, and <em className="text-red-700 dark:text-red-500">warn in development</em> if they don’t match.
+
+Warnings are pointless. They are nothing but noise and invisible unless you’re explicitly looking for _potential_ issues and remember to do anything about it. They do not block and cannot be statically analyzed in CI systems.
+
+Because there was no real error, just a _warning_, this issue went into production and was there for at least a few days before it was noticed. It potentially cost the company _hundreds of thousands of dollars_ in revenue – probably more.
+
+We had a post-mortem on the issue and came out of it with the following action items:
+
+- **Add an integration test.**
+
+  At the very least, adding an integration test will prevent _this same issue_ from happening in _this same manner_.
+
+- **Add strict type safety.**
+
+  The integration test will help, but only for this exact path on this exact issue; it won’t prevent _similar issues_ from happening in other places in the future. The only thing that _can_ prevent similar issues was to make all of our attributes and argument keys absolutely strict & fail during prevent pull-requests from merging when failing the type checking via automated CI processes.
+
+I could see common counter arguments here that there should just be more end-to-end and integration testing. But how strong and reliable are your test environments to ensure that this all works correctly? How much effort, time, and money does it take to maintain full testing solutions? Sure, you could have some and keep them lightweight, but now you’re picking and choosing what’s important to test and what’s not. Strict type safety is the cheapest solution that can apply to everything, everywhere. It’s a contract that cannot be broken.
+
+So we converted our codebase from plain JavaScript over the next year or so to have full strict type safety. We never had the same type of issue again, because our pull requests were always strictly enforced, requiring conformance with strict type safety.
+
+In the end, type safety likely saved us from losing more money. How many countless other issues did type safety solve? It’s impossible to tell, because it prevented us from ever encountering them.
+
+---
+
+One final note: I only ever mention _strict_ type safety. That is TypeScript’s [strict mode](https://www.typescriptlang.org/tsconfig#strict) and more: `any`, `Function`, `object`, and other ambiguous types are also explicitly disallowed, as they are a rejection of purpose of type checking.
+
+The `any` type was a mistake and never should have been included in TypeScript in the first place. It is disappointing to see the number of published libraries that embrace `any` types, making it difficult to verify with certainty that code is correct.

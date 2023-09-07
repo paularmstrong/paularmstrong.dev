@@ -403,6 +403,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2023-09-14-we-use-type-safety-not-on-preference-but-because-we-want-to-make-money.mdx": {
+	id: "2023-09-14-we-use-type-safety-not-on-preference-but-because-we-want-to-make-money.mdx";
+  slug: "2023-09-14-we-use-type-safety-not-on-preference-but-because-we-want-to-make-money";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 };
 "labs": {
 "move-fast-with-confidence.mdx": {
