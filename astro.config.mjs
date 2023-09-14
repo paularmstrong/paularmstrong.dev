@@ -56,9 +56,10 @@ export default defineConfig({
 	integrations: [
 		solid({
 			include: ['src/**'],
+			exclude: ['**/*react*/**'],
 		}),
 		react({
-			include: ['**/react-component-benchmark/**'],
+			include: ['**/*react*/**'],
 		}),
 		tailwind(),
 		mdx({
