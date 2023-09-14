@@ -22,7 +22,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 			<ul class="flex flex-row flex-wrap justify-between gap-4 text-blue-900 dark:text-blue-100">
 				{pubDate && (
 					<li>
-						<b>Published:</b>{' '}
+						<b class="me-2 inline-block">Published:</b>
 						<time itemprop="datePublished" datetime={pubDate.toISOString().split('T')[0]}>
 							{dateFormatter(pubDate)}
 						</time>
@@ -30,7 +30,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 				)}
 				{updatedDate && (
 					<li>
-						<b>Last updated:</b>{' '}
+						<b class="me-2 inline-block">Last updated:</b>
 						<time itemprop="dateUpdated" datetime={updatedDate.toISOString().split('T')[0]}>
 							{dateFormatter(updatedDate)}
 						</time>
@@ -38,7 +38,8 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 				)}
 				{readingTime && (
 					<li>
-						<b>Reading time:</b> {Math.round(readingTime.minutes)} minutes, {readingTime.words} words
+						<b class="me-2 inline-block">Reading time:</b> {Math.round(readingTime.minutes)} minutes,{' '}
+						{readingTime.words} words
 					</li>
 				)}
 				{file && (
