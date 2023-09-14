@@ -22,12 +22,18 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 			<ul class="flex flex-row flex-wrap justify-between gap-4 text-blue-900 dark:text-blue-100">
 				{pubDate && (
 					<li>
-						<b>Published:</b> <time itemprop="datePublished">{dateFormatter(pubDate)}</time>
+						<b>Published:</b>{' '}
+						<time itemprop="datePublished" datetime={pubDate.toISOString().split('T')[0]}>
+							{dateFormatter(pubDate)}
+						</time>
 					</li>
 				)}
 				{updatedDate && (
 					<li>
-						<b>Last updated:</b> <time itemprop="dateUpdated">{dateFormatter(updatedDate)}</time>
+						<b>Last updated:</b>{' '}
+						<time itemprop="dateUpdated" datetime={updatedDate.toISOString().split('T')[0]}>
+							{dateFormatter(updatedDate)}
+						</time>
 					</li>
 				)}
 				{readingTime && (

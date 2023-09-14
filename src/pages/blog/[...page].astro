@@ -73,7 +73,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 						>
 							<time
 								class="text-right leading-8 text-slate-600 dark:text-slate-300"
-								datetime={date}
+								datetime={pubDate.toISOString().split('T')[0]}
 								itemprop="datePublished"
 							>
 								{date}

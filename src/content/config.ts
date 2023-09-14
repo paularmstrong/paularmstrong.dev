@@ -8,7 +8,7 @@ export const collections = {
 				draft: z.boolean().optional(),
 				noHero: z.boolean().optional(),
 				heroImage: image().optional(),
-				herAlt: z.string().optional(),
+				heroAlt: z.string().optional(),
 				pubDate: z.coerce.date(),
 				updatedDate: z.coerce.date().optional(),
 				title: z.string(),

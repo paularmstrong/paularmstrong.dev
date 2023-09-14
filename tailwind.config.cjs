@@ -44,6 +44,9 @@ module.exports = {
 				},
 				'[data-rehype-pretty-code-title]': {
 					width: 'max-content',
+					borderWidth: theme('spacing.px'),
+					borderBottomWidth: '0',
+					borderColor: theme('colors.slate.300'),
 					borderTopLeftRadius: theme('borderRadius.md'),
 					borderTopRightRadius: theme('borderRadius.md'),
 					padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
@@ -52,7 +55,8 @@ module.exports = {
 					backgroundColor: theme('colors.slate.200'),
 					fontSize: theme('fontSize.sm'),
 					'.dark &': {
-						backgroundColor: theme('colors.slate.800'),
+						borderColor: theme('colors.slate.800'),
+						backgroundColor: theme('colors.slate.900'),
 						color: theme('colors.slate.100'),
 					},
 					'+ pre': {
