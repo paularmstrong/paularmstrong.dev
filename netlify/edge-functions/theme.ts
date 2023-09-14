@@ -39,6 +39,14 @@ export default async (req: Request, context: Context) => {
 	const nonceWriter = new NonceHandler(nonce);
 
 	const rewriter = new HTMLRewriter().on('html', new HtmlHandler(theme, isAuto)).on('script', nonceWriter);
+	res.headers.set(
+		'report-to',
+		JSON.stringify({
+			group: 'default',
+			max_age: 86400,
+			endpoints: Object.values(reportingEndpoints).map((url) => ({ url })),
+		}),
+	);
 	res.headers.set('content-security-policy', getCsp(nonce));
 
 	return rewriter.transform(res);
@@ -84,12 +92,22 @@ function getCsp(nonce: string) {
 		'style-src-elem': ["'self'", "'unsafe-inline'"],
 		'script-src': ["'strict-dynamic'", "'unsafe-inline'", `'nonce-${nonce}'`],
 		'img-src': ["'self'", 'https://paularmstrong.goatcounter.com/count', 'https://img.youtube.com'],
-		'connect-src': ["'self'", 'https://paularmstrong.goatcounter.com', 'https://www.youtube-nocookie.com/oembed'],
+		'connect-src': [
+			"'self'",
+			'https://paularmstrong.goatcounter.com',
+			'https://www.youtube-nocookie.com/oembed',
+			'https://o124376.ingest.sentry.io',
+		],
 		'frame-src': ["'self'", 'https://www.youtube-nocookie.com https://docs.google.com'],
 		'object-src': ["'none'"],
+		'report-to': ['default'],
 	};
 
 	return Object.entries(csp).reduce((memo, [key, val]) => {
 		return `${memo}${key} ${val.filter(Boolean).join(' ')}; `;
 	}, '');
 }
+
+const reportingEndpoints = {
+	sentry: 'https://o124376.ingest.sentry.io/api/4504195497000960/security/?sentry_key=9b133389b9a540e49f6c3f76ca7226bf',
+};
