@@ -22,6 +22,7 @@ export const collections = {
 				heroImage: image(),
 				herAlt: z.string().optional(),
 				title: z.string(),
+				pubDate: z.coerce.date(),
 			}),
 	}),
 };

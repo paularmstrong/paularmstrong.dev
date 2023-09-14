@@ -419,6 +419,13 @@ declare module 'astro:content' {
   collection: "labs";
   data: InferEntrySchema<"labs">
 } & { render(): Render[".mdx"] };
+"remove-import-aliasing.mdx": {
+	id: "remove-import-aliasing.mdx";
+  slug: "remove-import-aliasing";
+  body: string;
+  collection: "labs";
+  data: InferEntrySchema<"labs">
+} & { render(): Render[".mdx"] };
 };
 
 	};

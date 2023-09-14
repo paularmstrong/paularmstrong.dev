@@ -1,0 +1,84 @@
+---
+title: Remove import path aliasing
+description: An easy tool to help revert import path aliasing
+heroImage: '../../images/labs/remove-aliasing.png'
+pubDate: 2023-09-13
+---
+
+import Button from '../../components/Button.astro';
+import Container from '../../components/Content.astro';
+import Icon from 'astro-icon';
+import Prose from '../../components/Prose.astro';
+import SiteWrapper from '../../components/SiteWrapper.astro';
+
+<SiteWrapper><Container><Prose>
+
+# remove-aliasing
+
+Path aliasing, sometimes referred to as import or module resolution, in the earliest and most naïve sense, is a method of overloading the [Node Require Resolution Algorithm](https://nodejs.org/docs/latest-v18.x/api/modules.html#all-together) so that it first looks in some particular defined folders for modules of a given name before looking for installed modules of the same name in `node_modules` folders. While this seems handy at first glance, in practice, it’s is an unnecessary maintenance overhead in large distributed teams and a sign of poor code organization and architecture. This topic is covered in depth in the article “[Import path aliasing is a crutch for poor architecture](/blog/2023/08/29/import-path-aliasing-is-a-crutch-for-poor-architecture/)”.
+
+This project enables you to quickly and automatically remove import path aliasing from your codebase.
+
+<div class="not-prose">
+  <ul class="flex flex-row gap-4">
+    <li>
+      <Button href="https://npmjs.com/package/remove-aliasing" title="Get “remove-aliasing” on NPM">
+        <Icon class="inline h-6 w-6 fill-current" name="npm" />
+        Install from npm
+      </Button>
+    </li>
+    <li>
+      <Button
+        href="https://github.com/paularmstrong/remove-aliasing"
+        class="gap-x-2"
+        title="Fork “paularmstrong/remove-aliasing” on Github"
+      >
+        <Icon class="inline h-6 w-6 fill-current" name="github" />
+        Fork on Github
+      </Button>
+    </li>
+  </ul>
+</div>
+
+## Usage
+
+```sh
+npx remove-aliasing [options] <directory>
+```
+
+## Example
+
+```sh
+npx remove-aliasing@latest --root="src/" --prefix="@/" src/
+```
+
+### Input
+
+```tsx
+import { Foo } from '@/components/Foo';
+import * as Bar from '@/api/shared/services/bar';
+```
+
+### Output
+
+```tsx
+import { Foo } from '../../components/Foo';
+import * as Bar from '../../api/shared/services/bar';
+```
+
+## Options
+
+<div class="lg:bustout">
+
+| Option        | Alias | Type      | Description                                                    | Required |
+| ------------- | ----- | --------- | -------------------------------------------------------------- | -------- |
+| `--root`      | `-r`  | `string`  | Directory that serves as the root of aliased files             | ✅       |
+| `--prefix`    | `-p`  | `string`  | Import path prefix, if any                                     |          |
+| `--parser`    |       | `string`  | Parser to use when reading files. Default `tsx`                |          |
+| `--dry-run`   |       | `boolean` | Do not actually write, just see what will happen               |          |
+| `--verbosity` | `-v`  | `number`  | Show more information about the transform process. Default `0` |          |
+| `--version`   |       |           | Show the program version                                       |          |
+
+</div>
+
+</Prose></Container></SiteWrapper>
