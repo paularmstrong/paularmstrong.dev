@@ -64,7 +64,7 @@ async function share(props: Props) {
 				url: props.url,
 			});
 		} catch (e) {
-			if (!(e instanceof DOMException && e.name !== 'AbortError')) {
+			if (!(e instanceof DOMException && e.name === 'AbortError')) {
 				throw e;
 			}
 		}
