@@ -2,7 +2,7 @@
 
 ## Articles
 
-All files matching globs `blog/**/*`, `src/pages/**/*.{md,mdx}`, and `public/img/**/*` directories are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The attribution requirement is only met when:
+All files matching globs `src/content/**/*`, `src/**/*.{md,mdx}`, `src/images/**/*`, and `public/img/**/*` directories are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The attribution requirement is only met when:
 
 1. The canonical link is directed towards the original article, e.g. `<link rel="canonical" href="https://paularmstrong.dev/blog/<year>/<month>/<day>/<slug>" />`
 2. The following message is displayed above and below the article: `This article has been originally published on <a href="https://paularmstrong.dev/">Paul Armstrong’s website</a>.`
