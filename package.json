@@ -29,9 +29,9 @@
 		"tailwindcss": "^3.3.3"
 	},
 	"devDependencies": {
-		"@onerepo/plugin-eslint": "0.5.2",
-		"@onerepo/plugin-prettier": "0.4.1",
-		"@onerepo/plugin-typescript": "0.2.4",
+		"@onerepo/plugin-eslint": "0.6.0",
+		"@onerepo/plugin-prettier": "0.5.0",
+		"@onerepo/plugin-typescript": "0.3.0",
 		"@types/debounce": "^1.2.1",
 		"@types/mdast": "^4.0.0",
 		"@typescript-eslint/eslint-plugin": "^6.6.0",
@@ -43,7 +43,7 @@
 		"eslint-plugin-tailwindcss": "^3.13.0",
 		"husky": "^8.0.3",
 		"netlify-cli": "^16.2.0",
-		"onerepo": "0.12.0",
+		"onerepo": "0.13.0",
 		"prettier": "^3.0.3",
 		"prettier-plugin-astro": "^0.12.0",
 		"typescript": "^5.2.2"
