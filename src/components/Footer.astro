@@ -18,7 +18,7 @@ const today = new Date();
 			<div class="flex grow flex-row justify-end">
 				<Button href="#top">
 					<Icon name="back-to-top" class="h-6 w-6 fill-current" />
-					Back to top
+					{' '}Back to top
 				</Button>
 			</div>
 
@@ -32,7 +32,7 @@ const today = new Date();
 							title="@paularmstrong on Mastodon, @paularmstrong@mstdn.io"
 						>
 							<Icon name="mastodon" class="h-6 w-6 fill-current" />
-							Mastodon
+							{' '}Mastodon
 						</Button>
 					</li>
 					<li>
@@ -43,24 +43,24 @@ const today = new Date();
 							title="@paularmstrong on Github"
 						>
 							<Icon name="github" class="h-6 w-6 fill-current" />
-							Github
+							{' '}Github
 						</Button>
 					</li>
 					<li>
 						<Button href="/feed.xml" title="RSS feed for paularmstrong.dev">
 							<Icon name="rss" class="h-6 w-6 fill-current" />
-							RSS Feed
+							{' '}RSS Feed
 						</Button>
 					</li>
 					<li>
 						<Button href="/feed.json" title="JSON feed for paularmstrong.dev">
 							<Icon name="json" class="h-6 w-6 fill-current" />
-							JSON Feed
+							{' '}JSON Feed
 						</Button>
 					</li>
 				</ul>
 			</nav>
 		</div>
-		<BackToTop client:idle />
+		<BackToTop client:only="solid-js" />
 	</div>
 </footer>
