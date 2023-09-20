@@ -1,9 +1,10 @@
 ---
-import type { Page, GetStaticPathsOptions, MarkdownRenderingResult } from 'astro';
+import type { Page, GetStaticPathsOptions } from 'astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { renderMarkdown } from '@astrojs/markdown-remark';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import type { MarkdownProcessorRenderResult } from '@astrojs/markdown-remark';
 import Link from '../../components/Link.astro';
 import AuthorMeta from '../../components/AuthorMeta.astro';
 import Base from '../../layouts/Base.astro';
@@ -26,13 +27,15 @@ type Props = {
 	page: Page<CollectionEntry<'blog'>>;
 };
 
+const { render: renderMarkdown } = await createMarkdownProcessor({});
+
 const { page } = Astro.props;
-const descriptions: Record<string, MarkdownRenderingResult> = {};
+const descriptions: Record<string, MarkdownProcessorRenderResult> = {};
 for (const post of page.data) {
 	if (typeof post === 'string') {
 		continue;
 	}
-	descriptions[post.data.title] = await renderMarkdown(post.data.description || '', {});
+	descriptions[post.data.title] = await renderMarkdown(post.data.description || '');
 }
 const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeZone: 'UTC' }).format;
 ---

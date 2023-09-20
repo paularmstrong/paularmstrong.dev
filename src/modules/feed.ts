@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { renderMarkdown } from '@astrojs/markdown-remark';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { Feed } from 'feed';
 import type { Item } from 'feed';
 import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../config';
@@ -34,6 +34,8 @@ const rawPosts = (
 	})
 ).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
+const { render: renderMarkdown } = await createMarkdownProcessor({});
+
 for (const post of rawPosts) {
 	const match = post.slug.match(/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
 	if (!match || !post.slug || post.data.draft) {
@@ -42,10 +44,7 @@ for (const post of rawPosts) {
 	const slug = Object.values(match.groups!).join('/');
 
 	const url = `${SITE_URL}/blog/${slug}/`;
-	const { code: description } = await renderMarkdown(
-		`${post.data.description || ''}\n\n[Continue reading…](${url})`,
-		{},
-	);
+	const { code: description } = await renderMarkdown(`${post.data.description || ''}\n\n[Continue reading…](${url})`);
 
 	const item: Item = {
 		title: post.data.title,
