@@ -29,6 +29,7 @@
 		"tailwindcss": "^3.3.3"
 	},
 	"devDependencies": {
+		"@astrojs/check": "^0.2.0",
 		"@onerepo/plugin-eslint": "0.6.0",
 		"@onerepo/plugin-prettier": "0.5.0",
 		"@onerepo/plugin-typescript": "0.3.0",
