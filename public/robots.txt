@@ -1,10 +1,13 @@
-User-agent: undici
-Disallow: /
-
-User-agent: GPTBot
-Disallow: /
-
 User-agent: *
 Disallow:
+
+#
+# Disallow decidedly bad actors…
+#
+User-agent: undici
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: CCBot
+Disallow: /
 
 Sitemap: https://paularmstrong.dev/sitemap-index.xml
