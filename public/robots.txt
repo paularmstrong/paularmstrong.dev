@@ -8,6 +8,9 @@ User-agent: undici
 User-agent: GPTBot
 User-agent: ChatGPT-User
 User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Omgilibot
+User-Agent: FacebookBot
 Disallow: /
 
 Sitemap: https://paularmstrong.dev/sitemap-index.xml
