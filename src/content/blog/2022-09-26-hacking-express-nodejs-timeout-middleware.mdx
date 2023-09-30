@@ -2,17 +2,14 @@
 title: Hacking express middleware to automatically capture request timeouts
 description: When needing to run a highly available Express server with Node.js and a lot of middleware, it’s important to ensure that you don’t have any runaway processes blocking other requests. In this post, I share an easy wrapper for Express applications to always ensure every middleware is captured in a timeout loop.
 pubDate: 2022-09-26
-updatedDate: 2022-10-06
-tags:
-  - javascript
-  - node.js
+updatedDate: 2023-09-30
 ---
 
 With any server, you need to ensure that you don’t have run-away requests that end up getting stuck in an infinite process, held in memory for long periods of time. Typically, the requester will abandon the request if it is taking too long, perceptually, to respond.
 
 Express in a node.js server doesn’t handle this by itself. Instead you need to add something like the [connect-timeout middleware](https://expressjs.com/en/resources/middleware/timeout.html). However, the default example for this leaves you open to forgetting to add the timeout check within your middleware chain.
 
-```js
+```ts title="server/server.ts"
 import express from 'express';
 import timeout from 'connect-timeout';
 
@@ -35,7 +32,7 @@ Notice that you need to manually add the `haltOnTimedout` middleware after _each
 
 So, here’s a pattern that I’ve used a number of times for various purposes – [proxying](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) the Express application and wrapping the `use()` function for some automatic behavior. It’s as simple as wrapping the initial express application (or the application after any setup):
 
-```ts
+```ts title="server/server.ts"
 const app = proxyTimeoutMiddleware(express().use(timeout(5_000)))
   .use(bodyParser())
   .use(cookieParser())
@@ -47,7 +44,7 @@ const app = proxyTimeoutMiddleware(express().use(timeout(5_000)))
 
 We create a Proxy that wraps the `use()` function. This is fairly basic setup to pull out the middleware that is added to express and wrap it with another function:
 
-```ts
+```ts title="server/middleware/timeout.ts"
 function proxyTimeoutMiddleware<T extends Application | Router>(app: T) {
   return new Proxy(app, {
     get(this: T, target, property, receiver) {
@@ -76,7 +73,7 @@ Then, our wrapping function returns a new middleware function that checks first 
 
 Then as well, we wrap the `next()` function passed to our actual middleware and check if the request timedout _after_ running the middleware and again, if so, early return. Otherwise we call the `next()` function and continue on.
 
-```ts
+```ts title="server/middleware/timeout.ts"
 function wrapMiddlewareWithTimeout(middleware: (req: Request, res: Response, next: NextFunction) => void) {
   return function timeoutWrappedMiddleware(req: Request, res: Response, next: NextFunction) {
     const { name } = middleware;
@@ -103,7 +100,7 @@ That’s it! Once this is set up, no one will ever have to think about adding th
 
 This same pattern can be used for similar before/after actions on middleware. You may have noticed a couple commented out logging lines in the `timeoutWrappedMiddleware` example previously. We could also do something similar to record the amount of time each middleware is taking in order to help us track down problem code that could be optimized:
 
-```tsx
+```ts title="server/middleware/metrics.ts"
 const NANOSECONDS_PER_MILLISECOND = 1e6;
 const MILLISECONDS_PER_SECOND = 1e3;
 
