@@ -415,6 +415,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2023-09-19-software-development-periodization.mdx": {
+	id: "2023-09-19-software-development-periodization.mdx";
+  slug: "2023-09-19-software-development-periodization";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 };
 "labs": {
 "move-fast-with-confidence.mdx": {

@@ -1,0 +1,213 @@
+---
+title: Sustainable workloads in software development using periodization
+description: |
+  In athletics, “training periodization” is a method of structuring periods of progressively-loaded training stress, followed by rest periods. In short, this means an ebb and flow of the amount of work put in, typically in four week sets where the first three weeks increase the workload, followed by the fourth week of a greatly reduced load.
+
+  The same principles and periodization phases can be applied to learning – and in turn, any career in which learning is a core part of the requirements. Constant learning is a requirement of software development. Just like in athletic training, if we’re always pushing at or above our limits, we will never recuperate enough to retain the benefits of what we’re doing. And in turn, jumping over a few connections and tying our work to our business’ perspective, we’re going to start losing money.
+noHero: true
+heroImage: '../../images/blog/contribution.png'
+pubDate: 2023-09-19
+---
+
+import { ContributionGraph, getContributions } from '../../components/blog';
+import Aside from '../../components/Aside.astro';
+
+In athletics, “training periodization” is a method of structuring periods of progressively-loaded training stress, followed by rest periods. In short, this means an ebb and flow of the amount of work put in, typically in four week sets where the first three weeks increase the workload, followed by the fourth week of a greatly reduced load.
+
+This periodization has been tried and true for many years, showing that it aids greatly in long-term growth. The rest periods, in particular, allow the body to recover from the previous weeks’ efforts, repair muscle, and grow stronger for the next period.
+
+The same principles and periodization phases can be applied to learning – and in turn, any career in which learning is a core part of the requirements. Constant learning is a requirement of software development. Just like in athletic training, if we’re always pushing at or above our limits, we will never recuperate enough to retain the benefits of what we’re doing. And in turn, jumping over a few connections and tying our work to our business’ perspective, we’re going to start losing money.
+
+## Measuring output
+
+Continuing forward, we’ll use a GitHub-style contribution graph with hypothetical data. Consider “contributions” as any form of measurable output: pull requests, commits, issues, comments, and code reviews.
+
+<div class="lg:bustout">
+<Aside type="warning" title="Caution">
+
+Actually measuring output, and doing so in a fair way, is an entire topic and argument in itself. We will skip past those details and use hypotheticals for this post in order to understand a high level of what output might _feel_ like. Actually getting accurate measurements is difficult to impossible.
+
+If you’re still set on measuring output & performance and using them for insightful purposes, please read through the [addendum](#addendum-measuring-performance) at the end of this post.
+
+</Aside>
+</div>
+
+## Goal: Ideal periodization
+
+The following example graph may look like a splattering of randomness at first glance. And while it is, just like in real life, we should be able to glean some patterns out of the madness.
+
+<ContributionGraph contributions={getContributions({ type: 'ideal' })} />
+
+First off, this person has 4-weeks vacation[^vacation] where we absolutely should see zero contributions each day. If someone is picking up their computer and putting in work on their vacation, they’re due separate days to be completely detached.
+
+[^vacation]: It’s arguably criminal to only be allowed 20 days of vacation, but let’s leave that for another rant.
+
+But as we start to look closer, we can see the periodization of contributions ramping up and fall off through the course of each set of four weeks at a time.
+
+Please note, these graphs are absolutely made up and most on this page are simulating that of someone that has _high output_. Not everyone will have the same amount of output and you should never benchmark people or stack rank them. For illustration purposes, here’s a graph of someone with the same periodization effect that may provide the same amount of value, but with less measurable output:
+
+<ContributionGraph
+  caption="GitHub-style contribution graph of a contributor with lower measurable output."
+  contributions={getContributions({ type: 'ideal-low' })}
+/>
+
+It’s the same graph, but with lower numbers. You should never discount this person as lazy or as an under-performer, but rather take the time to understand how their contributions look and shape value at your organization.
+
+While this graph is valid, it’s less a little harder to see the ebb and flow within the squares in the top half. For that reason, it is not used in other areas of this post.
+
+## Problematic workloads and performers
+
+With our goal in mind, let’s take a look at a few examples of personas that show up regularly in software development:
+
+### “10Xers”
+
+<ContributionGraph
+  caption="GitHub-style contribution graph of someone who has high output every day for an entire year."
+  contributions={getContributions({ type: 'full' })}
+/>
+
+Wow! This person is super productive. You’re thinking that you’ve hit the jackpot and got a 10x-er on your hands. Maybe. Maybe not. People that can, and _do_ sustain high output levels like this and _enjoy_ working every day are a one in a million. In all likelihood, you will never find this person – and even if you do, your other employees may resent them. These people may have high output, but they often make terrible leaders and you’re not likely to keep them excited to work for an entire year, let alone more.
+
+### Underperformers
+
+Low and irregular data is not possible to find meaning in. We won’t use this type of data for the argument presented in this post, but it is important to call this out.
+
+<ContributionGraph
+  caption="GitHub-style contribution graph of someone who has very little output."
+  contributions={getContributions({ type: 'underperformer' })}
+/>
+
+<Aside title="Caution">
+  Assume this person is not a lead, a manager, or someone who is expected to be spending less time on measurable output
+  (eg, writes a lot of process, documentation, makes business decisions, is in constant meetings, etc.)
+</Aside>
+
+If you are encountering this type of dataset, don’t assume this person is an underperformer without understanding the whole story. Your first step is to find out what they’re working on. Then find out what things get in their way. Finally, directly ask what you can do to help them execute more. It’s more than possible that there are processes or tangible things that can be fixed to help them do more.
+
+Just like you (hopefully) ask of developers, use a “5-whys” approach to determine the root cause before jumping to conclusions.
+
+### Work/Life balance
+
+Naïvely, we may expect most of our output to look something like the following, where we get a lot done and output varies daily with at least _something_ to show every day, except weekends (because our company is so generous and wants everyone to have a work/life balance[^pat]).
+
+[^pat]: Let’s all pat ourselves on the back for being such great leaders who ensure our people take the weekends off! (/sarcasm: Don’t be mistake – this is an absolute bare minimum for a healthy work/life balance)
+
+<ContributionGraph
+  caption="GitHub-style contribution graph of someone who has high output every weekday for an entire year."
+  contributions={getContributions({ type: 'weekdays' })}
+/>
+
+The truth about this example is that this person is likely burnt out. Yes, they’re able to separate themselves on the weekends, but they have little time for growth and innovation. Sure, they’re output is high, but they’re more likely in endless cycles of creating technical debt and fixing minor bugs – bugs that should not be there in the first place if they had more time and space to think and plan ahead.
+
+I’ve worked with this person. They’re always stressed and annoyed. They’re unpleasant to speak with and likely to quit any day.
+
+## Achieving periodization
+
+In order to achieve idealized periodization, we could be employ similar phases of work, just like in athletic training. Each phase uniquely describes the majority of the type of work being done, as well as relates closely to the expected output.
+
+### Base
+
+Plan, familiarize, and build strong foundations to be comfortable working hard and executing later. Expect that individuals have spent the majority of their careers in this phase. Every time we work on a new skill, we spend time here learning. While we should understand that more time is spent here, we also need to understand that there’s much less tangible output to see.
+
+This is also the phase you should expect new hires and new team members to start in, no matter their title. It takes time to ramp up and learn stacks, people, norms, and generally get a feel for the day to day. Plan for new hires to spend two to three months in this phase. They should demonstrate growth over time and when it looks like they’re hitting a rhythm, that’s when you can consider their initial _base_ phase complete.
+
+<ContributionGraph
+  caption="GitHub-style contribution graph of a new hire in a three-month base phase."
+  contributions={getContributions({ type: 'base', visibleRange: [-1, 14] })}
+/>
+
+If you already have a high cadence and a generally not in need of learning new skills, rebuilding products, or planning major undertakings, this phase is often skipped or ends up being much shorter than when you’re coming in fresh without context.
+
+### TODO:
+
+How to explain that "sprints" are a double-edged sword and miss the point of build-cycling?
+
+### Build
+
+This phase will produce the majority of individual output. It’s where we build product features, foundations, and frameworks.
+
+<ContributionGraph
+  caption="GitHub-style contribution graph of after a three-month base phase."
+  contributions={getContributions({ type: 'build', visibleRange: [14, 56] })}
+/>
+
+Lines changed, number of commits, and other output metrics typically will increase dramatically during this phase. A lot of work will be accomplished at a very hard pace. Be careful, as long periods of build phases without recovery result in burnout.
+
+### Specialization
+
+Now is when we concentrate on the areas that require specialization: performance, animation, user-experience, accessibility; all of the fine tuning and detailed pieces of taking our product from minimum functionality to a solid release.
+
+<ContributionGraph
+  caption="GitHub-style contribution graph of after a three-month base phase."
+  contributions={getContributions({ type: 'specialization', visibleRange: [30, 34] })}
+/>
+
+### Maintenance
+
+We should know this one by now: we’re in bug-fix mode and putting the finishing touches on ensuring that nothing goes wrong after launch. This stage likely coincides with the [specialty](#specialty) and [recovery](#recovery) phases in part, as there will always be work needed to keep things running smoothly.
+
+<ContributionGraph
+  caption="GitHub-style contribution graph highlighting a few week maintenance-only phase."
+  contributions={getContributions({ type: 'specialization', visibleRange: [24, 27] })}
+/>
+
+On top of that, paying back technical debt and fixing bugs takes time – often more time than it takes to write new features. With that in mind, we should expect to see fewer contributions of higher long-term value than often seen in a [build](#build) phase.
+
+### Recovery
+
+Also known as vacation. Expected output is zero and anything above that should be considered problematic. Either culturally your company does not value people or there may be some other negative motivating factors.
+
+## My personal output
+
+I cannot stress enough how much these contribution graphs are meant merely as a tool to help guide conversations. My own output is a great example of why:
+
+<ContributionGraph
+  caption="GitHub-style contribution graph highlighting a few week maintenance-only phase."
+  contributions={getContributions({ type: 'mine', start: Date.UTC(2023, 0, 1), end: Date.UTC(2023, 7, 5) })}
+/>
+
+I’ve sliced my data from GitHub down to 2023-01-01 through 2023-08-05, which is the date range of my current job and position as a Principal Frontend Developer.
+
+I have a six-week [base](#base) phase at the beginning. This was my ramp up period in which I was getting familiar with codebases, teams, and general practices – but I was also in an average of 2.5 hours of meetings per day. I’m actually amazed that I was able to even contribute as much as I did during that period.
+
+I spent about 5 weeks finishing out [my open source framework for monorepos](https://onerepo.tools) in order to deploy it in-house and spend the next 6-7 weeks migrating teams into it and building out necessary tooling for teams.
+
+Then finally, there’s a bit more normalization toward the last half of this period, but my contributions have been greatly reduced due to an increase in meetings and planning major undertakings across many groups.
+
+My contribution graph is nowhere near the ideal output that we looked at previously and I'm sharing this to say three things:
+
+1. No one will ever fit the perfect ideal output periodization.
+2. There are always things to discuss to determine _why_. It’s not that I’m no longer doing as much as I was for the first half of this period, but rather that I’m doing _other_ things.
+3. We should use the information from the previous point to figure out how to change priorities, …TODO… in order to get to a point where we see more ideal periodization.
+
+## Enabling healthy periodization
+
+- Software developers need to be able to speak up and push back
+- Checking in
+
+<aside>
+## Addendum: measuring performance
+
+If you’re still thinking that measuring output as performance would be helpful, you should only ever take measurements as a way to understand changes in behavior that result from many different external factors. Before you start looking at anything, keep in mind the following points:
+
+- **Never stack rank people against each other.**
+
+  Everyone is at different parts of their career and everyone will be slightly different. Instead of comparing one person against another, we should use as much historical context for an individual as possible. <a id="periodization-end" class="inline-block h-1" />
+
+- **Do not assume low output is the employees fault.**
+
+  Always try to determine what is preventing someone from being at their optimal performance level. If you don’t know, go to the source and ask someone what’s getting in their way. It’s more likely that there’s a technical or cultural issue that’s blocking them than anything like laziness.
+
+- **Never measure productivity based on lines modified, number of commits, or any other singular metric.**
+
+  No singular metric can tell a whole story. If someone has been contributing fewer commits, they’re likely contributing somewhere else, like code reviews, documentation, or planning. Make sure you get the whole picture before assuming something is wrong.
+
+  All metrics should be used as a baseline _per person_ and viewed as _trends over time_. In particular, “lines modified” as an absolute value is a garbage metric because it is both dependent on language, type of contribution, and easily skewed via generated code (eg. lockfiles like `package-lock.json`).
+
+- **Do not forget that documentation and meetings can be high value, low output.**
+
+  It can be difficult to track and quantify work done outside of code and often this work is high value for the rest of the team. And when in doubt, ask someone what they’re working on; don’t assume they’re doing nothing.
+
+</aside>
+
+## Footnotes

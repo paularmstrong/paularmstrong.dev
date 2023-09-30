@@ -9,9 +9,16 @@ import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import react from '@astrojs/react';
 import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeMermaid from 'rehype-mermaidjs';
 
 const remarkPlugins = [remarkReadingTime];
 const rehypePlugins = [
+	[
+		rehypeMermaid,
+		{
+			strategy: 'inline-svg',
+		},
+	],
 	[
 		rehypePrettyCode,
 		{

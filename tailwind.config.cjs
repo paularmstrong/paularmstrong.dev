@@ -119,6 +119,9 @@ module.exports = {
 				'.shape-half-br': {
 					clipPath: 'polygon(100% 0, 0 100%, 100% 100%)',
 				},
+				'.writing-vertical-lr': {
+					writingMode: 'vertical-lr',
+				},
 			});
 		},
 	],
