@@ -14633,12 +14633,12 @@ resolve@^2.0.0-next.1:
   linkType: hard
 
 "solid-js@npm:^1.7.11":
-  version: 1.7.11
-  resolution: "solid-js@npm:1.7.11"
+  version: 1.7.12
+  resolution: "solid-js@npm:1.7.12"
   dependencies:
     csstype: ^3.1.0
     seroval: ^0.5.0
-  checksum: 692f6499adea139aa7f61770277162b0460c7f2de373bfbfa20ee208d970e8b25bdfc07fce70ef03150d766dae506998878168a9a313b51789211153669abbc6
+  checksum: b1a1de28183d841d43ecf718304e00700956c1744731ddee649f8c3f7ad85654528751e6413c01edb0839fca0800534d713660f807d8f06f5fe4a13b94159a1c
   languageName: node
   linkType: hard
 
