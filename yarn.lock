@@ -264,9 +264,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/telemetry@npm:3.0.1":
-  version: 3.0.1
-  resolution: "@astrojs/telemetry@npm:3.0.1"
+"@astrojs/telemetry@npm:3.0.2":
+  version: 3.0.2
+  resolution: "@astrojs/telemetry@npm:3.0.2"
   dependencies:
     ci-info: ^3.8.0
     debug: ^4.3.4
@@ -276,7 +276,7 @@ __metadata:
     is-wsl: ^3.0.0
     undici: ^5.23.0
     which-pm-runs: ^1.1.0
-  checksum: 06ccace72ea5f743cd832c8738080bc32efdd36351a2b157e68fe71c013713854a3aa2bb50f8dc6bf8bee3585d2ac446002205eff615c9d95425db93558c4f0a
+  checksum: fb82228c5b501fe7cd672c822ef3cb1778392b27342e4ecc16828a7b90ecbc0725b88b6062411dba854d0869d125f4e4c8ff1217f8a211e7e9f2bba7898b3ba8
   languageName: node
   linkType: hard
 
@@ -4456,13 +4456,13 @@ __metadata:
   linkType: hard
 
 "astro@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "astro@npm:3.1.0"
+  version: 3.2.0
+  resolution: "astro@npm:3.2.0"
   dependencies:
     "@astrojs/compiler": ^2.1.0
     "@astrojs/internal-helpers": 0.2.0
     "@astrojs/markdown-remark": 3.2.0
-    "@astrojs/telemetry": 3.0.1
+    "@astrojs/telemetry": 3.0.2
     "@babel/core": ^7.22.10
     "@babel/generator": ^7.22.10
     "@babel/parser": ^7.22.10
@@ -4521,7 +4521,7 @@ __metadata:
       optional: true
   bin:
     astro: astro.js
-  checksum: 7327f0b86a19f993ad6480535af41a58fd9f939290c775231c37b0b3aaedd472882a6947a0c295e1a0b21a360dde559d82b6486d6fea50e7605bd5d796e0cc96
+  checksum: 0950a6daa296909c6a0ca2a9706c41bf2d794872b8bc70fb59c6fd845a51908b0241c2122865d695d532ce637911659ec5c483452acfb9d4f29b06173806cd50
   languageName: node
   linkType: hard
 
