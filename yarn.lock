@@ -230,12 +230,12 @@ __metadata:
   linkType: hard
 
 "@astrojs/sitemap@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@astrojs/sitemap@npm:3.0.1"
+  version: 3.0.3
+  resolution: "@astrojs/sitemap@npm:3.0.3"
   dependencies:
     sitemap: ^7.1.1
-    zod: 3.21.1
-  checksum: 6e5455d800c3498357827bf13ec6eec36cf370b4b285cc0d04ad7db708c502a302fb54554717ffd4178136a9dd0bf4c1bb90f7d3c4679dda2368b1ed79e4c4d7
+    zod: ^3.22.4
+  checksum: 8d2351ad12bbde1f04278e5bce985a2ad0ebfd7e989cb646819be89e32e588113b6c8b9ce6ae813e241261da42fbb8966444a64a3d567e44e131f1ceb3d2cc43
   languageName: node
   linkType: hard
 
@@ -17707,6 +17707,13 @@ resolve@^2.0.0-next.1:
   version: 3.21.1
   resolution: "zod@npm:3.21.1"
   checksum: e02ed16b26e171f244fb7592177bef21b67956683aaed57bc8f02dfa5ad307d5cf347e9557c84c0849d96305efaf7c90c909620eaade08cfdf35f62935d741d2
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 80bfd7f8039b24fddeb0718a2ec7c02aa9856e4838d6aa4864335a047b6b37a3273b191ef335bf0b2002e5c514ef261ffcda5a589fb084a48c336ffc4cdbab7f
   languageName: node
   linkType: hard
 
