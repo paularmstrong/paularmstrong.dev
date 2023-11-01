@@ -264,9 +264,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/telemetry@npm:3.0.3":
-  version: 3.0.3
-  resolution: "@astrojs/telemetry@npm:3.0.3"
+"@astrojs/telemetry@npm:3.0.4":
+  version: 3.0.4
+  resolution: "@astrojs/telemetry@npm:3.0.4"
   dependencies:
     ci-info: ^3.8.0
     debug: ^4.3.4
@@ -275,7 +275,7 @@ __metadata:
     is-docker: ^3.0.0
     is-wsl: ^3.0.0
     which-pm-runs: ^1.1.0
-  checksum: c87bb5a064bd4b155ea9b7aaebcb8ca00d8a626e072f9871829043e6cdf100e725e6af5cd9a4c0e819e3f3f779c785b1652f5ed9bee8266d6233a6abe889938a
+  checksum: 86dadef9374189d939923f5109835bddc8ba36e043983e3f67eedf14466327dd1e953cf414b24e9b521f192262baddea476fc09c2979396427bf177ca061aa0a
   languageName: node
   linkType: hard
 
@@ -4806,13 +4806,13 @@ __metadata:
   linkType: hard
 
 "astro@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "astro@npm:3.3.0"
+  version: 3.4.1
+  resolution: "astro@npm:3.4.1"
   dependencies:
     "@astrojs/compiler": ^2.1.0
     "@astrojs/internal-helpers": 0.2.1
     "@astrojs/markdown-remark": 3.3.0
-    "@astrojs/telemetry": 3.0.3
+    "@astrojs/telemetry": 3.0.4
     "@babel/core": ^7.22.10
     "@babel/generator": ^7.22.10
     "@babel/parser": ^7.22.10
@@ -4828,6 +4828,7 @@ __metadata:
     common-ancestor-path: ^1.0.1
     cookie: ^0.5.0
     debug: ^4.3.4
+    deterministic-object-hash: ^1.3.1
     devalue: ^4.3.2
     diff: ^5.1.0
     es-module-lexer: ^1.3.0
@@ -4842,9 +4843,11 @@ __metadata:
     js-yaml: ^4.1.0
     kleur: ^4.1.4
     magic-string: ^0.30.3
+    mdast-util-to-hast: 12.3.0
     mime: ^3.0.0
     ora: ^7.0.1
     p-limit: ^4.0.0
+    p-queue: ^7.4.1
     path-to-regexp: ^6.2.1
     preferred-pm: ^3.1.2
     probe-image-size: ^7.2.3
@@ -4857,20 +4860,20 @@ __metadata:
     shikiji: ^0.6.8
     string-width: ^6.1.0
     strip-ansi: ^7.1.0
-    tsconfck: 3.0.0-next.9
+    tsconfck: ^3.0.0
     unist-util-visit: ^4.1.2
     vfile: ^5.3.7
     vite: ^4.4.9
     vitefu: ^0.2.4
     which-pm: ^2.1.1
     yargs-parser: ^21.1.1
-    zod: 3.21.1
+    zod: ^3.22.4
   dependenciesMeta:
     sharp:
       optional: true
   bin:
     astro: astro.js
-  checksum: 21ece1410f84df415537d79474b80a741e68cddc150c280ba94133af71a00592fe5f9e8be99c974c4206ec4dc561c6cac5f00defab60e44e592f2a153cf21e78
+  checksum: a3d818189784ce7055fb63a5a11f181a4283967880f1f267a59eefaae1eaacb23655cbe1f41546620f3c532ebdcf94870b053c360e3956341f70f577864ec3af
   languageName: node
   linkType: hard
 
@@ -6542,6 +6545,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deterministic-object-hash@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "deterministic-object-hash@npm:1.3.1"
+  checksum: b7e9c4977a9fcc05b6c46ce42d3505874f783a61189f22836a0ff5ccad69bd5a4de8506eb62509f2cc3228f5359f9308b9768ce12b9fe70046888d0a6df1d505
+  languageName: node
+  linkType: hard
+
 "devalue@npm:^4.3.2":
   version: 4.3.2
   resolution: "devalue@npm:4.3.2"
@@ -7558,6 +7568,13 @@ __metadata:
   version: 4.0.7
   resolution: "eventemitter3@npm:4.0.7"
   checksum: 1875311c42fcfe9c707b2712c32664a245629b42bb0a5a84439762dd0fd637fc54d078155ea83c2af9e0323c9ac13687e03cfba79b03af9f40c89b4960099374
+  languageName: node
+  linkType: hard
+
+"eventemitter3@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "eventemitter3@npm:5.0.1"
+  checksum: 543d6c858ab699303c3c32e0f0f47fc64d360bf73c3daf0ac0b5079710e340d6fe9f15487f94e66c629f5f82cd1a8678d692f3dbb6f6fcd1190e1b97fcad36f8
   languageName: node
   linkType: hard
 
@@ -11189,6 +11206,22 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"mdast-util-to-hast@npm:12.3.0":
+  version: 12.3.0
+  resolution: "mdast-util-to-hast@npm:12.3.0"
+  dependencies:
+    "@types/hast": ^2.0.0
+    "@types/mdast": ^3.0.0
+    mdast-util-definitions: ^5.0.0
+    micromark-util-sanitize-uri: ^1.1.0
+    trim-lines: ^3.0.0
+    unist-util-generated: ^2.0.0
+    unist-util-position: ^4.0.0
+    unist-util-visit: ^4.0.0
+  checksum: ea40c9f07dd0b731754434e81c913590c611b1fd753fa02550a1492aadfc30fb3adecaf62345ebb03cea2ddd250c15ab6e578fffde69c19955c9b87b10f2a9bb
+  languageName: node
+  linkType: hard
+
 "mdast-util-to-hast@npm:^12.1.0":
   version: 12.2.4
   resolution: "mdast-util-to-hast@npm:12.2.4"
@@ -13085,6 +13118,16 @@ fsevents@~2.3.2:
   dependencies:
     aggregate-error: ^3.0.0
   checksum: cb0ab21ec0f32ddffd31dfc250e3afa61e103ef43d957cc45497afe37513634589316de4eb88abdfd969fe6410c22c0b93ab24328833b8eb1ccc087fc0442a1c
+  languageName: node
+  linkType: hard
+
+"p-queue@npm:^7.4.1":
+  version: 7.4.1
+  resolution: "p-queue@npm:7.4.1"
+  dependencies:
+    eventemitter3: ^5.0.1
+    p-timeout: ^5.0.2
+  checksum: 1c6888aa994d399262a9fbdd49c7066f8359732397f7a42ecf03f22875a1d65899797b46413f97e44acc18dddafbcc101eb135c284714c931dbbc83c3967f450
   languageName: node
   linkType: hard
 
@@ -16290,9 +16333,9 @@ resolve@^2.0.0-next.1:
   languageName: node
   linkType: hard
 
-"tsconfck@npm:3.0.0-next.9":
-  version: 3.0.0-next.9
-  resolution: "tsconfck@npm:3.0.0-next.9"
+"tsconfck@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "tsconfck@npm:3.0.0"
   peerDependencies:
     typescript: ^5.0.0
   peerDependenciesMeta:
@@ -16300,7 +16343,7 @@ resolve@^2.0.0-next.1:
       optional: true
   bin:
     tsconfck: bin/tsconfck.js
-  checksum: ccd9dc785e9ea70a69e1d19fccdd7b2d270170b1fd34183a83941709433bd07e68ca825deba945132f223b13451156da4a3cac318ae09664a3b9c55afedc3d22
+  checksum: a9fd941dfbeb3cb095ff079e1177c219bf7b900edb36bb273f081c226436e1561e8f78aa482240450097da3463dc0f57353ef4e2cda2df7d472ecded16843379
   languageName: node
   linkType: hard
 
@@ -17707,6 +17750,13 @@ resolve@^2.0.0-next.1:
   version: 3.21.1
   resolution: "zod@npm:3.21.1"
   checksum: e02ed16b26e171f244fb7592177bef21b67956683aaed57bc8f02dfa5ad307d5cf347e9557c84c0849d96305efaf7c90c909620eaade08cfdf35f62935d741d2
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 80bfd7f8039b24fddeb0718a2ec7c02aa9856e4838d6aa4864335a047b6b37a3273b191ef335bf0b2002e5c514ef261ffcda5a589fb084a48c336ffc4cdbab7f
   languageName: node
   linkType: hard
 
