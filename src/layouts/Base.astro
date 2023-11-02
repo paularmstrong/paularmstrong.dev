@@ -9,9 +9,9 @@ import SkipToMain from '../components/SkipToMain.astro';
 import { Snackbar } from '../components/Snackbar';
 
 export interface Props {
-	title?: string;
-	description?: string;
-	image?: string;
+	title?: string | undefined;
+	description?: string | undefined;
+	image?: string | undefined;
 }
 const { title, description, image } = Astro.props;
 ---

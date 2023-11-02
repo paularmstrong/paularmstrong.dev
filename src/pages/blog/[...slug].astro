@@ -10,6 +10,7 @@ import PageNav from '../../components/PageNav.astro';
 import Prose from '../../components/Prose.astro';
 import TocList from '../../components/TocList.astro';
 import { Share, ShareLink } from '../../components/Share';
+import type { MarkdownHeading } from 'astro';
 
 export async function getStaticPaths() {
 	const posts = (
@@ -48,6 +49,7 @@ const {
 	id,
 	data: { draft, title, pubDate, updatedDate, description, toc, heroImage, heroAlt, noHero },
 	render,
+	// @ts-ignore
 	siblings,
 } = Astro.props;
 const { slug } = Astro.params;
@@ -58,9 +60,7 @@ const {
 	remarkPluginFrontmatter: { readingTime },
 } = await render();
 
-interface Heading {
-	text: string;
-	slug: string;
+interface Heading extends MarkdownHeading {
 	headings: Array<Heading>;
 }
 
@@ -73,7 +73,7 @@ for (const h of postHeadings) {
 		continue;
 	}
 	levels[depth]!.headings = levels[depth]?.headings || [];
-	levels[depth]!.headings.push((levels[depth + 1] = h));
+	levels[depth]!.headings.push({ ...(levels[depth + 1] = { ...h, headings: [] }), headings: [] });
 }
 ---
 

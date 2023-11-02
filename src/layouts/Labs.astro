@@ -8,9 +8,9 @@ import { Snackbar } from '../components/Snackbar';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
 
 export interface Props {
-	title?: string;
-	description?: string;
-	image?: string;
+	title?: string | undefined;
+	description?: string | undefined;
+	image?: string | undefined;
 }
 const { title, description, image } = Astro.props;
 ---
