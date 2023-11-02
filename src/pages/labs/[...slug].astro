@@ -11,18 +11,13 @@ export async function getStaticPaths() {
 }
 
 const {
-	data: { title, description, heroImage, noWrapper },
+	data: { title, description, heroImage },
 	render,
 } = Astro.props.page;
+
 const { Content } = await render();
 ---
 
-{
-	noWrapper ? (
-		<Content />
-	) : (
-		<Labs title={title} description={description} image={heroImage?.src}>
-			<Content />
-		</Labs>
-	)
-}
+<Labs title={title} description={description} image={heroImage?.src}>
+	<Content />
+</Labs>
