@@ -9156,6 +9156,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hast-util-to-string@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "hast-util-to-string@npm:2.0.0"
+  dependencies:
+    "@types/hast": "npm:^2.0.0"
+  checksum: 93f34355b9679a626a2903371a267139bbe30c4d1d5252be6aa9b6d77524d293b8cb9be1f269edab353b678088fe01003affebce39d08a83aa96db208d38fea5
+  languageName: node
+  linkType: hard
+
 "hast-util-whitespace@npm:^2.0.0":
   version: 2.0.0
   resolution: "hast-util-whitespace@npm:2.0.0"
@@ -14372,16 +14381,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-pretty-code@npm:^0.10.1":
-  version: 0.10.1
-  resolution: "rehype-pretty-code@npm:0.10.1"
+"rehype-parse@npm:^8.0.3":
+  version: 8.0.5
+  resolution: "rehype-parse@npm:8.0.5"
   dependencies:
     "@types/hast": "npm:^2.0.0"
+    hast-util-from-parse5: "npm:^7.0.0"
+    parse5: "npm:^6.0.0"
+    unified: "npm:^10.0.0"
+  checksum: 1de6471aa9ff83317a5e7462cedeaa4ce0b75d73507f79cfe0af57e47f56575da56401fd312779e2a25b4bfbcf924c9282b5fd7c8b84e838b3ee4b7ccae5e782
+  languageName: node
+  linkType: hard
+
+"rehype-pretty-code@npm:^0.10.1":
+  version: 0.10.2
+  resolution: "rehype-pretty-code@npm:0.10.2"
+  dependencies:
     hash-obj: "npm:^4.0.0"
+    hast-util-to-string: "npm:^2.0.0"
     parse-numeric-range: "npm:^1.3.0"
+    rehype-parse: "npm:^8.0.3"
+    unified: "npm:^10.1.2"
+    unist-util-visit: "npm:^4.0.0"
   peerDependencies:
     shiki: 0.x
-  checksum: 4ab332d8bd150bea5da54af393334f906c433dcf7c1aa6e00483bf88561c2bdf5e79220c79df9b4edf586428940e81d12cc34b58dc495725db8eac8ad039756b
+  checksum: 25f464d9116bdd9744c624066ef0fd34e81fa2c5c592f60c0d4d4cbd4e51b94d23bb7c5deee466c158947d5fcabc515d03e957d056d6df51afd73ed25cff037b
   languageName: node
   linkType: hard
 
