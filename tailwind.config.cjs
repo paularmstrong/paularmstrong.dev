@@ -33,7 +33,7 @@ module.exports = {
 						color: theme('colors.slate.400'),
 					},
 				},
-				'.prose :where([data-rehype-pretty-code-fragment]):not(:where([class~="no-bustout"] *))': {
+				'.prose :where(div[data-rehype-pretty-code-fragment]):not(:where([class~="no-bustout"] *))': {
 					[`@media screen and (min-width: ${theme('screens.xl')})`]: {
 						marginLeft: 'calc(50% - 50vw)',
 						marginRight: 'calc(50% - 50vw)',

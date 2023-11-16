@@ -1,0 +1,99 @@
+---
+title: SolidJS has what you need
+description: |
+  Or alternatively, React is a mistake.
+pubDate: 2023-11-16
+draft: true
+---
+
+## The good
+
+### Clear lifecycles
+
+`onMount` and `onCleanup` remind me of the clarity of React class components.
+
+### Data fetching
+
+I've seen a good amount of divisiveness in the React community around how to do data fetching. Not just with what tool to use, but _how_ it should be done with respect to React and its rendering cycles. The React docs show you how to [fetch data with `useEffect`](https://react.dev/reference/react/useEffect#fetching-data-with-effects), but the core team also is trying to make you completely avoid it by picking and using a third-party framework first instead of writing data fetching hooks yourself. But what if you have other needs or don't want to use one one of the two very different frameworks available?
+
+> The goal we have is to drive useEffect usage to as close to zero as possible, not necessarily to make it more intuitive (though we have ideas there, too).
+>
+> <cite>
+>   **Andrew Clark** ([@acdlite@twitter.com](https://twitter.com/acdlite)) – [
+>   <time datetime="2023-02-23T13:38:00.000Z">2023-02-23</time>](https://twitter.com/acdlite/status/1628932385768148992)
+> </cite>
+
+Solid's `createResource` (combined with the Solid Router below) is exactly what I expect at the framework level for integrating data fetching.
+
+### First party router
+
+[Solid Router](https://docs.solidjs.com/guides/how-to-guides/routing-in-solid/solid-router) is the official routing solution for use with Solid. Presumably this means no more full-API-level breaking changes every few years on the core flow of a web application, and it works exactly like you'd expect a router to.
+
+To top it off, [data functions](https://docs.solidjs.com/guides/how-to-guides/routing-in-solid/solid-router#data-functions) create a straightforward way to define data needed for a route that can be loaded up front before finishing a transition from one route to another.
+
+```tsx title="./app.tsx"
+import { lazy } from 'solid-js';
+import { Route } from '@solidjs/router';
+import { fetchUser } from './fetchUser'; // Import the your fetchUser function
+const User = lazy(() => import('./pages/users/[id].ts'));
+
+// Data function
+function fetchUserData({ params }: RouteDataFuncArgs) {
+  const [user] = createResource(() => params.id, fetchUser); // 👈 Pass the id parameter to the fetchUser function
+  return user;
+}
+
+// Pass it in the route definition
+<Route path="/users/:id" component={User} data={fetchUserData} />;
+```
+
+```tsx title="./pages/users/[id].tsx"
+import { useRouteData } from '@solidjs/router';
+
+const user = useRouteData<RouteDataFunctionType>();
+
+return <h1>{user().name}</h1>;
+```
+
+## The oddities
+
+There seem to be two API reference sites: [solidjs.com/docs](https://www.solidjs.com/docs/latest/api) and [docs.solidjs.com](https://docs.solidjs.com/references). Each site has slightly more or less information than the other and I find myself needing to reference both at all times.
+
+### Avoid destructuring
+
+Most objects passed around in Solid, particularly component props, are [`Proxy` objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). Accessing a property on a reactive Proxy object typically triggers an update. You need to be careful when and where you grab individual properties off of objects.
+
+<div class="lg:bustout">
+<div class="gap-8 no-bustout lg:grid lg:grid-cols-2">
+
+```tsx title="UserAvatar.react.tsx" caption="Typical pattern of prop destructuring in React."
+function UserAvatar({ name, src }: Props) {
+  return <img src={src} alt={name} />;
+}
+```
+
+```tsx title="UserAvatar.solid.tsx" caption="Do not destructure props in Solid."
+function UserAvatar(props: Props) {
+  return <img src={props.src} alt={props.name} />;
+}
+```
+
+</div>
+</div>
+
+### Control Flow
+
+To properly and performantly handle reactive rendering, Solid requires you use [control flow components](https://www.solidjs.com/docs/latest/api#control-flow). These feel odd at first, but I've gotten used to them pretty quickly:
+
+- Using `<For>{:jsx}` instead of `Array.map(){:jsx}` to render lists of items.
+- `<Switch>{:jsx}` and `<Match>{:jsx}` for mutually exclusive rendering conditions. Although arguably more flexible and easy to follow than chains of `if-else-if-else…` in return renders.
+- `<Show when={shouldShow}>{:jsx}` instead of ternaries: `{shouldShow ? <Component /> : null}{:jsx}`
+
+## The bad(?)
+
+I actually look at this section as more of positives… for some people these may be bad, but I am embracing the shift that these require:
+
+- Lack of community modules
+  - On the other hand, React has _too many_ modules and there's a lot of encouragement to grab things off the shelf. This results in a lot of bloat, duplicate (sub) dependencies, maintenance overhead, etc…
+- You need to pay more attention to what is reactive and how to reference it.
+  - But then on the other hand, it's sort of like manual memory management. You are forced to become intimately familiar with how changes will affect the performance of your application.

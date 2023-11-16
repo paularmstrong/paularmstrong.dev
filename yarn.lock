@@ -38,13 +38,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@altano/tiny-async-pool@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@altano/tiny-async-pool@npm:1.0.2"
-  checksum: 20cb16cd1a85576bfee4b923d5efef1f1957a048268e166026e9c15304902e500147baf3ac65c3d8cfaaf6d1e78f74efd6641c0cd7ce12b97d97145f15825788
-  languageName: node
-  linkType: hard
-
 "@ampproject/remapping@npm:^2.2.0":
   version: 2.2.1
   resolution: "@ampproject/remapping@npm:2.2.1"
@@ -90,26 +83,6 @@ __metadata:
   version: 2.2.2
   resolution: "@astrojs/compiler@npm:2.2.2"
   checksum: 7723686177fa439a1ef6afd8130f8a3bbdafb9036996e5b8a080af143c9ba34cb9043733eb55ebbda46a9ba8e5f3d266eb095dc6c8144a3310f18a4f528ed4cd
-  languageName: node
-  linkType: hard
-
-"@astrojs/image@npm:^0.18.0":
-  version: 0.18.0
-  resolution: "@astrojs/image@npm:0.18.0"
-  dependencies:
-    "@altano/tiny-async-pool": "npm:^1.0.2"
-    http-cache-semantics: "npm:^4.1.1"
-    image-size: "npm:^1.0.2"
-    kleur: "npm:^4.1.5"
-    magic-string: "npm:^0.30.2"
-    mime: "npm:^3.0.0"
-  peerDependencies:
-    astro: ^2.10.15
-    sharp: ">=0.31.0"
-  peerDependenciesMeta:
-    sharp:
-      optional: true
-  checksum: 91b89f96660a57de1fc8e87cb02b9e7b24220db90b155b0059d6dc712c67c63e353277c3704780414cb08e2a19b4a231293947527a4e2fa0d4419f032eaccfe8
   languageName: node
   linkType: hard
 
@@ -9434,17 +9407,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"image-size@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "image-size@npm:1.0.2"
-  dependencies:
-    queue: "npm:6.0.2"
-  bin:
-    image-size: bin/image-size.js
-  checksum: 693dfb2f8bfda2aacd087ef7130fd997fd0aceca838291bae400646db1826b80108185d0062ea3c0365b12c3ab5145bb923fdc777fd94c4991840d47fe44ade3
-  languageName: node
-  linkType: hard
-
 "import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
@@ -10914,7 +10876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.30.2, magic-string@npm:^0.30.3":
+"magic-string@npm:^0.30.3":
   version: 0.30.3
   resolution: "magic-string@npm:0.30.3"
   dependencies:
@@ -13476,7 +13438,6 @@ __metadata:
   resolution: "paularmstrong-dev@workspace:."
   dependencies:
     "@astrojs/check": "npm:^0.3.1"
-    "@astrojs/image": "npm:^0.18.0"
     "@astrojs/mdx": "npm:^1.1.3"
     "@astrojs/react": "npm:^3.0.4"
     "@astrojs/sitemap": "npm:^3.0.3"
@@ -14071,15 +14032,6 @@ __metadata:
   version: 1.0.1
   resolution: "queue-tick@npm:1.0.1"
   checksum: f447926c513b64a857906f017a3b350f7d11277e3c8d2a21a42b7998fa1a613d7a829091e12d142bb668905c8f68d8103416c7197856efb0c72fa835b8e254b5
-  languageName: node
-  linkType: hard
-
-"queue@npm:6.0.2":
-  version: 6.0.2
-  resolution: "queue@npm:6.0.2"
-  dependencies:
-    inherits: "npm:~2.0.3"
-  checksum: 3437954ef1442c86ff01a0fbe3dc6222838823b1ca97f37eff651bc20b868c0c2904424ef2c0d44cba46055f54b578f92866e573125dc9a5e8823d751e4d1585
   languageName: node
   linkType: hard
 

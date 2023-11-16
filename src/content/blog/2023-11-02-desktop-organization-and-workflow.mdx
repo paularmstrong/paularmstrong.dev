@@ -1,0 +1,63 @@
+---
+title: Desktop application organization and workflow
+draft: true
+description: |
+  asdf
+pubDate: 2023-11-02
+---
+
+import { Image } from 'astro:assets';
+import AlfredImage from '../../images/blog/2023-11/alfred.png';
+import AddToDockImage from '../../images/blog/2023-11/add-to-dock.png';
+import DockImage from '../../images/blog/2023-11/dock-arc.png';
+
+## Alfred
+
+<Image src={AlfredImage} alt="Screenshot of Alfred.app showing unit conversions of 4kg to lbs, equalling 8.814 lbs" />
+
+## Saving common web apps
+
+One issue that I have with web apps is that I often want the app isolated so that it's easy to get to via <kbd title="Command + Tab">⌘ + ↹</kbd> and it can be relegated to its own space/desktop.
+
+Initially, saving PWAs as desktop "applications" was a great start, but they have a lot of downsides:
+
+1. Chrome only. If you want to use another browser (like Firefox, Arc, or Safari),
+1. Any link you open from inside the PWA will always open in Chrome. Even with [system-level url redirection](#url-handling).
+1. Chrome must be open when any one of the PWAs you've got are open.
+
+<Image
+  src={AddToDockImage}
+  alt="Safari menu on OS X highlighting the entry 'Add to Dock…', showing the GMail inbox underneath."
+/>
+
+## Browser
+
+At this point, I've tried to make every browser my default (except Edge… that one can just stop).
+
+## URL handling
+
+- [Velja](https://sindresorhus.com/velja)
+- [Arc Air Traffic Control](https://resources.arc.net/en/articles/7670020-air-traffic-control-route-links-to-the-right-space-automatically)
+
+## Keeping the Dock clean
+
+Here's a neat trick: you can add invisible spacers to your OS X Dock to help organize apps for various purposes.
+
+```sh caption="Add a single spacer tile to your Dock"
+defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}';
+# repeat above for the number of spacers you need
+killall Dock;
+```
+
+I keep applications in my Dock separated by purpose:
+
+1. Home/personal & browser
+1. Work apps
+1. Development
+
+<div class="lg:bustout">
+  <Image
+    src={DockImage}
+    alt="A screenshot of a Mac OS X Dock featuring spacer tiles with icons, left to right: (spacer) Plexamp, Home Assistant, Mail, iMessage, Arc Browser, (spacer), GMail, Google Calendar, Google Meet, Slack, (spacer), iTerm 2, VSCode, (spacer), followed by folders for Downloads and Trash"
+  />
+</div>

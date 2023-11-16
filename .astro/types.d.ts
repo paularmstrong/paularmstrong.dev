@@ -416,6 +416,20 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2023-11-02-desktop-organization-and-workflow.mdx": {
+	id: "2023-11-02-desktop-organization-and-workflow.mdx";
+  slug: "2023-11-02-desktop-organization-and-workflow";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
+"2023-11-16-solidjs-has-what-you-need.mdx": {
+	id: "2023-11-16-solidjs-has-what-you-need.mdx";
+  slug: "2023-11-16-solidjs-has-what-you-need";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 };
 "labs": {
 "move-fast-with-confidence.mdx": {
