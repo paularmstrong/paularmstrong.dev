@@ -423,9 +423,9 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
-"2023-11-16-solidjs-has-what-you-need.mdx": {
-	id: "2023-11-16-solidjs-has-what-you-need.mdx";
-  slug: "2023-11-16-solidjs-has-what-you-need";
+"2023-11-16-solidjs-is-what-react-should-have-become.mdx": {
+	id: "2023-11-16-solidjs-is-what-react-should-have-become.mdx";
+  slug: "2023-11-16-solidjs-is-what-react-should-have-become";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">

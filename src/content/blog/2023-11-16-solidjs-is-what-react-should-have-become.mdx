@@ -1,5 +1,5 @@
 ---
-title: SolidJS has what you need
+title: SolidJS is what React should have become
 description: |
   Or alternatively, React is a mistake.
 pubDate: 2023-11-16
@@ -8,13 +8,30 @@ draft: true
 
 ## The good
 
+I _want_ to say _great_, but I'm still early into this journey of working with Solid, so I don't want to put my horses before the cart…
+
+### Speed
+
+I am continually blown away by how much faster rendering updates are in Solid. This is by design, since Solid is directly updating DOM nodes and not using an intermediary vDOM with diffing like React and others. But still… it's amazing.
+
+I am converting an older project from React 18 to Solid and hovers with tooltips moving and updating are over 10x faster in Solid than in React. 30 or more milliseconds down to 3 milliseconds. The updates are faster than my eyes can track.
+
 ### Clear lifecycles
 
-`onMount` and `onCleanup` remind me of the clarity of React class components.
+Early React with class components made sense. They had a very clear rendering flow and lifecycle. It was obvious when a component would update and really easy to opt-out using the method `shouldComponentUpdate()`. Now with functional components and hooks all of this is less clear. So much less clear that it seems one of the core team will tell you something different every month.
+
+Solid makes sense. Component functions are called only when they need to be because something changed. That's it.
+
+But on top of that, Solid has explicit lifecycle methods:
+
+- [`onMount`](https://www.solidjs.com/docs/latest/api#onmount): Runs on the first time a component is rendered.
+- [`onCleanup`](https://www.solidjs.com/docs/latest/api#oncleanup): Runs when the component will be destroyed.
+
+That's it. No special things like: "if you return this function from this special hook", "provide a special empty array to this hook", or "sometimes it depends…".
 
 ### Data fetching
 
-I've seen a good amount of divisiveness in the React community around how to do data fetching. Not just with what tool to use, but _how_ it should be done with respect to React and its rendering cycles. The React docs show you how to [fetch data with `useEffect`](https://react.dev/reference/react/useEffect#fetching-data-with-effects), but the core team also is trying to make you completely avoid it by picking and using a third-party framework first instead of writing data fetching hooks yourself. But what if you have other needs or don't want to use one one of the two very different frameworks available?
+I've seen a good amount of divisiveness in the React community around how to do data fetching. Not just with what tool to use, but _how_ it should be done with respect to React and its rendering cycles. The React docs show you how to [fetch data with `useEffect`](https://react.dev/reference/react/useEffect#fetching-data-with-effects), but the core team also is trying to make you completely avoid it by picking and using a third-party framework first instead of writing data fetching hooks yourself.
 
 > The goal we have is to drive useEffect usage to as close to zero as possible, not necessarily to make it more intuitive (though we have ideas there, too).
 >
@@ -23,7 +40,9 @@ I've seen a good amount of divisiveness in the React community around how to do 
 >   <time datetime="2023-02-23T13:38:00.000Z">2023-02-23</time>](https://twitter.com/acdlite/status/1628932385768148992)
 > </cite>
 
-Solid's `createResource` (combined with the Solid Router below) is exactly what I expect at the framework level for integrating data fetching.
+But what if you have other needs or don't want to use one one of the two very different frameworks available? Now you're left to figure it all out on your own – write an entire framework as well or just completely give up and use Next.js.
+
+Solid's `createResource` (combined with the Solid Router below) is exactly what I expect at the framework level for integrating data fetching. It's simple, encourages using default browser APIs, and works out of the box.
 
 ### First party router
 
