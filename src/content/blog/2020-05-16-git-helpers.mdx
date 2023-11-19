@@ -2,10 +2,10 @@
 pubDate: 2020-05-15
 updatedDate: 2022-12-19
 title: Git helpers that I can no longer live without
-description: Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore.
+description: Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of sh/zsh functions for a few years now and I don’t think I could work without them anymore.
 ---
 
-Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of bash/zsh functions for a few years now and I don’t think I could work without them anymore.
+Working with git can be hard, verbose, and repetitive. I’ve been using this small collection of sh/zsh functions for a few years now and I don’t think I could work without them anymore.
 
 - `main` - quickly jump back to the default/`HEAD` branch of your repo without needing to know what the name of that branch is.
 - `rebase` - rebase your current branch against the current state of the default/`HEAD` branch as it is on the remote server.
@@ -17,7 +17,7 @@ The industry seems to be agreeing that `main` is a much better default than the 
 
 This function can help remove the guessing game if you work with a bunch of repos that are still transitioning and/or use different names for the default/`HEAD` branch and you want to quickly get there from your current branch:
 
-```bash title="~/.zshrc"
+```sh title="~/.zshrc"
 function main() {
 	DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
 	git checkout $DEFAULT_BRANCH
@@ -27,7 +27,7 @@ function main() {
 
 Usage:
 
-```bash
+```sh
 main
 ```
 
@@ -37,7 +37,7 @@ I’m often in a position where the current branch I’m on had its PR was compl
 
 This function deletes the current branch and moves to the default tracked branch, avoiding doing the whold dance yourself. Bonus: it does the same thing as the previous `main` function and figures out which default/`HEAD` branch to switch to.
 
-```bash title="Add to your ~/.zshrc or ~/.bashrc"
+```sh title="Add to your ~/.zshrc or ~/.shrc"
 function rmbranch() {
 	BRANCH=`git rev-parse --abbrev-ref HEAD`
 	DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
@@ -49,7 +49,7 @@ function rmbranch() {
 
 Usage:
 
-```bash
+```sh
 rmbranch
 ```
 
@@ -59,7 +59,7 @@ Super helpful for workplaces that prefer flat commits and don’t allow merge co
 
 Again, this figures out the default/`HEAD` branch automatically so you don’t have to think about it.
 
-```bash title="~/.zshrc"
+```sh title="~/.zshrc"
 function rebase() {
 	DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | sed 's/.*: //'`
 	git fetch origin $DEFAULT_BRANCH
@@ -69,6 +69,6 @@ function rebase() {
 
 Usage:
 
-```bash
+```sh
 rebase
 ```
