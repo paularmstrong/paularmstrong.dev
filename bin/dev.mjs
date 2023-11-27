@@ -12,7 +12,7 @@ setup({
 	subcommandDir: 'commands',
 	core: {
 		generate: {
-			templatesDir: path.join(fileURLToPath(import.meta.url), '../../config/templates'),
+			templatesDir: './config/templates',
 		},
 		graph: false,
 	},
