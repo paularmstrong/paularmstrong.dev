@@ -430,6 +430,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2023-11-27-apps-tools-for-2023.mdx": {
+	id: "2023-11-27-apps-tools-for-2023.mdx";
+  slug: "2023-11-27-apps-tools-for-2023";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 };
 "labs": {
 "move-fast-with-confidence.mdx": {
