@@ -17,8 +17,8 @@ export const feed = new Feed({
 	id: SITE_URL,
 	link: SITE_URL,
 	language: 'en',
-	// image: `${SITE_URL}/img/square.jpg`,
-	favicon: `${SITE_URL}/img/favicon-32x32.png`,
+	image: `${SITE_URL}/img/favicon-32x32.png`,
+	favicon: `${SITE_URL}/favicon.ico`,
 	copyright: copyright(new Date()),
 	updated: new Date(),
 	feedLinks: {
