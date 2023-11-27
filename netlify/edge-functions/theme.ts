@@ -104,6 +104,7 @@ function getCsp(nonce: string) {
 			'https://www.youtube-nocookie.com/oembed',
 			'https://o124376.ingest.sentry.io',
 		],
+		'manifest-src': ["'self'", 'https://paularmstrong.dev'],
 		'frame-src': ["'self'", 'https://www.youtube-nocookie.com https://docs.google.com'],
 		'object-src': ["'none'"],
 		'report-to': ['default'],
