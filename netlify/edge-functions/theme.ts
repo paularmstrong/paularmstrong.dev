@@ -91,9 +91,15 @@ function getCsp(nonce: string) {
 		'style-src': ["'self'", "'unsafe-inline'"],
 		'style-src-elem': ["'self'", "'unsafe-inline'"],
 		'script-src': ["'strict-dynamic'", "'unsafe-inline'", `'nonce-${nonce}'`],
-		'img-src': ["'self'", 'https://paularmstrong.goatcounter.com/count', 'https://img.youtube.com'],
+		'img-src': [
+			"'self'",
+			'https://paularmstrong.dev',
+			'https://paularmstrong.goatcounter.com/count',
+			'https://img.youtube.com',
+		],
 		'connect-src': [
 			"'self'",
+			'https://paularmstrong.dev',
 			'https://paularmstrong.goatcounter.com',
 			'https://www.youtube-nocookie.com/oembed',
 			'https://o124376.ingest.sentry.io',
