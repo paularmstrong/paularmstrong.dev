@@ -97,7 +97,7 @@ const name = 'Paul';
 html`Hello, ${name}!`;
 ```
 
-```txt
+```
 Hello, Paul!
 ```
 
@@ -122,7 +122,7 @@ const personTwo = 'Jim';
 html`Hello, ${personOne} and ${personTwo}!`;
 ```
 
-```txt
+```
 Hello, Jane and Jim!
 ```
 
@@ -144,7 +144,7 @@ const name = '<script>alert("hello");</script>';
 html`Hello, ${name}!`;
 ```
 
-```txt
+```
 Hello, %3Cscript%3Ealert%28%22hello%22%29%3B%3C/script%3E!;
 ```
 
@@ -187,7 +187,7 @@ html`<h1>Hello, ${name}!</h1>
   </script>`;
 ```
 
-```txt
+```
 <h1>Hello, Paul!</h1>
 <p>%3Cscript%3Ealert%28%22hello%22%29%3B%3C/script%3E</p>
 <script>

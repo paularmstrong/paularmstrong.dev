@@ -9,7 +9,7 @@ const author = {
 	email: 'me@paularmstrong.dev',
 	link: `${SITE_URL}/about`,
 };
-const copyright = (date: Date) => `©${date.getFullYear()} Paul Armstrong. All rights reserved.`;
+const copyright = (date: Date) => `&copy;${date.getFullYear()} Paul Armstrong. All rights reserved.`;
 
 export const feed = new Feed({
 	title: SITE_TITLE,
@@ -45,6 +45,7 @@ for (const post of rawPosts) {
 
 	const url = `${SITE_URL}/blog/${slug}/`;
 	const { code: description } = await renderMarkdown(`${post.data.description || ''}\n\n[Continue reading…](${url})`);
+	const { code: content } = await renderMarkdown(post.body);
 
 	const item: Item = {
 		title: post.data.title,
@@ -55,6 +56,7 @@ for (const post of rawPosts) {
 		published: post.data.pubDate,
 		author: [author],
 		copyright: copyright(post.data.pubDate),
+		content,
 	};
 	if (post.data.heroImage?.src) {
 		item.image = `${SITE_URL}${post.data.heroImage.src}`;
