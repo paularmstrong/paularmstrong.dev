@@ -1,4 +1,5 @@
 ---
+import { SITE_URL } from '../config';
 import { ViewTransitions } from 'astro:transitions';
 export interface Props {
 	title: string;
@@ -15,10 +16,10 @@ const { title, description, image = '/img/og_image_small.jpg' } = Astro.props;
 
 <meta name="theme-color" content="#c1ddf9" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
-<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
-<link rel="manifest" href="/manifest.json" />
+<link rel="apple-touch-icon" sizes="180x180" href={`${SITE_URL}/img/apple-touch-icon.png`} />
+<link rel="icon" type="image/png" sizes="32x32" href={`${SITE_URL}/img/favicon-32x32.png`} />
+<link rel="icon" type="image/png" sizes="16x16" href={`${SITE_URL}/img/favicon-16x16.png`} />
+<link rel="manifest" href={`${SITE_URL}/manifest.json`} />
 
 {/* Primary Meta Tags */}
 <title>{title}</title>
@@ -26,10 +27,10 @@ const { title, description, image = '/img/og_image_small.jpg' } = Astro.props;
 <meta name="description" content={description} />
 
 {/* Feeds */}
-<link rel="alternate" type="application/rss+xml" title="RSS feed for paularmstrong.dev" href="/feed.xml" />
-<link rel="alternate" type="application/json" title="JSON feed for paularmstrong.dev" href="/feed.json" />
-<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap-index.xml" />
-<link rel="author" href="/humans.txt" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for paularmstrong.dev" href={`${SITE_URL}/feed.xml`} />
+<link rel="alternate" type="application/json" title="JSON feed for paularmstrong.dev" href={`${SITE_URL}/feed.json`} />
+<link rel="sitemap" type="application/xml" title="Sitemap" href={`${SITE_URL}/sitemap-index.xml`} />
+<link rel="author" href={`${SITE_URL}/humans.txt`} />
 
 {/* Open Graph / Facebook */}
 <meta property="og:type" content="website" />
