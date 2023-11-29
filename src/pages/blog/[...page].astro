@@ -10,6 +10,7 @@ import AuthorMeta from '../../components/AuthorMeta.astro';
 import Base from '../../layouts/Base.astro';
 import Prose from '../../components/Prose.astro';
 import Pagination from '../../components/Pagination.astro';
+import { getPostSlug } from '../../modules/blog-post';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 	const posts = (
@@ -59,12 +60,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 						return null;
 					}
 
-					const match = post.slug?.match(/^(?<year>\d+)-(?<month>\d+)-(?<day>\d+)-(?<slug>.+)$/);
-
-					if (!match) {
-						return null;
-					}
-					const slug = `/blog/${Object.values(match.groups || {}).join('/')}/`;
+					const slug = getPostSlug(post);
 					const date = dateFormatter(new Date(pubDate));
 
 					return (
@@ -88,7 +84,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 										<span
 											class="bg-gradient-to-br from-blue-700 to-purple-600 bg-clip-text font-bold text-transparent dark:from-blue-400 dark:to-purple-400"
 											itemprop="name headline"
-											transition:name={`title-${match.groups?.slug}`}
+											transition:name={`title-${slug}`}
 										>
 											{title}
 										</span>
@@ -110,7 +106,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', ti
 									</Link>
 								</h2>
 								<Prose>
-									<div transition:name={`content-${match.groups?.slug}`}>
+									<div transition:name={`content-${slug}`}>
 										<Fragment set:html={descriptions[title]?.code ?? ''} />
 									</div>
 								</Prose>

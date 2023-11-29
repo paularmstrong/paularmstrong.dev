@@ -11,6 +11,7 @@ import Prose from '../../components/Prose.astro';
 import TocList from '../../components/TocList.astro';
 import { Share, ShareLink } from '../../components/Share';
 import type { MarkdownHeading } from 'astro';
+import { getPostSlug } from '../../modules/blog-post';
 
 export async function getStaticPaths() {
 	const posts = (
@@ -20,13 +21,12 @@ export async function getStaticPaths() {
 	)
 		.sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
 		.map((post) => {
-			const match = post.slug.match(/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
-			if (!match) {
-				return null;
-			}
-			return { params: { slug: Object.values(match.groups!).join('/') }, props: post };
+			return {
+				params: { slug: getPostSlug(post) },
+				props: post,
+			};
 		})
-		.filter((post) => Boolean(post) && (import.meta.env.DEV || !post?.props?.data?.draft));
+		.filter(Boolean);
 
 	for (let i = 0; i < posts.length; i++) {
 		const prev = posts[i - 1];
