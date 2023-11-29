@@ -187,252 +187,252 @@ declare module 'astro:content' {
 		"blog": {
 "2017-04-11-twitter-lite-and-high-performance-react-progressive-web-apps-at-scale.mdx": {
 	id: "2017-04-11-twitter-lite-and-high-performance-react-progressive-web-apps-at-scale.mdx";
-  slug: "2017-04-11-twitter-lite-and-high-performance-react-progressive-web-apps-at-scale";
+  slug: "twitter-lite-and-high-performance-react-progressive-web-apps-at-scale";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2020-05-16-git-helpers.mdx": {
 	id: "2020-05-16-git-helpers.mdx";
-  slug: "2020-05-16-git-helpers";
+  slug: "git-helpers";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2020-11-16-ducky.mdx": {
 	id: "2020-11-16-ducky.mdx";
-  slug: "2020-11-16-ducky";
+  slug: "ducky";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2020-12-22-javascript-html-templating.mdx": {
 	id: "2020-12-22-javascript-html-templating.mdx";
-  slug: "2020-12-22-javascript-html-templating";
+  slug: "javascript-html-templating";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2021-10-24-open-source-break.mdx": {
 	id: "2021-10-24-open-source-break.mdx";
-  slug: "open-source-break";
+  slug: "2021-10-24-open-source-break";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2021-11-08-abandoning-amp.mdx": {
 	id: "2021-11-08-abandoning-amp.mdx";
-  slug: "2021-11-08-abandoning-amp";
+  slug: "abandoning-amp";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-05-17-nine-years-sober.mdx": {
 	id: "2022-05-17-nine-years-sober.mdx";
-  slug: "2022-05-17-nine-years-sober";
+  slug: "nine-years-sober";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-06-04-custom-wedding-website-part-1.mdx": {
 	id: "2022-06-04-custom-wedding-website-part-1.mdx";
-  slug: "2022-06-04-custom-wedding-website-part-1";
+  slug: "custom-wedding-website-part-1";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-06-04-custom-wedding-website.mdx": {
 	id: "2022-06-04-custom-wedding-website.mdx";
-  slug: "2022-06-04-custom-wedding-website";
+  slug: "custom-wedding-website";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-08-29-shootings.mdx": {
 	id: "2022-08-29-shootings.mdx";
-  slug: "2022-08-29-shootings";
+  slug: "shootings";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-09-26-hacking-express-nodejs-timeout-middleware.mdx": {
 	id: "2022-09-26-hacking-express-nodejs-timeout-middleware.mdx";
-  slug: "2022-09-26-hacking-express-nodejs-timeout-middleware";
+  slug: "hacking-express-nodejs-timeout-middleware";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-10-11-diy-photobooth.mdx": {
 	id: "2022-10-11-diy-photobooth.mdx";
-  slug: "2022-10-11-diy-photobooth";
+  slug: "diy-photobooth";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-10-12-new-site-who-dis.mdx": {
 	id: "2022-10-12-new-site-who-dis.mdx";
-  slug: "2022-10-12-new-site-who-dis";
+  slug: "new-site-who-dis";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-10-13-custom-wedding-website-part-2.mdx": {
 	id: "2022-10-13-custom-wedding-website-part-2.mdx";
-  slug: "2022-10-13-custom-wedding-website-part-2";
+  slug: "custom-wedding-website-part-2";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-10-14-tech-design-template.mdx": {
 	id: "2022-10-14-tech-design-template.mdx";
-  slug: "2022-10-14-tech-design-template";
+  slug: "tech-design-template";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-10-18-current-tool-chest.mdx": {
 	id: "2022-10-18-current-tool-chest.mdx";
-  slug: "2022-10-18-current-tool-chest";
+  slug: "current-tool-chest";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-10-26-diy-photobooth-nerdy-details.mdx": {
 	id: "2022-10-26-diy-photobooth-nerdy-details.mdx";
-  slug: "2022-10-26-diy-photobooth-nerdy-details";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".mdx"] };
-"2022-10-31-why-tailwindcss.mdx": {
-	id: "2022-10-31-why-tailwindcss.mdx";
-  slug: "2022-10-31-why-tailwindcss";
+  slug: "diy-photobooth-nerdy-details";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-11-03-inhumanity-of-twitter-management.mdx": {
 	id: "2022-11-03-inhumanity-of-twitter-management.mdx";
-  slug: "2022-11-03-inhumanity-of-twitter-management";
+  slug: "inhumanity-of-twitter-management";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-11-04-mourning-twitter.mdx": {
 	id: "2022-11-04-mourning-twitter.mdx";
-  slug: "2022-11-04-mourning-twitter";
+  slug: "mourning-twitter";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-11-09-the-case-for-astro.mdx": {
 	id: "2022-11-09-the-case-for-astro.mdx";
-  slug: "2022-11-09-the-case-for-astro";
+  slug: "the-case-for-astro";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-11-10-css-box-sizing-border-box.mdx": {
 	id: "2022-11-10-css-box-sizing-border-box.mdx";
-  slug: "2022-11-10-css-box-sizing-border-box";
+  slug: "css-box-sizing-border-box";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-11-21-client-hint-headers-for-dark-mode-theme.mdx": {
 	id: "2022-11-21-client-hint-headers-for-dark-mode-theme.mdx";
-  slug: "2022-11-21-client-hint-headers-for-dark-mode-theme";
+  slug: "client-hint-headers-for-dark-mode-theme";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-11-22-my-biggest-technical-mistakes.mdx": {
 	id: "2022-11-22-my-biggest-technical-mistakes.mdx";
-  slug: "2022-11-22-my-biggest-technical-mistakes";
+  slug: "my-biggest-technical-mistakes";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-11-28-lessons-learned-how-i-would-rebuild-twitter-today.mdx": {
 	id: "2022-11-28-lessons-learned-how-i-would-rebuild-twitter-today.mdx";
-  slug: "2022-11-28-lessons-learned-how-i-would-rebuild-twitter-today";
+  slug: "lessons-learned-how-i-would-rebuild-twitter-today";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2022-12-19-healthy-meetings-in-tech.mdx": {
 	id: "2022-12-19-healthy-meetings-in-tech.mdx";
-  slug: "2022-12-19-healthy-meetings-in-tech";
+  slug: "healthy-meetings-in-tech";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2023-01-20-javascript-and-frontend-things-to-see-in-2023.mdx": {
 	id: "2023-01-20-javascript-and-frontend-things-to-see-in-2023.mdx";
-  slug: "2023-01-20-javascript-and-frontend-things-to-see-in-2023";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".mdx"] };
-"2023-01-30-why-and-how-of-monorepos.mdx": {
-	id: "2023-01-30-why-and-how-of-monorepos.mdx";
-  slug: "2023-01-30-why-and-how-of-monorepos";
+  slug: "javascript-and-frontend-things-to-see-in-2023";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2023-03-13-why-we-do-not-write-web-components.mdx": {
 	id: "2023-03-13-why-we-do-not-write-web-components.mdx";
-  slug: "2023-03-13-why-we-do-not-write-web-components";
+  slug: "why-we-do-not-write-web-components";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2023-03-24-a-clean-codebase-is-a-happy-codebase.mdx": {
 	id: "2023-03-24-a-clean-codebase-is-a-happy-codebase.mdx";
-  slug: "2023-03-24-a-clean-codebase-is-a-happy-codebase";
+  slug: "a-clean-codebase-is-a-happy-codebase";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2023-08-14-the-line-between-writing-functions-yourself-and-using-open-source-modules.mdx": {
 	id: "2023-08-14-the-line-between-writing-functions-yourself-and-using-open-source-modules.mdx";
-  slug: "2023-08-14-the-line-between-writing-functions-yourself-and-using-open-source-modules";
+  slug: "the-line-between-writing-functions-yourself-and-using-open-source-modules";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2023-08-29-import-path-aliasing-is-a-crutch-for-poor-architecture.mdx": {
 	id: "2023-08-29-import-path-aliasing-is-a-crutch-for-poor-architecture.mdx";
-  slug: "2023-08-29-import-path-aliasing-is-a-crutch-for-poor-architecture";
+  slug: "import-path-aliasing-is-a-crutch-for-poor-architecture";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2023-09-14-we-use-type-safety-not-on-preference-but-because-we-want-to-make-money.mdx": {
 	id: "2023-09-14-we-use-type-safety-not-on-preference-but-because-we-want-to-make-money.mdx";
-  slug: "2023-09-14-we-use-type-safety-not-on-preference-but-because-we-want-to-make-money";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".mdx"] };
-"2023-11-02-desktop-organization-and-workflow.mdx": {
-	id: "2023-11-02-desktop-organization-and-workflow.mdx";
-  slug: "2023-11-02-desktop-organization-and-workflow";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".mdx"] };
-"2023-11-16-solidjs-is-what-react-should-have-become.mdx": {
-	id: "2023-11-16-solidjs-is-what-react-should-have-become.mdx";
-  slug: "2023-11-16-solidjs-is-what-react-should-have-become";
+  slug: "we-use-type-safety-not-on-preference-but-because-we-want-to-make-money";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
 "2023-11-27-apps-tools-for-2023.mdx": {
 	id: "2023-11-27-apps-tools-for-2023.mdx";
-  slug: "2023-11-27-apps-tools-for-2023";
+  slug: "apps-tools-for-2023";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
+"desktop-organization-and-workflow.mdx": {
+	id: "desktop-organization-and-workflow.mdx";
+  slug: "desktop-organization-and-workflow";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
+"solidjs-is-what-react-should-have-become.mdx": {
+	id: "solidjs-is-what-react-should-have-become.mdx";
+  slug: "solidjs-is-what-react-should-have-become";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
+"why-and-how-of-monorepos.mdx": {
+	id: "why-and-how-of-monorepos.mdx";
+  slug: "why-and-how-of-monorepos";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
+"why-tailwindcss.mdx": {
+	id: "why-tailwindcss.mdx";
+  slug: "why-tailwindcss";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">

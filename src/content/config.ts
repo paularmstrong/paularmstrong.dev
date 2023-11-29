@@ -10,9 +10,9 @@ export const collections = {
 				heroImage: image().optional(),
 				heroAlt: z.string().optional(),
 				pubDate: z.coerce.date(),
-				updatedDate: z.coerce.date().optional(),
 				title: z.string(),
 				toc: z.boolean().optional(),
+				updatedDate: z.coerce.date().optional(),
 			}),
 	}),
 	labs: defineCollection({
