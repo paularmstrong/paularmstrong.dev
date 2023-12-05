@@ -51,8 +51,8 @@ module.exports = {
 					borderTopRightRadius: theme('borderRadius.md'),
 					padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
 					fontFamily: theme('fontFamily.mono'),
-					color: theme('colors.slate.900'),
-					backgroundColor: theme('colors.slate.200'),
+					color: theme('colors.slate.100'),
+					backgroundColor: theme('colors.slate.600'),
 					fontSize: theme('fontSize.sm'),
 					'.dark &': {
 						borderColor: theme('colors.slate.800'),

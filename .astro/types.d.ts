@@ -409,6 +409,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2023-12-04-creating-a-custom-express-server-in-vite-the-way-they-forgot-to-document.mdx": {
+	id: "2023-12-04-creating-a-custom-express-server-in-vite-the-way-they-forgot-to-document.mdx";
+  slug: "using-express-js-server-in-vite-the-better-way";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 "desktop-organization-and-workflow.mdx": {
 	id: "desktop-organization-and-workflow.mdx";
   slug: "desktop-organization-and-workflow";
