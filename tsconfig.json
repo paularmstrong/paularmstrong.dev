@@ -7,5 +7,6 @@
 		"baseUrl": ".",
 		"noEmit": true,
 		"skipLibCheck": true
-	}
+	},
+	"exclude": ["./dist/*"]
 }
