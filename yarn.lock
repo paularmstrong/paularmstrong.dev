@@ -7135,8 +7135,8 @@ __metadata:
   linkType: hard
 
 "eslint-mdx@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "eslint-mdx@npm:2.2.0"
+  version: 2.3.0
+  resolution: "eslint-mdx@npm:2.3.0"
   dependencies:
     acorn: "npm:^8.10.0"
     acorn-jsx: "npm:^5.3.2"
@@ -7154,7 +7154,7 @@ __metadata:
     vfile: "npm:^5.3.7"
   peerDependencies:
     eslint: ">=8.0.0"
-  checksum: 79c80aac6de799892b43711fe697b4259d09b54d9a0acbdbcbdb3f2937ea293177a0ef8d833eb118a22c08089f303f2078de6a64828ec36b21bbafa96cf24816
+  checksum: b178843b9fa88c46ea7378e961009e16d21add5359825c8a34c3bdecedeabcdd5926eedd0204cbac7bb59d2787686695e1a196685f5f9d14209be9b5e95ec295
   languageName: node
   linkType: hard
 
