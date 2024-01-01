@@ -2196,6 +2196,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@onerepo/builders@npm:0.5.4":
+  version: 0.5.4
+  resolution: "@onerepo/builders@npm:0.5.4"
+  dependencies:
+    "@onerepo/git": "npm:0.4.3"
+    "@onerepo/logger": "npm:0.5.0"
+    minimatch: "npm:^9.0.0"
+  checksum: e0007da0c9dffc409b880f3d171bf90bc4ba279ffc3b2438dcb96c4b8a892b26e8acf933f8409a726e6bdbcbd2695a86b9e9862e2932bc1d3c7957740045bc8e
+  languageName: node
+  linkType: hard
+
 "@onerepo/core@npm:0.14.2":
   version: 0.14.2
   resolution: "@onerepo/core@npm:0.14.2"
@@ -2250,6 +2261,17 @@ __metadata:
     "@onerepo/logger": "npm:0.5.0"
     "@onerepo/subprocess": "npm:0.6.0"
   checksum: d12c6a75e453b2338034f8563b589230bef4019ce68b1b8e7040a8cf62dd1b48505a7867f8412b7568adc2f483348ff6130d482a25db0435522724733ccc2e37
+  languageName: node
+  linkType: hard
+
+"@onerepo/git@npm:0.4.3":
+  version: 0.4.3
+  resolution: "@onerepo/git@npm:0.4.3"
+  dependencies:
+    "@onerepo/file": "npm:0.5.2"
+    "@onerepo/logger": "npm:0.5.0"
+    "@onerepo/subprocess": "npm:0.6.0"
+  checksum: 01f4cddaeb4ddee7f4afb149114c10d32a08f416a7a40298e097b9b8c4b5c5ebbd8ca22efa10e1b2474a1bc4cd682109abbd5f59c5ca92fc8003ad40febc2e41
   languageName: node
   linkType: hard
 
@@ -2319,12 +2341,12 @@ __metadata:
   linkType: hard
 
 "@onerepo/plugin-typescript@npm:^0.3.4":
-  version: 0.3.4
-  resolution: "@onerepo/plugin-typescript@npm:0.3.4"
+  version: 0.3.5
+  resolution: "@onerepo/plugin-typescript@npm:0.3.5"
   dependencies:
-    "@onerepo/builders": "npm:0.5.3"
+    "@onerepo/builders": "npm:0.5.4"
     "@onerepo/subprocess": "npm:0.6.0"
-  checksum: b2b6613ebbe6530f818818ae755178c612ffe3fd73da04a1565d038e94d6e84b9dcf2e674f95d4e180e599e5174685634326850c41a83511fc4d31e92625ac8a
+  checksum: 41d2cb72fdd23ec5a31c4b6443d6c4e6ef9e45eb3cad8c9d4e2391c9e232ed9566ad9d6ca1639a4443599b54d07576f8d3997960c77e0d51d0be61ee5f5c7811
   languageName: node
   linkType: hard
 
