@@ -1,24 +1,24 @@
-'use strict';
+import type { Config } from 'tailwindcss';
+import type { KeyValuePair, PluginAPI } from 'tailwindcss/types/config';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
 	content: ['src/**/*.{astro,md,mdx,tsx}', 'blog/**/*.{md,mdx}', 'labs/**/*.{mdx,tsx,ts}', 'astro.config.mjs'],
 	darkMode: 'class',
 	plugins: [
 		require('@tailwindcss/typography'),
-		function ({ addBase, theme }) {
+		function ({ addBase, theme }: PluginAPI) {
 			addBase({
 				'[id]': {
 					position: 'relative',
-					zIndex: 1,
+					zIndex: '1',
 				},
 				'*:not(main):target::before': {
 					content: '" "',
 					position: 'absolute',
 					backgroundColor: theme('colors.purple.400'),
 					borderRadius: theme('borderRadius.DEFAULT'),
-					opacity: 0.2,
-					zIndex: -1,
+					opacity: '0.2',
+					zIndex: '-1',
 					inset: `-${theme('spacing.2')}`,
 				},
 				'[data-line-numbers]': {
@@ -77,17 +77,17 @@ module.exports = {
 				},
 			});
 		},
-		function ({ matchUtilities, theme }) {
+		function ({ matchUtilities, theme }: PluginAPI) {
 			matchUtilities(
 				{
 					tab: (value) => ({
 						tabSize: value,
 					}),
 				},
-				{ values: theme('tabSize') },
+				{ values: theme('tabSize') as KeyValuePair<string> },
 			);
 		},
-		function ({ addUtilities }) {
+		function ({ addUtilities }: PluginAPI) {
 			addUtilities({
 				'.no-bustout': {},
 				'.bustout': {
@@ -105,7 +105,7 @@ module.exports = {
 					transform: 'translateX(calc(50vw - 50%))',
 				},
 				'.shape-circle': {
-					aspectRatio: 1,
+					aspectRatio: '1',
 					shapeOutside: 'circle(50%)',
 					clipPath: 'circle(50%)',
 					shapeMargin: '1.25rem',
@@ -131,7 +131,7 @@ module.exports = {
 		},
 
 		extend: {
-			keyframes: (theme) => ({
+			keyframes: ({ theme }) => ({
 				'ring-ping': {
 					'0%': {
 						'box-shadow': `0 0 0 0 ${theme('colors.slate.100')}ff, 0 0 0 0 ${theme('colors.blue.500')}00`,
@@ -159,7 +159,8 @@ module.exports = {
 				'ring-ping': 'ring-ping 2s linear infinite',
 				'ring-ping-dark': 'ring-ping-dark 2s linear infinite',
 			},
-			typography: (theme) => ({
+			// @ts-ignore ugh
+			typography: ({ theme }) => ({
 				DEFAULT: {
 					css: {
 						'code::before': { content: '""' },
@@ -176,4 +177,4 @@ module.exports = {
 			}),
 		},
 	},
-};
+} satisfies Config;

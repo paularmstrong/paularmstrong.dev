@@ -22,6 +22,7 @@ const rehypePlugins = [
 					'utf-8',
 				),
 			),
+			// @ts-ignore getting replaced
 			onVisitLine(node) {
 				// Prevent lines from collapsing in `display: grid` mode, and
 				// allow empty lines to be copy/pasted
@@ -33,12 +34,14 @@ const rehypePlugins = [
 				}
 				node.properties.className.push('inline-block', 'w-full', 'px-4', 'lg:px-8', 'border-l-4', 'border-transparent');
 			},
+			// @ts-ignore getting replaced
 			onVisitHighlightedLine(node) {
 				if (!node.properties.className) {
 					node.properties.className = [''];
 				}
 				node.properties.className.push('bg-pink-500/20', 'py-px', 'border-l-pink-500/80');
 			},
+			// @ts-ignore getting replaced
 			onVisitHighlightedWord(node) {
 				if (!node.properties.className) {
 					node.properties.className = [''];
@@ -66,6 +69,7 @@ export default defineConfig({
 		tailwind(),
 		mdx({
 			remarkPlugins,
+			// @ts-ignore getting replaced soon
 			rehypePlugins,
 			extendPlugins: 'astroDefaults',
 		}),
@@ -74,6 +78,7 @@ export default defineConfig({
 				if (item.url.endsWith('paularmstrong.dev/')) {
 					item.priority = 1.0;
 				} else if (item.url.endsWith('paularmstrong.dev/blog/')) {
+					// @ts-expect-error they used a TS enum <smh>
 					item.changefreq = 'daily';
 					item.priority = 0.9;
 				}
@@ -84,6 +89,7 @@ export default defineConfig({
 	],
 	markdown: {
 		remarkPlugins,
+		// @ts-ignore getting replaced soon
 		rehypePlugins,
 		syntaxHighlight: false,
 		extendDefaultPlugins: true,
