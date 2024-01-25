@@ -23,10 +23,6 @@ export default defineConfig({
 			themes: [ExpressiveCodeTheme.fromJSONString(darkTheme), ExpressiveCodeTheme.fromJSONString(lightTheme)],
 			tabWidth: 2,
 			useDarkModeMediaQuery: false,
-			// themeCssSelector: (theme) => {
-			// 	console.log(`html[data-theme="${theme.type}"]`);
-			// 	return `html[data-theme="${theme.type}"]`;
-			// },
 			styleOverrides: {
 				codeLineHeight: '1.4',
 				frames: {

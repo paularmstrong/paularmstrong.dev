@@ -19,6 +19,11 @@
   cache-control: max-age=365000000
   cache-control: immutable
 
+/og/*
+  cache-control: public
+  cache-control: max-age=365000000
+  cache-control: immutable
+
 /*.js
   cache-control: public
   cache-control: max-age=365000000

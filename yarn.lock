@@ -4709,6 +4709,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"astro-og-canvas@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "astro-og-canvas@npm:0.4.2"
+  dependencies:
+    canvaskit-wasm: "npm:^0.37.0"
+    deterministic-object-hash: "npm:^2.0.2"
+    entities: "npm:^4.4.0"
+  peerDependencies:
+    astro: ^3.0.0 || ^4.0.0
+  checksum: 3c4d81671f9d09dbe41fd0de03e3f6b71929464bef938dc0cd9e4522ebc3ca5144ab793934f7e73ba5d3b477275cd5d36815f04cd8f8c7b67ced49d2b39e431e
+  languageName: node
+  linkType: hard
+
 "astro@npm:^4.2.4":
   version: 4.2.4
   resolution: "astro@npm:4.2.4"
@@ -5358,6 +5371,13 @@ __metadata:
   version: 1.0.30001525
   resolution: "caniuse-lite@npm:1.0.30001525"
   checksum: a373f03a31d6be94ca3382748361b2aa59f6b42245f544f93b3c547379121674c863b28a9a3d272cac568a553b2e2e29349535c7f6a0b30870c169172a088066
+  languageName: node
+  linkType: hard
+
+"canvaskit-wasm@npm:^0.37.0":
+  version: 0.37.2
+  resolution: "canvaskit-wasm@npm:0.37.2"
+  checksum: 281dd674588f73d74c7eaeb3236c14b9c4bfe1832b3ef15a9031bbe0a3b1fe017d3a4715aa99fe0098e12174b2ab7e44a205485af767ab663cd3182310fbd0f2
   languageName: node
   linkType: hard
 
@@ -6603,7 +6623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deterministic-object-hash@npm:^2.0.1":
+"deterministic-object-hash@npm:^2.0.1, deterministic-object-hash@npm:^2.0.2":
   version: 2.0.2
   resolution: "deterministic-object-hash@npm:2.0.2"
   dependencies:
@@ -13969,6 +13989,7 @@ __metadata:
     astro: "npm:^4.2.4"
     astro-expressive-code: "npm:^0.32.2"
     astro-icon: "npm:^1.0.2"
+    astro-og-canvas: "npm:^0.4.2"
     clsx: "npm:^2.0.0"
     debounce: "npm:^2.0.0"
     eslint: "npm:^8.54.0"
