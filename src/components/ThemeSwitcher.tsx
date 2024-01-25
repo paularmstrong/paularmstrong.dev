@@ -24,7 +24,7 @@ export const ThemeSwitcher: Component = () => {
 	onMount(() => {
 		const doc = document.documentElement;
 		const isAuto = doc.dataset.autoTheme === trueString;
-		const isDark = doc.classList.contains(dark);
+		const isDark = doc.dataset.theme === dark;
 		setAuto(isAuto);
 		setTheme(isDark ? dark : light);
 	});
@@ -34,7 +34,7 @@ export const ThemeSwitcher: Component = () => {
 		const newTheme = theme();
 		const newAuto = auto();
 
-		const currentThemeDark = doc.classList.contains(dark) ? dark : light;
+		const currentThemeDark = doc.dataset.theme as Theme;
 		const currentAuto = doc.dataset.autoTheme === trueString;
 
 		if (currentThemeDark === newTheme && currentAuto === newAuto) {
@@ -42,11 +42,7 @@ export const ThemeSwitcher: Component = () => {
 		}
 
 		doc.dataset.autoTheme = newAuto ? trueString : falseString;
-		if (newTheme === dark) {
-			doc.classList.add(dark);
-		} else {
-			doc.classList.remove(dark);
-		}
+		doc.dataset.theme = newTheme;
 
 		save(newTheme, newAuto);
 	});

@@ -67,6 +67,8 @@ function fetchUserData({ params }: RouteDataFuncArgs) {
 <Route path="/users/:id" component={User} data={fetchUserData} />;
 ```
 
+To use your route data, just pull in and call the hook:
+
 ```tsx title="./pages/users/[id].tsx"
 import { useRouteData } from '@solidjs/router';
 
@@ -105,9 +107,9 @@ function UserAvatar(props: Props) {
 
 To properly and performantly handle reactive rendering, Solid requires you use [control flow components](https://www.solidjs.com/docs/latest/api#control-flow). These feel odd at first, but I've gotten used to them pretty quickly:
 
-- Using `<For>{:jsx}` instead of `Array.map(){:jsx}` to render lists of items.
-- `<Switch>{:jsx}` and `<Match>{:jsx}` for mutually exclusive rendering conditions. Although arguably more flexible and easy to follow than chains of `if-else-if-else…` in return renders.
-- `<Show when={shouldShow}>{:jsx}` instead of ternaries: `{shouldShow ? <Component /> : null}{:jsx}`
+- Using `<For>` instead of `Array.map()` to render lists of items.
+- `<Switch>` and `<Match>` for mutually exclusive rendering conditions. Although arguably more flexible and easy to follow than chains of `if-else-if-else…` in return renders.
+- `<Show when={shouldShow}>` instead of ternaries: `{shouldShow ? <Component /> : null}`
 
 ## The bad(?)
 
