@@ -1,6 +1,6 @@
 ---
 import clsx from 'clsx';
-import Icon from 'astro-icon';
+import { Icon } from 'astro-icon/components';
 import Prose from './Prose.astro';
 
 export interface Props {
@@ -28,7 +28,7 @@ const { type = 'note', title = typeToTitle[type] } = Astro.props as Props;
 			'bg-green-100 border border-green-200 dark:border-green-800 dark:bg-green-900': type === 'tip',
 			'bg-orange-100 border border-orange-200 dark:border-orange-900 dark:bg-orange-950': type === 'warning',
 			'bg-red-100 border border-red-200 dark:border-red-800 dark:bg-red-900': type === 'danger',
-		}
+		},
 	)}
 	aria-label={title}
 >
