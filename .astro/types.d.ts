@@ -409,6 +409,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2024-01-25-review-javascript-frontend-things-to-see.mdx": {
+	id: "2024-01-25-review-javascript-frontend-things-to-see.mdx";
+  slug: "javascript-and-frontend-things-to-see-in-2023-review";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 "desktop-organization-and-workflow.mdx": {
 	id: "desktop-organization-and-workflow.mdx";
   slug: "desktop-organization-and-workflow";
