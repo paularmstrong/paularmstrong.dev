@@ -19,7 +19,7 @@ const { current, nextUrl, prevUrl, total } = Astro.props as Props;
 			nextUrl ? (
 				<li class="order-last flex flex-row justify-end" aria-setsize={total} aria-posinset={current + 1}>
 					<Button href={nextUrl} class="inline-flex flex-row-reverse py-4">
-						<Icon name="arrow-right" class="h-6 w-6 shrink-0" />
+						<Icon name="arrow-right" class="size-6 shrink-0" />
 						<span class="text-right">Older posts</span>
 					</Button>
 				</li>
@@ -29,7 +29,7 @@ const { current, nextUrl, prevUrl, total } = Astro.props as Props;
 			prevUrl ? (
 				<li class="order-first flex flex-row justify-start" aria-setsize={total} aria-posinset={current - 1}>
 					<Button href={prevUrl} class="inline-flex flex-row py-4">
-						<Icon name="arrow-left" class="h-6 w-6 shrink-0" />
+						<Icon name="arrow-left" class="size-6 shrink-0" />
 						<span>Newer posts</span>
 					</Button>
 				</li>

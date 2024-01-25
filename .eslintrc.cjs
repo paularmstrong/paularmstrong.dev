@@ -22,7 +22,7 @@ module.exports = {
 	},
 	settings: {
 		tailwindcss: {
-			config: 'tailwind.config.ts',
+			config: './tailwind.config.ts',
 		},
 	},
 	overrides: [
