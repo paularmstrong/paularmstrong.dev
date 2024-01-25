@@ -206,13 +206,13 @@ __metadata:
   linkType: hard
 
 "@astrojs/solid-js@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@astrojs/solid-js@npm:3.0.2"
+  version: 3.0.3
+  resolution: "@astrojs/solid-js@npm:3.0.3"
   dependencies:
     vite-plugin-solid: "npm:^2.7.0"
   peerDependencies:
     solid-js: ^1.4.3
-  checksum: aef7cd3729780c279dc095ac105cbd6bed373f5ca6ff13b1e46902862605e699e57fb577199c26a59fdf89bf8a83859661fbf65794a667fffcdd643037a90c99
+  checksum: 0bf63589f93cb6d8a06840f5b6766f8c66d1811268f3d0b1db31042d3454984ffc88f25ec06b10d812f1553f7f4605cbf9403f9f6f99db31b5916d09535fc8d2
   languageName: node
   linkType: hard
 
