@@ -27,7 +27,7 @@ jobs:
       - uses: paularmstrong/onerepo/actions/get-tasks@main
         id: tasks # important!: this must match the ID used in the output
         with:
-          cli: ./bin/dev.mjs
+          packageManager: yarn
           lifecycle: pre-merge
           verbosity: 2
 
