@@ -14,10 +14,11 @@ const {
 	data: { title, description, heroImage },
 	render,
 } = Astro.props.page;
+const { slug } = Astro.params;
 
 const { Content } = await render();
 ---
 
-<Labs title={title} description={description} image={heroImage?.src}>
+<Labs title={title} description={description} image={heroImage?.src ?? `/og/labs/${slug}`}>
 	<Content />
 </Labs>
