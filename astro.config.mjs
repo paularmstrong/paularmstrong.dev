@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
+import icon from 'astro-icon';
 import mdx from '@astrojs/mdx';
 import solid from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
@@ -54,6 +55,7 @@ export default defineConfig({
 	trailingSlash: 'always',
 	compressHTML: true,
 	integrations: [
+		icon(),
 		solid({
 			include: ['src/**'],
 			exclude: ['**/*react*/**'],
