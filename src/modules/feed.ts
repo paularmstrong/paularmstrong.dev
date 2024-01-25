@@ -3,6 +3,7 @@ import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { Feed } from 'feed';
 import type { Item } from 'feed';
 import { SITE_TITLE, SITE_URL, SITE_DESCRIPTION } from '../config';
+import { getPostSlug } from './blog-post';
 
 const author = {
 	name: 'Paul Armstrong',
@@ -37,13 +38,11 @@ const rawPosts = (
 const { render: renderMarkdown } = await createMarkdownProcessor({});
 
 for (const post of rawPosts) {
-	const match = post.slug.match(/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})-(?<slug>.+)/);
-	if (!match || !post.slug || post.data.draft) {
+	if (post.data.draft) {
 		continue;
 	}
-	const slug = Object.values(match.groups!).join('/');
 
-	const url = `${SITE_URL}/blog/${slug}/`;
+	const url = `${SITE_URL}/blog/${getPostSlug(post)}/`;
 	const { code: description } = await renderMarkdown(`${post.data.description || ''}\n\n[Continue reading…](${url})`);
 	const { code: content } = await renderMarkdown(post.body);
 
