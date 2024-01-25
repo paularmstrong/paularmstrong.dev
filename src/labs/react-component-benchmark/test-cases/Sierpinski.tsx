@@ -45,7 +45,7 @@ export function Inner({ size, x = 0, y = 0 }: InnerProps) {
 function Triangle({ color, size, x, y }: { color: string; size: number; x: number; y: number }) {
 	return (
 		<div
-			className={clsx('absolute h-0 w-0 border-transparent', color)}
+			className={clsx('absolute size-0 border-transparent', color)}
 			style={{
 				marginLeft: x,
 				marginTop: y,
