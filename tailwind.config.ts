@@ -3,7 +3,7 @@ import type { KeyValuePair, PluginAPI } from 'tailwindcss/types/config';
 
 export default {
 	content: ['src/**/*.{astro,md,mdx,tsx}', 'blog/**/*.{md,mdx}', 'labs/**/*.{mdx,tsx,ts}', 'astro.config.mjs'],
-	darkMode: 'class',
+	darkMode: ['class', '[data-theme="dark"]'],
 	plugins: [
 		require('@tailwindcss/typography'),
 		function ({ addBase, theme }: PluginAPI) {
@@ -21,59 +21,8 @@ export default {
 					zIndex: '-1',
 					inset: `-${theme('spacing.2')}`,
 				},
-				'[data-line-numbers]': {
-					counterReset: 'line',
-					'& [data-line]::before': {
-						counterIncrement: 'line',
-						content: 'counter(line)',
-						display: 'inline-block',
-						width: theme('width.5'),
-						marginRight: theme('spacing.6'),
-						textAlign: 'right',
-						color: theme('colors.slate.400'),
-					},
-				},
-				'.prose :where(div[data-rehype-pretty-code-fragment]):not(:where([class~="no-bustout"] *))': {
-					[`@media screen and (min-width: ${theme('screens.xl')})`]: {
-						marginLeft: 'calc(50% - 50vw)',
-						marginRight: 'calc(50% - 50vw)',
-						width: '60vw',
-						maxWidth: '1280px',
-						transform: 'translateX(calc(50vw - 50%))',
-					},
-				},
-				'[data-rehype-pretty-code-title]': {
-					width: 'max-content',
-					borderWidth: theme('spacing.px'),
-					borderBottomWidth: '0',
-					borderColor: theme('colors.slate.300'),
-					borderTopLeftRadius: theme('borderRadius.md'),
-					borderTopRightRadius: theme('borderRadius.md'),
-					padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
-					fontFamily: theme('fontFamily.mono'),
-					color: theme('colors.slate.900'),
-					backgroundColor: theme('colors.slate.200'),
-					fontSize: theme('fontSize.sm'),
-					'.dark &': {
-						borderColor: theme('colors.slate.800'),
-						backgroundColor: theme('colors.slate.900'),
-						color: theme('colors.slate.100'),
-					},
-					'+ pre': {
-						borderTopLeftRadius: theme('borderRadius.none'),
-						marginTop: theme('spacing.0'),
-					},
-				},
-				'[data-rehype-pretty-code-caption]': {
-					marginTop: `-${theme('spacing.6')}`,
-					marginBottom: theme('spacing.8'),
-					fontSize: theme('fontSize.xs'),
-					textAlign: 'center',
-				},
-				'@media (min-width:1280px)': {
-					'[data-rehype-pretty-code-caption]': {
-						marginTop: `-${theme('spacing.9')}`,
-					},
+				'.prose :not(:where([class~="not-prose"], [class~="not-prose"] *)) .expressive-code': {
+					margin: `${theme('spacing.8')} 0 !important`,
 				},
 			});
 		},

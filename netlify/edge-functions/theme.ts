@@ -25,7 +25,7 @@ export default async (req: Request, context: Context) => {
 	const rawCookie = context.cookies.get(COOKIE_NAME) ?? 'auto=true&theme=light';
 	const params = new URLSearchParams(rawCookie);
 	const isAuto = params.get('auto') === 'true';
-	const theme = isAuto && prefers ? prefers : params.get('theme') || 'light';
+	const theme = isAuto && prefers ? prefers : params.get('theme') || 'dark';
 
 	console.log({
 		cookie: context.cookies.get(COOKIE_NAME) || undefined,
@@ -53,7 +53,7 @@ export default async (req: Request, context: Context) => {
 };
 
 class HtmlHandler {
-	#theme = 'light';
+	#theme = 'dark';
 	#isAuto = true;
 
 	constructor(theme: string, isAuto: boolean) {
@@ -62,8 +62,7 @@ class HtmlHandler {
 	}
 
 	element(element: Element) {
-		const original = element.getAttribute('class') || false;
-		element.setAttribute('class', [original, this.#theme].filter(Boolean).join(' '));
+		element.setAttribute('data-theme', this.#theme);
 		element.setAttribute('data-auto-theme', this.#isAuto ? 'true' : 'false');
 	}
 }
@@ -93,6 +92,7 @@ function getCsp(nonce: string) {
 		'script-src': ["'strict-dynamic'", "'unsafe-inline'", `'nonce-${nonce}'`],
 		'img-src': [
 			"'self'",
+			'data:',
 			'https://paularmstrong.dev',
 			'https://paularmstrong.goatcounter.com/count',
 			'https://img.youtube.com',

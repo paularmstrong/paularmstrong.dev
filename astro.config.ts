@@ -1,5 +1,3 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import icon from 'astro-icon';
@@ -9,55 +7,33 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import react from '@astrojs/react';
-import rehypePrettyCode from 'rehype-pretty-code';
+import expressiveCode, { ExpressiveCodeTheme } from 'astro-expressive-code';
+
+const darkTheme = readFileSync(new URL('./config/theme/tailwind-dark-slate.json', import.meta.url), 'utf-8');
+const lightTheme = readFileSync(new URL('./config/theme/tailwind-breeze.json', import.meta.url), 'utf-8');
 
 const remarkPlugins = [remarkReadingTime];
-const rehypePlugins = [
-	[
-		rehypePrettyCode,
-		{
-			theme: JSON.parse(
-				readFileSync(
-					path.join(fileURLToPath(import.meta.url), '..', './config/theme/moonlight-ii-custom.json'),
-					'utf-8',
-				),
-			),
-			// @ts-ignore getting replaced
-			onVisitLine(node) {
-				// Prevent lines from collapsing in `display: grid` mode, and
-				// allow empty lines to be copy/pasted
-				if (node.children.length === 0) {
-					node.children = [{ type: 'text', value: ' ' }];
-				}
-				if (!node.properties.className) {
-					node.properties.className = [''];
-				}
-				node.properties.className.push('inline-block', 'w-full', 'px-4', 'lg:px-8', 'border-l-4', 'border-transparent');
-			},
-			// @ts-ignore getting replaced
-			onVisitHighlightedLine(node) {
-				if (!node.properties.className) {
-					node.properties.className = [''];
-				}
-				node.properties.className.push('bg-pink-500/20', 'py-px', 'border-l-pink-500/80');
-			},
-			// @ts-ignore getting replaced
-			onVisitHighlightedWord(node) {
-				if (!node.properties.className) {
-					node.properties.className = [''];
-				}
-				node.properties.className = ['bg-pink-700/40', 'rounded', 'p-1', '-m-1'];
-			},
-		},
-	],
-];
 
-/** @type {import('@types/astro').AstroUserConfig} */
 export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	trailingSlash: 'always',
 	compressHTML: true,
 	integrations: [
+		expressiveCode({
+			themes: [ExpressiveCodeTheme.fromJSONString(darkTheme), ExpressiveCodeTheme.fromJSONString(lightTheme)],
+			tabWidth: 2,
+			useDarkModeMediaQuery: false,
+			// themeCssSelector: (theme) => {
+			// 	console.log(`html[data-theme="${theme.type}"]`);
+			// 	return `html[data-theme="${theme.type}"]`;
+			// },
+			styleOverrides: {
+				codeLineHeight: '1.4',
+				frames: {
+					frameBoxShadowCssValue: 'none',
+				},
+			},
+		}),
 		icon(),
 		solid({
 			include: ['src/**'],
@@ -67,12 +43,7 @@ export default defineConfig({
 			include: ['**/*react*/**'],
 		}),
 		tailwind(),
-		mdx({
-			remarkPlugins,
-			// @ts-ignore getting replaced soon
-			rehypePlugins,
-			extendPlugins: 'astroDefaults',
-		}),
+		mdx({}),
 		sitemap({
 			serialize(item) {
 				if (item.url.endsWith('paularmstrong.dev/')) {
@@ -82,17 +53,12 @@ export default defineConfig({
 					item.changefreq = 'daily';
 					item.priority = 0.9;
 				}
-
 				return item;
 			},
 		}),
 	],
 	markdown: {
 		remarkPlugins,
-		// @ts-ignore getting replaced soon
-		rehypePlugins,
-		syntaxHighlight: false,
-		extendDefaultPlugins: true,
 	},
 	vite: {
 		build: {
