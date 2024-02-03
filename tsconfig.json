@@ -6,7 +6,7 @@
 		"jsxImportSource": "solid-js",
 		"baseUrl": ".",
 		"noEmit": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
 	},
-	"exclude": ["./dist/*"]
+	"exclude": ["./dist/*"],
 }
