@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss';
 import type { KeyValuePair, PluginAPI } from 'tailwindcss/types/config';
 
 export default {
-	content: ['src/**/*.{astro,md,mdx,tsx}', 'blog/**/*.{md,mdx}', 'labs/**/*.{mdx,tsx,ts}', 'astro.config.mjs'],
+	content: ['src/**/*.{astro,md,mdx,tsx}', 'astro.config.mjs'],
 	darkMode: ['class', '[data-theme="dark"]'],
 	plugins: [
 		require('@tailwindcss/typography'),

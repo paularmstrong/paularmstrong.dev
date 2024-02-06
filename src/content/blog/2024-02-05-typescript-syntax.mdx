@@ -1,0 +1,63 @@
+---
+title: There can be only one Array<T>
+pubDate: 2024-02-05
+slug: typescript-array-syntax-correct-format
+description: This little hill I will forever defend. The shorthand syntax for Arrays in TypeScript is unnecessary and unclear.
+---
+
+This is that one little syntax hill that I will forever defend. The shorthand syntax for Arrays in TypeScript is unnecessary and unclear.
+
+<div class="grid grid-cols-2 gap-8">
+```ts title="Proper Array syntax is good"
+Array<T>
+```
+
+```ts title="Shorthand Array syntax is bad"
+T[]
+```
+
+</div>
+
+## Why you should use the Array type
+
+- Immediately clear when reading left-to-right that the type is an `Array`.
+
+  ```ts
+  type MyStuff = Array<{ some: BigObject }>;
+  ```
+
+- Matches the syntax for `Set<T>` and `Map<K, V>`
+
+  ```ts
+  type MyArr = Array<T>;
+  type MySet = Set<T>;
+  type MyMap = Map<K, V>;
+  ```
+
+## Why you should not use Array shorthand
+
+- Easily overused on complex types
+
+  ```ts
+  type MyStuff = { some: BigObject }[];
+  ```
+
+  You're probably going to argue that `{ some: BigObject }` should be further extracted out, and you're right, but remember that people are inherently lazy and won't always do that.
+
+- Easily mistaken between tuple types, but they are not identical:
+
+  ```ts
+  [string] !== string[]
+  ```
+
+## Automate the good syntax
+
+Arguably, it's hard to enforce a single way when two different syntaxes have the exact same meaning. Luckily, there's an auto-fixing ESLint rule for that: Use [`@typescript-eslint/array-type`](https://typescript-eslint.io/rules/array-type/#generic) set to `"generic"`:
+
+```js title=".eslintrc.cjs"
+module.exports = {
+  rules: {
+    '@typescript-eslint/array-type': ['error', { default: 'generic', readonly: 'generic' }],
+  },
+};
+```
