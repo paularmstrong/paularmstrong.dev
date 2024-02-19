@@ -9,8 +9,11 @@ toc: true
 ---
 
 import Aside from '../../components/Aside.astro';
+import Aurora from '../../components/Aurora.astro';
 import { Image } from 'astro:assets';
 import oneRepoLogo from '../../images/blog/2024-02/onerepo.png';
+
+<Aurora bands={30} />
 
 <Image src={oneRepoLogo} alt="oneRepo logo" width={1002} loading="eager" />
 
@@ -107,4 +110,106 @@ Instead, of any of the available tools, I got the go ahead to work on oneRepo as
 
 While this was very exciting to me, knowing I already had a good start and the experience to back up making it robust enough for many different teams, it was still nagging me that I was writing _yet another_ tool to throw out in the public to choose from.
 
-Eventually, my desire to have tooling that's clean, easy to use, easy to read, performant, _and_ strict overcame my hesitations. And anyway, the worst case scenario is that no one likes what I've made and no one uses it. Well that's actually easier for me, because it means less to support.
+Eventually, my desire to have tooling that's easy to use, easy to read, performant, _and_ strict overcame my hesitations. And anyway, the worst case scenario is that no one likes what I've made and no one uses it. Well that's actually easier for me, because it means less to support.
+
+## Clear output
+
+One big frustration that I always have with other tooling is the log output is difficult for humans to read. My experience debugging with others, particularly more junior developers, has been that they expect errors to be obvious, front and center, without all of the other context.
+
+Particularly when running tasks in parallel, most monorepo tooling will buffer everything immediately to the output, interleaving tasks together, making it difficult to follow what is happening and where there may be issues or all is fine.
+
+```ansi title="Example TurboRepo output"
+[32m@internal-tests/todo-list:test:[0m +++
+[32m@internal-tests/todo-list:test:[0m
+[32m@internal-tests/todo-list:test:[0m dependencies:
+[32m@internal-tests/todo-list:test:[0m + @internal-tests/todo-list 0.0.0-development
+[32m@internal-tests/todo-list:test:[0m + @types/node 16.11.41
+[32m@internal-tests/todo-list:test:[0m + typescript 4.7.3
+[32m@internal-tests/todo-list:test:[0m
+[32m@internal-kit/ts:setup:test:[0m Progress: resolved 117, reused 110, downloaded 1, added 0
+[32m@internal-tests/todo-list:test:[0m Progress: resolved 3, reused 2, downloaded 1, added 3, done
+[32m@internal-tests/todo-list:test:[0m
+[32m@internal-kit/ts:setup:test:[0m Progress: resolved 219, reused 208, downloaded 1, added 0
+[32m@internal-tests/todo-list:test:[0m [32;1m PASS [0m src/__test__/usingCli.test.ts
+[32m@internal-kit/ts:setup:test:[0m Progress: resolved 310, reused 292, downloaded 1, added 0
+[32m@internal-kit/ts:setup:test:[0m Progress: 421, reused 402, downloaded 1, added 0
+[32m@internal-tests/todo-list:test:[0m [32;1m PASS [0m src/__test__/usingAsLibrary.test.ts
+[32m@internal-tests/todo-list:test:[0m
+[32m@internal-tests/todo-list:test:[0m Test Suites:  [32;1m2 passed[0m, 2 total
+[32m@internal-tests/todo-list:test:[0m Tests:        [32;1m2 passed[0m, 2 total
+[32m@internal-tests/todo-list:test:[0m Snapshots:    [32;1m8 passed[0m, 8 total
+[32m@internal-tests/todo-list:test:[0m Time:         2.9122s, estimated 3 s
+[32m@internal-tests/todo-list:test:[0m Ran all test suites.
+```
+
+oneRepo solves for this by waiting grouping output by individual task. While running, by default, only the most recent or most important information will be shown. Output will _never_ be interwoven between individual tasks. And without manually requesting more verbose output, superfluous information will be hidden:
+
+```ansi title="Log types within a step"
+ ┌ Run tests for @internal-tests/todo-list-cli
+ └ [32m✔[39m [2m3s[0m
+ ┌ Run tests for @internal-kit/ts
+ │ [2mProgress: 421, reused 402, downloaded 1, added 0[0m
+ └ ⠙
+```
+
+## No cache
+
+Avoiding extra work by utilizing cached responses based on a set of input files is a great time saver in theory. The problem is that the responsibility of knowing exactly what files and Workspaces affect the cache for each individual task lies on you and your team.
+
+```json title="modules/my-project/nx.json" collapse={2-11}
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build"]
+      }
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "inputs": ["default", "^production"]
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": ["{workspaceRoot}/prisma/**", "{workspaceRoot}/babel.config.json"],
+    "production": ["default", "{projectRoot}/tsconfig.json"]
+  }
+}
+```
+
+The main problem with cache-based solutions is that you and your team need to keep knowledge of the inputs & outputs to each task or target when making major changes to ensure that you haven't added or modified to the determinism without also updating the configuration. It is impossible to expect everyone to know everything all the time and changes will inevitably slip through the cracks, leaving your team confused as to why.
+
+Can you spot where the problem with the previous build task may have issues with cache consistency? It's okay if you aren't sure, because there isn't enough information to provided (issue #1!).
+
+What if we also provide the `./tsconfig.json`?
+
+```json title="modules/my-project/tsconfig.json"
+{
+  "extends": "@internal/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./dist"]
+}
+```
+
+Hint: let's highlight the important part at line 2 from the `tsconfig.json` and compare to the `namedInputs` in the `nx.json`:
+
+```json title="modules/my-project/tsconfig.json" ins="../../shared/tsconfig/base.json"
+{
+  "extends": "../../shared/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./dist"]
+}
+```
+
+Because it's expected that this may not be abundantly clear: `../../shared/tsconfig/base.json` is outside of the local Workspace and _not_ declared as an input to consider for cache consistency.
+
+If we were to make any modifications to the `compilerOptions` within the `../../shared/tsconfig/base.json` file, we would expect to need to run a full build of `my-project` _without_ any cache. However, because of the way the cache configuration is done in Nx (and other monorepo tools), it's easily missed or mis-configured.

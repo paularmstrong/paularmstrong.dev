@@ -28,6 +28,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.5.4",
+		"@expressive-code/plugin-collapsible-sections": "^0.32.4",
 		"@onerepo/plugin-eslint": "1.0.0-beta.0",
 		"@onerepo/plugin-prettier": "1.0.0-beta.0",
 		"@onerepo/plugin-typescript": "1.0.0-beta.0",
