@@ -1,0 +1,110 @@
+---
+title: 'Introducing oneRepo: the JavaScript & TypeScript monorepo toolchain for safe, strict, & fast development'
+description: I am pleased to announce the first major version of oneRepo
+pubDate: 2024-02-20
+heroImage: '../../images/blog/2024-02/onerepo-hero.png'
+heroAlt: 'oneRepo - Easy, strict, safe, and fast JavaScript & TypeScript monorepo toolchain for high performance teams.'
+noHero: true
+toc: true
+---
+
+import Aside from '../../components/Aside.astro';
+import { Image } from 'astro:assets';
+import oneRepoLogo from '../../images/blog/2024-02/onerepo.png';
+
+<Image src={oneRepoLogo} alt="oneRepo logo" width={1002} loading="eager" />
+
+TODO: Intro
+
+---
+
+About a year ago, I asked a friend what their thoughts were about me writing, for the fourth time, a monorepo toolchain – but this time, open sourcing it. They told me I'm doing the same thing that every JavaScript developer does – creates _yet another_ way to do the same thing.
+
+That hit pretty hard, even though I had thought about it a bit already, no one had told me… I was talking about doing the exact thing that I get annoyed about every day. Why are there no less than 6 published modules to accomplish _the same thing_? Why do people keep creating their own instead of contributing back to the already established modules?
+
+I sat with these thoughts for a good while. I hated what I wanted to do… but one thing kept bringing me back – none of the tools available were designed nor intended for strictness and safety _first_.
+
+---
+
+## A personal history
+
+I have a pretty deep history with monorepos at this point. My first exposure to them was at Twitter, starting in 2015. I was hired on to the small team that was re-writing the entire web stack from Scala into React. Using Node.js and purely JavaScript was very new to Twitter. There were no user-facing services written fully in JavaScript at the time. We were pioneering something new. However, Twitter's _source_ monorepo was primarily focused on serving the dominant language, Scala.
+
+All of Twitter's tooling, including an entire engineering team (larger than the entire web team), was focused on ensuring micro-service interopability, scalability, and speed of development – for Scala. Sure, there were some other languages thrown in there that had some optimizations as well, but none of them worked anything like JavaScript.
+
+Problems arose quickly as we started to scale our application's codebase, shared (internal) dependencies, and team. One of the worst issues we had, that was unique to working with JavaScript within _source_, was that it would take 30-60 seconds to create a new git branch.
+
+Yes. One entire minute wait just to `git checkout -b …`.
+
+After what seemed like months of back and forth with the team responsible for our monorepo tooling: the issue was having a large number of ignored files within the repository. Because JavaScript projects typically include one or more `node_modules` folders that are ignored – with _thousands_ of files in them.
+
+### Problems
+
+1. We weren't sharing code with any other services outside of our own application and sub-packages. Similarly, no other team depended on any of our code.
+1. Our tooling couldn't determine the dependency graph of our application and sub-packages – we could not do any deterministic test or CI tasks based on what changed across Workspaces.
+1. TODO… There was definitely more
+
+We were essentially a _client application_. The iOS and Android _client applications_ had their own repositories to avoid the exact same problems we were experiencing, being a unique language with non-shared code that didn't fit into the rest of the stack.
+
+### Solutions
+
+So what'd we do about it? In 2017 I started pushing hard to allow the web team to move out of the _source_ repo. It was a very uphill battle for many months. At most, I counted one VP, four Directors, at least five Senior Managers, and at least a dozen engineers in a meeting while trying to get the _source_ monorepo team to allow us to move out. Why we needed their permission is still over my head, even though this was my project from the start.
+
+Eventually, we hired a new Director for that team and I had a one-on-one meeting with her. I was prepared with the same engineer productivity stats that I had presented time and time again.
+
+> We could save nearly two hours of wait time _per developer_, _per week_.
+
+We had nearly 30 developers working on the new web stack at the time. I'll never forget her response to me:
+
+> What? That's _material_ time. Why are we wasting our time now talking about this? Just go and do it.
+
+She told me she'd deal with her team and shield us from the fallout. I _finally_ was able to get our team in motion in 2018 to build what we needed.
+
+_My experience building the `web` monorepo tooling became the foundation for what is now available as [oneRepo](https://onerepo.tools)._
+
+### Rewriting
+
+After Twitter, I ended up writing nearly the same monorepo tooling internally two more times. Once at Zillow Rentals and once at Microsoft for Startups. In between those two times, I also started writing it with the intention of being able to open source it. I didn't get very far, as work and life took much more out of me and I wasn't able to devote enough time to making it be something usable.
+
+---
+
+## Another monorepo
+
+Back to the beginning of 2023. I had started a new position with the express directive to pull a disorganized frontend organization together, help them grow, and figure out how we can work faster.
+
+My boss, the CTO, came at me with this primary question that he wanted answered:
+
+> Why does it take so dang long to put a button on a page?
+
+The answer was not one of skill, laziness, or anything that could be related to one or many persons. Instead, the answer was that we had over 126 individual frontend repositories. Of those, there was a varying amount of code sharing through a private npm registry, often with varying versions and duplications of the same packages.
+
+It was a completely different root problem than we had at Twitter, but with a similar result – it took forever to do anything and teams were all working in silos, rarely sharing code and knowledge.
+
+I set out to solve this problem first. Yes, there were many problems – 126 frontends is also a major issue, but that's not our focus here…, but the first step was to figure out what we have, what we need or don't, and how we can share and merge.
+
+By now you've probably guessed what the solution would be… yes, merge our frontends to a _monorepo_.
+
+## Choosing the right tools
+
+But what monorepo tooling would we choose? I did my due diligence _again_ to look at Nx, Turbo, and Bazel. With each tool I had the same issues:
+
+- ❌ Reading and following log output was very difficult.
+- ❌ They piggy-backed on _npm scripts_, which meant:
+  - We would still have to write custom tooling.
+  - It would be too easy to reject standards and allow Workspaces to create one-off different ways of doing the same things.
+  - It is difficult to determine what script does what – there's little to no `--help` documentation
+  - Finding the source of the scripts requires deep knowledge.
+- ❌ They rely heavily on using caching of input/output to give a perception of speed. But setting the cache determinism is a manual process that is really easy to mis-configure, resulting in false results during all lifecycles of code.
+- ❌ They use custom DSLs, often YAML to configure.
+- ❌ They upsell paid services, which can be cost-prohibitive.
+- ❌ They do not promote or require strict correctness and enforce standards across Workspace boundaries.
+
+Really, my list goes on. Maybe you can make the tools work differently and satisfy some of my issues, but not without piggybacking a lot of extra work and requiring deeper knowledge of them.
+
+## Open sourcing
+
+Instead, of any of the available tools, I got the go ahead to work on oneRepo as open source code, still under my ownership, but with the primary intention of enabling it internally to serivce our teams.
+
+While this was very exciting to me, knowing I already had a good start and the experience to back up making it robust enough for many different teams, it was still nagging me that I was writing _yet another_ tool to throw out in the public to choose from.
+
+Eventually, my desire to have tooling that's clean, easy to use, easy to read, performant, _and_ strict overcame my hesitations. And anyway, the worst case scenario is that no one likes what I've made and no one uses it. Well that's actually easier for me, because it means less to support.
