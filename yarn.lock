@@ -685,6 +685,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emnapi/runtime@npm:^0.45.0":
+  version: 0.45.0
+  resolution: "@emnapi/runtime@npm:0.45.0"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: be9f794e7c52bff178975c7287e48c84bdab63ed7d4f21f9239f8101fcc04f059bff9b1c5d730cf0c7a6d812231a46749208c315bc085bb5170882c1c9163676
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.19.11":
   version: 0.19.11
   resolution: "@esbuild/aix-ppc64@npm:0.19.11"
@@ -1040,6 +1049,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@iarna/toml@npm:^2.2.5":
+  version: 2.2.5
+  resolution: "@iarna/toml@npm:2.2.5"
+  checksum: b61426dc1a3297bbcb24cb8e9c638663866b4bb6f28f2c377b167e4b1f8956d8d208c484b73bb59f4232249903545cc073364c43576d2d5ad66afbd730ad24a9
+  languageName: node
+  linkType: hard
+
 "@iconify/tools@npm:^3.0.1":
   version: 3.0.7
   resolution: "@iconify/tools@npm:3.0.7"
@@ -1076,6 +1092,181 @@ __metadata:
     kolorist: "npm:^1.8.0"
     local-pkg: "npm:^0.4.3"
   checksum: 4e776ec9d626a174518f5beba0ae310bfe1f068af8cb7e42983dc4d3027356c9094f8733d67c8044f71158ec071634bc6e3a2a1fc831a2810a3f99dbd0a084a8
+  languageName: node
+  linkType: hard
+
+"@img/sharp-darwin-arm64@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-darwin-arm64@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-darwin-arm64": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-darwin-arm64":
+      optional: true
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@img/sharp-darwin-x64@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-darwin-x64@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-darwin-x64": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-darwin-x64":
+      optional: true
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-darwin-arm64@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-darwin-arm64@npm:1.0.1"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-darwin-x64@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-darwin-x64@npm:1.0.1"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-linux-arm64@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-linux-arm64@npm:1.0.1"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-linux-arm@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-linux-arm@npm:1.0.1"
+  conditions: os=linux & cpu=arm & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-linux-s390x@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-linux-s390x@npm:1.0.1"
+  conditions: os=linux & cpu=s390x & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-linux-x64@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-linux-x64@npm:1.0.1"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-linuxmusl-arm64@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-linuxmusl-arm64@npm:1.0.1"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@img/sharp-libvips-linuxmusl-x64@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@img/sharp-libvips-linuxmusl-x64@npm:1.0.1"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@img/sharp-linux-arm64@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-linux-arm64@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-linux-arm64": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-linux-arm64":
+      optional: true
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-linux-arm@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-linux-arm@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-linux-arm": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-linux-arm":
+      optional: true
+  conditions: os=linux & cpu=arm & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-linux-s390x@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-linux-s390x@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-linux-s390x": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-linux-s390x":
+      optional: true
+  conditions: os=linux & cpu=s390x & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-linux-x64@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-linux-x64@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-linux-x64": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-linux-x64":
+      optional: true
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-linuxmusl-arm64@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-linuxmusl-arm64@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-linuxmusl-arm64": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-linuxmusl-arm64":
+      optional: true
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@img/sharp-linuxmusl-x64@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-linuxmusl-x64@npm:0.33.2"
+  dependencies:
+    "@img/sharp-libvips-linuxmusl-x64": "npm:1.0.1"
+  dependenciesMeta:
+    "@img/sharp-libvips-linuxmusl-x64":
+      optional: true
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@img/sharp-wasm32@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-wasm32@npm:0.33.2"
+  dependencies:
+    "@emnapi/runtime": "npm:^0.45.0"
+  conditions: cpu=wasm32
+  languageName: node
+  linkType: hard
+
+"@img/sharp-win32-ia32@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-win32-ia32@npm:0.33.2"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
+"@img/sharp-win32-x64@npm:0.33.2":
+  version: 0.33.2
+  resolution: "@img/sharp-win32-x64@npm:0.33.2"
+  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -1243,48 +1434,48 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/blobs@npm:6.4.2, @netlify/blobs@npm:^6.4.2":
-  version: 6.4.2
-  resolution: "@netlify/blobs@npm:6.4.2"
-  checksum: cef5dd72e0bc2f50667a2e67fc84fad88350630f02e2a6d12012eec4be6c57470ca3847030256a890baad41b520e4314a19a5488f0cbd8e94b206adf9380e399
+"@netlify/blobs@npm:6.5.0, @netlify/blobs@npm:^6.5.0":
+  version: 6.5.0
+  resolution: "@netlify/blobs@npm:6.5.0"
+  checksum: d38c431d17defb9d774dd1e7d72506132cfcc7855a3eb5df31e986bbbecfd66e1e54e854e14c9a66e43c1f92cdb74495f1e7ba1d8625e160b676a60fb474e14d
   languageName: node
   linkType: hard
 
-"@netlify/build-info@npm:7.12.0":
-  version: 7.12.0
-  resolution: "@netlify/build-info@npm:7.12.0"
+"@netlify/build-info@npm:7.12.1":
+  version: 7.12.1
+  resolution: "@netlify/build-info@npm:7.12.1"
   dependencies:
     "@bugsnag/js": "npm:^7.20.0"
+    "@iarna/toml": "npm:^2.2.5"
     dot-prop: "npm:^7.2.0"
     find-up: "npm:^6.3.0"
     minimatch: "npm:^9.0.0"
     read-pkg: "npm:^7.1.0"
     semver: "npm:^7.3.8"
-    toml: "npm:^3.0.0"
     yaml: "npm:^2.1.3"
     yargs: "npm:^17.6.0"
   bin:
     build-info: bin.js
-  checksum: 215eaf2782f23b0f4360deb068c3d2465904d18b9f05d1d5731b6b88e2cbf5f655249b021df4d38d5231491471028415f95a781f4b7053c396037e7843470921
+  checksum: 44bc0770be93e58e2e45ed6a1b6b9e98cf9b316d88b8bd1e0adf30a894d034292be8a8d51f5ecea13468e2b5ab38efc9292eaa46596381f11383527b3e6d8e61
   languageName: node
   linkType: hard
 
-"@netlify/build@npm:29.33.4":
-  version: 29.33.4
-  resolution: "@netlify/build@npm:29.33.4"
+"@netlify/build@npm:29.33.7":
+  version: 29.33.7
+  resolution: "@netlify/build@npm:29.33.7"
   dependencies:
     "@bugsnag/js": "npm:^7.0.0"
-    "@netlify/blobs": "npm:^6.4.2"
+    "@netlify/blobs": "npm:^6.5.0"
     "@netlify/cache-utils": "npm:^5.1.5"
-    "@netlify/config": "npm:^20.10.3"
+    "@netlify/config": "npm:^20.11.1"
     "@netlify/edge-bundler": "npm:11.2.2"
     "@netlify/framework-info": "npm:^9.8.10"
-    "@netlify/functions-utils": "npm:^5.2.49"
+    "@netlify/functions-utils": "npm:^5.2.50"
     "@netlify/git-utils": "npm:^5.1.1"
     "@netlify/opentelemetry-utils": "npm:^1.0.1"
     "@netlify/plugins-list": "npm:^6.73.0"
     "@netlify/run-utils": "npm:^5.1.1"
-    "@netlify/zip-it-and-ship-it": "npm:9.29.0"
+    "@netlify/zip-it-and-ship-it": "npm:9.29.1"
     "@opentelemetry/api": "npm:~1.6.0"
     "@sindresorhus/slugify": "npm:^2.0.0"
     ansi-escapes: "npm:^6.0.0"
@@ -1338,7 +1529,7 @@ __metadata:
       optional: true
   bin:
     netlify-build: bin.js
-  checksum: e689df5388beb0878b4556c3981bd403fc14ecd2448378a98b65decdcbafc51d2cd1ecce91f17bbf6141112ad0c6dc7902899238df402919588a393b9a8b0417
+  checksum: 69363bc2d57dee82820f460fac712108f1a46611aa7e2cdf9c22089162ea53069b854f79fcfcda8894c0279f0799a5dbe56d022bcc7abf2b612b01ced501f1fd
   languageName: node
   linkType: hard
 
@@ -1358,10 +1549,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/config@npm:20.10.3, @netlify/config@npm:^20.10.3":
-  version: 20.10.3
-  resolution: "@netlify/config@npm:20.10.3"
+"@netlify/config@npm:20.11.1":
+  version: 20.11.1
+  resolution: "@netlify/config@npm:20.11.1"
   dependencies:
+    "@iarna/toml": "npm:^2.2.5"
     chalk: "npm:^5.0.0"
     cron-parser: "npm:^4.1.0"
     deepmerge: "npm:^4.2.2"
@@ -1376,19 +1568,52 @@ __metadata:
     js-yaml: "npm:^4.0.0"
     map-obj: "npm:^5.0.0"
     netlify: "npm:^13.1.14"
-    netlify-headers-parser: "npm:^7.1.3"
-    netlify-redirect-parser: "npm:^14.2.1"
+    netlify-headers-parser: "npm:^7.1.4"
+    netlify-redirect-parser: "npm:^14.2.2"
     node-fetch: "npm:^3.3.1"
     omit.js: "npm:^2.0.2"
     p-locate: "npm:^6.0.0"
     path-type: "npm:^5.0.0"
-    toml: "npm:^3.0.0"
     tomlify-j0.4: "npm:^3.0.0"
     validate-npm-package-name: "npm:^4.0.0"
     yargs: "npm:^17.6.0"
   bin:
     netlify-config: bin.js
-  checksum: 21824bb6b02118ac3a701b2c70a4c2accfc67a3878cdb86ee968329bde1aede32d5e12d3e81d7a5890c2c29dbf3b3c12a641426612275d709b4d371b91b35056
+  checksum: 0e9162ab722f7d83d455c59ff124a6449c00447f89e8cad33097010c48eadd419c783d009de41be8870dd32a4e7cdbf6ff126f997fdb8fb3c6604c57ed183d0c
+  languageName: node
+  linkType: hard
+
+"@netlify/config@npm:^20.11.1":
+  version: 20.12.0
+  resolution: "@netlify/config@npm:20.12.0"
+  dependencies:
+    "@iarna/toml": "npm:^2.2.5"
+    chalk: "npm:^5.0.0"
+    cron-parser: "npm:^4.1.0"
+    deepmerge: "npm:^4.2.2"
+    dot-prop: "npm:^7.0.0"
+    execa: "npm:^6.0.0"
+    fast-safe-stringify: "npm:^2.0.7"
+    figures: "npm:^5.0.0"
+    filter-obj: "npm:^5.0.0"
+    find-up: "npm:^6.0.0"
+    indent-string: "npm:^5.0.0"
+    is-plain-obj: "npm:^4.0.0"
+    js-yaml: "npm:^4.0.0"
+    map-obj: "npm:^5.0.0"
+    netlify: "npm:^13.1.14"
+    netlify-headers-parser: "npm:^7.1.4"
+    netlify-redirect-parser: "npm:^14.2.2"
+    node-fetch: "npm:^3.3.1"
+    omit.js: "npm:^2.0.2"
+    p-locate: "npm:^6.0.0"
+    path-type: "npm:^5.0.0"
+    tomlify-j0.4: "npm:^3.0.0"
+    validate-npm-package-name: "npm:^4.0.0"
+    yargs: "npm:^17.6.0"
+  bin:
+    netlify-config: bin.js
+  checksum: fb0d42e1453c6b95afaac758d9bf5d89272dd3aaf1ac69195208702bcda4ef26ddd5a332a02c3aaf4229c56e7d057e330809dc4e2eb15eeaa9114ee97826f928
   languageName: node
   linkType: hard
 
@@ -1442,14 +1667,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/functions-utils@npm:^5.2.49":
-  version: 5.2.49
-  resolution: "@netlify/functions-utils@npm:5.2.49"
+"@netlify/functions-utils@npm:^5.2.50":
+  version: 5.2.51
+  resolution: "@netlify/functions-utils@npm:5.2.51"
   dependencies:
-    "@netlify/zip-it-and-ship-it": "npm:9.29.0"
+    "@netlify/zip-it-and-ship-it": "npm:9.29.2"
     cpy: "npm:^9.0.0"
     path-exists: "npm:^5.0.0"
-  checksum: 617da064594d3462f4a5725bdc12d7feae6eb8abd69062b01ea103d6630c96e57b5904793ea8e967b375173af6f73668500b06eab3405f0ecf99eae875b3cf4f
+  checksum: a8cd72523bb74b2120ddeb4450a5c5c2b3a7886feedc0b2a45c3344887e4f9e5aa305fb11c79b997da76dead942fffa073fe30332df0ce04f75cff691d260cf5
   languageName: node
   linkType: hard
 
@@ -1658,24 +1883,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/serverless-functions-api@npm:^1.13.1":
-  version: 1.13.1
-  resolution: "@netlify/serverless-functions-api@npm:1.13.1"
+"@netlify/serverless-functions-api@npm:^1.14.0":
+  version: 1.14.0
+  resolution: "@netlify/serverless-functions-api@npm:1.14.0"
   dependencies:
     "@netlify/node-cookies": "npm:^0.1.0"
     urlpattern-polyfill: "npm:8.0.2"
-  checksum: 5d502f999871ad00fa94daf094c5c80d3695bbd3b6c8a516e4653d75704310f3ac740032c5725630709ea2ad20b8db3cd6470dc74dfc08f784de3138ffffef85
+  checksum: c25cc7e47d7797be441dd8274341bef1e703ca511d678938ee8daf92f1d5f71b9136bee1922804a14e0934ae219d8b475c06d1bea5202db8233001e0a7e1064e
   languageName: node
   linkType: hard
 
-"@netlify/zip-it-and-ship-it@npm:9.29.0":
-  version: 9.29.0
-  resolution: "@netlify/zip-it-and-ship-it@npm:9.29.0"
+"@netlify/zip-it-and-ship-it@npm:9.29.1":
+  version: 9.29.1
+  resolution: "@netlify/zip-it-and-ship-it@npm:9.29.1"
   dependencies:
     "@babel/parser": "npm:^7.22.5"
     "@babel/types": "npm:7.23.6"
     "@netlify/binary-info": "npm:^1.0.0"
-    "@netlify/serverless-functions-api": "npm:^1.13.1"
+    "@netlify/serverless-functions-api": "npm:^1.14.0"
     "@vercel/nft": "npm:^0.23.0"
     archiver: "npm:^6.0.0"
     common-path-prefix: "npm:^3.0.0"
@@ -1707,7 +1932,50 @@ __metadata:
     yargs: "npm:^17.0.0"
   bin:
     zip-it-and-ship-it: dist/bin.js
-  checksum: 7121566742c51bac56dae03a94d6c3fb7327b9db41db4973ccd61801ab103c4676f1271333def3f6e4e92efa15ebf7b5c67ccd1ae2040be6ef9d0509bb0b76a3
+  checksum: 745c8552651667b3783426981ea75bcdebe0186c10b7eb21b033675b0c295008b8a3a44d983c2110dd463aea92aa0329ea3e32ff25fb133b2da85c6b376ddd18
+  languageName: node
+  linkType: hard
+
+"@netlify/zip-it-and-ship-it@npm:9.29.2":
+  version: 9.29.2
+  resolution: "@netlify/zip-it-and-ship-it@npm:9.29.2"
+  dependencies:
+    "@babel/parser": "npm:^7.22.5"
+    "@babel/types": "npm:7.23.6"
+    "@netlify/binary-info": "npm:^1.0.0"
+    "@netlify/serverless-functions-api": "npm:^1.14.0"
+    "@vercel/nft": "npm:^0.23.0"
+    archiver: "npm:^6.0.0"
+    common-path-prefix: "npm:^3.0.0"
+    cp-file: "npm:^10.0.0"
+    es-module-lexer: "npm:^1.0.0"
+    esbuild: "npm:0.19.11"
+    execa: "npm:^6.0.0"
+    fast-glob: "npm:^3.3.2"
+    filter-obj: "npm:^5.0.0"
+    find-up: "npm:^6.0.0"
+    glob: "npm:^8.0.3"
+    is-builtin-module: "npm:^3.1.0"
+    is-path-inside: "npm:^4.0.0"
+    junk: "npm:^4.0.0"
+    locate-path: "npm:^7.0.0"
+    merge-options: "npm:^3.0.4"
+    minimatch: "npm:^9.0.0"
+    normalize-path: "npm:^3.0.0"
+    p-map: "npm:^5.0.0"
+    path-exists: "npm:^5.0.0"
+    precinct: "npm:^11.0.0"
+    require-package-name: "npm:^2.0.1"
+    resolve: "npm:^2.0.0-next.1"
+    semver: "npm:^7.3.8"
+    tmp-promise: "npm:^3.0.2"
+    toml: "npm:^3.0.0"
+    unixify: "npm:^1.0.0"
+    urlpattern-polyfill: "npm:8.0.2"
+    yargs: "npm:^17.0.0"
+  bin:
+    zip-it-and-ship-it: dist/bin.js
+  checksum: 42020fc20741c54fcecf9f4844b4cd491e1906c810534ee100cc8e94f1c0dae54b4abf99bb764f6f708fee1508334c2ffb60ddac67f9a35d0bc4cfe45bb94b8c
   languageName: node
   linkType: hard
 
@@ -4795,7 +5063,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0":
+"clsx@npm:^2.0.0, clsx@npm:^2.1.0":
   version: 2.1.0
   resolution: "clsx@npm:2.1.0"
   checksum: 2e0ce7c3b6803d74fc8147c408f88e79245583202ac14abd9691e2aebb9f312de44270b79154320d10bb7804a9197869635d1291741084826cff20820f31542b
@@ -11147,19 +11415,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"netlify-cli@npm:^17.7.0":
-  version: 17.15.7
-  resolution: "netlify-cli@npm:17.15.7"
+"netlify-cli@npm:^17.16.2":
+  version: 17.16.2
+  resolution: "netlify-cli@npm:17.16.2"
   dependencies:
     "@bugsnag/js": "npm:7.20.2"
     "@fastify/static": "npm:6.10.2"
-    "@netlify/blobs": "npm:6.4.2"
-    "@netlify/build": "npm:29.33.4"
-    "@netlify/build-info": "npm:7.12.0"
-    "@netlify/config": "npm:20.10.3"
+    "@netlify/blobs": "npm:6.5.0"
+    "@netlify/build": "npm:29.33.7"
+    "@netlify/build-info": "npm:7.12.1"
+    "@netlify/config": "npm:20.11.1"
     "@netlify/edge-bundler": "npm:11.2.2"
     "@netlify/local-functions-proxy": "npm:1.1.1"
-    "@netlify/zip-it-and-ship-it": "npm:9.29.0"
+    "@netlify/zip-it-and-ship-it": "npm:9.29.1"
     "@octokit/rest": "npm:19.0.13"
     ansi-escapes: "npm:6.2.0"
     ansi-styles: "npm:6.2.1"
@@ -11225,8 +11493,8 @@ __metadata:
     log-update: "npm:5.0.1"
     multiparty: "npm:4.2.3"
     netlify: "npm:13.1.14"
-    netlify-headers-parser: "npm:7.1.3"
-    netlify-redirect-parser: "npm:14.2.1"
+    netlify-headers-parser: "npm:7.1.4"
+    netlify-redirect-parser: "npm:14.2.2"
     netlify-redirector: "npm:0.5.0"
     node-fetch: "npm:2.6.12"
     node-version-alias: "npm:3.4.1"
@@ -11264,34 +11532,34 @@ __metadata:
   bin:
     netlify: bin/run.js
     ntl: bin/run.js
-  checksum: 759b594b514371f2b8bb1159262ae6c7ec1ec81994111cfb1e45b8931924c27baaf58e0c978274e6e5de8438f4e607cf1c19563bcca024cc497dfa3b551f86d6
+  checksum: 2adb8dfea57514f8118338dd5ed95eb8cfbfb353f2bf24b89fdc0b7354bb149612298f9ba8b544fe89a3be4dc54c39c064105a8d3ea0b39b770daa4fd5cda2f1
   languageName: node
   linkType: hard
 
-"netlify-headers-parser@npm:7.1.3, netlify-headers-parser@npm:^7.1.3":
-  version: 7.1.3
-  resolution: "netlify-headers-parser@npm:7.1.3"
+"netlify-headers-parser@npm:7.1.4, netlify-headers-parser@npm:^7.1.4":
+  version: 7.1.4
+  resolution: "netlify-headers-parser@npm:7.1.4"
   dependencies:
+    "@iarna/toml": "npm:^2.2.5"
     escape-string-regexp: "npm:^5.0.0"
     fast-safe-stringify: "npm:^2.0.7"
     is-plain-obj: "npm:^4.0.0"
     map-obj: "npm:^5.0.0"
     path-exists: "npm:^5.0.0"
-    toml: "npm:^3.0.0"
-  checksum: 2f995aa84a4267023b156dc7ee5f7b7783bf8274ad4a3d2608af47a3b89786fe49e6cd8e9d36be3494ef8c04f9235de07d4c8d269096bb240565e89b3d0e99d3
+  checksum: 8b4ff7ce4508635d4c8f0514aacc3948714982282e6b4b7cab121688efaecbb596e83993ef5de5332455128d1e3ef5b7489eae3cdec74db176b0410c53530532
   languageName: node
   linkType: hard
 
-"netlify-redirect-parser@npm:14.2.1, netlify-redirect-parser@npm:^14.2.1":
-  version: 14.2.1
-  resolution: "netlify-redirect-parser@npm:14.2.1"
+"netlify-redirect-parser@npm:14.2.2, netlify-redirect-parser@npm:^14.2.2":
+  version: 14.2.2
+  resolution: "netlify-redirect-parser@npm:14.2.2"
   dependencies:
+    "@iarna/toml": "npm:^2.2.5"
     fast-safe-stringify: "npm:^2.1.1"
     filter-obj: "npm:^5.0.0"
     is-plain-obj: "npm:^4.0.0"
     path-exists: "npm:^5.0.0"
-    toml: "npm:^3.0.0"
-  checksum: 52b12c06277477fa3364e2c849d7e1cc916af64e180b6bdedc9204c828897f05f213f8dacb7d865556e0246c8130115fef60a728d6016e5839421ca197cab100
+  checksum: c37c24287dd5953568e44537879f5f28061e2d04e93ab71ab5b66e623ffc49268d6bb4011e98cf98f6fc2298ad432bfb17cb5d226af8994e83bcd6fa7db8445d
   languageName: node
   linkType: hard
 
@@ -12382,7 +12650,7 @@ __metadata:
     astro-expressive-code: "npm:^0.32.4"
     astro-icon: "npm:^1.1.0"
     astro-og-canvas: "npm:^0.4.2"
-    clsx: "npm:^2.0.0"
+    clsx: "npm:^2.1.0"
     debounce: "npm:^2.0.0"
     eslint: "npm:^8.56.0"
     eslint-mdx: "npm:^3.1.5"
@@ -12391,16 +12659,16 @@ __metadata:
     eslint-plugin-tailwindcss: "npm:^3.14.2"
     feed: "npm:^4.2.2"
     mdast-util-to-string: "npm:^4.0.0"
-    netlify-cli: "npm:^17.7.0"
+    netlify-cli: "npm:^17.16.2"
     onerepo: "npm:1.0.0-beta.0"
-    prettier: "npm:^3.1.0"
+    prettier: "npm:^3.2.5"
     prettier-plugin-astro: "npm:^0.13.0"
     react: "npm:^18.2.0"
     react-component-benchmark: "npm:^2.0.0"
     react-dom: "npm:^18.2.0"
     reading-time: "npm:^1.5.0"
-    sharp: "npm:^0.32.6"
-    solid-js: "npm:^1.8.6"
+    sharp: "npm:^0.33.2"
+    solid-js: "npm:^1.8.15"
     tailwind-clip-path: "npm:^1.0.0"
     tailwindcss: "npm:^3.4.1"
     typescript: "npm:^5.3.3"
@@ -12732,12 +13000,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.0.0, prettier@npm:^3.1.0":
-  version: 3.2.4
-  resolution: "prettier@npm:3.2.4"
+"prettier@npm:^3.0.0, prettier@npm:^3.2.5":
+  version: 3.2.5
+  resolution: "prettier@npm:3.2.5"
   bin:
     prettier: bin/prettier.cjs
-  checksum: e2b735d0552501b3a7ac8bd3ba3b6de2920bb35bd4cd02d08cb9057ebe3e96d83b9a7e4b903d987b7530a50223b12c74d107c154337236ae2c68156ba1e65cd2
+  checksum: d509f9da0b70e8cacc561a1911c0d99ec75117faed27b95cc8534cb2349667dee6351b0ca83fa9d5703f14127faa52b798de40f5705f02d843da133fc3aa416a
   languageName: node
   linkType: hard
 
@@ -13968,6 +14236,75 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sharp@npm:^0.33.2":
+  version: 0.33.2
+  resolution: "sharp@npm:0.33.2"
+  dependencies:
+    "@img/sharp-darwin-arm64": "npm:0.33.2"
+    "@img/sharp-darwin-x64": "npm:0.33.2"
+    "@img/sharp-libvips-darwin-arm64": "npm:1.0.1"
+    "@img/sharp-libvips-darwin-x64": "npm:1.0.1"
+    "@img/sharp-libvips-linux-arm": "npm:1.0.1"
+    "@img/sharp-libvips-linux-arm64": "npm:1.0.1"
+    "@img/sharp-libvips-linux-s390x": "npm:1.0.1"
+    "@img/sharp-libvips-linux-x64": "npm:1.0.1"
+    "@img/sharp-libvips-linuxmusl-arm64": "npm:1.0.1"
+    "@img/sharp-libvips-linuxmusl-x64": "npm:1.0.1"
+    "@img/sharp-linux-arm": "npm:0.33.2"
+    "@img/sharp-linux-arm64": "npm:0.33.2"
+    "@img/sharp-linux-s390x": "npm:0.33.2"
+    "@img/sharp-linux-x64": "npm:0.33.2"
+    "@img/sharp-linuxmusl-arm64": "npm:0.33.2"
+    "@img/sharp-linuxmusl-x64": "npm:0.33.2"
+    "@img/sharp-wasm32": "npm:0.33.2"
+    "@img/sharp-win32-ia32": "npm:0.33.2"
+    "@img/sharp-win32-x64": "npm:0.33.2"
+    color: "npm:^4.2.3"
+    detect-libc: "npm:^2.0.2"
+    semver: "npm:^7.5.4"
+  dependenciesMeta:
+    "@img/sharp-darwin-arm64":
+      optional: true
+    "@img/sharp-darwin-x64":
+      optional: true
+    "@img/sharp-libvips-darwin-arm64":
+      optional: true
+    "@img/sharp-libvips-darwin-x64":
+      optional: true
+    "@img/sharp-libvips-linux-arm":
+      optional: true
+    "@img/sharp-libvips-linux-arm64":
+      optional: true
+    "@img/sharp-libvips-linux-s390x":
+      optional: true
+    "@img/sharp-libvips-linux-x64":
+      optional: true
+    "@img/sharp-libvips-linuxmusl-arm64":
+      optional: true
+    "@img/sharp-libvips-linuxmusl-x64":
+      optional: true
+    "@img/sharp-linux-arm":
+      optional: true
+    "@img/sharp-linux-arm64":
+      optional: true
+    "@img/sharp-linux-s390x":
+      optional: true
+    "@img/sharp-linux-x64":
+      optional: true
+    "@img/sharp-linuxmusl-arm64":
+      optional: true
+    "@img/sharp-linuxmusl-x64":
+      optional: true
+    "@img/sharp-wasm32":
+      optional: true
+    "@img/sharp-win32-ia32":
+      optional: true
+    "@img/sharp-win32-x64":
+      optional: true
+  checksum: 4fc8a4632a2c83e920e10a0803753fedc2511e6cc58d377d3aa855cb11372d675aed829d96439b33ac709419bdf94f6121886885059d26216cc76e3a58e4c15f
+  languageName: node
+  linkType: hard
+
 "shebang-command@npm:^2.0.0":
   version: 2.0.0
   resolution: "shebang-command@npm:2.0.0"
@@ -14170,14 +14507,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:^1.8.6":
-  version: 1.8.12
-  resolution: "solid-js@npm:1.8.12"
+"solid-js@npm:^1.8.15":
+  version: 1.8.15
+  resolution: "solid-js@npm:1.8.15"
   dependencies:
     csstype: "npm:^3.1.0"
     seroval: "npm:^1.0.3"
     seroval-plugins: "npm:^1.0.3"
-  checksum: 6b7d739d15f1b1131ec29157367374e50da2e7128fa158b1c0ed920e431468bb2f3ad6953498b412d56dbff28bf70088c75266ce45abf0c00725d41914f2f0b7
+  checksum: ebd34378b4c7d1332360842926b60b42c3ebd7d4b852ed9ba0e08887139b7f50cbc3d9b1167caea26d1d23598b123521101932f9ef453881ad011d59ff33c3d7
   languageName: node
   linkType: hard
 
