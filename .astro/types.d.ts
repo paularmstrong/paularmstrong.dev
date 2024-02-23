@@ -374,6 +374,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2024-02-23-rust-based-javascript-linters-have-a-major-issue.mdx": {
+	id: "2024-02-23-rust-based-javascript-linters-have-a-major-issue.mdx";
+  slug: "2024-02-23-rust-based-javascript-linters-have-a-major-issue";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 "desktop-organization-and-workflow.mdx": {
 	id: "desktop-organization-and-workflow.mdx";
   slug: "desktop-organization-and-workflow";

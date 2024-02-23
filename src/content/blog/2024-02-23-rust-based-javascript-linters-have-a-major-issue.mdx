@@ -1,0 +1,23 @@
+---
+title: Rust-based JavaScript linters have a major issue
+description: |
+  It cannot be denied just how _fast_ Rust-based linters for JavaScript are. The major tools available now are [Biome](https://biomejs.dev) and [Oxc](https://oxc-project.github.io/), both running at nearly 100x the speed of ESLint. But they have one major drawback and I don't think they're going to take over ESLint without it…
+
+pubDate: 2024-02-23
+---
+
+It cannot be denied just how _fast_ Rust-based linters for JavaScript are. The major tools available now are [Biome](https://biomejs.dev) and [Oxc](https://oxc-project.github.io/), both running at nearly 100x the speed of ESLint. But they have one major drawback and I don't think they're going to take over ESLint without it…
+
+<p class="text-3xl font-bold text-red-500">❌ No support for custom rules and plugins</p>
+
+That's it. While Biome intends to [explore (supporting) plugins](https://biomejs.dev/blog/roadmap-2024/#plugins), there are no concrete plans in either tool – nor are they likely to support plugins via JavaScript/TypeScript.
+
+_Why is this a problem?_
+
+While I understand that the intention for both of these projects is to be opinionated, at the same time, those opinions have been formed slowly over time by the large community of JavaScript developers. Blocking the ability to support new ideas – or even blocking behind another language barrier – will result in stagnating progress.
+
+Furthermore, individual teams often have very sutom needs to help prevent problematic patterns and catch errors that are unique to their software. I've written tens of custom ESLint rules over the last decade for teams that helped us prevent real problems that otherwise could go unnoticed until they persisted in production for weeks.
+
+---
+
+I'm hopeful that these Rust-based tools succeed, because they _are_ fast. But I can't imagine they will without a JS-based plugin & custom rule API.
