@@ -1,7 +1,7 @@
 ---
 title: 'Introducing oneRepo: the JavaScript & TypeScript monorepo toolchain for safe, strict, & fast development'
 description: I am pleased to announce the first major version of oneRepo
-pubDate: 2024-02-20
+pubDate: 2024-02-27
 heroImage: '../../images/blog/2024-02/onerepo-hero.png'
 heroAlt: 'oneRepo - Easy, strict, safe, and fast JavaScript & TypeScript monorepo toolchain for high performance teams.'
 noHero: true
@@ -13,20 +13,64 @@ import Aurora from '../../components/Aurora.astro';
 import { Image } from 'astro:assets';
 import oneRepoLogo from '../../images/blog/2024-02/onerepo.png';
 import oneRepoOg from '../../images/blog/2024-02/onerepo-og.png';
-
-<Aurora bands={30} />
-
-<Image src={oneRepoLogo} alt="oneRepo logo" width={1002} loading="eager" />
-
-TODO: Intro
-
----
+import Button from '../../components/Button.astro';
+import { Icon } from 'astro-icon/components';
 
 About a year ago, I asked a friend what their thoughts were about me writing, for the fourth time, a monorepo toolchain – but this time, open sourcing it. They told me I'm doing the same thing that every JavaScript developer does – creates _yet another_ way to do the same thing.
 
 That hit pretty hard, even though I had thought about it a bit already, no one had told me… I was talking about doing the exact thing that I get annoyed about every day. Why are there no less than 6 published modules to accomplish _the same thing_? Why do people keep creating their own instead of contributing back to the already established modules?
 
 I sat with these thoughts for a good while. I hated what I wanted to do… but one thing kept bringing me back – none of the tools available were designed nor intended for strictness and safety _first_.
+
+---
+
+<Aurora bands={30} />
+
+<Image src={oneRepoLogo} alt="oneRepo logo" width={1002} loading="eager" />
+
+## Introducing oneRepo
+
+oneRepo is a monorepo toolchain for working with JavaScript and TypeScript monorepos. It's more than a build system, more than (and not) a build enhancer using cache; it's a full suite of tooling to help teams work faster, smarter, and safer with apps and their source dependencies within monorepos of all sizes.
+
+And today, I'm very happy to announce that [oneRepo](https://onerepo.tools) has now reached a full 1.0.0 release.
+
+## Features
+
+Other monorepo tooling is often either overly complicated or lacking in functionality, making it challenging for distributed organizations to maintain a healthy monorepo. To ensure conformance, stability, and discoverability, organizations need a tool that strikes the right balance, which existing solutions often fail to provide.
+
+### <Icon name="heroicons:rocket-launch-solid" /> Automating tasks
+
+oneRepo simplifies automation by handling common tasks for you and your team. Say goodbye to spending excessive time tinkering with tooling and hello to focusing on your applications.
+
+Check out the oneRepo [task system](https://onerepo.tools/core/tasks/).
+
+### <Icon name="heroicons:check-circle-solid" />Strict safety & checks
+
+Gone are the days of manually configuring file glob patterns for Workspace integrity and decision making for whether or not checks and tasks must run. oneRepo automatically and accurately determines which Workspaces, tasks, and checks are necessary for any given change.
+
+Learn more about oneRepo's built-in [validation checks](https://onerepo.tools/core/graph/#validating-configurations).
+
+### <Icon name="heroicons:puzzle-piece-solid" /> Stop recompiling dependencies
+
+With oneRepo, you can utilize shared Workspaces as source-level dependencies. This means that all import/require chains within the monorepo originate from the source files, eliminating the need to rebuild shared packages to capture changes.
+
+See how oneRepo prevents recompiling for every change using [source dependencies](https://onerepo.tools/docs/source-dependencies/).
+
+### <Icon name="heroicons:code-square-solid" /> Not _another_ language
+
+oneRepo and its APIs, plugins, and configurations are all written in JavaScript (and TypeScript). There's no need to learn a new language or decipher YAML/JSON schema DSLs to configure your tooling.
+
+Use oneRepo's full featured API to [write your own commands](https://onerepo.tools/docs/commands/).
+
+### <Icon name="heroicons:book-open-solid" /> Human-readable output
+
+Logging output from every command and tool in oneRepo is carefully grouped, documented, and prevented from overlapping parallel executions. Every line includes context, timing, and log-type information.
+
+Clear, concise, and obvious [log output](https://onerepo.tools/docs/log-output/) for <i>humans</i>.
+
+### No upsells
+
+Once you've installed oneRepo, you're all set. There's no need to pay extra for additional features; simply bring your own infrastructure and enjoy the full feature set.
 
 ---
 
@@ -46,7 +90,10 @@ After what seemed like months of back and forth with the team responsible for ou
 
 1. We weren't sharing code with any other services outside of our own application and sub-packages. Similarly, no other team depended on any of our code.
 1. Our tooling couldn't determine the dependency graph of our application and sub-packages – we could not do any deterministic test or CI tasks based on what changed across Workspaces.
-1. TODO… There was definitely more
+1. Poor discoverability of commands, shared modules, patterns, and documentation.
+1. Knowing when to run `npm install` after pulling the main branch.
+1. Speed of all aspects of the development cycle (see previously mentioned issue with switching brances).
+1. And many more lost to my memory at this point…
 
 We were essentially a _client application_. The iOS and Android _client applications_ had their own repositories to avoid the exact same problems we were experiencing, being a unique language with non-shared code that didn't fit into the rest of the stack.
 
@@ -72,7 +119,7 @@ After Twitter, I ended up writing nearly the same monorepo tooling internally tw
 
 ---
 
-## Another monorepo
+## Another monorepo tool
 
 Back to the beginning of 2023. I had started a new position with the express directive to pull a disorganized frontend organization together, help them grow, and figure out how we can work faster.
 
@@ -113,7 +160,11 @@ While this was very exciting to me, knowing I already had a good start and the e
 
 Eventually, my desire to have tooling that's easy to use, easy to read, performant, _and_ strict overcame my hesitations. And anyway, the worst case scenario is that no one likes what I've made and no one uses it. Well that's actually easier for me, because it means less to support.
 
+---
+
 ## oneRepo
+
+Thus was born, oneRepo.
 
 <a href="https://onerepo.tools" target="_blank">
   <Image
@@ -143,9 +194,7 @@ First and foremost, oneRepo was created with the understanding that everyone can
 
 ### Empowering developers
 
-The source of all custom commands are written in the same language as the rest of your repository and each command is represented by a distinct file, easy to find within the [`commands` directory](https://onerepo.tools/docs/config/#commandsdirectory). This should enable everyone on your team that works with JavaScript to be able to contribute and learn the tooling without always needing to interrupt a specialist.
-
-### Strict dependency chains
+The source of all commands, custom or built-in, are written in the same language as the rest of your repository. Each command is represented by a distinct file, easy to find within the [`commands` directory](https://onerepo.tools/docs/config/#commandsdirectory). This enables everyone on your team that works with JavaScript to be able to learn and contribute to the repo's tooling without always needing to learn a new language or interrupt a specialist.
 
 ### Clear output
 
@@ -198,7 +247,9 @@ oneRepo solves for this by waiting grouping output by individual task. While run
 
 Other monorepo tooling requires you to decide how to write commands and tasks yourself. Either you're delegating directly to third-parties through [large DSL configurations](https://nx.dev/reference/nx-json) or you're writing custom scripts as one-off solutions with mashed-together setups for logging, type safety, error handling – or none of the above. There are too many choices to make and that ends up with repos having scripts that are difficult to find and trace in the event of an issue.
 
-oneRepo on the other hand is a fully JavaScript and TypeScript-compatible command-line interface that's made for adding any extra scripting or commands you can think of. But no need to worry about adding Rust and learning it to your JS monorepo – plugins and CLI commands are written in JS/TS. This makes it easy for you and your team to write [custom commands](https://onerepo.tools/docs/commands/) directly for your Repository and Workspace's needs.
+Furthermore, I've been [frustrated recently](/blog/2024/02/23/2024-02-23-rust-based-javascript-linters-have-a-major-issue/) by all of the new fancy tools popping up that are written in Rust/Zig/other-fancy-new-C-compiled-languages. They are written for _JavaScript_, but fall short of offering a way for _JavaScript_ interfaces and enhancements.
+
+oneRepo on the other hand is a fully JavaScript and TypeScript-compatible command-line interface and PI that's made for adding any extra scripting or commands you can think of. But no need to worry about adding Rust and learning it to your JS monorepo – plugins and CLI commands are written in JS/TS. This makes it easy for you and your team to write [custom commands](https://onerepo.tools/docs/commands/) directly for your Repository and Workspace's needs.
 
 ```ts title="./commands/new-branch.ts"
 import type { Builder, Handler } from 'onerepo';
@@ -219,3 +270,13 @@ export const handler: Handler = async (argv, { graph, logger }) => {
 Avoiding extra work by utilizing cached responses based on a set of input files is a great time saver in theory. The problem is that the responsibility of knowing exactly what files and Workspaces affect the cache for each individual task lies on you and your team.
 
 oneRepo purposefully _does not_ use a cache to avoid false positives and promote strictness over minor speed improvements. Checkl out some extra details on common pitfalls and [cache inconsistency](https://onerepo.tools/concepts/why-onerepo/#cache-inconsistency) on the oneRepo docs.
+
+## More to come
+
+I tend to freeze up trying to promote my own open source projects. Writing the code is so much easier than selling people on the idea of using something new and different. And as usual, I've written an overly verbose blog post about something I'm passionate about.
+
+But that's just it. I haven't been able to stop being passionate about monorepo tooling for years – and I finally have something that's _open source_ that I can use and share with others. Improvements will continue to roll and I'm excited to see what others do and accomplish with [oneRepo](https://onerepo.tools/).
+
+```sh title="Get started today…"
+npx --package=onerepo one install
+```

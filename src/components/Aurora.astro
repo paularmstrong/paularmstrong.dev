@@ -57,7 +57,10 @@ const { bands } = Astro.props;
 		transform: perspective(300px) rotateX(-10deg) rotateY(-9deg);
 		pointer-events: none;
 		position: absolute;
-		inset: 28rem 0 0 0;
+		left: 0;
+		right: 0;
+		margin-top: -200px;
+		/* inset: 28rem 0 0 0; */
 		z-index: -10;
 		display: flex;
 		align-items: center;

@@ -1067,6 +1067,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@iconify-json/heroicons@npm:^1.1.20":
+  version: 1.1.20
+  resolution: "@iconify-json/heroicons@npm:1.1.20"
+  dependencies:
+    "@iconify/types": "npm:*"
+  checksum: aaa4074b66db8be0232f56b2745206497a40802733c4c9e8d4445fc59ad742137f810cbbfdaf986e40ba7946fd4f06431a32095c4e865f0e5893ece4e707a203
+  languageName: node
+  linkType: hard
+
 "@iconify/tools@npm:^3.0.1":
   version: 3.0.7
   resolution: "@iconify/tools@npm:3.0.7"
@@ -1085,7 +1094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iconify/types@npm:^2.0.0":
+"@iconify/types@npm:*, @iconify/types@npm:^2.0.0":
   version: 2.0.0
   resolution: "@iconify/types@npm:2.0.0"
   checksum: 1b3425ecbc0eef44f23d3f27355ae7ef306d5119c566f013ef1849995b016e1fdcc5af6b74c3bc0554485d70cf5179cb9c1095b14d662a55abcae1148e1a13c9
@@ -12717,6 +12726,7 @@ __metadata:
     "@astrojs/solid-js": "npm:^4.0.1"
     "@astrojs/tailwind": "npm:^5.1.0"
     "@expressive-code/plugin-collapsible-sections": "npm:^0.32.4"
+    "@iconify-json/heroicons": "npm:^1.1.20"
     "@onerepo/plugin-eslint": "npm:1.0.0-beta.0"
     "@onerepo/plugin-prettier": "npm:1.0.0-beta.0"
     "@onerepo/plugin-typescript": "npm:1.0.0-beta.0"
