@@ -30,9 +30,9 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.5.4",
 		"@expressive-code/plugin-collapsible-sections": "^0.32.4",
-		"@onerepo/plugin-eslint": "1.0.0-beta.0",
-		"@onerepo/plugin-prettier": "1.0.0-beta.0",
-		"@onerepo/plugin-typescript": "1.0.0-beta.0",
+		"@onerepo/plugin-eslint": "1.0.0",
+		"@onerepo/plugin-prettier": "1.0.0",
+		"@onerepo/plugin-typescript": "1.0.0",
 		"@types/debounce": "^1.2.4",
 		"@types/mdast": "^4.0.3",
 		"@types/react": "^18.2.56",
@@ -45,7 +45,7 @@
 		"eslint-plugin-mdx": "^3.1.5",
 		"eslint-plugin-tailwindcss": "^3.14.2",
 		"netlify-cli": "^17.16.2",
-		"onerepo": "1.0.0-beta.0",
+		"onerepo": "1.0.0",
 		"prettier": "^3.2.5",
 		"prettier-plugin-astro": "^0.13.0",
 		"typescript": "^5.3.3"
