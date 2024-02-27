@@ -18,9 +18,9 @@ import { Icon } from 'astro-icon/components';
 
 About a year ago, I asked a friend what their thoughts were about me writing, for the fourth time, a monorepo toolchain – but this time, open sourcing it. They told me I'm doing the same thing that every JavaScript developer does – creates _yet another_ way to do the same thing.
 
-That hit pretty hard, even though I had thought about it a bit already, no one had told me… I was talking about doing the exact thing that I get annoyed about every day. Why are there no less than 6 published modules to accomplish _the same thing_? Why do people keep creating their own instead of contributing back to the already established modules?
+That hit pretty hard, even though I had thought about it a bit already, it was the first an external voice was reinforcing my fears. I was talking about doing the exact thing that I get annoyed about with the ecosystem. Why are there no less than 6 published modules to accomplish _the same thing_? Why do people keep creating their own instead of contributing back to the already established modules?
 
-I sat with these thoughts for a good while. I hated what I wanted to do… but one thing kept bringing me back – none of the tools available were designed nor intended for strictness and safety _first_.
+I sat with these thoughts for a good while. I hated what I wanted to do… but one thing kept bringing me back – none of the tools available were designed for the same developer experience, usability, extendability, and strict safety that I had become accustomed to.
 
 ---
 
@@ -30,13 +30,15 @@ I sat with these thoughts for a good while. I hated what I wanted to do… but o
 
 ## Introducing oneRepo
 
-oneRepo is a monorepo toolchain for working with JavaScript and TypeScript monorepos. It's more than a build system, more than (and not) a build enhancer using cache; it's a full suite of tooling to help teams work faster, smarter, and safer with apps and their source dependencies within monorepos of all sizes.
+oneRepo is a command-line interface, an API, and a toolchain for streamlining development with JavaScript and TypeScript monorepos. It's more than a build system, more than (and not) a build enhancer using cache; it's a full suite of tools to help teams work faster, smarter, and safer with apps and their source dependencies within monorepos of all sizes.
 
-And today, I'm very happy to announce that [oneRepo](https://onerepo.tools) has now reached a full 1.0.0 release.
+I'm thrilled to announce that [oneRepo](https://onerepo.tools) has officially reached version 1.0.0!
 
 ## Features
 
-Other monorepo tooling is often either overly complicated or lacking in functionality, making it challenging for distributed organizations to maintain a healthy monorepo. To ensure conformance, stability, and discoverability, organizations need a tool that strikes the right balance, which existing solutions often fail to provide.
+Other monorepo tooling ends up being overly complicated or lacking in functionality, making it challenging for distributed organizations to maintain healthy interdependent code within a monorepo.
+
+oneRepo is a full suite of tools for managing JavaScript and TypeScript monorepos, with the goal of enabling speed and confidence for all changes:
 
 ### <Icon name="heroicons:rocket-launch-solid" /> Automating tasks
 
@@ -88,8 +90,10 @@ After what seemed like months of back and forth with the team responsible for ou
 
 ### Problems
 
-1. We weren't sharing code with any other services outside of our own application and sub-packages. Similarly, no other team depended on any of our code.
-1. Our tooling couldn't determine the dependency graph of our application and sub-packages – we could not do any deterministic test or CI tasks based on what changed across Workspaces.
+The branching issue was just the tip of the iceberg of the issues the web team was facing. Some of the other major issues we were facing:
+
+1. We weren't sharing code with any other services outside of our own application and sub-packages. Similarly, no other team depended on any of our code. We were just a small fish in a huge ocean.
+1. The tooling couldn't determine the dependency graph of our application and sub-packages – we could not do any deterministic test or CI tasks based on what changed across Workspaces.
 1. Poor discoverability of commands, shared modules, patterns, and documentation.
 1. Knowing when to run `npm install` after pulling the main branch.
 1. Speed of all aspects of the development cycle (see previously mentioned issue with switching brances).
@@ -113,6 +117,12 @@ She told me she'd deal with her team and shield us from the fallout. I _finally_
 
 _My experience building the `web` monorepo tooling became the foundation for what is now available as [oneRepo](https://onerepo.tools)._
 
+<Aside type="info" title="Spoiler">
+  We actually recorded timing metrics across many aspects of what was happening throughout the repo both on developer
+  machines and in our automated CI runs. By the time I left Twitter in 201, we had hit or broke those time savings _and_
+  had upwards of 150 individual contributors to the repository each week.
+</Aside>
+
 ### Rewriting
 
 After Twitter, I ended up writing nearly the same monorepo tooling internally two more times. Once at Zillow Rentals and once at Microsoft for Startups. In between those two times, I also started writing it with the intention of being able to open source it. I didn't get very far, as work and life took much more out of me and I wasn't able to devote enough time to making it be something usable.
@@ -123,7 +133,7 @@ After Twitter, I ended up writing nearly the same monorepo tooling internally tw
 
 Back to the beginning of 2023. I had started a new position with the express directive to pull a disorganized frontend organization together, help them grow, and figure out how we can work faster.
 
-My boss, the CTO, came at me with this primary question that he wanted answered:
+Our CTO came at me with this simplified question that he wanted answered:
 
 > Why does it take so dang long to put a button on a page?
 
@@ -133,28 +143,28 @@ It was a completely different root problem than we had at Twitter, but with a si
 
 I set out to solve this problem first. Yes, there were many problems – 126 frontends is also a major issue, but that's not our focus here…, but the first step was to figure out what we have, what we need or don't, and how we can share and merge.
 
-By now you've probably guessed what the solution would be… yes, merge our frontends to a _monorepo_.
+By now you've probably guessed what the solution would be: merge our frontend repositories down to a single _monorepo_.
 
 ## Choosing the right tools
 
 But what monorepo tooling would we choose? I did my due diligence _again_ to look at Nx, Turbo, and Bazel. With each tool I had the same issues:
 
-- ❌ Reading and following log output was very difficult.
+- ❌ Reading and following log output was very difficult for the varying debugging skill levels we had.
 - ❌ They piggy-backed on _npm scripts_, which meant:
   - We would still have to write custom tooling.
   - It would be too easy to reject standards and allow Workspaces to create one-off different ways of doing the same things.
   - It is difficult to determine what script does what – there's little to no `--help` documentation
   - Finding the source of the scripts requires deep knowledge.
-- ❌ They rely heavily on using caching of input/output to give a perception of speed. But setting the cache determinism is a manual process that is really easy to mis-configure, resulting in false results during all lifecycles of code.
+- ❌ They rely heavily on caching input & output to give a perception of speed. Setting the cache determinism is a manual process that is really easy to mis-configure, resulting in false results during all lifecycles of code.
 - ❌ They use custom DSLs, often YAML to configure.
-- ❌ They upsell paid services, which can be cost-prohibitive.
-- ❌ They do not promote or require strict correctness and enforce standards across Workspace boundaries.
+- ❌ They upsell cost-prohibitive paid services.
+- ❌ They do not enforce strict correctness and standards across Workspace boundaries.
 
-Really, my list goes on. Maybe you can make the tools work differently and satisfy some of my issues, but not without piggybacking a lot of extra work and requiring deeper knowledge of them.
+Really, my list goes on. Maybe you can make the tools work differently and satisfy some of my issues, but not without a lot of extra work and requiring deeper knowledge of the tools – or building entire extra systems to work in tandem.
 
 ## Open sourcing
 
-Instead, of any of the available tools, I got the go ahead to work on oneRepo as open source code, still under my ownership, but with the primary intention of enabling it internally to serivce our teams.
+Instead of any of the available tools, I got the go ahead to finish working on oneRepo as open source code, still under my ownership, but with the primary intention of enabling it internally to serivce our teams.
 
 While this was very exciting to me, knowing I already had a good start and the experience to back up making it robust enough for many different teams, it was still nagging me that I was writing _yet another_ tool to throw out in the public to choose from.
 
@@ -163,8 +173,6 @@ Eventually, my desire to have tooling that's easy to use, easy to read, performa
 ---
 
 ## oneRepo
-
-Thus was born, oneRepo.
 
 <a href="https://onerepo.tools" target="_blank">
   <Image
@@ -190,7 +198,7 @@ First and foremost, oneRepo was created with the understanding that everyone can
 
 - **Generated docs**
 
-  Use the first-party plugin [@onerepo/plugin-docgen](https://onerepo.tools/plugins/docgen/) to generate and share documentation as Markdown or other formats. It's super easy to use and makes [beautiful and readable documentation](https://onerepo.tools/plugins/docgen/example/).
+  Use the first-party plugin [@onerepo/plugin-docgen](https://onerepo.tools/plugins/docgen/) to generate and share documentation as Markdown or other formats. It's super easy to use and makes [clear and readable documentation](https://onerepo.tools/plugins/docgen/example/).
 
 ### Empowering developers
 
