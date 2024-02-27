@@ -151,3 +151,21 @@ for (const entry of randomEntries) {
 		</ul>
 	</aside>
 </Base>
+
+<style is:global>
+	[data-icon] {
+		display: inline-block;
+	}
+	h1 [data-icon],
+	h2 [data-icon],
+	h3 [data-icon],
+	h4 [data-icon] {
+		@apply text-blue-700;
+	}
+	[data-theme='dark'] h1 [data-icon],
+	[data-theme='dark'] h2 [data-icon],
+	[data-theme='dark'] h3 [data-icon],
+	[data-theme='dark'] h4 [data-icon] {
+		@apply text-blue-400;
+	}
+</style>

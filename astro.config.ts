@@ -8,6 +8,7 @@ import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './plugins/remark-reading-time.mjs';
 import react from '@astrojs/react';
 import expressiveCode, { ExpressiveCodeTheme } from 'astro-expressive-code';
+import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections';
 
 const darkTheme = readFileSync(new URL('./config/theme/tailwind-dark-slate.json', import.meta.url), 'utf-8');
 const lightTheme = readFileSync(new URL('./config/theme/tailwind-breeze.json', import.meta.url), 'utf-8');
@@ -29,6 +30,7 @@ export default defineConfig({
 					frameBoxShadowCssValue: 'none',
 				},
 			},
+			plugins: [pluginCollapsibleSections()],
 		}),
 		icon(),
 		solid({

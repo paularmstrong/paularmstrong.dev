@@ -910,6 +910,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expressive-code/plugin-collapsible-sections@npm:^0.32.4":
+  version: 0.32.4
+  resolution: "@expressive-code/plugin-collapsible-sections@npm:0.32.4"
+  dependencies:
+    "@expressive-code/core": "npm:^0.32.4"
+    hast-util-select: "npm:^5.0.5"
+    hastscript: "npm:^7.2.0"
+  checksum: 63100c051316b0418963b871379944b686ff26eb85f888e8cac8a2cc5245dc4e66dc0536c9b565c8c5c479e42d4611701e18b9166a887456ea8eb884e3917b93
+  languageName: node
+  linkType: hard
+
 "@expressive-code/plugin-frames@npm:^0.32.4":
   version: 0.32.4
   resolution: "@expressive-code/plugin-frames@npm:0.32.4"
@@ -1056,6 +1067,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@iconify-json/heroicons@npm:^1.1.20":
+  version: 1.1.20
+  resolution: "@iconify-json/heroicons@npm:1.1.20"
+  dependencies:
+    "@iconify/types": "npm:*"
+  checksum: aaa4074b66db8be0232f56b2745206497a40802733c4c9e8d4445fc59ad742137f810cbbfdaf986e40ba7946fd4f06431a32095c4e865f0e5893ece4e707a203
+  languageName: node
+  linkType: hard
+
 "@iconify/tools@npm:^3.0.1":
   version: 3.0.7
   resolution: "@iconify/tools@npm:3.0.7"
@@ -1074,7 +1094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iconify/types@npm:^2.0.0":
+"@iconify/types@npm:*, @iconify/types@npm:^2.0.0":
   version: 2.0.0
   resolution: "@iconify/types@npm:2.0.0"
   checksum: 1b3425ecbc0eef44f23d3f27355ae7ef306d5119c566f013ef1849995b016e1fdcc5af6b74c3bc0554485d70cf5179cb9c1095b14d662a55abcae1148e1a13c9
@@ -4366,6 +4386,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bcp-47-match@npm:^2.0.0":
+  version: 2.0.3
+  resolution: "bcp-47-match@npm:2.0.3"
+  checksum: fb47d31946268865c45df4c5d447964656ea357871bbd6969dc4ea2fb6b581fda385174ed43bc1dc1a7ed75c1a93a51fef18eec0fbd24352725dfceb2246cf2e
+  languageName: node
+  linkType: hard
+
 "before-after-hook@npm:^2.2.0":
   version: 2.2.3
   resolution: "before-after-hook@npm:2.2.3"
@@ -5580,6 +5607,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-selector-parser@npm:^1.0.0":
+  version: 1.4.1
+  resolution: "css-selector-parser@npm:1.4.1"
+  checksum: 81ae797956a6c03e9668fcc11446b2e8ffb13fe87fccc5c80b852cace4136668bab8b171192f395edde94932b8e43b67c0975d8c187721e2da186684d6a17e83
+  languageName: node
+  linkType: hard
+
 "css-tree@npm:^1.1.2, css-tree@npm:^1.1.3":
   version: 1.1.3
   resolution: "css-tree@npm:1.1.3"
@@ -6014,6 +6048,15 @@ __metadata:
   dependencies:
     path-type: "npm:^4.0.0"
   checksum: fa05e18324510d7283f55862f3161c6759a3f2f8dbce491a2fc14c8324c498286c54282c1f0e933cb930da8419b30679389499b919122952a4f8592362ef4615
+  languageName: node
+  linkType: hard
+
+"direction@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "direction@npm:2.0.1"
+  bin:
+    direction: cli.js
+  checksum: 59a423f2f4ca6bbcdd38fb002ae7c06b6af785392162417e6f30a7ca0b406dfa066971d9963ae796e59090b4b4a0d342b1769d19af50985597abf976c1190355
   languageName: node
   linkType: hard
 
@@ -8190,6 +8233,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hast-util-has-property@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "hast-util-has-property@npm:2.0.1"
+  checksum: f6e9be2747ba300aff6801840f25d402d6e209b9591cd29bd0aee53d2e457325f6cb246b1061c767248bc016ca66eee8e8c5f8f074c3ca7cb9f59eaaf6656693
+  languageName: node
+  linkType: hard
+
 "hast-util-parse-selector@npm:^3.0.0":
   version: 3.1.1
   resolution: "hast-util-parse-selector@npm:3.1.1"
@@ -8245,6 +8295,29 @@ __metadata:
     web-namespaces: "npm:^2.0.0"
     zwitch: "npm:^2.0.0"
   checksum: b89a198ec3a3786cef08beac500d27f948124d0f2795e079f775f16c38506719157b9b5cc9a0c781c705b6eff7f66d692f55f0aa5e88530d4ba81e21ca653248
+  languageName: node
+  linkType: hard
+
+"hast-util-select@npm:^5.0.5":
+  version: 5.0.5
+  resolution: "hast-util-select@npm:5.0.5"
+  dependencies:
+    "@types/hast": "npm:^2.0.0"
+    "@types/unist": "npm:^2.0.0"
+    bcp-47-match: "npm:^2.0.0"
+    comma-separated-tokens: "npm:^2.0.0"
+    css-selector-parser: "npm:^1.0.0"
+    direction: "npm:^2.0.0"
+    hast-util-has-property: "npm:^2.0.0"
+    hast-util-to-string: "npm:^2.0.0"
+    hast-util-whitespace: "npm:^2.0.0"
+    not: "npm:^0.1.0"
+    nth-check: "npm:^2.0.0"
+    property-information: "npm:^6.0.0"
+    space-separated-tokens: "npm:^2.0.0"
+    unist-util-visit: "npm:^4.0.0"
+    zwitch: "npm:^2.0.0"
+  checksum: dc2ad647675e1bc41c91558703d015ad44ec9e320f3c723ca96102ee495a4d4bdbc17461b0ffbffa41e49afc39c5469610e7e08119210154c544fb9b130201a9
   languageName: node
   linkType: hard
 
@@ -8360,6 +8433,15 @@ __metadata:
     web-namespaces: "npm:^2.0.0"
     zwitch: "npm:^2.0.0"
   checksum: ba59d0913ba7e914d8b0a50955c06806a6868445c56796ac9129d58185e86d7ff24037246767aba2ea904d9dee8c09b8ff303630bcd854431fdc1bbee2164c36
+  languageName: node
+  linkType: hard
+
+"hast-util-to-string@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "hast-util-to-string@npm:2.0.0"
+  dependencies:
+    "@types/hast": "npm:^2.0.0"
+  checksum: 93f34355b9679a626a2903371a267139bbe30c4d1d5252be6aa9b6d77524d293b8cb9be1f269edab353b678088fe01003affebce39d08a83aa96db208d38fea5
   languageName: node
   linkType: hard
 
@@ -11824,6 +11906,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"not@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "not@npm:0.1.0"
+  checksum: 8043bb53bc1c465a4a4f751394f11aad1d8ccae08dd2123310c6a5d160a5ad4138706d50af905cf114b72507a328585d4f2a73cd3d6730981dd2675aa9c8436f
+  languageName: node
+  linkType: hard
+
 "npm-normalize-package-bin@npm:^3.0.0":
   version: 3.0.1
   resolution: "npm-normalize-package-bin@npm:3.0.1"
@@ -11873,7 +11962,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nth-check@npm:^2.0.1":
+"nth-check@npm:^2.0.0, nth-check@npm:^2.0.1":
   version: 2.1.1
   resolution: "nth-check@npm:2.1.1"
   dependencies:
@@ -12636,6 +12725,8 @@ __metadata:
     "@astrojs/sitemap": "npm:^3.0.5"
     "@astrojs/solid-js": "npm:^4.0.1"
     "@astrojs/tailwind": "npm:^5.1.0"
+    "@expressive-code/plugin-collapsible-sections": "npm:^0.32.4"
+    "@iconify-json/heroicons": "npm:^1.1.20"
     "@onerepo/plugin-eslint": "npm:1.0.0-beta.0"
     "@onerepo/plugin-prettier": "npm:1.0.0-beta.0"
     "@onerepo/plugin-typescript": "npm:1.0.0-beta.0"
