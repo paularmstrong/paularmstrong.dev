@@ -1,0 +1,45 @@
+---
+title: oneRepo 🚀
+description: A JavaScript & TypeScript monorepo toolchain for safe, strict, & fast development.
+heroImage: '../../images/blog/2024-02/onerepo-og.png'
+pubDate: 2024-02-29
+---
+
+import Button from '../../components/Button.astro';
+import Aurora from '../../components/Aurora.astro';
+import Container from '../../components/Content.astro';
+import Prose from '../../components/Prose.astro';
+import SiteWrapper from '../../components/SiteWrapper.astro';
+import oneRepoLogo from '../../images/blog/2024-02/onerepo.png';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+
+<SiteWrapper><Container><Prose>
+
+<Aurora bands={30} />
+<Image src={oneRepoLogo} alt="oneRepo logo" width={1002} loading="eager" />
+
+<h1 class="sr-only">oneRepo</h1>
+
+[oneRepo](https://onerepo.tools) is a command-line interface, an API, and a toolchain for streamlining development with JavaScript and TypeScript monorepos. It's more than a build system, more than (and not) a build enhancer using cache; it's a full suite of tools to help teams work faster, smarter, and safer with apps and their source dependencies within monorepos of all sizes.
+
+<div class="not-prose mb-12">
+  <ul class="flex flex-row gap-4 justify-between">
+    <li>
+      <Button href="https://onerepo.tools">Official oneRepo website</Button>
+    </li>
+    <li>
+      <Button href="/blog/2024/02/27/2024-02-27-introducing-onerepo-the-javascript-typescript-monorepo-toolchain-for-safe-strict-fast-development/">
+        1.0.0 Announcement
+      </Button>
+    </li>
+    <li>
+      <Button href="https://github.com/paularmstrong/onerepo" class="gap-x-2">
+        <Icon class="inline size-6 fill-current" name="github" />
+        Fork on Github
+      </Button>
+    </li>
+  </ul>
+</div>
+
+</Prose></Container></SiteWrapper>

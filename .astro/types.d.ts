@@ -432,6 +432,13 @@ declare module 'astro:content' {
   collection: "labs";
   data: InferEntrySchema<"labs">
 } & { render(): Render[".mdx"] };
+"onerepo.mdx": {
+	id: "onerepo.mdx";
+  slug: "onerepo";
+  body: string;
+  collection: "labs";
+  data: InferEntrySchema<"labs">
+} & { render(): Render[".mdx"] };
 "react-component-benchmark.mdx": {
 	id: "react-component-benchmark.mdx";
   slug: "react-component-benchmark";
