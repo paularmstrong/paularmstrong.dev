@@ -388,6 +388,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] };
+"2024-03-02-code-editors-are-personal.mdx": {
+	id: "2024-03-02-code-editors-are-personal.mdx";
+  slug: "2024-03-02-code-editors-are-personal";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] };
 "desktop-organization-and-workflow.mdx": {
 	id: "desktop-organization-and-workflow.mdx";
   slug: "desktop-organization-and-workflow";
