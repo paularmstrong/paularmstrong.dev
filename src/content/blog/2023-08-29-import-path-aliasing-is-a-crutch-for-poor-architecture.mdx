@@ -3,6 +3,7 @@ title: Import path aliasing is a crutch for poor architecture
 description: |
   Path aliasing, sometimes referred to as import or module resolution, in the earliest and most naïve sense, is a method of overloading the [Node Require Resolution Algorithm](https://nodejs.org/docs/latest-v18.x/api/modules.html#all-together) so that it first looks in some particular defined folders for modules of a given name before looking for installed modules of the same name in `node_modules` folders. While this seems handy at first glance, in practice, it’s is an unnecessary maintenance overhead in large distributed teams and a sign of poor code organization and architecture.
 pubDate: 2023-08-29
+updatedDate: 2024-03-06
 slug: import-path-aliasing-is-a-crutch-for-poor-architecture
 heroImage: '../../images/blog/2023-08-import-paths/robot-line.png'
 heroAlt: robot sifting through messy stacks of papers, black and white, Children’s Drawing
@@ -283,3 +284,31 @@ npx remove-aliasing@latest --root="src/" --prefix="@/" src/
 <div class="bustout-sm">
   <Image src={CleaningImage} width={1024} alt="children’s drawing of a robot stacking papers in black and white" />
 </div>
+
+---
+
+## Bonus VSCode settings
+
+_Updated 2024-03-06_.
+
+VSCode comes out of the box with an inconsistent setting: when adding imports for you, it will choose the _shortest_ import path. So if your relative import is even 1-character longer than it would be as an alias, the alias will be used.
+
+You should turn this off.
+
+```json ins={2,3} title="settings.json"
+{
+  "javascript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.preferences.importModuleSpecifier": "project-relative"
+}
+```
+
+As another helper, make sure that VSCode automatically updates import paths when you move files. This will save you some confusion in those rare instances where things need to be moved around. Be warned, though: moving files across Workspaces in a monorepo may have unexpected results.
+
+```json ins={2,4} title="settings.json"
+{
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "project-relative"
+}
+```
