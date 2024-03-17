@@ -33,3 +33,46 @@
 [[edge_functions]]
   path = "/api/theme/*"
   function = "set-theme"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    accept-ch = "sec-ch-prefers-color-scheme"
+    link = "<https://paularmstrong.dev/>; rel=preconnect"
+    permissions-policy = "ch-prefers-color-scheme=(\"https://paularmstrong.dev\")"
+    x-frame-options = "SAMEORIGIN"
+    x-content-type-options = "nosniff"
+    referrer-policy = "same-origin"
+    cross-origin-resource-policy = "same-origin"
+    cross-origin-embedder-policy = "unsafe-none"
+    cross-origin-opener-policy = "same-origin"
+
+[[headers]]
+  for="/assets/*"
+  [headers.values]
+    cache-control = "public,max-age=365000000,immutable"
+
+[[headers]]
+  for="/img/*"
+  [headers.values]
+    cache-control = "public,max-age=365000000,immutable"
+
+[[headers]]
+  for="/ob/*"
+  [headers.values]
+    cache-control = "public,max-age=365000000,immutable"
+
+[[headers]]
+  for="/*.js"
+  [headers.values]
+    cache-control = "public,max-age=365000000,immutable"
+
+[[headers]]
+  for="/*.css"
+  [headers.values]
+    cache-control = "public,max-age=365000000,immutable"
+
+[[headers]]
+  for="/*.json"
+  [headers.values]
+    cache-control = "public,max-age=365000000,immutable"

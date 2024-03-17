@@ -20,6 +20,9 @@ export default defineConfig({
 	site: 'https://paularmstrong.dev',
 	trailingSlash: 'always',
 	compressHTML: true,
+	devToolbar: {
+		enabled: false,
+	},
 	integrations: [
 		expressiveCode({
 			themes: [ExpressiveCodeTheme.fromJSONString(darkTheme), ExpressiveCodeTheme.fromJSONString(lightTheme)],

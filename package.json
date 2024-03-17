@@ -45,7 +45,7 @@
 		"eslint-plugin-mdx": "^3.1.5",
 		"eslint-plugin-tailwindcss": "^3.14.2",
 		"mermaid": "^10.8.0",
-		"netlify-cli": "^17.16.2",
+		"netlify-cli": "^17.19.4",
 		"onerepo": "1.1.0",
 		"prettier": "^3.2.5",
 		"prettier-plugin-astro": "^0.13.0",
