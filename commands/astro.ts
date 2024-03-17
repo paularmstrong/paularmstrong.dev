@@ -13,6 +13,6 @@ export const handler: Handler = async (argv, { graph }) => {
 		name: 'Run astro',
 		cmd: 'astro',
 		args: rest,
-		opts: { stdio: 'inherit' },
+		opts: { stdio: rest.includes('build') ? 'pipe' : 'inherit' },
 	});
 };
