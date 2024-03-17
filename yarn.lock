@@ -2258,98 +2258,98 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onerepo/builders@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/builders@npm:1.0.0"
+"@onerepo/builders@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/builders@npm:1.0.1"
   dependencies:
-    "@onerepo/git": "npm:1.0.0"
-    "@onerepo/logger": "npm:1.0.0"
+    "@onerepo/git": "npm:1.0.1"
+    "@onerepo/logger": "npm:1.0.1"
     minimatch: "npm:^9.0.3"
-  checksum: ba006c140578f019f4ef181a358284b9d3dd3d83ead1b17c6fa3a8fdb4e6f3f4fc5deca0cd10aa3551f4b9f37db1031ea65048364f8edc3b566d46c758b76d57
+  checksum: 3c3e40b770a5516b81434bb71f59115eb52c22d215517d75e53dc9c1c8dc1281570b4adfb9846c6155625bffc71ce2747a050be74741b5e570d8ebaefe4fe8cd
   languageName: node
   linkType: hard
 
-"@onerepo/file@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/file@npm:1.0.0"
+"@onerepo/file@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/file@npm:1.0.1"
   dependencies:
-    "@onerepo/logger": "npm:1.0.0"
+    "@onerepo/logger": "npm:1.0.1"
     jiti: "npm:^1.21.0"
   peerDependencies:
     prettier: ^2 || ^3
-  checksum: 8207f6f1750dae9779831cc3f079083849008caec7b62ab48db42df4188c94f55c99a85093a54703cd27d15b986eb3ac8438141cb859c1a44beefa981e639a55
+  checksum: 0256b5f58d87e8c564a20136281324a7c6d881dd99e6288fb97a2715abf41977bf07acb4f18cfc8830d234f896c6b8d16d404621eddeffc1a1f5123ed5f1ac10
   languageName: node
   linkType: hard
 
-"@onerepo/git@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/git@npm:1.0.0"
+"@onerepo/git@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/git@npm:1.0.1"
   dependencies:
-    "@onerepo/file": "npm:1.0.0"
-    "@onerepo/logger": "npm:1.0.0"
-    "@onerepo/subprocess": "npm:1.0.0"
-  checksum: a60a13c9bc7d21e2dfc029262b1a5d419cfeaece245aeacadfc7d72beebe11016ff735d6f198cf5b82226895649336288932b55be5b0c8718cf991e577be1e86
+    "@onerepo/file": "npm:1.0.1"
+    "@onerepo/logger": "npm:1.0.1"
+    "@onerepo/subprocess": "npm:1.0.1"
+  checksum: b921de6054d7da56998fce9a6158167d922062dc6160bbf1371e35b9b85fd6d09f38da7bfceb77fbaaff28735a6e64b430bdf7e4abcd592a98f6a15cd4a1117e
   languageName: node
   linkType: hard
 
-"@onerepo/graph@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/graph@npm:1.0.0"
+"@onerepo/graph@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/graph@npm:1.0.1"
   dependencies:
-    "@onerepo/package-manager": "npm:1.0.0"
+    "@onerepo/package-manager": "npm:1.0.1"
     defaults: "npm:^3.0.0"
     glob: "npm:^10.1.0"
     graph-data-structure: "npm:^3.2.0"
     jiti: "npm:^1.21.0"
     js-yaml: "npm:^4.1.0"
     minimatch: "npm:^9.0.3"
-  checksum: 528ae387f1c1308d53f0c43077e63c1f60b64b8273bb72dc8cf80f9a3527da11bd6c97c732407720770d85afe64757204fc7c04706a3cf490c10741417a452b1
+  checksum: e5950df22d05caaa26759373a89ac15b7c80e91e305a3c7a5eb86ce8d6acadd8756dab9e3c0d03e7afe8a5c4e5dab2aa6baa6f25cba790a4cf1744d397ee9e48
   languageName: node
   linkType: hard
 
-"@onerepo/logger@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/logger@npm:1.0.0"
+"@onerepo/logger@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/logger@npm:1.0.1"
   dependencies:
     log-update: "npm:^5.0.1"
     picocolors: "npm:^1.0.0"
-  checksum: 8b89a816b9c519c8b2b4e86181166e177758faae326f571ff35c0ae3c740cdd60e44fcb5161fef92a35bb47819a217d6d167f1c816ecc77f7c770c50b4ba110b
+  checksum: ffd6882f1c12c43106c75b067d9380120d8fbbe2d6352aa3c9316c9f13ae16fdea82c5d12ef2fd80087c3c20c7cd7ae86904607750eabb8adbfeb6c701498c6d
   languageName: node
   linkType: hard
 
-"@onerepo/package-manager@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/package-manager@npm:1.0.0"
+"@onerepo/package-manager@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/package-manager@npm:1.0.1"
   dependencies:
-    "@onerepo/subprocess": "npm:1.0.0"
+    "@onerepo/subprocess": "npm:1.0.1"
     semver: "npm:^7.5.4"
-  checksum: 933329fad54cb5463b223d890e28dfb4718ec06758c94bd4521ce1bcdc677395e3f3547e30e0bb3475a8a4bf80ce26ce9ac2fd9729eb1209260f85eef91de0d7
+  checksum: 342803c73e2c2a5edbadedcbe6449f77488b5cead3db1e84e46b4e577e08b332dae0de810fe98b159aa4fe9cfd925645c73faa8baff8da2bd85835c6165e7107
   languageName: node
   linkType: hard
 
-"@onerepo/plugin-eslint@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/plugin-eslint@npm:1.0.0"
+"@onerepo/plugin-eslint@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/plugin-eslint@npm:1.0.1"
   dependencies:
-    eslint-formatter-onerepo: "npm:1.0.0"
-    minimatch: "npm:^9.0.3"
+    eslint-formatter-onerepo: "npm:1.0.1"
+    ignore: "npm:^5.3.1"
   peerDependencies:
     eslint: ^8
     onerepo: ^1
-  checksum: 4f2fae384be235c0cdf4479afb3acdd4429ccae9e82e7e0673293ebbf9cf22617c656a3add7776d1c0251d97dbead3e66c8cd4d9bfab5ad4545f2c2acb2f770d
+  checksum: f253080b828a6ea82771f4f5cbeac5f7c02d48c35765945b1a61cc3c8b5758cc7f32d22b8e758d33694a5ae097afefc01ab889189ae5c82d45a6107ab4471f66
   languageName: node
   linkType: hard
 
-"@onerepo/plugin-prettier@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/plugin-prettier@npm:1.0.0"
+"@onerepo/plugin-prettier@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/plugin-prettier@npm:1.0.1"
   dependencies:
     "@actions/core": "npm:^1.10.1"
-    minimatch: "npm:^9.0.3"
+    ignore: "npm:^5.3.1"
   peerDependencies:
     onerepo: ^1
     prettier: ^2 || ^3
-  checksum: 242ad9c77c56a2e80d35ebf85725a19c5dbef9acc8fa298e99993666fd6446a53188aeba6f75efe2071d1391e500f0e1565d2d1d7643e944b3a0bf0eb74563da
+  checksum: 76b4f372e0e5a45f48fb41b4d4b1fb1794864d90b496f80743e59660c0df194e2c6f0a2fa79c47cc935b036fefb120712dcec432732c80ee5a442c41a665fe55
   languageName: node
   linkType: hard
 
@@ -2363,24 +2363,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onerepo/subprocess@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/subprocess@npm:1.0.0"
+"@onerepo/subprocess@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/subprocess@npm:1.0.1"
   dependencies:
-    "@onerepo/logger": "npm:1.0.0"
-  checksum: 67ba36f765f9345269303dad8fa3038adc1760c4e8b90237e8d991340f4703c1a510bf05e2722bfea4b7d1037e338d262082720c12a2005557135fdf1dd9c4ac
+    "@onerepo/logger": "npm:1.0.1"
+  checksum: 1516b53161bfab7b55811642376d26e25417ef897bdccafa1c1aee25a6a5756ee2868904fa9cf07aecb581c14f66af1e1163538cc97c5af7fb1150b94811f4b6
   languageName: node
   linkType: hard
 
-"@onerepo/yargs@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@onerepo/yargs@npm:1.0.0"
+"@onerepo/yargs@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@onerepo/yargs@npm:1.0.1"
   dependencies:
-    "@onerepo/builders": "npm:1.0.0"
-    "@onerepo/logger": "npm:1.0.0"
-    "@onerepo/subprocess": "npm:1.0.0"
+    "@onerepo/builders": "npm:1.0.1"
+    "@onerepo/logger": "npm:1.0.1"
+    "@onerepo/subprocess": "npm:1.0.1"
     semver: "npm:^7.5.4"
-  checksum: 74f3fdab6d59e1d4e7856af2b6019fbd77c1e47fde111fbc8430c2f56cdb45f0c99788d9e96584dba702127bcc6844b756727428bdd44e059406ee0557319eda
+  checksum: 13ddc1d875090fac9d5a3e72f4af96a591539015d089f084f7a87307665a879fb4aabc2a1d0b7de3a3849e260e0322f8c948abdceb5084bc1f5f7d383e59effb
   languageName: node
   linkType: hard
 
@@ -6968,14 +6968,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-formatter-onerepo@npm:1.0.0":
-  version: 1.0.0
-  resolution: "eslint-formatter-onerepo@npm:1.0.0"
+"eslint-formatter-onerepo@npm:1.0.1":
+  version: 1.0.1
+  resolution: "eslint-formatter-onerepo@npm:1.0.1"
   dependencies:
     "@actions/core": "npm:^1.10.1"
   peerDependencies:
     eslint: ^8
-  checksum: d26854992448222d35aaddb9059114669c42dce1f2e849df34979e266aa4928a420b80e24e991e50cb2924017fa683b5c973c1fce4d4fc6b4067912258089e0a
+  checksum: 21e618334f83a7822db33a1b12632655945a3bee6cc5058b82941dd0dc292e5234b1d8adf1d6d9a8f737390407dbf5d8c9dde2b9a2656b7ced47616cea7d0250
   languageName: node
   linkType: hard
 
@@ -9210,6 +9210,13 @@ __metadata:
   version: 5.2.4
   resolution: "ignore@npm:5.2.4"
   checksum: 4f7caf5d2005da21a382d4bd1d2aa741a3bed51de185c8562dd7f899a81a620ac4fd0619b06f7029a38ae79e4e4c134399db3bd0192c703c3ef54bb82df3086c
+  languageName: node
+  linkType: hard
+
+"ignore@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "ignore@npm:5.3.1"
+  checksum: 0a884c2fbc8c316f0b9f92beaf84464253b73230a4d4d286697be45fca081199191ca33e1c2e82d9e5f851f5e9a48a78e25a35c951e7eb41e59f150db3530065
   languageName: node
   linkType: hard
 
@@ -12937,19 +12944,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"onerepo@npm:1.0.0":
-  version: 1.0.0
-  resolution: "onerepo@npm:1.0.0"
+"onerepo@npm:1.1.0":
+  version: 1.1.0
+  resolution: "onerepo@npm:1.1.0"
   dependencies:
     "@actions/core": "npm:^1.10.1"
-    "@onerepo/builders": "npm:1.0.0"
-    "@onerepo/file": "npm:1.0.0"
-    "@onerepo/git": "npm:1.0.0"
-    "@onerepo/graph": "npm:1.0.0"
-    "@onerepo/logger": "npm:1.0.0"
-    "@onerepo/package-manager": "npm:1.0.0"
-    "@onerepo/subprocess": "npm:1.0.0"
-    "@onerepo/yargs": "npm:1.0.0"
+    "@onerepo/builders": "npm:1.0.1"
+    "@onerepo/file": "npm:1.0.1"
+    "@onerepo/git": "npm:1.0.1"
+    "@onerepo/graph": "npm:1.0.1"
+    "@onerepo/logger": "npm:1.0.1"
+    "@onerepo/package-manager": "npm:1.0.1"
+    "@onerepo/subprocess": "npm:1.0.1"
+    "@onerepo/yargs": "npm:1.0.1"
     ajv: "npm:^8.12.0"
     ajv-errors: "npm:^3.0.0"
     cliui: "npm:^8.0.1"
@@ -12957,6 +12964,7 @@ __metadata:
     ejs: "npm:^3.1.8"
     glob: "npm:^10.1.0"
     graph-data-structure: "npm:^3.2.0"
+    ignore: "npm:^5.3.1"
     inquirer: "npm:^9.1.4"
     jiti: "npm:^1.21.0"
     js-yaml: "npm:^4.1.0"
@@ -12969,7 +12977,7 @@ __metadata:
   bin:
     one: ./dist/bin/one.js
     onerepo: ./dist/bin/one.js
-  checksum: 99e9e6cbbfb7e5831e08ca896dd033b8a634ca703bceabe76f4fc137006922de2e1090af007c169652bb9ee8c723972fcd6df11d4d8910a35ad5e1a8ec27eeee
+  checksum: 266e4948c084876c227a1beedc26fdf08dcd8961d9c00103bb393ea8fea1b5b1e94c266d761c6106383a00c1fce472a2357ef61a1c2058b4dd5f17a593842ebb
   languageName: node
   linkType: hard
 
@@ -13577,8 +13585,8 @@ __metadata:
     "@astrojs/tailwind": "npm:^5.1.0"
     "@expressive-code/plugin-collapsible-sections": "npm:^0.32.4"
     "@iconify-json/heroicons": "npm:^1.1.20"
-    "@onerepo/plugin-eslint": "npm:1.0.0"
-    "@onerepo/plugin-prettier": "npm:1.0.0"
+    "@onerepo/plugin-eslint": "npm:1.0.1"
+    "@onerepo/plugin-prettier": "npm:1.0.1"
     "@onerepo/plugin-typescript": "npm:1.0.0"
     "@tailwindcss/typography": "npm:^0.5.10"
     "@types/debounce": "npm:^1.2.4"
@@ -13602,7 +13610,7 @@ __metadata:
     mdast-util-to-string: "npm:^4.0.0"
     mermaid: "npm:^10.8.0"
     netlify-cli: "npm:^17.16.2"
-    onerepo: "npm:1.0.0"
+    onerepo: "npm:1.1.0"
     prettier: "npm:^3.2.5"
     prettier-plugin-astro: "npm:^0.13.0"
     react: "npm:^18.2.0"
