@@ -11,7 +11,7 @@
 		"@iconify-json/heroicons": "^1.1.20",
 		"@tailwindcss/typography": "^0.5.10",
 		"astro": "^4.4.0",
-		"astro-expressive-code": "^0.32.4",
+		"astro-expressive-code": "^0.33.5",
 		"astro-icon": "^1.1.0",
 		"astro-og-canvas": "^0.4.2",
 		"clsx": "^2.1.0",
@@ -29,7 +29,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.5.4",
-		"@expressive-code/plugin-collapsible-sections": "^0.32.4",
+		"@expressive-code/plugin-collapsible-sections": "^0.33.5",
 		"@onerepo/plugin-eslint": "1.0.1",
 		"@onerepo/plugin-prettier": "1.0.1",
 		"@onerepo/plugin-typescript": "1.0.0",
