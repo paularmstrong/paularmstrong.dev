@@ -5455,6 +5455,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "commander@npm:8.3.0"
+  checksum: 6b7b5d334483ce24bd73c5dac2eab901a7dbb25fd983ea24a1eeac6e7166bb1967f641546e8abf1920afbde86a45fbfe5812fbc69d0dc451bb45ca416a12a3a3
+  languageName: node
+  linkType: hard
+
 "commander@npm:^9.3.0":
   version: 9.5.0
   resolution: "commander@npm:9.5.0"
@@ -10518,6 +10525,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"katex@npm:^0.16.9":
+  version: 0.16.10
+  resolution: "katex@npm:0.16.10"
+  dependencies:
+    commander: "npm:^8.3.0"
+  bin:
+    katex: cli.js
+  checksum: 367034012311c695791de4553b3e4c7a9f36d126a0cae17b97f4e8832ced2559961f9fa6d39e0116e1374013e12ac8af159eb014678f06b4acf5e547292ea3e5
+  languageName: node
+  linkType: hard
+
 "keep-func-props@npm:^4.0.0":
   version: 4.0.1
   resolution: "keep-func-props@npm:4.0.1"
@@ -11454,8 +11472,8 @@ __metadata:
   linkType: hard
 
 "mermaid@npm:^10.0.0, mermaid@npm:^10.8.0":
-  version: 10.8.0
-  resolution: "mermaid@npm:10.8.0"
+  version: 10.9.1
+  resolution: "mermaid@npm:10.9.1"
   dependencies:
     "@braintree/sanitize-url": "npm:^6.0.1"
     "@types/d3-scale": "npm:^4.0.3"
@@ -11468,6 +11486,7 @@ __metadata:
     dayjs: "npm:^1.11.7"
     dompurify: "npm:^3.0.5"
     elkjs: "npm:^0.9.0"
+    katex: "npm:^0.16.9"
     khroma: "npm:^2.0.0"
     lodash-es: "npm:^4.17.21"
     mdast-util-from-markdown: "npm:^1.3.0"
@@ -11476,7 +11495,7 @@ __metadata:
     ts-dedent: "npm:^2.2.0"
     uuid: "npm:^9.0.0"
     web-worker: "npm:^1.2.0"
-  checksum: 42b728f8b94dab609029a9603efa9f9129f039835ebf108551dde331f0db0e600809cdb261f727816180caf3240c42fd360165b6e3d4b9474047230261f77de5
+  checksum: 13f90ec5995d994c5d6433173f973cc954294be8f90b9c05e32c43b5f0b68b83156de219c9a27396fad293e35ef9003f1dc347bc78543cd6975ca3742df7c261
   languageName: node
   linkType: hard
 
