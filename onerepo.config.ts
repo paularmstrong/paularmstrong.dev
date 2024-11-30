@@ -38,5 +38,5 @@ export default {
 		autoSyncHooks: true,
 	},
 
-	templateDir: './config/templates',
+	templateDir: './templates',
 } satisfies Config;

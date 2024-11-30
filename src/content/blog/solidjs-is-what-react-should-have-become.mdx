@@ -2,10 +2,12 @@
 title: SolidJS is what React should have become
 description: |
   Or alternatively, React is a mistake.
-pubDate: 2023-11-16
+pubDate: 2024-03-19
 slug: solidjs-is-what-react-should-have-become
 draft: true
 ---
+
+import Aside from '../../components/Aside.astro';
 
 ## The good
 
@@ -13,7 +15,7 @@ I _want_ to say _great_, but I'm still early into this journey of working with S
 
 ### Speed
 
-I am continually blown away by how much faster rendering updates are in Solid. This is by design, since Solid is directly updating DOM nodes and not using an intermediary vDOM with diffing like React and others. But still… it's amazing.
+I am continually blown away by how much faster rendering updates are in Solid. This is by design, since Solid is directly updating DOM nodes and not using an intermediary virtual DOM with diffing like React and others. But still… it's amazing.
 
 I am converting an older project from React 18 to Solid and hovers with tooltips moving and updating are over 10x faster in Solid than in React. 30 or more milliseconds down to 3 milliseconds. The updates are faster than my eyes can track.
 
@@ -30,6 +32,28 @@ But on top of that, Solid has explicit lifecycle methods:
 
 That's it. No special things like: "if you return this function from this special hook", "provide a special empty array to this hook", or "sometimes it depends…".
 
+### `use…` vs `create…` methods
+
+I quickly noticed a confusion point when amoving from React to Solid. Some things that I thought were like "hooks" in Solid start with the `create` prefix instead of `use`. Most notably, instead of `useEffect`, we have `createEffect`.
+
+The reason for this is all part of the clarity of Solid: `create` functions run once and only once. You're _creating_ something. So, when I have a component, and inside of it I have something that defines a side-effect, I'm only ever _defining_ that side effect once.
+
+But it's also necessary to understand that what happens _inside_ of that effect is dependent upon the reactive signals that are used inside.
+
+{/* TODO: maybe replace this with something that could be problematic in react, like updating a parent context in a loop? */}
+
+```ts
+const [count, setCount] = createSignal(0);
+
+createEffect(() => {
+  if (count < 4) {
+    setTimeout(() => {
+      setCount((current) => current + 1);
+    }, 1000);
+  }
+});
+```
+
 ### Data fetching
 
 I've seen a good amount of divisiveness in the React community around how to do data fetching. Not just with what tool to use, but _how_ it should be done with respect to React and its rendering cycles. The React docs show you how to [fetch data with `useEffect`](https://react.dev/reference/react/useEffect#fetching-data-with-effects), but the core team also is trying to make you completely avoid it by picking and using a third-party framework first instead of writing data fetching hooks yourself.
@@ -45,21 +69,30 @@ But what if you have other needs or don't want to use one one of the two very di
 
 Solid's `createResource` (combined with the Solid Router below) is exactly what I expect at the framework level for integrating data fetching. It's simple, encourages using default browser APIs, and works out of the box.
 
+<Aside type="tip" title="Solid Start, Router & the future">
+
+Solid Start with `@solidjs/router` takes `createResource` a step fourther and introduces a potential future replacement method: `createAsync`. This is similar to `createResource`, but enable caching for you, without needing _yet another_ library like Tanstack Query.
+
+</Aside>
+
 ### First party router
 
-[Solid Router](https://docs.solidjs.com/guides/how-to-guides/routing-in-solid/solid-router) is the official routing solution for use with Solid. Presumably this means no more full-API-level breaking changes every few years on the core flow of a web application, and it works exactly like you'd expect a router to.
+[Solid Router](https://docs.solidjs.com/solid-router/getting-started/defining-routes) is the official routing solution for use with Solid. Presumably this means no more full-API-level breaking changes every few years on the core flow of a web application, and it works exactly like you'd expect a router to.
 
-To top it off, [data functions](https://docs.solidjs.com/guides/how-to-guides/routing-in-solid/solid-router#data-functions) create a straightforward way to define data needed for a route that can be loaded up front before finishing a transition from one route to another.
+To top it off, [load functions](https://docs.solidjs.com/solid-router/reference/load-functions/load) create a straightforward way to define data needed for a route that can be loaded up front before finishing a transition from one route to another.
 
 ```tsx title="./app.tsx"
 import { lazy } from 'solid-js';
 import { Route } from '@solidjs/router';
-import { fetchUser } from './fetchUser'; // Import the your fetchUser function
-const User = lazy(() => import('./pages/users/[id].ts'));
+const User = lazy(() => import('./pages/users/[userId].ts'));
+
+function fetchUser(userId: string) {
+  // returns a Promise that resolves a User
+}
 
 // Data function
 function fetchUserData({ params }: RouteDataFuncArgs) {
-  const [user] = createResource(() => params.id, fetchUser); // 👈 Pass the id parameter to the fetchUser function
+  const [user] = createResource(() => params.userId, fetchUser); // 👈 Pass the id parameter to the fetchUser function
   return user;
 }
 
@@ -67,14 +100,12 @@ function fetchUserData({ params }: RouteDataFuncArgs) {
 <Route path="/users/:id" component={User} data={fetchUserData} />;
 ```
 
-To use your route data, just pull in and call the hook:
+Then it's all batteries included! Your route data is then directly available in the props passed to the Route’s component:
 
-```tsx title="./pages/users/[id].tsx"
-import { useRouteData } from '@solidjs/router';
-
-const user = useRouteData<RouteDataFunctionType>();
-
-return <h1>{user().name}</h1>;
+```tsx title="./pages/users/[userId].tsx"
+export function User(props) {
+  return <h1>props.user.name</h1>;
+}
 ```
 
 ## The oddities
