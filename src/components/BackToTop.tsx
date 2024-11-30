@@ -21,8 +21,8 @@ export const BackToTop: Component = () => {
 	});
 
 	onMount(() => {
-		intersect.observe(top);
-		intersect.observe(bottom);
+		intersect.observe(top!);
+		intersect.observe(bottom!);
 	});
 
 	window.addEventListener('resize', () => {
