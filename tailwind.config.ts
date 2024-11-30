@@ -1,11 +1,12 @@
 import type { Config } from 'tailwindcss';
 import type { KeyValuePair, PluginAPI } from 'tailwindcss/types/config';
+import typography from '@tailwindcss/typography';
 
 export default {
 	content: ['src/**/*.{astro,md,mdx,tsx}', 'astro.config.mjs'],
 	darkMode: ['class', '[data-theme="dark"]'],
 	plugins: [
-		require('@tailwindcss/typography'),
+		typography,
 		function ({ addBase, theme }: PluginAPI) {
 			addBase({
 				'[id]': {
