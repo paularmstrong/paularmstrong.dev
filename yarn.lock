@@ -9590,6 +9590,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hls.js@npm:^1.5.18":
+  version: 1.5.18
+  resolution: "hls.js@npm:1.5.18"
+  checksum: 7ac90075cdda18e8da6ad044d30a9a4b8cd395bcfe2b5773ac8139943598cb441a292bc0986a139ce381a243a522cd95b0d77c4592be35755d450c359ae47164
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^4.0.1":
   version: 4.1.0
   resolution: "hosted-git-info@npm:4.1.0"
@@ -14295,6 +14302,7 @@ __metadata:
     eslint-plugin-mdx: "npm:^3.1.5"
     eslint-plugin-tailwindcss: "npm:^3.17.5"
     feed: "npm:^4.2.2"
+    hls.js: "npm:^1.5.18"
     mdast-util-to-string: "npm:^4.0.0"
     mermaid: "npm:^10.9.3"
     netlify-cli: "npm:^17.19.4"

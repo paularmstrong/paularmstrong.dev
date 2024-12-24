@@ -1,0 +1,30 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="flex min-h-screen w-screen items-center justify-center bg-black">
+	<video id="video" class="aspect-video max-h-screen w-screen" controls={false}></video>
+	<button id="play" class="absolute inset-0 flex items-center justify-center text-white transition-opacity"
+		><Icon name="play" class="size-64" /></button
+	>
+</div>
+
+<script>
+	import Hls from 'hls.js';
+
+	const hls = new Hls({ maxBufferLength: 2 });
+	hls.loadSource('/video/christmas-2024/index.m3u8');
+	const element = document.getElementById('video')! as HTMLVideoElement;
+	hls.attachMedia(element);
+	let played = false;
+	document.getElementById('play')!.addEventListener('click', (event) => {
+		if (!played) {
+			element.play();
+		}
+		(event.currentTarget! as HTMLButtonElement).classList.add('opacity-0');
+	});
+	element.addEventListener('play', () => {
+		played = true;
+	});
+	// hls.on(Hls.Events.MEDIA_ATTACHED, () => { element.play(); })
+</script>

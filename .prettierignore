@@ -3,3 +3,4 @@ dist/
 node_modules/
 .netlify
 .astro/
+public/video

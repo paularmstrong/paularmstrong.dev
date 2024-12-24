@@ -1,3 +1,4 @@
 dist/*
 .netlify/*
 .astro/*
+public/video

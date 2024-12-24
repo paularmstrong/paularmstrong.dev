@@ -17,6 +17,7 @@
 		"clsx": "^2.1.1",
 		"debounce": "^2.2.0",
 		"feed": "^4.2.2",
+		"hls.js": "^1.5.18",
 		"mdast-util-to-string": "^4.0.0",
 		"react": "^18.3.1",
 		"react-component-benchmark": "^2.0.0",
