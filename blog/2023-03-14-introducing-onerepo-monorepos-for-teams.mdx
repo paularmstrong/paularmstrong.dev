@@ -1,0 +1,49 @@
+---
+title: 'Introducing oneRepo: Monorepos for teams'
+pubDate: 2023/03/14, 09:00:00 AM GMT-0800
+description: |
+  To date, I’ve written monorepo tooling four times. Each time, I ended up finding that more or less the way I had done it the first time was exactly what I needed gain. This fourth time is hopefully the last time, because now it’s open source.
+toc: true
+---
+
+To date, I’ve written monorepo tooling four times. Each time, I ended up finding that more or less the way I had done it the first time was exactly what I needed gain.
+
+This fourth time is hopefully the last time, because now it’s open source.
+
+## History
+
+My first experience with a monorepo was at Twitter. We used Pants and had a large core team that managed both the tooling and the repository itself. It was _the one monorepo_ that we were asked to use, because there was an expectation that everyone was writing Scala. That also meant that the native mobile application teams got themselves a free pass to use their own repositories and do whatever they wanted. They even got quite a bit of support from the core team.
+
+Frontend (HTML, CSS, and JS) typically gets seen as a toy platform for people that aren't _real_ software developers. I'm not going to get too far into that, because we all know it's bullshit and backend developers don't even try touching CSS with a ten foot pole because it's too difficult.
+
+And because the website was written by “frontend” developers, we were not given a free pass like the native app teams, despite having millions of lines of JavaScript that had no way to interop with anything else inside _the one monorepo_.
+
+_If you've worked with a repository that was over 10 gigabytes to clone, you might understand some of what is to come_
+
+_The one monorepo_ was **slow**. Not just kind of slow, _**incredibly**_ slow. But the core DX team gave us unrefuted proof in their metrics that the 90<sup>th</sup> percentile for times of doing git operations was _very fast_. So why was it that it was slow for _everyone_ on my team? Because we and all frontend code were in the 10<sup>th</sup> percentile.
+
+<img
+	src="/img/blog/2023-03-monorepo/hate-pants.gif"
+	width={640}
+	height={480}
+	alt="Homer Simpson yelling “Don’t you hate pants?” to Krusty the Clown"
+	class="w-full"
+/>
+
+Not only was _the one monorepo_ slow for most all operations, we also didn't get any benefits from using it. The tooling (Pants) was not made for JavaScript. It didn’t understand `package.json` dependencies or how to point from one Node module workspace to another. We discussed with the DX team how it could be made better – their solution was that we would have to loan out a team, indefinitely, to write the integrations into Pants – which would likely be rewritten in Rust. It would be a multi-year effort and that team would forever be lost from being able to actually contribute to the website.
+
+### Going it our own
+
+I’ll spare the dirty details and all of the politics that went into pulling out of _the one monorepo_. In short, it was a long battle with too many people that didn’t actually want things to be better for us.
+
+Eventually I was able to get the ear of a new head of something and showed her how much time we were expecting to save in the long run by spending 4-6 months building our own monorepo. I was very thankful to her when she said, “Why are we even discussing this? Those are _material_ numbers. Just go build your own.”
+
+## Introducing oneRepo
+
+## Alternatives
+
+All of the alternatives that this author has seen deal first and foremost with being fancy DSLs around running tasks. While that's a primary use-case and need, they go about it in the opposite way that is desired for a healthy team workplace.
+
+Most all monorepo tooling available “custom-first” implementations. They assume that each and every one of your modules and applications needs its own way of linting, testing, building, etc. Heading this route creates maintenance overhead through too much duplication.
+
+When you have many modules within an organization that are variably shared, you should still keep everything about them mostly the same. They should all looks like a single person wrote them, using the same patterns, libraries, versions, test runners, build scripts, etc etc etc. The key is that each module, as much as possible, should be the same.
